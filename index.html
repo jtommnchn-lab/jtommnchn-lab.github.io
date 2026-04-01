@@ -97,7 +97,9 @@ footer {background:#111;color:#fff;text-align:center;padding:15px;}
 
 <script>
 let selectedPlan = "";
-
+let userLat = "";
+let userLng = "";
+  
 const plans = [
  {name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
  {name:"Ghar Ka WiFi",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
@@ -142,14 +144,23 @@ updatePlans();
 /* AREA AUTO */
 if(navigator.geolocation){
   navigator.geolocation.getCurrentPosition(async pos=>{
+
+    userLat = pos.coords.latitude;
+    userLng = pos.coords.longitude;
+
     try{
-      let res=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=json`);
-      let data=await res.json();
-      document.getElementById("area").value =
-        data.address.suburb || data.address.city || "Chennai";
+      let res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
+      let data = await res.json();
+
+      let area = data.address.suburb || data.address.city || "Chennai";
+      document.getElementById("area").value = area;
+
     }catch{
-      document.getElementById("area").value="Chennai";
+      document.getElementById("area").value = "Chennai";
     }
+
+  }, ()=>{
+    document.getElementById("area").value = "Chennai";
   });
 }
 
@@ -163,13 +174,22 @@ async function submitForm(){
   if(!name||!phone){alert("Fill details");return;}
   if(!selectedPlan){alert("Select a plan");return;}
 
-  await fetch("https://script.google.com/macros/s/AKfycbz4_VvgdYNNfJWQlPsmisOeiNgWUlBMUFIdGk8B8SBSRY6JtxV6if5Q8SEOOnH9G9i3rw/exec",{
+  await fetch("YOUR_GOOGLE_SCRIPT_URL",{
     method:"POST",
     mode:"no-cors",
-    body:JSON.stringify({name,phone,area,planType,selectedPlan})
+    body:JSON.stringify({
+      name,
+      phone,
+      area,
+      lat:userLat,
+      lng:userLng,
+      planType,
+      selectedPlan
+    })
   });
 
-  let msg=`Name:${name}%0APhone:${phone}%0AArea:${area}%0APlan:${selectedPlan}`;
+  let msg=`Name:${name}%0APhone:${phone}%0AArea:${area}%0ALat:${userLat}%0ALng:${userLng}%0APlan:${selectedPlan}`;
+
   window.open(`https://wa.me/919447072230?text=${msg}`);
 }
 </script>
