@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BSNL Bharat Fibre - Unlimited Internet Plans</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f5f7fa;
+}
+
+header {
+    background: linear-gradient(135deg, #004aad, #007bff);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+header p {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 20px;
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.section {
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.plans {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.plan {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 250px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.plan h3 {
+    margin-top: 0;
+}
+
+.form-box {
+    background: white;
+    padding: 20px;
+    max-width: 400px;
+    margin: auto;
+    border-radius: 10px;
+}
+
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+button {
+    background: #004aad;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+footer {
+    background: #222;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>BSNL Bharat Fibre</h1>
+    <p>Unlimited High-Speed Internet & Voice</p>
+    <a class="btn" href="https://wa.me/919447072230" target="_blank">
+        📲 WhatsApp Now
+    </a>
+</header>
+
+<section class="section">
+    <h2>Popular Plans</h2>
+    <div class="plans">
+        <div class="plan">
+            <h3>₹499 Plan</h3>
+            <p>60 Mbps Speed</p>
+            <p>Unlimited Data</p>
+        </div>
+        <div class="plan">
+            <h3>₹599 Plan</h3>
+            <p>100 Mbps Speed</p>
+            <p>Unlimited Data</p>
+        </div>
+        <div class="plan">
+            <h3>₹799 Plan</h3>
+            <p>150 Mbps Speed</p>
+            <p>Unlimited Data</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <h2>Why Choose Us?</h2>
+    <p>✔ High-Speed Fibre Internet</p>
+    <p>✔ Unlimited Calls</p>
+    <p>✔ Reliable Service</p>
+    <p>✔ Quick Installation</p>
+</section>
+
+<section class="section">
+    <h2>Book Your Connection</h2>
+    <div class="form-box">
+        <input type="text" placeholder="Your Name">
+        <input type="tel" placeholder="Mobile Number">
+        <input type="text" placeholder="Address">
+        <button onclick="sendWhatsApp()">Submit</button>
+    </div>
+</section>
+
+<footer>
+    <p>Contact: 9447072230</p>
+</footer>
+
+<script>
+function sendWhatsApp() {
+    let name = document.querySelectorAll("input")[0].value;
+    let phone = document.querySelectorAll("input")[1].value;
+    let address = document.querySelectorAll("input")[2].value;
+
+    let message = `New Lead:%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}`;
+    window.open(`https://wa.me/919447072230?text=${message}`, '_blank');
+}
+</script>
+
+</body>
+</html>
