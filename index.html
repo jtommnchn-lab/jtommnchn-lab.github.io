@@ -249,7 +249,7 @@ function submitForm(){
   let phone=document.getElementById("phone").value;
   let area=document.getElementById("area").value;
 
-  fetch("https://docs.google.com/spreadsheets/d/1PfDiLeTtwj1sQv_EtndPn5etIQ9rbJBAhvavcvU9Sf0/edit?gid=0#gid=0", {
+  fetch("https://docs.google.com/spreadsheets/d/1PfDiLeTtwj1sQv_EtndPn5etIQ9rbJBAhvavcvU9Sf0/edit?usp=sharing", {
     method:"POST",
     body:JSON.stringify({name,phone,area})
   });
