@@ -174,7 +174,7 @@ async function submitForm(){
   if(!name||!phone){alert("Fill details");return;}
   if(!selectedPlan){alert("Select a plan");return;}
 
-  await fetch("YOUR_GOOGLE_SCRIPT_URL",{
+  await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
     method:"POST",
     mode:"no-cors",
     body:JSON.stringify({
