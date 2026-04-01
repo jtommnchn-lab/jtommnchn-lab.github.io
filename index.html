@@ -3,54 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>BSNL Fibre Chennai</title>
 
 <style>
-body {margin:0;font-family:Segoe UI;background:#f4f6f9;}
+body {
+  margin:0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(180deg,#eef2ff,#ffffff);
+}
 
+/* HERO */
 .hero {
-  background:linear-gradient(135deg,#001f5b,#005bea);
-  color:#fff;text-align:center;padding:60px 20px;
+  background: linear-gradient(135deg,#0a1f44,#005bea);
+  color:white;
+  padding:70px 20px;
+  text-align:center;
+}
+
+.hero h1 {
+  font-size:34px;
+  margin-bottom:10px;
 }
 
 .cta-btn {
-  background:#25D366;color:#fff;padding:12px 20px;
-  border-radius:30px;text-decoration:none;display:inline-block;margin-top:15px;
+  background:#25D366;
+  padding:14px 28px;
+  border-radius:50px;
+  color:white;
+  text-decoration:none;
+  display:inline-block;
+  margin-top:20px;
+  font-weight:bold;
+  box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 
-.container {padding:40px 20px;max-width:1100px;margin:auto;}
+/* CONTAINER */
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
+}
 
-.plans {display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
+/* TOGGLE BUTTONS */
+.toggle {
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:25px;
+}
 
-.card {
-  background:#fff;padding:20px;border-radius:15px;width:260px;
-  text-align:center;box-shadow:0 10px 25px rgba(0,0,0,0.08);
+.toggle button {
+  padding:10px 16px;
+  border:none;
+  border-radius:20px;
+  background:#e0e7ff;
   cursor:pointer;
 }
 
-.card.popular {border:2px solid #007bff;}
-.card.selected {border:3px solid #25D366;}
-
-.badge {
-  background:#ffcc00;padding:5px 10px;border-radius:20px;font-size:12px;
+.toggle button.active {
+  background:#005bea;
+  color:white;
 }
 
+/* PLANS */
+.plans {
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  justify-content:center;
+}
+
+.card {
+  backdrop-filter: blur(10px);
+  background: rgba(255,255,255,0.7);
+  padding:25px;
+  border-radius:20px;
+  width:260px;
+  text-align:center;
+  transition:0.3s;
+  cursor:pointer;
+  border:1px solid rgba(255,255,255,0.5);
+}
+
+.card:hover {
+  transform:translateY(-5px);
+}
+
+.card.popular {
+  border:2px solid #005bea;
+}
+
+.card.selected {
+  border:2px solid #25D366;
+  box-shadow:0 0 20px rgba(37,211,102,0.6);
+}
+
+.badge {
+  background:#ffcc00;
+  padding:5px 10px;
+  border-radius:20px;
+  font-size:12px;
+}
+
+/* FORM */
 .form-box {
-  background:#fff;padding:25px;border-radius:15px;
-  max-width:400px;margin:auto;
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  max-width:400px;
+  margin:auto;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
 }
 
 input,button {
-  width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ddd;
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:1px solid #ddd;
 }
 
-button {background:#001f5b;color:#fff;font-weight:bold;border:none;}
+button {
+  background:linear-gradient(135deg,#005bea,#003b8b);
+  color:white;
+  font-weight:bold;
+  border:none;
+}
 
-footer {background:#111;color:#fff;text-align:center;padding:15px;}
-
+/* WHATSAPP FLOAT */
 .whatsapp {
-  position:fixed;bottom:20px;right:20px;background:#25D366;
-  color:#fff;padding:15px;border-radius:50%;
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#25D366;
+  color:white;
+  padding:15px;
+  border-radius:50%;
+  font-size:20px;
 }
 </style>
 </head>
@@ -58,75 +148,71 @@ footer {background:#111;color:#fff;text-align:center;padding:15px;}
 <body>
 
 <div class="hero">
-  <h1>Ultra Fast Fibre Internet in Chennai</h1>
-  <p>Unlimited Data | Free Voice | Quick Installation</p>
-  <a class="cta-btn" href="https://wa.me/919447072230">WhatsApp Now</a>
+  <h1>⚡ Ultra Fast Fibre Internet</h1>
+  <p>Chennai | Unlimited Data | Free Voice</p>
+  <a class="cta-btn" href="https://wa.me/919447072230">📲 WhatsApp Now</a>
 </div>
 
 <div class="container">
-  <h2 style="text-align:center;">Plans</h2>
+  <h2 style="text-align:center;">Choose Your Plan</h2>
 
-  <div style="text-align:center;margin-bottom:20px;">
-    <select id="planType" onchange="updatePlans()">
-      <option value="monthly">Monthly</option>
-      <option value="quarterly">Quarterly</option>
-      <option value="half">Half-Yearly</option>
-      <option value="yearly">Yearly</option>
-    </select>
+  <!-- PREMIUM TOGGLE -->
+  <div class="toggle">
+    <button onclick="setType('monthly',this)" class="active">Monthly</button>
+    <button onclick="setType('quarterly',this)">Quarterly</button>
+    <button onclick="setType('half',this)">Half-Yearly</button>
+    <button onclick="setType('yearly',this)">Yearly</button>
   </div>
 
   <div class="plans" id="plansContainer"></div>
 </div>
 
 <div class="container">
-  <h2 style="text-align:center;">Check Availability</h2>
-
   <div class="form-box">
     <input id="name" placeholder="Your Name">
     <input id="phone" placeholder="Mobile Number">
-    <input id="area" placeholder="Detecting your area...">
-    <button onclick="submitForm()">Submit</button>
+    <input id="area" placeholder="Detecting location...">
+    <button onclick="submitForm()">Check Availability</button>
   </div>
 </div>
-
-<footer>
-  Chennai Fibre | WhatsApp: 9447072230
-</footer>
 
 <a class="whatsapp" href="https://wa.me/919447072230">💬</a>
 
 <script>
-let selectedPlan = "";
-let userLat = "";
-let userLng = "";
-  
-const plans = [
- {name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
- {name:"Ghar Ka WiFi",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
+let selectedPlan="";
+let planType="monthly";
+let userLat="",userLng="";
+
+const plans=[
  {name:"Fibre Basic",speed:"60 Mbps",price:{monthly:499,quarterly:1767,half:3533,yearly:7066}},
  {name:"Fibre Basic Plus",speed:"100 Mbps",price:{monthly:599,quarterly:2121,half:4241,yearly:8482},popular:true},
  {name:"Fibre TB",speed:"150 Mbps",price:{monthly:799,quarterly:2829,half:5657,yearly:9900}},
- {name:"Fibre Value Plus",speed:"150 Mbps",price:{monthly:849,quarterly:3006,half:6011,yearly:10520}},
  {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
 ];
 
-function updatePlans(){
-  let type=document.getElementById("planType").value;
+function setType(type,el){
+  planType=type;
+  document.querySelectorAll(".toggle button").forEach(b=>b.classList.remove("active"));
+  el.classList.add("active");
+  renderPlans();
+}
+
+function renderPlans(){
   let container=document.getElementById("plansContainer");
   container.innerHTML="";
 
   plans.forEach(p=>{
-    let price=p.price[type];
+    let price=p.price[planType];
 
     container.innerHTML+=`
       <div class="card ${p.popular?'popular':''}"
-           onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
+      onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
 
-        ${p.popular?'<div class="badge">🔥 Most Popular</div>':''}
+      ${p.popular?'<div class="badge">🔥 Most Popular</div>':''}
 
-        <h3>${p.name}</h3>
-        <h2>₹${price}</h2>
-        <p>${p.speed}</p>
+      <h3>${p.name}</h3>
+      <h2>₹${price}</h2>
+      <p>${p.speed}</p>
       </div>
     `;
   });
@@ -134,63 +220,41 @@ function updatePlans(){
 
 function selectPlan(el,name,price,speed){
   selectedPlan=`${name} - ₹${price} (${speed})`;
-
   document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
   el.classList.add("selected");
 }
 
-updatePlans();
+renderPlans();
 
-/* AREA AUTO */
+/* LOCATION */
 if(navigator.geolocation){
-  navigator.geolocation.getCurrentPosition(async pos=>{
+ navigator.geolocation.getCurrentPosition(async pos=>{
+  userLat=pos.coords.latitude;
+  userLng=pos.coords.longitude;
 
-    userLat = pos.coords.latitude;
-    userLng = pos.coords.longitude;
+  let res=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
+  let data=await res.json();
 
-    try{
-      let res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
-      let data = await res.json();
-
-      let area = data.address.suburb || data.address.city || "Chennai";
-      document.getElementById("area").value = area;
-
-    }catch{
-      document.getElementById("area").value = "Chennai";
-    }
-
-  }, ()=>{
-    document.getElementById("area").value = "Chennai";
-  });
+  document.getElementById("area").value =
+    data.address.suburb || data.address.city || "Chennai";
+ });
 }
 
 /* SUBMIT */
 async function submitForm(){
-  let name=document.getElementById("name").value;
-  let phone=document.getElementById("phone").value;
-  let area=document.getElementById("area").value;
-  let planType=document.getElementById("planType").value;
+ let name=document.getElementById("name").value;
+ let phone=document.getElementById("phone").value;
+ let area=document.getElementById("area").value;
 
-  if(!name||!phone){alert("Fill details");return;}
-  if(!selectedPlan){alert("Select a plan");return;}
+ if(!selectedPlan){alert("Select a plan");return;}
 
-  await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
-    method:"POST",
-    mode:"no-cors",
-    body:JSON.stringify({
-      name,
-      phone,
-      area,
-      lat:userLat,
-      lng:userLng,
-      planType,
-      selectedPlan
-    })
-  });
+ await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
+  method:"POST",
+  mode:"no-cors",
+  body:JSON.stringify({name,phone,area,lat:userLat,lng:userLng,planType,selectedPlan})
+ });
 
-  let msg=`Name:${name}%0APhone:${phone}%0AArea:${area}%0ALat:${userLat}%0ALng:${userLng}%0APlan:${selectedPlan}`;
-
-  window.open(`https://wa.me/919447072230?text=${msg}`);
+ window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0AArea:${area}%0APlan:${selectedPlan}`);
 }
 </script>
 
