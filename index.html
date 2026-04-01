@@ -13,44 +13,45 @@ body {
   background:#f4f6f9;
 }
 
+/* HERO */
 .hero {
   background: linear-gradient(135deg,#001f5b,#005bea);
   color:white;
   padding:60px 20px;
   text-align:center;
 }
-
-.hero h1 {
-  font-size:34px;
-  margin-bottom:10px;
-}
-
-.hero p {
-  font-size:18px;
-  opacity:0.9;
-}
+.hero h1 { font-size:32px; margin:0; }
+.hero p { opacity:0.9; }
 
 .cta-btn {
   background:#25D366;
-  color:white;
-  padding:14px 22px;
+  padding:14px 24px;
   border-radius:30px;
+  color:white;
   text-decoration:none;
   display:inline-block;
   margin-top:20px;
   font-weight:bold;
 }
 
+/* CONTAINER */
 .container {
   padding:40px 20px;
   max-width:1100px;
   margin:auto;
 }
 
+/* TOGGLE */
+select {
+  padding:10px;
+  border-radius:8px;
+}
+
+/* PLANS */
 .plans {
   display:flex;
-  gap:20px;
   flex-wrap:wrap;
+  gap:20px;
   justify-content:center;
 }
 
@@ -58,12 +59,14 @@ body {
   background:white;
   padding:20px;
   border-radius:15px;
-  width:280px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.08);
+  width:260px;
   text-align:center;
+  box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
-.card h3 { margin:0; }
+.card.popular {
+  border:2px solid #007bff;
+}
 
 .badge {
   background:#ffcc00;
@@ -72,6 +75,7 @@ body {
   font-size:12px;
 }
 
+/* FORM */
 .form-box {
   background:white;
   padding:25px;
@@ -96,14 +100,24 @@ button {
   border:none;
 }
 
-footer {
+/* OFFER */
+.offer {
+  background:#fff;
+  padding:20px;
+  border-radius:12px;
   text-align:center;
-  padding:15px;
-  background:#111;
-  color:white;
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
 }
 
-/* Sticky WhatsApp */
+/* FOOTER */
+footer {
+  background:#111;
+  color:white;
+  text-align:center;
+  padding:15px;
+}
+
+/* WHATSAPP */
 .whatsapp {
   position:fixed;
   bottom:20px;
@@ -120,47 +134,53 @@ footer {
 
 <body>
 
+<!-- HERO -->
 <div class="hero">
   <h1>Ultra Fast Fibre Internet in Chennai</h1>
   <p>Unlimited Data | Free Voice | Quick Installation</p>
-  <a class="cta-btn" href="https://wa.me/919447072230?text=Hi%20I%20need%20BSNL%20Fibre" target="_blank">
+  <a class="cta-btn" href="https://wa.me/919447072230?text=Hi%20I%20need%20BSNL%20Fibre">
     📲 WhatsApp Now
   </a>
 </div>
 
+<!-- PLANS -->
 <div class="container">
-  <h2 style="text-align:center;">Popular Plans</h2>
+  <h2 style="text-align:center;">🚀 BSNL Fibre Plans</h2>
 
-  <div class="plans">
-    <div class="card">
-      <span class="badge">Most Popular</span>
-      <h3>₹499</h3>
-      <p>60 Mbps</p>
-      <p>Unlimited Data</p>
-    </div>
+  <div style="text-align:center;margin-bottom:20px;">
+    <select id="planType" onchange="updatePlans()">
+      <option value="monthly">Monthly</option>
+      <option value="quarterly">Quarterly</option>
+      <option value="half">Half-Yearly</option>
+      <option value="yearly">Yearly</option>
+    </select>
+  </div>
 
-    <div class="card">
-      <h3>₹599</h3>
-      <p>100 Mbps</p>
-      <p>Unlimited Data</p>
-    </div>
+  <div class="plans" id="plansContainer"></div>
+</div>
 
-    <div class="card">
-      <h3>₹799</h3>
-      <p>150 Mbps</p>
-      <p>Unlimited Data</p>
-    </div>
+<!-- OFFER -->
+<div class="container">
+  <div class="offer">
+    <h3>🎁 Special Offers</h3>
+    <p>✅ 1 Week FREE – Quarterly</p>
+    <p>✅ 19 Days FREE – Half-Yearly</p>
+    <p>✅ 1.5 Months FREE – Yearly</p>
+    <p style="font-size:13px;color:#666;">
+      (*Not applicable for Entry & Ghar Ka WiFi plans)
+    </p>
   </div>
 </div>
 
+<!-- FORM -->
 <div class="container">
-  <h2 style="text-align:center;">Check Availability</h2>
+  <h2 style="text-align:center;">📍 Check Availability</h2>
 
   <div class="form-box">
     <input id="name" placeholder="Your Name">
     <input id="phone" placeholder="Mobile Number">
-    <input id="area" placeholder="Area (Eg: Nanganallur)">
-    <button onclick="submitForm()">Submit</button>
+    <input id="area" placeholder="Detecting your area...">
+    <button onclick="submitForm()">Check Now</button>
   </div>
 </div>
 
@@ -171,6 +191,59 @@ footer {
 <a class="whatsapp" href="https://wa.me/919447072230">💬</a>
 
 <script>
+const plans = [
+  {name:"Fibre Entry", speed:"25 Mbps", price:{monthly:333, quarterly:1178, half:2356, yearly:4712}},
+  {name:"Ghar Ka WiFi", speed:"40 Mbps", price:{monthly:399, quarterly:1413, half:2826, yearly:5652}},
+  {name:"Fibre Basic", speed:"60 Mbps", price:{monthly:499, quarterly:1767, half:3533, yearly:7066}},
+  {name:"Fibre Basic Plus", speed:"100 Mbps", price:{monthly:599, quarterly:2121, half:4241, yearly:8482}, popular:true},
+  {name:"Fibre TB", speed:"150 Mbps", price:{monthly:799, quarterly:2829, half:5657, yearly:9900}},
+  {name:"Fibre Value Plus", speed:"150 Mbps", price:{monthly:849, quarterly:3006, half:6011, yearly:10520}},
+  {name:"Fibre Premium Plus", speed:"250 Mbps", price:{monthly:1299, quarterly:4602, half:9197, yearly:18394}}
+];
+
+function updatePlans(){
+  let type=document.getElementById("planType").value;
+  let container=document.getElementById("plansContainer");
+  container.innerHTML="";
+
+  plans.forEach(p=>{
+    container.innerHTML += `
+      <div class="card ${p.popular ? 'popular' : ''}">
+        ${p.popular ? '<div class="badge">🔥 Most Popular</div>' : ''}
+        <h3>${p.name}</h3>
+        <h2>₹${p.price[type]}</h2>
+        <p>${p.speed}</p>
+      </div>
+    `;
+  });
+}
+
+updatePlans();
+
+/* AREA AUTO DETECT */
+function detectArea(){
+  if(navigator.geolocation){
+    navigator.geolocation.getCurrentPosition(async pos=>{
+      let lat=pos.coords.latitude;
+      let lon=pos.coords.longitude;
+
+      try{
+        let res=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+        let data=await res.json();
+        let area = data.address.suburb || data.address.city || "Chennai";
+        document.getElementById("area").value = area;
+      }catch{
+        document.getElementById("area").value = "Chennai";
+      }
+    },
+    ()=> {
+      document.getElementById("area").value="Chennai";
+    });
+  }
+}
+detectArea();
+
+/* SUBMIT */
 function submitForm(){
   let name=document.getElementById("name").value;
   let phone=document.getElementById("phone").value;
@@ -183,11 +256,6 @@ function submitForm(){
 
   let msg=`New Lead:%0AName:${name}%0APhone:${phone}%0AArea:${area}`;
   window.open(`https://wa.me/919447072230?text=${msg}`);
-}
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function(pos) {
-    console.log("User location:", pos.coords.latitude, pos.coords.longitude);
-  });
 }
 </script>
 
