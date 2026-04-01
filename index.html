@@ -244,18 +244,35 @@ function detectArea(){
 detectArea();
 
 /* SUBMIT */
-function submitForm(){
-  let name=document.getElementById("name").value;
-  let phone=document.getElementById("phone").value;
-  let area=document.getElementById("area").value;
+async function submitForm(){
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let area = document.getElementById("area").value;
+  let planType = document.getElementById("planType").value;
 
-  fetch("https://docs.google.com/spreadsheets/d/1PfDiLeTtwj1sQv_EtndPn5etIQ9rbJBAhvavcvU9Sf0/edit?usp=sharing", {
-    method:"POST",
-    body:JSON.stringify({name,phone,area})
-  });
+  if(!name || !phone){
+    alert("Please fill Name and Mobile Number");
+    return;
+  }
 
-  let msg=`New Lead:%0AName:${name}%0APhone:${phone}%0AArea:${area}`;
-  window.open(`https://wa.me/919447072230?text=${msg}`);
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbzc035-nOKuSVXV5tJrTQqFKLBvJlKh5Xa4fPrn9FlRm341MeKftxg-G3hkWZakjsTOIg/exec", {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify({
+        name,
+        phone,
+        area,
+        planType
+      })
+    });
+  } catch (e) {
+    console.log("Sheet error:", e);
+  }
+
+  // WhatsApp redirect (still happens even if sheet fails)
+  let msg = `New Lead:%0AName:${name}%0APhone:${phone}%0AArea:${area}%0APlan:${planType}`;
+  window.open(`https://wa.me/919447072230?text=${msg}`, "_blank");
 }
 </script>
 
