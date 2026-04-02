@@ -96,6 +96,11 @@ background-size:cover;color:white;text-align:center;padding:90px 20px;
   transform:scale(1.03);
 }
 
+  .card.selected {
+  border: 2px solid #2e7d32;
+  box-shadow: 0 0 12px rgba(46,125,50,0.4);
+}
+
 /* PRICE */
 .price {
   font-size:28px;
@@ -304,10 +309,17 @@ Select Plan
   });
 }
 
-function selectPlan(el,n,p,s){
-selectedPlan=`${n} - &#8377;${p} (${s})`;
-document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
-el.classList.add("selected");
+function selectPlan(el, name, price, speed){
+
+  selectedPlan = `${name} - ₹${price} (${speed})`;
+
+  // Remove previous selection
+  document.querySelectorAll(".card").forEach(c=>{
+    c.classList.remove("selected");
+  });
+
+  // Highlight current
+  el.classList.add("selected");
 }
 
 render();
