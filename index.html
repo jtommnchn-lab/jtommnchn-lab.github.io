@@ -14,22 +14,18 @@ body{
 }
 
 /* HEADER */
-.header{
+.header {
   background:white;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:12px 20px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+  padding:10px 20px;
 }
 
-.header img{
-  height:48px;
-}
-
-.header-text{
-  color:#003a8f;
-  font-weight:600;
+.header-left {
+  display:flex;
+  align-items:center;
+  gap:12px;
 }
 
 /* HERO */
@@ -165,7 +161,16 @@ body{
   margin:auto;
   box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
-
+.logo {
+  height: 48px;        /* controls size */
+  width: auto;         /* keeps aspect ratio */
+  object-fit: contain; /* prevents distortion */
+}
+  @media (max-width:600px){
+  .logo {
+    height: 40px;
+  }
+}
 input,button{
   width:100%;
   padding:12px;
@@ -206,8 +211,10 @@ footer{
 
 <!-- HEADER -->
 <div class="header">
-  <img src="bsnl-logo.png">
-  <div class="header-text">Chennai Bharat Fibre Service</div>
+  <div class="header-left">
+    <img src="./bsnl-logo.png" class="logo">
+    <div class="header-text">Bharat Fibre Chennai</div>
+  </div>
 </div>
 
 <!-- HERO -->
