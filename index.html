@@ -218,7 +218,19 @@ footer{background:#003a8f;color:white;text-align:center;padding:15px;}
 
 </div>
 </div>
-
+<div id="selectedPlanBox" style="
+  display:none;
+  max-width:400px;
+  margin:20px auto;
+  background:#e8f5e9;
+  padding:12px;
+  border-radius:8px;
+  text-align:center;
+  font-weight:bold;
+  color:#2e7d32;
+">
+  Selected Plan: <span id="selectedPlanText"></span>
+</div>
 <!-- FORM -->
 <div class="container" id="availability">
 <h2 style="text-align:center;">Check Availability</h2>
@@ -227,6 +239,7 @@ footer{background:#003a8f;color:white;text-align:center;padding:15px;}
 <input id="name" placeholder="Name">
 <input id="phone" placeholder="Mobile Number">
 <input id="area" placeholder="Detecting location...">
+<input type="hidden" id="planInput">
 <button onclick="submitForm()">Submit</button>
 </div>
 </div>
@@ -312,16 +325,24 @@ Select Plan
 function selectPlan(el, name, price, speed){
 
   selectedPlan = `${name} - ₹${price} (${speed})`;
-  document.getElementById("availability").scrollIntoView({
-  behavior: "smooth"
-});
-  // Remove previous selection
+
+  // Highlight card
   document.querySelectorAll(".card").forEach(c=>{
     c.classList.remove("selected");
   });
-
-  // Highlight current
   el.classList.add("selected");
+
+  // Show selected plan box
+  document.getElementById("selectedPlanBox").style.display = "block";
+  document.getElementById("selectedPlanText").innerText = selectedPlan;
+
+  // Auto-fill hidden input
+  document.getElementById("planInput").value = selectedPlan;
+
+  // Smooth scroll to form
+  document.getElementById("availability").scrollIntoView({
+    behavior: "smooth"
+  });
 }
 
 render();
@@ -342,26 +363,35 @@ document.getElementById("area").value=data.address.suburb||data.address.city||"C
 
 /* SUBMIT */
 async function submitForm(){
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let area=document.getElementById("area").value;
 
-if(!name||!phone){alert("Fill details");return;}
-if(!selectedPlan){alert("Select plan");return;}
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let area = document.getElementById("area").value;
+  let plan = document.getElementById("planInput").value;
 
-gtag('event','conversion',{'send_to':'AW-XXXXXXXXX/FORM_LABEL'});
+  if(!name || !phone){
+    alert("Please fill details");
+    return;
+  }
 
-await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
-method:"POST",
-mode:"no-cors",
-body:JSON.stringify({
-name,phone,area,
-lat:userLat,lng:userLng,
-planType,selectedPlan
-})
-});
+  if(!plan){
+    alert("Please select a plan");
+    return;
+  }
 
-window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0AArea:${area}%0APlan:${selectedPlan}`);
+  await fetch("YOUR_GOOGLE_SCRIPT_URL",{
+    method:"POST",
+    mode:"no-cors",
+    body:JSON.stringify({
+      name, phone, area,
+      lat:userLat, lng:userLng,
+      planType:planType,
+      selectedPlan:plan
+    })
+  });
+
+  let msg = `Name:${name}%0APhone:${phone}%0AArea:${area}%0APlan:${plan}`;
+  window.open(`https://wa.me/919447072230?text=${msg}`);
 }
 
 /* WHATSAPP TRACK */
