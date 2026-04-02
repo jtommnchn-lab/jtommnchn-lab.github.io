@@ -14,18 +14,99 @@ body{
 }
 
 /* HEADER */
-.header {
-  background:white;
+/* HEADER */
+.header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(8px);
   display:flex;
   align-items:center;
   justify-content:space-between;
   padding:10px 20px;
+  transition:all 0.3s ease;
 }
 
-.header-left {
+/* SCROLL SHADOW */
+.header.scrolled{
+  box-shadow:0 4px 20px rgba(0,0,0,0.08);
+}
+
+/* LEFT */
+.header-left{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:10px;
+}
+
+.logo{
+  height:44px;
+  width:auto;
+}
+
+.brand .title{
+  font-weight:600;
+  color:#003a8f;
+  font-size:15px;
+}
+
+.brand .subtitle{
+  font-size:12px;
+  color:#777;
+}
+
+/* CENTER NAV */
+.header-center{
+  display:flex;
+  gap:20px;
+}
+
+.header-center a{
+  text-decoration:none;
+  color:#333;
+  font-size:14px;
+}
+
+.header-center a:hover{
+  color:#003a8f;
+}
+
+/* RIGHT */
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.call-btn{
+  text-decoration:none;
+  color:#003a8f;
+  font-weight:500;
+}
+
+.wa-btn{
+  background:#25D366;
+  color:white;
+  padding:8px 14px;
+  border-radius:6px;
+  text-decoration:none;
+  font-weight:600;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .header-center{
+    display:none;
+  }
+
+  .call-btn{
+    display:none;
+  }
+
+  .logo{
+    height:38px;
+  }
 }
 
 /* HERO */
@@ -210,12 +291,26 @@ footer{
 <body>
 
 <!-- HEADER -->
-<div class="header">
+<header class="header">
   <div class="header-left">
-    <img src="./bsnl-logo.png" class="logo">
-    <div class="header-text">Bharat Fibre Chennai</div>
+    <img src="./bsnl-logo.png" alt="BSNL" class="logo">
+    <div class="brand">
+      <div class="title">Bharat Fibre</div>
+      <div class="subtitle">Chennai</div>
+    </div>
   </div>
-</div>
+<div id="plans"></div>
+<div id="availability"></div>
+  <nav class="header-center">
+    <a href="#plans">Plans</a>
+    <a href="#availability">Check Availability</a>
+  </nav>
+
+  <div class="header-right">
+    <a href="tel:9447072230" class="call-btn">📞 9447072230</a>
+    <a href="https://wa.me/919447072230" class="wa-btn">WhatsApp</a>
+  </div>
+</header>
 
 <!-- HERO -->
 <div class="hero">
@@ -266,7 +361,18 @@ BSNL Bharat Fibre Chennai | 9447072230
 </footer>
 
 <a class="whatsapp" href="https://wa.me/919447072230">💬</a>
-
+  
+<script>
+window.addEventListener("scroll", ()=>{
+  const h=document.querySelector(".header");
+  if(window.scrollY>10){
+    h.classList.add("scrolled");
+  }else{
+    h.classList.remove("scrolled");
+  }
+});
+</script>
+  
 <script>
 let selectedPlan="";
 let type="monthly";
