@@ -9,33 +9,49 @@
 <style>
 body {
   margin:0;
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(180deg,#eef2ff,#ffffff);
+  font-family:'Segoe UI',sans-serif;
+  background:#f5f7fb;
 }
 
 /* HERO */
 .hero {
-  background: linear-gradient(135deg,#0a1f44,#005bea);
+  background:
+    linear-gradient(rgba(0,42,110,0.75), rgba(0,91,234,0.85)),
+    url('https://images.unsplash.com/photo-1593642532871-8b12e02d091c');
+  background-size:cover;
+  background-position:center;
   color:white;
-  padding:70px 20px;
   text-align:center;
+  padding:80px 20px;
 }
 
-.hero h1 {
-  font-size:34px;
-  margin-bottom:10px;
-}
+.hero h1 {font-size:34px;margin:0;}
+.hero p {opacity:0.9;}
 
 .cta-btn {
   background:#25D366;
-  padding:14px 28px;
-  border-radius:50px;
   color:white;
+  padding:14px 24px;
+  border-radius:8px;
   text-decoration:none;
   display:inline-block;
   margin-top:20px;
   font-weight:bold;
-  box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+/* FEATURE STRIP */
+.features {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  background:white;
+  padding:15px;
+  margin-top:-30px;
+  border-radius:12px;
+  max-width:700px;
+  margin-left:auto;
+  margin-right:auto;
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 
 /* CONTAINER */
@@ -45,20 +61,20 @@ body {
   padding:40px 20px;
 }
 
-/* TOGGLE BUTTONS */
+/* TOGGLE */
 .toggle {
   display:flex;
   justify-content:center;
   gap:10px;
-  margin-bottom:25px;
+  margin-bottom:20px;
 }
 
 .toggle button {
-  padding:10px 16px;
-  border:none;
-  border-radius:20px;
-  background:#e0e7ff;
+  padding:10px 14px;
+  border:1px solid #ddd;
+  background:white;
   cursor:pointer;
+  border-radius:6px;
 }
 
 .toggle button.active {
@@ -75,15 +91,15 @@ body {
 }
 
 .card {
-  backdrop-filter: blur(10px);
-  background: rgba(255,255,255,0.7);
-  padding:25px;
-  border-radius:20px;
+  background:rgba(255,255,255,0.9);
+  backdrop-filter:blur(10px);
+  padding:20px;
+  border-radius:16px;
   width:260px;
   text-align:center;
-  transition:0.3s;
+  box-shadow:0 8px 25px rgba(0,0,0,0.1);
   cursor:pointer;
-  border:1px solid rgba(255,255,255,0.5);
+  transition:0.3s;
 }
 
 .card:hover {
@@ -96,13 +112,13 @@ body {
 
 .card.selected {
   border:2px solid #25D366;
-  box-shadow:0 0 20px rgba(37,211,102,0.6);
 }
 
 .badge {
-  background:#ffcc00;
-  padding:5px 10px;
-  border-radius:20px;
+  background:#005bea;
+  color:white;
+  padding:4px 8px;
+  border-radius:4px;
   font-size:12px;
 }
 
@@ -110,53 +126,68 @@ body {
 .form-box {
   background:white;
   padding:25px;
-  border-radius:20px;
+  border-radius:12px;
   max-width:400px;
   margin:auto;
-  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  box-shadow:0 8px 25px rgba(0,0,0,0.1);
 }
 
 input,button {
   width:100%;
   padding:12px;
   margin-top:10px;
-  border-radius:10px;
+  border-radius:6px;
   border:1px solid #ddd;
 }
 
 button {
-  background:linear-gradient(135deg,#005bea,#003b8b);
+  background:#005bea;
   color:white;
   font-weight:bold;
   border:none;
 }
 
-/* WHATSAPP FLOAT */
+/* FOOTER */
+footer {
+  text-align:center;
+  padding:15px;
+  background:#111;
+  color:white;
+}
+
+/* WHATSAPP */
 .whatsapp {
   position:fixed;
   bottom:20px;
   right:20px;
   background:#25D366;
   color:white;
-  padding:15px;
+  padding:14px;
   border-radius:50%;
-  font-size:20px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HERO -->
 <div class="hero">
-  <h1>⚡ Ultra Fast Fibre Internet</h1>
-  <p>Chennai | Unlimited Data | Free Voice</p>
+  <h1>Ultra Fast Fibre Internet in Chennai</h1>
+  <p>Unlimited Data | Free Voice | Lightning Speed</p>
   <a class="cta-btn" href="https://wa.me/919447072230">📲 WhatsApp Now</a>
 </div>
 
+<!-- FEATURES -->
+<div class="features">
+  <div>⚡ Up to 250 Mbps</div>
+  <div>📶 Unlimited Data</div>
+  <div>📞 Free Voice Calls</div>
+</div>
+
+<!-- PLANS -->
 <div class="container">
   <h2 style="text-align:center;">Choose Your Plan</h2>
 
-  <!-- PREMIUM TOGGLE -->
   <div class="toggle">
     <button onclick="setType('monthly',this)" class="active">Monthly</button>
     <button onclick="setType('quarterly',this)">Quarterly</button>
@@ -167,26 +198,36 @@ button {
   <div class="plans" id="plansContainer"></div>
 </div>
 
+<!-- FORM -->
 <div class="container">
+  <h2 style="text-align:center;">Check Availability</h2>
+
   <div class="form-box">
     <input id="name" placeholder="Your Name">
     <input id="phone" placeholder="Mobile Number">
     <input id="area" placeholder="Detecting location...">
-    <button onclick="submitForm()">Check Availability</button>
+    <button onclick="submitForm()">Submit</button>
   </div>
 </div>
+
+<footer>
+  BSNL Fibre Chennai | WhatsApp: 9447072230
+</footer>
 
 <a class="whatsapp" href="https://wa.me/919447072230">💬</a>
 
 <script>
 let selectedPlan="";
 let planType="monthly";
-let userLat="",userLng="";
+let userLat="", userLng="";
 
 const plans=[
+ {name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
+ {name:"Ghar Ka WiFi",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
  {name:"Fibre Basic",speed:"60 Mbps",price:{monthly:499,quarterly:1767,half:3533,yearly:7066}},
  {name:"Fibre Basic Plus",speed:"100 Mbps",price:{monthly:599,quarterly:2121,half:4241,yearly:8482},popular:true},
  {name:"Fibre TB",speed:"150 Mbps",price:{monthly:799,quarterly:2829,half:5657,yearly:9900}},
+ {name:"Fibre Value Plus",speed:"150 Mbps",price:{monthly:849,quarterly:3006,half:6011,yearly:10520}},
  {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
 ];
 
@@ -208,7 +249,7 @@ function renderPlans(){
       <div class="card ${p.popular?'popular':''}"
       onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
 
-      ${p.popular?'<div class="badge">🔥 Most Popular</div>':''}
+      ${p.popular?'<div class="badge">Most Popular</div>':''}
 
       <h3>${p.name}</h3>
       <h2>₹${price}</h2>
@@ -232,11 +273,15 @@ if(navigator.geolocation){
   userLat=pos.coords.latitude;
   userLng=pos.coords.longitude;
 
-  let res=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
-  let data=await res.json();
+  try{
+    let res=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
+    let data=await res.json();
 
-  document.getElementById("area").value =
-    data.address.suburb || data.address.city || "Chennai";
+    document.getElementById("area").value =
+      data.address.suburb || data.address.city || "Chennai";
+  }catch{
+    document.getElementById("area").value="Chennai";
+  }
  });
 }
 
@@ -246,12 +291,17 @@ async function submitForm(){
  let phone=document.getElementById("phone").value;
  let area=document.getElementById("area").value;
 
- if(!selectedPlan){alert("Select a plan");return;}
+ if(!name||!phone){alert("Please fill details");return;}
+ if(!selectedPlan){alert("Please select a plan");return;}
 
  await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
   method:"POST",
   mode:"no-cors",
-  body:JSON.stringify({name,phone,area,lat:userLat,lng:userLng,planType,selectedPlan})
+  body:JSON.stringify({
+    name,phone,area,
+    lat:userLat,lng:userLng,
+    planType,selectedPlan
+  })
  });
 
  window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0AArea:${area}%0APlan:${selectedPlan}`);
