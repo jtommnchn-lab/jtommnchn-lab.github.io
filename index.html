@@ -75,9 +75,80 @@ background-size:cover;color:white;text-align:center;padding:90px 20px;
 
 /* PLANS */
 .plans{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
-.card{background:white;padding:20px;border-radius:14px;width:260px;text-align:center;box-shadow:0 8px 25px rgba(0,0,0,0.1);cursor:pointer;}
-.card.popular{border:2px solid #ff6f00;}
-.card.selected{border:2px solid #2e7d32;}
+/* CARD ENHANCEMENT */
+.card {
+  background:white;
+  border-radius:16px;
+  padding:25px;
+  width:260px;
+  text-align:center;
+  box-shadow:0 12px 30px rgba(0,0,0,0.08);
+  transition:0.3s;
+}
+
+.card:hover {
+  transform:translateY(-6px);
+}
+
+/* MOST POPULAR */
+.card.popular {
+  border:2px solid #ff6f00;
+  transform:scale(1.03);
+}
+
+/* PRICE */
+.price {
+  font-size:28px;
+  font-weight:bold;
+  color:#003a8f;
+  margin:10px 0;
+}
+
+.duration {
+  font-size:14px;
+  color:#666;
+}
+
+.sub-price {
+  font-size:13px;
+  color:#777;
+  margin-bottom:10px;
+}
+
+/* SPEED */
+.speed {
+  font-weight:bold;
+  margin:10px 0;
+}
+
+/* FEATURES */
+.features-list {
+  list-style:none;
+  padding:0;
+  margin:10px 0;
+  text-align:left;
+}
+
+.features-list li {
+  margin:5px 0;
+  font-size:14px;
+}
+
+/* BUTTON */
+.select-btn {
+  margin-top:10px;
+  width:100%;
+  background:#003a8f;
+  color:white;
+  padding:10px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.select-btn:hover {
+  background:#002766;
+}
 .badge{background:#ff6f00;color:white;font-size:12px;padding:4px;border-radius:4px;}
 
 /* FORM */
@@ -185,19 +256,49 @@ render();
 }
 
 function render(){
-let c=document.getElementById("plansBox");
-c.innerHTML="";
-plans.forEach(p=>{
-let price=p.price[planType];
-c.innerHTML+=`
-<div class="card ${p.popular?'popular':''}"
-onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
-${p.popular?'<div class="badge">Most Popular</div>':''}
-<h3>${p.name}</h3>
-<h2>&#8377;${price}</h2>
-<p>${p.speed}</p>
-</div>`;
-});
+  let c = document.getElementById("plansBox");
+  c.innerHTML = "";
+
+  plans.forEach(p=>{
+    let price = p.price[planType];
+
+    // Calculate monthly equivalent (for non-monthly)
+    let monthlyEquivalent = Math.round(price / 
+      (planType === "monthly" ? 1 :
+       planType === "quarterly" ? 3 :
+       planType === "half" ? 6 : 12));
+
+    c.innerHTML += `
+    <div class="card ${p.popular ? 'popular' : ''}"
+      onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
+
+      ${p.popular ? '<div class="badge">⭐ Most Popular</div>' : ''}
+
+      <h3>${p.name}</h3>
+
+      <div class="price">
+        ₹${price}
+        <span class="duration">/${planType}</span>
+      </div>
+
+      ${
+        planType !== "monthly"
+        ? `<div class="sub-price">≈ ₹${monthlyEquivalent}/month</div>`
+        : ""
+      }
+
+      <div class="speed">${p.speed}</div>
+
+      <ul class="features-list">
+        <li>Unlimited Data</li>
+        <li>Free Voice Calls</li>
+        <li>Reliable BSNL Network</li>
+      </ul>
+
+      <button class="select-btn">Select Plan</button>
+
+    </div>`;
+  });
 }
 
 function selectPlan(el,n,p,s){
