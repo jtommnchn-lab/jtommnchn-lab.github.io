@@ -194,14 +194,14 @@ c.innerHTML+=`
 onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
 ${p.popular?'<div class="badge">Most Popular</div>':''}
 <h3>${p.name}</h3>
-<h2>₹${price}</h2>
+<h2>&#8377;${price}</h2>
 <p>${p.speed}</p>
 </div>`;
 });
 }
 
 function selectPlan(el,n,p,s){
-selectedPlan=`${n} - ₹${p} (${s})`;
+selectedPlan=`${n} - &#8377;${p} (${s})`;
 document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
 el.classList.add("selected");
 }
