@@ -312,7 +312,9 @@ Select Plan
 function selectPlan(el, name, price, speed){
 
   selectedPlan = `${name} - ₹${price} (${speed})`;
-
+  document.getElementById("availability").scrollIntoView({
+  behavior: "smooth"
+});
   // Remove previous selection
   document.querySelectorAll(".card").forEach(c=>{
     c.classList.remove("selected");
