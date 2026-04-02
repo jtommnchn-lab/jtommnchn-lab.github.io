@@ -295,7 +295,10 @@ function render(){
         <li>Reliable BSNL Network</li>
       </ul>
 
-      <button class="select-btn">Select Plan</button>
+      <button class="select-btn"
+onclick="selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
+Select Plan
+</button>
 
     </div>`;
   });
