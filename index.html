@@ -6,71 +6,59 @@
 
 <title>BSNL Bharat Fibre Chennai</title>
 
-<!-- Google Ads Global Tag -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'AW-XXXXXXXXX');
-</script>
-
 <style>
-body{margin:0;font-family:'Segoe UI',sans-serif;background: linear-gradient(180deg,#eef3ff,#ffffff);}
+body{
+  margin:0;
+  font-family:'Segoe UI',sans-serif;
+  background:linear-gradient(#eef3ff,#ffffff);
+}
 
 /* HEADER */
 .header{
-position:sticky;top:0;z-index:1000;
-background:rgba(255,255,255,0.95);
-display:flex;justify-content:space-between;align-items:center;
-padding:10px 20px;backdrop-filter:blur(10px);
+  position:sticky;top:0;z-index:1000;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(10px);
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 20px;
 }
-.header.scrolled{box-shadow:0 4px 20px rgba(0,0,0,0.1);}
 
 .header-left{display:flex;align-items:center;gap:10px;}
-.logo {
-  height: 40px;
-  max-width: 130px;
-  object-fit: contain;
-}
+.logo{height:40px;}
 
-/* Better alignment */
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
- @media (max-width:600px){
-  .logo {
-    height: 34px;
-  }
-}
 .brand .title{color:#003a8f;font-weight:600;}
 .brand .subtitle{font-size:12px;color:#666;}
 
 .header-right{display:flex;gap:10px;}
-.call-btn{color:#003a8f;text-decoration:none;}
 .wa-btn{background:#25D366;color:white;padding:8px 14px;border-radius:6px;text-decoration:none;}
 
 /* HERO */
 .hero{
   background:
-    linear-gradient(135deg, rgba(0,58,143,0.85), rgba(0,91,234,0.9)),
+    linear-gradient(135deg,rgba(0,58,143,0.85),rgba(0,91,234,0.9)),
     url('https://images.unsplash.com/photo-1535223289827-42f1e9919769');
   background-size:cover;
-  background-position:center;
-  color:white;
-  text-align:center;
-  padding:100px 20px;
+  color:white;text-align:center;padding:100px 20px;
 }
+
 .hero h1{font-size:38px;margin:0;}
 .cta{background:#ff6f00;padding:14px 26px;border-radius:8px;color:white;text-decoration:none;margin-top:20px;display:inline-block;}
 
 /* FEATURES */
-.features{display:flex;justify-content:center;gap:20px;background:white;margin-top:-30px;padding:15px;border-radius:12px;max-width:800px;margin-left:auto;margin-right:auto;box-shadow:0 8px 25px rgba(0,0,0,0.1);}
+.features{
+  display:flex;justify-content:center;gap:20px;
+  background:white;margin-top:-30px;padding:15px;
+  border-radius:12px;max-width:800px;margin-left:auto;margin-right:auto;
+  box-shadow:0 8px 25px rgba(0,0,0,0.1);
+}
 
 /* SECTION */
-.section{background:linear-gradient(#fff,#eef3ff);}
+.section{
+  background:
+    linear-gradient(rgba(255,255,255,0.95),rgba(238,243,255,0.95)),
+    url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31');
+  background-size:cover;
+}
+
 .container{max-width:1100px;margin:auto;padding:40px 20px;}
 
 /* TOGGLE */
@@ -80,101 +68,49 @@ padding:10px 20px;backdrop-filter:blur(10px);
 
 /* PLANS */
 .plans{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
-/* CARD ENHANCEMENT */
+
 .card{
-  background:rgba(255,255,255,0.95);
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 12px 30px rgba(0,0,0,0.08);
-  transition:0.3s;
+  background:white;border-radius:18px;padding:22px;width:260px;
+  text-align:center;box-shadow:0 12px 30px rgba(0,0,0,0.08);
+  cursor:pointer;transition:0.3s;
 }
 
-.card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 16px 40px rgba(0,0,0,0.12);
-}
+.card:hover{transform:translateY(-6px);}
+.card.popular{border:2px solid #ff6f00;}
+.card.selected{border:2px solid #2e7d32;}
 
-.card.popular{
-  border:2px solid #ff6f00;
-  background:linear-gradient(#ffffff,#fff7f0);
-}
-  .card.selected {
-  border: 2px solid #2e7d32;
-  box-shadow: 0 0 12px rgba(46,125,50,0.4);
-}
+.price{font-size:26px;color:#003a8f;font-weight:bold;}
+.speed{font-weight:bold;margin:10px 0;}
 
- .plans-bg{
-  background:
-    linear-gradient(rgba(255,255,255,0.95), rgba(238,243,255,0.95)),
-    url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31');
-  background-size:cover;
-  background-position:center;
-}
-  
-/* PRICE */
-.price {
-  font-size:28px;
-  font-weight:bold;
-  color:#003a8f;
-  margin:10px 0;
-}
-
-.duration {
-  font-size:14px;
-  color:#666;
-}
-
-.sub-price {
-  font-size:13px;
-  color:#777;
-  margin-bottom:10px;
-}
-
-/* SPEED */
-.speed {
-  font-weight:bold;
-  margin:10px 0;
-}
-
-/* FEATURES */
-.features-list {
-  list-style:none;
-  padding:0;
-  margin:10px 0;
-  text-align:left;
-}
-
-.features-list li {
-  margin:5px 0;
-  font-size:14px;
-}
-
-/* BUTTON */
-.select-btn {
-  margin-top:10px;
-  width:100%;
-  background:#003a8f;
-  color:white;
-  padding:10px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-}
-
-.select-btn:hover {
-  background:#002766;
-}
 .badge{background:#ff6f00;color:white;font-size:12px;padding:4px;border-radius:4px;}
 
+.select-btn{
+  margin-top:10px;width:100%;
+  background:#003a8f;color:white;padding:10px;
+  border:none;border-radius:6px;
+}
+
+/* SELECTED PLAN BOX */
+.selected-box{
+  display:none;
+  background:#e8f5e9;
+  max-width:400px;margin:20px auto;
+  padding:12px;border-radius:8px;
+  text-align:center;color:#2e7d32;font-weight:bold;
+}
+
 /* FORM */
-.form{background:white;padding:25px;border-radius:12px;max-width:400px;margin:auto;box-shadow:0 10px 25px rgba(0,0,0,0.1);}
+.form{
+  background:white;padding:25px;border-radius:12px;
+  max-width:400px;margin:auto;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+}
+
 input,button{width:100%;padding:12px;margin-top:10px;border-radius:6px;border:1px solid #ddd;}
 button{background:#003a8f;color:white;border:none;font-weight:bold;}
 
-/* FOOTER */
 footer{background:#003a8f;color:white;text-align:center;padding:15px;}
 
-/* WHATSAPP */
 .whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:14px;border-radius:50%;}
 </style>
 </head>
@@ -192,31 +128,29 @@ footer{background:#003a8f;color:white;text-align:center;padding:15px;}
 </div>
 
 <div class="header-right">
-<a href="tel:9447072230" class="call-btn">📞 Call</a>
-<a href="https://wa.me/919447072230" class="wa-btn" onclick="trackWhatsApp()">WhatsApp</a>
+<a href="https://wa.me/919447072230" class="wa-btn">WhatsApp</a>
 </div>
 </header>
 
 <!-- HERO -->
 <div class="hero">
-<h1>Ultra Fast BSNL Fibre</h1>
+<h1>Ultra Fast Fibre Internet</h1>
 <p>Unlimited Data | Free Voice | Reliable Network</p>
 <a class="cta" href="https://wa.me/919447072230">Book Now</a>
 </div>
 
 <!-- FEATURES -->
 <div class="features">
-  <div>⚡ <b>Up to 250 Mbps</b></div>
-  <div>🌐 <b>Unlimited Data</b></div>
-  <div>📞 <b>Free Voice Calls</b></div>
-  <div>🏠 <b>Home & Office Ready</b></div>
+<div>⚡ 250 Mbps</div>
+<div>🌐 Unlimited</div>
+<div>📞 Free Calls</div>
+<div>🏠 Home Ready</div>
 </div>
 
 <!-- PLANS -->
 <div class="section">
-<div class="container" id="plans">
-
-<h2 style="text-align:center;">Choose Your Plan</h2>
+<div class="container">
+<h2 style="text-align:center;">Choose Plan</h2>
 
 <div class="toggle">
 <button onclick="setType('monthly',this)" class="active">Monthly</button>
@@ -226,38 +160,28 @@ footer{background:#003a8f;color:white;text-align:center;padding:15px;}
 </div>
 
 <div class="plans" id="plansBox"></div>
+</div>
+</div>
 
+<!-- SELECTED PLAN -->
+<div id="selectedBox" class="selected-box">
+Selected Plan: <span id="selectedText"></span>
 </div>
-</div>
-<div id="selectedPlanBox" style="
-  display:none;
-  max-width:400px;
-  margin:20px auto;
-  background:#e8f5e9;
-  padding:12px;
-  border-radius:8px;
-  text-align:center;
-  font-weight:bold;
-  color:#2e7d32;
-">
-  Selected Plan: <span id="selectedPlanText"></span>
-</div>
+
 <!-- FORM -->
 <div class="container" id="availability">
 <h2 style="text-align:center;">Check Availability</h2>
 
 <div class="form">
 <input id="name" placeholder="Name">
-<input id="phone" placeholder="Mobile Number">
+<input id="phone" placeholder="Mobile">
 <input id="area" placeholder="Detecting location...">
 <input type="hidden" id="planInput">
 <button onclick="submitForm()">Submit</button>
 </div>
 </div>
 
-<footer>
-BSNL Bharat Fibre Chennai | 9447072230
-</footer>
+<footer>BSNL Bharat Fibre Chennai</footer>
 
 <a class="whatsapp" href="https://wa.me/919447072230">💬</a>
 
@@ -265,9 +189,7 @@ BSNL Bharat Fibre Chennai | 9447072230
 let selectedPlan="";
 let planType="monthly";
 let userLat="",userLng="";
-  
-<div class="plans-bg">
-/* PLANS */
+
 const plans=[
 {name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
  {name:"Ghar Ka WiFi",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
@@ -277,8 +199,7 @@ const plans=[
  {name:"Fibre Value Plus",speed:"150 Mbps",price:{monthly:849,quarterly:3006,half:6011,yearly:10520}},
  {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
 ];
-</div>
-  
+
 function setType(t,el){
 planType=t;
 document.querySelectorAll(".toggle button").forEach(b=>b.classList.remove("active"));
@@ -287,75 +208,36 @@ render();
 }
 
 function render(){
-  let c = document.getElementById("plansBox");
-  c.innerHTML = "";
+let c=document.getElementById("plansBox");
+c.innerHTML="";
+plans.forEach(p=>{
+let price=p.price[planType];
 
-  plans.forEach(p=>{
-    let price = p.price[planType];
+c.innerHTML+=`
+<div class="card ${p.popular?'popular':''}">
+${p.popular?'<div class="badge">Most Popular</div>':''}
+<h3>${p.name}</h3>
+<div class="price">₹${price}</div>
+<div class="speed">${p.speed}</div>
 
-    // Calculate monthly equivalent (for non-monthly)
-    let monthlyEquivalent = Math.round(price / 
-      (planType === "monthly" ? 1 :
-       planType === "quarterly" ? 3 :
-       planType === "half" ? 6 : 12));
-
-    c.innerHTML += `
-    <div class="card ${p.popular ? 'popular' : ''}"
-      onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
-
-      ${p.popular ? '<div class="badge">⭐ Most Popular</div>' : ''}
-
-      <h3>${p.name}</h3>
-
-      <div class="price">
-        ₹${price}
-        <span class="duration">/${planType}</span>
-      </div>
-
-      ${
-        planType !== "monthly"
-        ? `<div class="sub-price">≈ ₹${monthlyEquivalent}/month</div>`
-        : ""
-      }
-
-      <div class="speed">${p.speed}</div>
-
-      <ul class="features-list">
-        <li>Unlimited Data</li>
-        <li>Free Voice Calls</li>
-        <li>Reliable BSNL Network</li>
-      </ul>
-
-      <button class="select-btn"
+<button class="select-btn"
 onclick="selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
 Select Plan
 </button>
-
-    </div>`;
-  });
+</div>`;
+});
 }
 
-function selectPlan(el, name, price, speed){
+function selectPlan(el,n,p,s){
+selectedPlan=`${n} - ₹${p} (${s})`;
+document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
+el.classList.add("selected");
 
-  selectedPlan = `${name} - ₹${price} (${speed})`;
+document.getElementById("selectedBox").style.display="block";
+document.getElementById("selectedText").innerText=selectedPlan;
+document.getElementById("planInput").value=selectedPlan;
 
-  // Highlight card
-  document.querySelectorAll(".card").forEach(c=>{
-    c.classList.remove("selected");
-  });
-  el.classList.add("selected");
-
-  // Show selected plan box
-  document.getElementById("selectedPlanBox").style.display = "block";
-  document.getElementById("selectedPlanText").innerText = selectedPlan;
-
-  // Auto-fill hidden input
-  document.getElementById("planInput").value = selectedPlan;
-
-  // Smooth scroll to form
-  document.getElementById("availability").scrollIntoView({
-    behavior: "smooth"
-  });
+document.getElementById("availability").scrollIntoView({behavior:"smooth"});
 }
 
 render();
@@ -376,46 +258,26 @@ document.getElementById("area").value=data.address.suburb||data.address.city||"C
 
 /* SUBMIT */
 async function submitForm(){
+let name=document.getElementById("name").value;
+let phone=document.getElementById("phone").value;
+let area=document.getElementById("area").value;
+let plan=document.getElementById("planInput").value;
 
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let area = document.getElementById("area").value;
-  let plan = document.getElementById("planInput").value;
+if(!name||!phone){alert("Fill details");return;}
+if(!plan){alert("Select plan");return;}
 
-  if(!name || !phone){
-    alert("Please fill details");
-    return;
-  }
-
-  if(!plan){
-    alert("Please select a plan");
-    return;
-  }
-
-  await fetch("YOUR_GOOGLE_SCRIPT_URL",{
-    method:"POST",
-    mode:"no-cors",
-    body:JSON.stringify({
-      name, phone, area,
-      lat:userLat, lng:userLng,
-      planType:planType,
-      selectedPlan:plan
-    })
-  });
-
-  let msg = `Name:${name}%0APhone:${phone}%0AArea:${area}%0APlan:${plan}`;
-  window.open(`https://wa.me/919447072230?text=${msg}`);
-}
-
-/* WHATSAPP TRACK */
-function trackWhatsApp(){
-gtag('event','conversion',{'send_to':'AW-XXXXXXXXX/WHATSAPP_LABEL'});
-}
-
-/* SCROLL EFFECT */
-window.addEventListener("scroll",()=>{
-document.querySelector(".header").classList.toggle("scrolled",window.scrollY>10);
+await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
+method:"POST",
+mode:"no-cors",
+body:JSON.stringify({
+name,phone,area,
+lat:userLat,lng:userLng,
+planType,selectedPlan:plan
+})
 });
+
+window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0AArea:${area}%0APlan:${plan}`);
+}
 </script>
 
 </body>
