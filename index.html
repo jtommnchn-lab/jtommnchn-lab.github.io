@@ -209,7 +209,7 @@ Selected Plan: <span id="selectedText"></span>
 <div class="form-bg">
 <div class="container">
 
-<div class="form">
+<div class="form" id="formSection">
 <h3>Check Availability</h3>
 
 <input id="name" placeholder="Name">
@@ -268,14 +268,24 @@ Select Plan</button>
 }
 
 function selectPlan(el,n,p,s){
-selectedPlan=`${n} - ₹${p} (${s})`;
 
-document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
-el.classList.add("selected");
+  selectedPlan = `${n} - ₹${p} (${s})`;
 
-document.getElementById("selectedBox").style.display="block";
-document.getElementById("selectedText").innerText=selectedPlan;
-document.getElementById("planInput").value=selectedPlan;
+  // highlight selected card
+  document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
+  el.classList.add("selected");
+
+  // show selected plan
+  document.getElementById("selectedBox").style.display = "block";
+  document.getElementById("selectedText").innerText = selectedPlan;
+  document.getElementById("planInput").value = selectedPlan;
+
+  // 🔥 AUTO SCROLL TO FORM
+  setTimeout(()=>{
+  document.getElementById("formSection").scrollIntoView({
+    behavior: "smooth"
+  });
+}, 200);
 }
 
 render();
