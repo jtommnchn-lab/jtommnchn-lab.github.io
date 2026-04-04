@@ -151,9 +151,10 @@ body{
 }
 
 .tabs{
+  position:relative;
   display:flex;
   justify-content:center;
-  gap:10px;
+  gap:5px;
   background:rgba(255,255,255,0.1);
   padding:6px;
   border-radius:30px;
@@ -162,8 +163,23 @@ body{
   backdrop-filter:blur(10px);
 }
 
-/* TAB BUTTON */
+/* SLIDER */
+.tab-slider{
+  position:absolute;
+  top:5px;
+  left:5px;
+  height:calc(100% - 10px);
+  width:80px;
+  background:white;
+  border-radius:20px;
+  transition:0.3s ease;
+  z-index:0;
+}
+
+/* BUTTON */
 .tab{
+  position:relative;
+  z-index:1;
   padding:8px 16px;
   border:none;
   border-radius:20px;
@@ -171,15 +187,12 @@ body{
   color:white;
   cursor:pointer;
   font-size:14px;
-  transition:0.3s;
 }
 
-/* ACTIVE TAB */
+/* ACTIVE TEXT */
 .tab.active{
-  background:white;
   color:#003a8f;
   font-weight:bold;
-  box-shadow:0 2px 10px rgba(0,0,0,0.2);
 }
 
 .tab:hover{
@@ -288,7 +301,9 @@ footer{
 <div class="container">
 
 <h2>Choose Your Fibre Plan</h2>
-<div class="tabs">
+<div class="tabs" id="tabs">
+  <div class="tab-slider" id="tabSlider"></div>
+
   <button class="tab active" onclick="setType('monthly',this)">Monthly</button>
   <button class="tab" onclick="setType('quarterly',this)">Quarterly</button>
   <button class="tab" onclick="setType('half',this)">Half-Yearly</button>
@@ -340,12 +355,31 @@ const plans=[
  {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}];
 
 function setType(t,el){
-planType=t;
-document.querySelectorAll(".tab").forEach(b=>b.classList.remove("active"));
-el.classList.add("active");
-render();
+
+  planType = t;
+
+  document.querySelectorAll(".tab").forEach(b=>{
+    b.classList.remove("active");
+  });
+
+  el.classList.add("active");
+
+  // MOVE SLIDER
+  const slider = document.getElementById("tabSlider");
+  slider.style.width = el.offsetWidth + "px";
+  slider.style.left = el.offsetLeft + "px";
+
+  render();
 }
 
+  window.addEventListener("load", ()=>{
+  const activeTab = document.querySelector(".tab.active");
+  const slider = document.getElementById("tabSlider");
+
+  slider.style.width = activeTab.offsetWidth + "px";
+  slider.style.left = activeTab.offsetLeft + "px";
+});
+  
 function render(){
 let c=document.getElementById("plans");
 c.innerHTML="";
