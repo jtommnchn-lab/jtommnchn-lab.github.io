@@ -3,203 +3,191 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>BSNL Bharat Fibre Chennai</title>
 
 <style>
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  background:linear-gradient(#eef3ff,#ffffff);
+  background:#0b1f4a;
+  color:white;
 }
 
 /* HEADER */
 .header{
-  position:sticky;top:0;z-index:1000;
-  background:rgba(255,255,255,0.95);
-  backdrop-filter:blur(10px);
-  display:flex;justify-content:space-between;align-items:center;
-  padding:10px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 20px;
+  background:white;
+  color:black;
+  border-radius:12px;
+  margin:10px;
 }
 
-.header-left{display:flex;align-items:center;gap:10px;}
-.logo{height:40px;}
+.logo{
+  height:40px;
+}
 
-.brand .title{color:#003a8f;font-weight:600;}
-.brand .subtitle{font-size:12px;color:#666;}
-
-.header-right{display:flex;gap:10px;}
-.wa-btn{background:#25D366;color:white;padding:8px 14px;border-radius:6px;text-decoration:none;}
+.wa-btn{
+  background:#25D366;
+  color:white;
+  padding:8px 14px;
+  border-radius:6px;
+  text-decoration:none;
+}
 
 /* HERO */
 .hero{
-  background:
-    linear-gradient(rgba(0,58,143,0.8), rgba(0,91,234,0.9)),
-    url('./banner.png');
-  background-size: cover;
-  background-position: center;
-}
-.banner{
-  height:250px;
-  background:url('./banner.jpg');
-  background-size:cover;
-  background-position:center;
-}
-.hero h1{font-size:38px;margin:0;}
-.cta{background:#ff6f00;padding:14px 26px;border-radius:8px;color:white;text-decoration:none;margin-top:20px;display:inline-block;}
-
-/* FEATURES */
-.features{
-  display:flex;justify-content:center;gap:20px;
-  background:white;margin-top:-30px;padding:15px;
-  border-radius:12px;max-width:800px;margin-left:auto;margin-right:auto;
-  box-shadow:0 8px 25px rgba(0,0,0,0.1);
+  background:url('./banner.jpg') center/cover no-repeat;
+  padding:80px 20px;
+  text-align:center;
 }
 
 /* SECTION */
-.section{
-  background:
-    linear-gradient(rgba(255,255,255,0.95), rgba(238,243,255,0.95)),
-    url('https://images.pexels.com/photos/1148820/pexels-photo-1148820.jpeg');
-  background-size: cover;
-  background-position: center;
+.container{
+  padding:30px 20px;
+  text-align:center;
 }
-
- .hero, .section {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-.container{max-width:1100px;margin:auto;padding:40px 20px;}
 
 /* TOGGLE */
-.toggle{display:flex;justify-content:center;gap:10px;margin-bottom:20px;}
-.toggle button{padding:10px;border:none;background:#dfe7ff;border-radius:6px;}
-.toggle .active{background:#003a8f;color:white;}
+.toggle button{
+  padding:10px 14px;
+  margin:5px;
+  border:none;
+  border-radius:6px;
+  background:#dfe7ff;
+}
+.toggle .active{
+  background:#005bea;
+  color:white;
+}
 
 /* PLANS */
-.plans{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;}
+.plans{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
 
 .card{
-  background:white;border-radius:18px;padding:22px;width:260px;
-  text-align:center;box-shadow:0 12px 30px rgba(0,0,0,0.08);
-  cursor:pointer;transition:0.3s;
+  background:white;
+  color:black;
+  border-radius:16px;
+  padding:20px;
+  width:260px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
 }
 
-.card:hover{transform:translateY(-6px);}
-.card.popular{border:2px solid #ff6f00;}
-.card.selected{border:2px solid #2e7d32;}
+.card.popular{
+  border:3px solid orange;
+}
 
-.price{font-size:26px;color:#003a8f;font-weight:bold;}
-.speed{font-weight:bold;margin:10px 0;}
-
-.badge{background:#ff6f00;color:white;font-size:12px;padding:4px;border-radius:4px;}
+.price{
+  font-size:28px;
+  font-weight:bold;
+  color:#003a8f;
+}
 
 .select-btn{
-  margin-top:10px;width:100%;
-  background:#003a8f;color:white;padding:10px;
-  border:none;border-radius:6px;
+  margin-top:10px;
+  width:100%;
+  background:#003a8f;
+  color:white;
+  padding:10px;
+  border:none;
+  border-radius:6px;
 }
 
-/* SELECTED PLAN BOX */
+/* SELECTED PLAN */
 .selected-box{
+  background:#dff0d8;
+  color:#2e7d32;
+  padding:12px;
+  border-radius:8px;
+  max-width:500px;
+  margin:20px auto;
   display:none;
-  background:#e8f5e9;
-  max-width:400px;margin:20px auto;
-  padding:12px;border-radius:8px;
-  text-align:center;color:#2e7d32;font-weight:bold;
 }
 
 /* FORM */
 .form{
-  background:white;padding:25px;border-radius:12px;
-  max-width:400px;margin:auto;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  background:white;
+  color:black;
+  padding:25px;
+  border-radius:12px;
+  max-width:400px;
+  margin:auto;
 }
 
-input,button{width:100%;padding:12px;margin-top:10px;border-radius:6px;border:1px solid #ddd;}
-button{background:#003a8f;color:white;border:none;font-weight:bold;}
+input,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:6px;
+  border:1px solid #ddd;
+}
 
-footer{background:#003a8f;color:white;text-align:center;padding:15px;}
-
-.whatsapp{position:fixed;bottom:20px;right:20px;background:#25D366;color:white;padding:14px;border-radius:50%;}
+button{
+  background:#003a8f;
+  color:white;
+  border:none;
+}
 </style>
 </head>
 
 <body>
 
 <!-- HEADER -->
-<header class="header">
-<div class="header-left">
-<img src="https://jtommnchn-lab.github.io/bsnl-logo.png" class="logo">
-<div class="brand">
-<div class="title">BSNL Bharat Fibre</div>
-<div class="subtitle">Chennai</div>
-</div>
+<div class="header">
+  <div>
+    <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" class="logo">
+    <b>Bharat Fibre Chennai</b>
+  </div>
+  <a href="https://wa.me/919447072230" class="wa-btn">WhatsApp</a>
 </div>
 
-<div class="header-right">
-<a href="https://wa.me/919447072230" class="wa-btn">WhatsApp</a>
-</div>
-</header>
-<div class="banner"></div>
 <!-- HERO -->
 <div class="hero">
-<h1>Ultra Fast Fibre Internet</h1>
-<p>Unlimited Data | Free Voice | Reliable Network</p>
-<a class="cta" href="https://wa.me/919447072230">Book Now</a>
-</div>
-
-<!-- FEATURES -->
-<div class="features">
-<div>⚡ 250 Mbps</div>
-<div>🌐 Unlimited</div>
-<div>📞 Free Calls</div>
-<div>🏠 Home Ready</div>
+  <h1>Experience Blazing Fast Internet</h1>
+  <p>250 Mbps | Unlimited Data | Free Calls</p>
 </div>
 
 <!-- PLANS -->
-<div class="section">
 <div class="container">
-<h2 style="text-align:center;">Choose Plan</h2>
+  <h2>Choose Your Fibre Plan</h2>
 
-<div class="toggle">
-<button onclick="setType('monthly',this)" class="active">Monthly</button>
-<button onclick="setType('quarterly',this)">Quarterly</button>
-<button onclick="setType('half',this)">Half-Yearly</button>
-<button onclick="setType('yearly',this)">Yearly</button>
+  <div class="toggle">
+    <button class="active" onclick="setType('monthly',this)">Monthly</button>
+    <button onclick="setType('quarterly',this)">Quarterly</button>
+    <button onclick="setType('half',this)">Half-Yearly</button>
+    <button onclick="setType('yearly',this)">Yearly</button>
+  </div>
+
+  <div class="plans" id="plans"></div>
 </div>
 
-<div class="plans" id="plansBox"></div>
-</div>
-</div>
-
-<!-- SELECTED PLAN -->
+<!-- SELECTED -->
 <div id="selectedBox" class="selected-box">
 Selected Plan: <span id="selectedText"></span>
 </div>
 
 <!-- FORM -->
-<div class="container" id="availability">
-<h2 style="text-align:center;">Check Availability</h2>
-
-<div class="form">
-<input id="name" placeholder="Name">
-<input id="phone" placeholder="Mobile">
-<input id="area" placeholder="Detecting location...">
-<input type="hidden" id="planInput">
-<button onclick="submitForm()">Submit</button>
+<div class="container">
+  <div class="form">
+    <h3>Check Availability</h3>
+    <input id="name" placeholder="Name">
+    <input id="phone" placeholder="Mobile">
+    <input id="area" placeholder="Area">
+    <input type="hidden" id="planInput">
+    <button onclick="submitForm()">Submit</button>
+  </div>
 </div>
-</div>
-
-<footer>BSNL Bharat Fibre Chennai</footer>
-
-<a class="whatsapp" href="https://wa.me/919447072230">💬</a>
 
 <script>
 let selectedPlan="";
 let planType="monthly";
-let userLat="",userLng="";
 
 const plans=[
 {name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
@@ -209,8 +197,27 @@ const plans=[
  {name:"Fibre TB",speed:"150 Mbps",price:{monthly:799,quarterly:2829,half:5657,yearly:9900}},
  {name:"Fibre Value Plus",speed:"150 Mbps",price:{monthly:849,quarterly:3006,half:6011,yearly:10520}},
  {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
+
 ];
 
+  let userLat="", userLng="";
+
+if(navigator.geolocation){
+navigator.geolocation.getCurrentPosition(async pos=>{
+userLat = pos.coords.latitude;
+userLng = pos.coords.longitude;
+
+try{
+let res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
+let data = await res.json();
+
+document.getElementById("area").value =
+data.address.suburb || data.address.city || "Chennai";
+
+}catch{}
+});
+}
+  
 function setType(t,el){
 planType=t;
 document.querySelectorAll(".toggle button").forEach(b=>b.classList.remove("active"));
@@ -219,74 +226,70 @@ render();
 }
 
 function render(){
-let c=document.getElementById("plansBox");
+let c=document.getElementById("plans");
 c.innerHTML="";
 plans.forEach(p=>{
 let price=p.price[planType];
 
 c.innerHTML+=`
 <div class="card ${p.popular?'popular':''}">
-${p.popular?'<div class="badge">Most Popular</div>':''}
+${p.popular?'<div style="color:orange;font-weight:bold;">Most Popular</div>':''}
 <h3>${p.name}</h3>
 <div class="price">₹${price}</div>
-<div class="speed">${p.speed}</div>
-
+<p>${p.speed}</p>
 <button class="select-btn"
 onclick="selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
-Select Plan
-</button>
+Select Plan</button>
 </div>`;
 });
 }
 
 function selectPlan(el,n,p,s){
 selectedPlan=`${n} - ₹${p} (${s})`;
-document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
-el.classList.add("selected");
+
+document.querySelectorAll(".card").forEach(c=>c.style.border="none");
+el.style.border="3px solid green";
 
 document.getElementById("selectedBox").style.display="block";
 document.getElementById("selectedText").innerText=selectedPlan;
 document.getElementById("planInput").value=selectedPlan;
-
-document.getElementById("availability").scrollIntoView({behavior:"smooth"});
 }
 
 render();
 
-/* LOCATION */
-if(navigator.geolocation){
-navigator.geolocation.getCurrentPosition(async pos=>{
-userLat=pos.coords.latitude;
-userLng=pos.coords.longitude;
+async function submitForm(){
 
-try{
-let res=await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
-let data=await res.json();
-document.getElementById("area").value=data.address.suburb||data.address.city||"Chennai";
-}catch{}
-});
+let name = document.getElementById("name").value;
+let phone = document.getElementById("phone").value;
+let area = document.getElementById("area").value;
+let plan = document.getElementById("planInput").value;
+
+if(!name || !phone){
+alert("Fill details"); return;
 }
 
-/* SUBMIT */
-async function submitForm(){
-let name=document.getElementById("name").value;
-let phone=document.getElementById("phone").value;
-let area=document.getElementById("area").value;
-let plan=document.getElementById("planInput").value;
+if(!plan){
+alert("Select plan"); return;
+}
 
-if(!name||!phone){alert("Fill details");return;}
-if(!plan){alert("Select plan");return;}
-
+try{
 await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
 method:"POST",
 mode:"no-cors",
 body:JSON.stringify({
-name,phone,area,
-lat:userLat,lng:userLng,
-planType,selectedPlan:plan
+name:name,
+phone:phone,
+area:area,
+lat:userLat,
+lng:userLng,
+plan:plan
 })
 });
+}catch(e){
+console.log(e);
+}
 
+// WhatsApp fallback
 window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0AArea:${area}%0APlan:${plan}`);
 }
 </script>
