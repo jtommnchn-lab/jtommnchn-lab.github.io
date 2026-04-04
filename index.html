@@ -46,6 +46,18 @@ body{
   text-align:center;
 }
 
+.hero h1{
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.6),
+    0 0 20px rgba(0,91,234,0.8),
+    0 0 30px rgba(0,91,234,0.6);
+}
+
+.hero p{
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.5);
+}
+  
 /* PLANS BG */
 .plans-bg{
   background:
@@ -83,7 +95,33 @@ body{
   background-size:cover;
   background-position:center;
 }
-  
+
+  .cta, .select-btn{
+  box-shadow:
+    0 0 10px rgba(0,91,234,0.5),
+    0 0 20px rgba(0,91,234,0.3);
+  transition:0.3s;
+}
+
+.cta:hover, .select-btn:hover{
+  box-shadow:
+    0 0 15px rgba(0,91,234,0.8),
+    0 0 30px rgba(0,91,234,0.5);
+}
+
+  .card.popular{
+  border:2px solid #ff6f00;
+  box-shadow:
+    0 0 15px rgba(255,111,0,0.6),
+    0 0 30px rgba(255,111,0,0.3);
+}
+
+  .card.selected{
+  border:2px solid #2e7d32;
+  box-shadow:
+    0 0 15px rgba(46,125,50,0.8),
+    0 0 30px rgba(46,125,50,0.5);
+}
 .card{
   background:white;
   color:black;
@@ -147,9 +185,24 @@ body{
   border-radius:14px;
   max-width:400px;
   margin:auto;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  box-shadow:
+    0 0 20px rgba(0,91,234,0.3),
+    0 10px 30px rgba(0,0,0,0.3);
 }
 
+  body::before{
+  content:"";
+  position:fixed;
+  top:-50%;
+  left:-50%;
+  width:200%;
+  height:200%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(0,91,234,0.2), transparent),
+    radial-gradient(circle at 70% 70%, rgba(255,111,0,0.15), transparent);
+  z-index:-1;
+}
+  
 input,button{
   width:100%;
   padding:12px;
