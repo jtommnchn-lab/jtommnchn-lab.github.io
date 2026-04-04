@@ -125,6 +125,7 @@ body{
 .card{
   background:white;
   color:black;
+  cursor:pointer;
   padding:20px;
   border-radius:16px;
   width:260px;
@@ -139,7 +140,10 @@ body{
   border:3px solid #2e7d32;
   box-shadow:0 0 12px rgba(46,125,50,0.4);
 }
-
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
 .price{
   font-size:26px;
   font-weight:bold;
@@ -313,15 +317,17 @@ plans.forEach(p=>{
 let price=p.price[planType];
 
 c.innerHTML+=`
-<div class="card ${p.popular?'popular':''}">
+<div class="card ${p.popular?'popular':''}"
+onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
 ${p.popular?'<div style="color:orange;font-weight:bold;">Most Popular</div>':''}
 <h3>${p.name}</h3>
 <div class="price">₹${price}</div>
 <p>${p.speed}</p>
 
 <button class="select-btn"
-onclick="selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
-Select Plan</button>
+onclick="event.stopPropagation(); selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
+Select Plan
+</button>
 </div>`;
 });
 }
