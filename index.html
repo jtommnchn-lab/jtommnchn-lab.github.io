@@ -94,11 +94,9 @@ body{
   gap:16px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
-  padding:10px 20px;
-  scroll-behavior:smooth;
+  padding:20px 40px; /* space for arrows */
 }
 
-/* HIDE SCROLLBAR */
 .plans::-webkit-scrollbar{
   display:none;
 }
@@ -146,6 +144,7 @@ body{
   box-shadow:0 8px 20px rgba(0,0,0,0.3);
   flex:0 0 260px;
   scroll-snap-align:center;
+ 
 }
 
 .card.popular{
@@ -239,6 +238,41 @@ body{
   background:#003a8f;
   color:white;
   cursor:pointer;
+}
+
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:10;
+
+  background:rgba(0,0,0,0.5);
+  color:white;
+  border:none;
+  padding:10px 14px;
+  border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
+}
+
+/* LEFT / RIGHT */
+.carousel-btn.left{
+  left:5px;
+}
+
+.carousel-btn.right{
+  right:5px;
+}
+
+/* HOVER EFFECT */
+.carousel-btn:hover{
+  background:#003a8f;
+}
+
+@media(max-width:600px){
+  .carousel-btn{
+    display:none;
+  }
 }
   
 /* SELECTED PLAN */
@@ -343,7 +377,16 @@ footer{
 </div>
 
 <div class="plans-wrapper">
+
+  <!-- LEFT ARROW -->
+  <button class="carousel-btn left" onclick="scrollPlans(-1)">❮</button>
+
+  <!-- PLANS -->
   <div class="plans" id="plans"></div>
+
+  <!-- RIGHT ARROW -->
+  <button class="carousel-btn right" onclick="scrollPlans(1)">❯</button>
+
 </div>
 
 </div>
