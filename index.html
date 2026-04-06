@@ -40,10 +40,21 @@ body{
   background:
     linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)),
     url('./Banner.jpg');
-  background-size:cover;
-  background-position:center;
-  padding:80px 20px;
+   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding: 100px 20px;
   text-align:center;
+}
+  @media (max-width:768px){
+
+  .hero{
+    background-size: contain;   /* show full image */
+    background-position: top;
+    padding: 140px 20px;        /* extra height */
+  }
+
 }
 
 .hero h1{
