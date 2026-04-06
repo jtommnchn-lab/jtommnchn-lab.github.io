@@ -270,6 +270,47 @@ const plans=[
  {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
 ];
 
+
+window.onload = function(){
+  render();
+  detectLocation();   // 👈 VERY IMPORTANT
+}
+  
+function detectLocation(){
+
+  const areaInput = document.getElementById("area");
+
+  if(!navigator.geolocation){
+    areaInput.value = "Chennai";
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(async pos => {
+
+    userLat = pos.coords.latitude;
+    userLng = pos.coords.longitude;
+
+    try{
+      const res = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`
+      );
+
+      const data = await res.json();
+
+      areaInput.value =
+        data.address.suburb ||
+        data.address.neighbourhood ||
+        data.address.city ||
+        "Chennai";
+
+    } catch (e){
+      areaInput.value = "Chennai";
+    }
+
+  }, () => {
+    areaInput.value = "Chennai";
+  });
+}
 function render(){
 let c=document.getElementById("plans");
 c.innerHTML="";
