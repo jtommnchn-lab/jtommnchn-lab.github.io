@@ -22,10 +22,9 @@ body{
   padding:12px 20px;
   background:white;
   color:black;
-  margin:10px;
-  border-radius:12px;
 }
 .logo{height:40px;}
+
 .wa-btn{
   background:#25D366;
   color:white;
@@ -34,98 +33,63 @@ body{
   text-decoration:none;
 }
 
-/* HERO IMAGE (NO CROP) */
-/* HERO */
-.hero{
-  background:
-    linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)),
-    url('./Banner.jpg');
-  background-size:cover;
-  background-position:center;
-  padding:80px 20px;
-  text-align:center;
-}
-
-.hero h1{
-  text-shadow:
-    0 0 10px rgba(255,255,255,0.6),
-    0 0 20px rgba(0,91,234,0.8),
-    0 0 30px rgba(0,91,234,0.6);
-}
-
-.hero p{
-  text-shadow:
-    0 0 6px rgba(255,255,255,0.5);
-}
-  
+/* HERO IMAGE FIXED */
 .hero img{
   width:100%;
   height:auto;
   display:block;
 }
-.hero-content{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  text-shadow:0 0 15px rgba(0,0,0,0.8);
-}
 
 /* TABS */
 .tabs{
-  position:relative;
   display:flex;
   justify-content:center;
-  gap:5px;
-  background:rgba(255,255,255,0.1);
-  padding:6px;
-  border-radius:30px;
-  width:max-content;
   margin:20px auto;
+  gap:8px;
 }
-.tab-slider{
-  position:absolute;
-  top:5px;
-  height:calc(100% - 10px);
-  background:white;
-  border-radius:20px;
-  transition:0.3s;
-}
+
 .tab{
-  position:relative;
-  z-index:1;
-  padding:8px 16px;
+  padding:8px 14px;
   border:none;
-  background:none;
+  border-radius:20px;
+  background:#ffffff20;
   color:white;
   cursor:pointer;
 }
-.tab.active{color:#003a8f;font-weight:bold;}
+
+.tab.active{
+  background:white;
+  color:#003a8f;
+}
 
 /* CAROUSEL */
-.plans-wrapper{position:relative;max-width:1200px;margin:auto;}
+.plans-wrapper{
+  position:relative;
+  max-width:1100px;
+  margin:auto;
+}
+
 .plans{
   display:flex;
   gap:16px;
   overflow-x:auto;
-  padding:30px 40px;
-  scroll-snap-type:x mandatory;
+  padding:20px;
 }
+
 .plans::-webkit-scrollbar{display:none;}
 
 .card{
-  flex:0 0 260px;
+  min-width:240px;
   background:white;
   color:black;
-  border-radius:16px;
-  padding:20px;
+  border-radius:12px;
+  padding:15px;
   text-align:center;
-  scroll-snap-align:center;
   cursor:pointer;
 }
+
 .card.selected{
-  border:3px solid #2e7d32;
-  transform:scale(1.05);
+  border:3px solid green;
 }
 
 /* ARROWS */
@@ -133,53 +97,49 @@ body{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  z-index:10;
-  background:rgba(0,0,0,0.6);
+  background:black;
   color:white;
   border:none;
-  width:40px;
-  height:40px;
-  border-radius:50%;
+  padding:10px;
+  cursor:pointer;
 }
-.left{left:-10px;}
-.right{right:-10px;}
+.left{left:0;}
+.right{right:0;}
 
-/* FORM BG */
-.form-bg{
-  background:
-    linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)),
-    url('./network.jpg');
-  background-size:cover;
-  padding:50px 0;
+/* SELECTED BOX */
+.selected-box{
+  display:none;
+  text-align:center;
+  background:#dff0d8;
+  color:#2e7d32;
+  padding:10px;
 }
+
+/* FORM */
+.form-section{
+  padding:30px;
+  text-align:center;
+}
+
 .form{
-  background:rgba(255,255,255,0.9);
-  padding:25px;
-  border-radius:14px;
+  background:white;
+  color:black;
+  padding:20px;
+  border-radius:10px;
   max-width:400px;
   margin:auto;
-  color:black;
 }
 
 input,button{
   width:100%;
-  padding:12px;
+  padding:10px;
   margin-top:10px;
-  border-radius:6px;
 }
+
 button{
   background:#003a8f;
   color:white;
   border:none;
-}
-
-/* SELECTED */
-.selected-box{
-  display:none;
-  background:#dff0d8;
-  color:#2e7d32;
-  padding:10px;
-  text-align:center;
 }
 </style>
 </head>
@@ -188,22 +148,17 @@ button{
 
 <!-- HEADER -->
 <div class="header">
-  <img src="./bsnl-logo.png" class="logo">
+  <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" class="logo">
   <a href="https://wa.me/919447072230" class="wa-btn">WhatsApp</a>
 </div>
 
-<!-- HERO -->
+<!-- HERO (ABSOLUTE URL FIXED) -->
 <div class="hero">
   <img src="https://jtommnchn-lab.github.io/bsnl-landing-page/banner.jpg">
-  <div class="hero-content">
-    <h1>Ultra Fast Fibre</h1>
-    <p>Unlimited | Free Calls</p>
-  </div>
 </div>
 
 <!-- TABS -->
 <div class="tabs">
-  <div class="tab-slider" id="slider"></div>
   <button class="tab active" onclick="setType('monthly',this)">Monthly</button>
   <button class="tab" onclick="setType('quarterly',this)">Quarterly</button>
   <button class="tab" onclick="setType('half',this)">Half</button>
@@ -212,9 +167,9 @@ button{
 
 <!-- PLANS -->
 <div class="plans-wrapper">
-<button class="carousel-btn left" onclick="scrollPlans(-1)">❮</button>
+<button class="carousel-btn left" onclick="scrollPlans(-1)">◀</button>
 <div class="plans" id="plans"></div>
-<button class="carousel-btn right" onclick="scrollPlans(1)">❯</button>
+<button class="carousel-btn right" onclick="scrollPlans(1)">▶</button>
 </div>
 
 <div id="selectedBox" class="selected-box">
@@ -222,7 +177,7 @@ Selected Plan: <span id="selectedText"></span>
 </div>
 
 <!-- FORM -->
-<div class="form-bg" id="availability">
+<div class="form-section" id="formSection">
 <div class="form">
 <input id="name" placeholder="Name">
 <input id="phone" placeholder="Mobile">
@@ -251,54 +206,37 @@ c.innerHTML+=`
 <h3>${p.name}</h3>
 <h2>₹${price}</h2>
 <p>${p.speed}</p>
-<button onclick="event.stopPropagation();selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">Select</button>
+<button onclick="event.stopPropagation();selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
+Select</button>
 </div>`;
 });
-}
-
-function centerCard(el){
-const container=document.getElementById("plans");
-const offset=el.offsetLeft-(container.offsetWidth/2)+(el.offsetWidth/2);
-container.scrollTo({left:offset,behavior:"smooth"});
 }
 
 function selectPlan(el,n,p,s){
 selectedPlan=`${n} - ₹${p} (${s})`;
 document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
 el.classList.add("selected");
-centerCard(el);
 
 document.getElementById("selectedBox").style.display="block";
 document.getElementById("selectedText").innerText=selectedPlan;
 document.getElementById("planInput").value=selectedPlan;
 
-setTimeout(()=>{
-document.getElementById("availability").scrollIntoView({behavior:"smooth"});
-},300);
+/* SCROLL */
+document.getElementById("formSection").scrollIntoView({behavior:"smooth"});
 }
 
 function scrollPlans(dir){
-document.getElementById("plans").scrollBy({left:dir*300,behavior:"smooth"});
+document.getElementById("plans").scrollBy({left:dir*250,behavior:"smooth"});
 }
 
 function setType(t,el){
 planType=t;
 document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
 el.classList.add("active");
-
-let slider=document.getElementById("slider");
-slider.style.width=el.offsetWidth+"px";
-slider.style.left=el.offsetLeft+"px";
-
 render();
 }
 
-window.onload=()=>{
-let el=document.querySelector(".tab.active");
-document.getElementById("slider").style.width=el.offsetWidth+"px";
-document.getElementById("slider").style.left=el.offsetLeft+"px";
 render();
-}
 
 /* LOCATION */
 if(navigator.geolocation){
@@ -310,13 +248,16 @@ userLng=pos.coords.longitude;
 
 /* SUBMIT */
 async function submitForm(){
-let name=name=document.getElementById("name").value;
+let name=document.getElementById("name").value;
 let phone=document.getElementById("phone").value;
 let area=document.getElementById("area").value;
 let plan=document.getElementById("planInput").value;
 
-await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{method:"POST",mode:"no-cors",
-body:JSON.stringify({name,phone,area,lat:userLat,lng:userLng,plan})});
+await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
+method:"POST",
+mode:"no-cors",
+body:JSON.stringify({name,phone,area,lat:userLat,lng:userLng,plan})
+});
 
 window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0APlan:${plan}`);
 }
