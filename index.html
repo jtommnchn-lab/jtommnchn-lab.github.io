@@ -33,11 +33,30 @@ body{
   text-decoration:none;
 }
 
-/* HERO IMAGE FIXED */
-.hero img{
+  /* HERO CONTAINER */
+.hero{
   width:100%;
-  height:auto;
-  display:block;
+  height:100vh;            /* full screen height */
+  max-height:500px;        /* limit for desktop */
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#000;
+}
+
+/* IMAGE FIT */
+.hero-img{
+  width:100%;
+  height:100%;
+  object-fit:contain;      /* 👈 shows full image */
+}
+
+  @media(max-width:768px){
+  .hero{
+    height:60vh;           /* smaller on mobile */
+    max-height:350px;
+  }
 }
 
 /* TABS */
@@ -154,7 +173,7 @@ button{
 
 <!-- HERO (ABSOLUTE URL FIXED) -->
 <div class="hero">
-  <img src="https://jtommnchn-lab.github.io/bsnl-landing-page/banner.jpg">
+  <img src="https://jtommnchn-lab.github.io/bsnl-landing-page/banner.jpg" class="hero-img">
 </div>
 
 <!-- TABS -->
@@ -191,9 +210,13 @@ Selected Plan: <span id="selectedText"></span>
 let selectedPlan="",planType="monthly",userLat="",userLng="";
 
 const plans=[
-{name:"Fibre Basic",speed:"60 Mbps",price:{monthly:499,quarterly:1767,half:3533,yearly:7066}},
-{name:"Fibre Basic Plus",speed:"100 Mbps",price:{monthly:599,quarterly:2121,half:4241,yearly:8482}},
-{name:"Fibre TB",speed:"150 Mbps",price:{monthly:799,quarterly:2829,half:5657,yearly:9900}}
+ {name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
+ {name:"Ghar Ka WiFi",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
+ {name:"Fibre Basic",speed:"60 Mbps",price:{monthly:499,quarterly:1767,half:3533,yearly:7066}},
+ {name:"Fibre Basic Plus",speed:"100 Mbps",price:{monthly:599,quarterly:2121,half:4241,yearly:8482},popular:true},
+ {name:"Fibre TB",speed:"150 Mbps",price:{monthly:799,quarterly:2829,half:5657,yearly:9900}},
+ {name:"Fibre Value Plus",speed:"150 Mbps",price:{monthly:849,quarterly:3006,half:6011,yearly:10520}},
+ {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
 ];
 
 function render(){
