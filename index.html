@@ -37,15 +37,23 @@ body{
 
 /* HERO */
 .hero{
-  background:
-    linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)),
-    url('./Banner.jpg');
-   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  padding: 100px 20px;
+  position:relative;
   text-align:center;
+}
+
+.hero-img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.hero-content{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  color:white;
+  text-shadow:0 0 10px rgba(0,0,0,0.7);
 }
   @media (max-width:768px){
 
@@ -377,8 +385,11 @@ footer{
   
 <!-- HERO -->
 <div class="hero">
-  <h1>.</h1>
-  <p>.</p>
+  <img src="./banner.jpg" class="hero-img">
+  <div class="hero-content">
+    <h1>Experience Blazing Fast Internet</h1>
+    <p>250 Mbps | Unlimited Data | Free Calls</p>
+  </div>
 </div>
 
 <!-- PLANS -->
