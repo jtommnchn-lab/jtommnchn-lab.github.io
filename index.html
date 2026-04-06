@@ -83,11 +83,24 @@ body{
 }
 
 /* CARDS */
+.plans-wrapper{
+  overflow:hidden;
+  position:relative;
+}
+
+/* HORIZONTAL SCROLL */
 .plans{
   display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:20px;
+  gap:16px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  padding:10px 20px;
+  scroll-behavior:smooth;
+}
+
+/* HIDE SCROLLBAR */
+.plans::-webkit-scrollbar{
+  display:none;
 }
 
 .hero, .plans-bg, .form-bg{
@@ -118,6 +131,7 @@ body{
 
   .card.selected{
   border:2px solid #2e7d32;
+  transform:scale(1.05);
   box-shadow:
     0 0 15px rgba(46,125,50,0.8),
     0 0 30px rgba(46,125,50,0.5);
@@ -130,6 +144,8 @@ body{
   border-radius:16px;
   width:260px;
   box-shadow:0 8px 20px rgba(0,0,0,0.3);
+  flex:0 0 260px;
+  scroll-snap-align:center;
 }
 
 .card.popular{
@@ -210,6 +226,21 @@ body{
   border-radius:6px;
 }
 
+  .carousel-controls{
+  text-align:center;
+  margin-bottom:10px;
+}
+
+.carousel-controls button{
+  padding:8px 12px;
+  margin:0 5px;
+  border:none;
+  border-radius:6px;
+  background:#003a8f;
+  color:white;
+  cursor:pointer;
+}
+  
 /* SELECTED PLAN */
 .selected-box{
   display:none;
@@ -311,11 +342,18 @@ footer{
   <button class="tab" onclick="setType('yearly',this)">Yearly</button>
 </div>
 
-<div class="plans" id="plans"></div>
+<div class="plans-wrapper">
+  <div class="plans" id="plans"></div>
+</div>
 
 </div>
 </div>
-
+  
+<div class="carousel-controls">
+  <button onclick="scrollPlans(-1)">◀</button>
+  <button onclick="scrollPlans(1)">▶</button>
+</div>
+  
 <!-- SELECTED PLAN -->
 <div id="selectedBox" class="selected-box">
 Selected Plan: <span id="selectedText"></span>
@@ -404,6 +442,14 @@ Select Plan
 });
 }
 
+function scrollPlans(direction){
+  const container = document.getElementById("plans");
+  container.scrollBy({
+    left: direction * 280,
+    behavior: "smooth"
+  });
+}
+  
 function selectPlan(el,n,p,s){
 
   selectedPlan = `${n} - ₹${p} (${s})`;
