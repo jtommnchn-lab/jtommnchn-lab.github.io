@@ -35,10 +35,29 @@ body{
 }
 
 /* HERO IMAGE (NO CROP) */
+/* HERO */
 .hero{
-  position:relative;
+  background:
+    linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)),
+    url('./Banner.jpg');
+  background-size:cover;
+  background-position:center;
+  padding:80px 20px;
   text-align:center;
 }
+
+.hero h1{
+  text-shadow:
+    0 0 10px rgba(255,255,255,0.6),
+    0 0 20px rgba(0,91,234,0.8),
+    0 0 30px rgba(0,91,234,0.6);
+}
+
+.hero p{
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.5);
+}
+  
 .hero img{
   width:100%;
   height:auto;
