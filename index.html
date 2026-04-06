@@ -96,6 +96,7 @@ body{
   scroll-snap-type:x mandatory;
   padding:30px 40px;
   align-items:stretch;
+  scroll-behavior:smooth;
 }
 
 .plans::-webkit-scrollbar{
@@ -128,13 +129,7 @@ body{
     0 0 30px rgba(255,111,0,0.3);
 }
 
-.card.selected{
-  border:2px solid #2e7d32;
-  transform:scale(1.05);
-  box-shadow:
-    0 0 15px rgba(46,125,50,0.8),
-    0 0 30px rgba(46,125,50,0.5);
-}
+ 
 .card{
   background:white;
   color:black;
@@ -155,6 +150,8 @@ body{
 .card.selected{
   border:3px solid #2e7d32;
   box-shadow:0 0 12px rgba(46,125,50,0.4);
+  transform:scale(1.08);
+  z-index:2;
 }
 .card:hover{
   transform:translateY(-4px);
@@ -500,26 +497,45 @@ function scrollPlans(direction){
     behavior: "smooth"
   });
 }
+function centerCard(el){
+  const container = document.getElementById("plans");
+
+  const card = el;
+  const containerRect = container.getBoundingClientRect();
+  const cardRect = card.getBoundingClientRect();
+
+  const offset = cardRect.left - containerRect.left
+                - (containerRect.width / 2)
+                + (cardRect.width / 2);
+
+  container.scrollBy({
+    left: offset,
+    behavior: "smooth"
+  });
+}
   
 function selectPlan(el,n,p,s){
 
   selectedPlan = `${n} - ₹${p} (${s})`;
 
-  // highlight selected card
+  // highlight
   document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
   el.classList.add("selected");
 
   // show selected plan
-  document.getElementById("selectedBox").style.display = "block";
-  document.getElementById("selectedText").innerText = selectedPlan;
-  document.getElementById("planInput").value = selectedPlan;
+  document.getElementById("selectedBox").style.display="block";
+  document.getElementById("selectedText").innerText=selectedPlan;
+  document.getElementById("planInput").value=selectedPlan;
 
-  // 🔥 AUTO SCROLL TO FORM
+  // 🔥 CENTER CARD
+  centerCard(el);
+
+  // OPTIONAL: scroll to form after slight delay
   setTimeout(()=>{
-  document.getElementById("formSection").scrollIntoView({
-    behavior: "smooth"
-  });
-}, 200);
+    document.getElementById("availability").scrollIntoView({
+      behavior:"smooth"
+    });
+  }, 300);
 }
 
 render();
