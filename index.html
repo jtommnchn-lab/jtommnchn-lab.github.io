@@ -84,17 +84,18 @@ body{
 
 /* CARDS */
 .plans-wrapper{
-  overflow:hidden;
   position:relative;
+  max-width:1200px;
+  margin:auto;
 }
-
 /* HORIZONTAL SCROLL */
 .plans{
   display:flex;
   gap:16px;
   overflow-x:auto;
   scroll-snap-type:x mandatory;
-  padding:20px 40px; /* space for arrows */
+  padding:30px 40px;
+  align-items:stretch;
 }
 
 .plans::-webkit-scrollbar{
@@ -127,7 +128,7 @@ body{
     0 0 30px rgba(255,111,0,0.3);
 }
 
-  .card.selected{
+.card.selected{
   border:2px solid #2e7d32;
   transform:scale(1.05);
   box-shadow:
@@ -225,7 +226,7 @@ body{
   border-radius:6px;
 }
 
-  .carousel-controls{
+.carousel-controls{
   text-align:center;
   margin-bottom:10px;
 }
@@ -244,35 +245,45 @@ body{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  z-index:10;
+  z-index:100;
 
-  background:rgba(0,0,0,0.5);
+  background:rgba(0,0,0,0.6);
   color:white;
   border:none;
-  padding:10px 14px;
+  width:40px;
+  height:40px;
   border-radius:50%;
   cursor:pointer;
-  font-size:18px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 10px rgba(0,0,0,0.5);
 }
 
 /* LEFT / RIGHT */
 .carousel-btn.left{
-  left:5px;
+  left:-10px;   /* slightly outside */
 }
 
 .carousel-btn.right{
-  right:5px;
+  right:-10px;
 }
 
 /* HOVER EFFECT */
+.carousel-btn{
+  
+}
+
 .carousel-btn:hover{
   background:#003a8f;
 }
 
-@media(max-width:600px){
+@media(max-width:768px){
   .carousel-btn{
     display:none;
   }
+}
 }
   
 /* SELECTED PLAN */
@@ -378,13 +389,10 @@ footer{
 
 <div class="plans-wrapper">
 
-  <!-- LEFT ARROW -->
   <button class="carousel-btn left" onclick="scrollPlans(-1)">❮</button>
 
-  <!-- PLANS -->
   <div class="plans" id="plans"></div>
 
-  <!-- RIGHT ARROW -->
   <button class="carousel-btn right" onclick="scrollPlans(1)">❯</button>
 
 </div>
