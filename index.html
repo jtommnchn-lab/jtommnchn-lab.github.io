@@ -249,7 +249,7 @@ button{
 <div class="tabs">
   <button class="tab active" onclick="setType('monthly',this)">Monthly</button>
   <button class="tab" onclick="setType('quarterly',this)">Quarterly</button>
-  <button class="tab" onclick="setType('half',this)">Half</button>
+  <button class="tab" onclick="setType('half',this)">Half-Yearly</button>
   <button class="tab" onclick="setType('yearly',this)">Yearly</button>
 </div>
 
@@ -337,7 +337,7 @@ function render(){
 let c=document.getElementById("plans");
   c.innerHTML="";
   plans.forEach(p=>{
-let price=p.price[planType];
+let price = p.price[planType] || p.price.monthly;
 <div class="card ${p.popular?'popular':''}"
 onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
 ${p.popular ? '<div class="badge">Most Popular</div>' : ''}
