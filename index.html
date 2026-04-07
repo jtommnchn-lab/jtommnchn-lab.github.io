@@ -362,24 +362,31 @@ function render(){
 }
 
 function centerPopular(){
+
   const popularCard = document.querySelector(".card.popular");
-  if(popularCard){
-    selectPlan(
-      popularCard,
-      "Fibre Basic Plus",
-      plans[1].price[planType],
-      plans[1].speed
-    );
-    const container = document.getElementById("plans");
-    const offset =
-      popularCard.offsetLeft -
-      (container.offsetWidth / 2) +
-      (popularCard.offsetWidth / 2);
-    container.scrollTo({
-      left: offset,
-      behavior: "smooth"
-    });
-  }
+
+  if(!popularCard) return;
+
+  const container = document.getElementById("plans");
+
+  // get actual data safely
+  const p = plans.find(x => x.popular);
+
+  const price = p.price[planType] || p.price.monthly;
+
+  // select correctly
+  selectPlan(popularCard, p.name, price, p.speed);
+
+  // center it
+  const offset =
+    popularCard.offsetLeft -
+    (container.offsetWidth / 2) +
+    (popularCard.offsetWidth / 2);
+
+  container.scrollTo({
+    left: offset,
+    behavior: "smooth"
+  });
 }
   
 function selectPlan(el,n,p,s){
@@ -404,8 +411,6 @@ document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
 el.classList.add("active");
 render();
 }
-
-render();
 
 /* LOCATION */
 if(navigator.geolocation){
