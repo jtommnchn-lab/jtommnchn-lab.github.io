@@ -101,7 +101,7 @@ body{
   border:2px solid red;   /* Debug box */
   gap:16px;
   overflow-x:auto;
-  padding:20px 60px;   /* 👈 space for arrows */
+  padding:20px 80px;   /* 👈 space for arrows */
   min-height:260px;   /* 👈 CRITICAL FIX */
   align-items:stretch;
 }
@@ -367,16 +367,13 @@ function centerCard(el){
 
   const container = document.getElementById("plans");
 
-  const containerRect = container.getBoundingClientRect();
-  const cardRect = el.getBoundingClientRect();
+  const scrollLeft =
+    el.offsetLeft -
+    (container.offsetWidth / 2) +
+    (el.offsetWidth / 2);
 
-  const offset =
-    cardRect.left - containerRect.left
-    - (containerRect.width / 2)
-    + (cardRect.width / 2);
-
-  container.scrollBy({
-    left: offset,
+  container.scrollTo({
+    left: scrollLeft,
     behavior: "smooth"
   });
 }
@@ -389,10 +386,8 @@ function centerPopular(){
   const p = plans.find(x => x.popular);
   const price = p.price[planType] || p.price.monthly;
 
+  // ONLY this (no extra centerCard call)
   selectPlan(popularCard, p.name, price, p.speed);
-
-  // 🔥 use same center logic
-  centerCard(popularCard);
 }
   
 function selectPlan(el,n,p,s){
