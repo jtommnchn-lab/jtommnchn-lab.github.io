@@ -37,15 +37,10 @@ body{
 
 .hero{
   width:100%;
-  height:clamp(180px, 42vh, 420px);
-  display:flex;
+  height:clamp(220px, 42vh, 420px);
   background:
     linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)),
-    url('./Banner.jpg');
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
-  background:#0b1f4a;
+    url('https://jtommnchn-lab.github.io/Banner.jpg') center/cover no-repeat;
 }
 
 .hero-img{
@@ -60,9 +55,7 @@ body{
   .hero{
     height:260px;
   }
-  .hero-img{
-    object-position:top center;
-  }
+
 }
 
 /* ================= TABS ================= */
@@ -110,8 +103,7 @@ body{
 .plans::-webkit-scrollbar{display:none;}
 
 .card{
-  flex:0 0 75%;  /* KEY FIX for mobile*/
-  max-width:220px;
+  flex:0 0 220px;
   min-height:200px;
   background:white;
   color:black;
@@ -122,11 +114,11 @@ body{
   cursor:pointer;
   transition:0.3s ease;
 }
-  @media(min-width:768px){
-    .card{
-      flex:0 0 240px;
-    }
+ @media(max-width:768px){
+  .card{
+    flex:0 0 70%;
   }
+}
 
 .card.selected{
   transform:scale(1.1) !important;
@@ -272,10 +264,7 @@ button{
   <a href="https://wa.me/919447072230" class="wa-btn">WhatsApp</a>
 </div>
 
-<!-- HERO -->
-<div class="hero">
-  <img src="https://jtommnchn-lab.github.io/Banner.jpg" class="hero-img">
-</div> 
+
 
 <!-- TABS -->
 <div class="tabs">
