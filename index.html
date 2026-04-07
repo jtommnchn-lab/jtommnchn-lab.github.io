@@ -121,6 +121,8 @@ body{
 
 .card.selected{
   border:3px solid green;
+  transform:scale(1.08);
+  z-index:2;
 }
 
 .card.popular{
@@ -361,44 +363,58 @@ function render(){
   setTimeout(centerPopular, 100); // 👈 important
 }
 
-function centerPopular(){
-
-  const popularCard = document.querySelector(".card.popular");
-
-  if(!popularCard) return;
+function centerCard(el){
 
   const container = document.getElementById("plans");
 
-  // get actual data safely
-  const p = plans.find(x => x.popular);
+  const containerRect = container.getBoundingClientRect();
+  const cardRect = el.getBoundingClientRect();
 
-  const price = p.price[planType] || p.price.monthly;
-
-  // select correctly
-  selectPlan(popularCard, p.name, price, p.speed);
-
-  // center it
   const offset =
-    popularCard.offsetLeft -
-    (container.offsetWidth / 2) +
-    (popularCard.offsetWidth / 2);
+    cardRect.left - containerRect.left
+    - (containerRect.width / 2)
+    + (cardRect.width / 2);
 
-  container.scrollTo({
+  container.scrollBy({
     left: offset,
     behavior: "smooth"
   });
 }
   
+function centerPopular(){
+
+  const popularCard = document.querySelector(".card.popular");
+  if(!popularCard) return;
+
+  const p = plans.find(x => x.popular);
+  const price = p.price[planType] || p.price.monthly;
+
+  selectPlan(popularCard, p.name, price, p.speed);
+
+  // 🔥 use same center logic
+  centerCard(popularCard);
+}
+  
 function selectPlan(el,n,p,s){
-selectedPlan=`${n} - ₹${p} (${s})`;
-document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
-el.classList.add("selected");
 
-document.getElementById("selectedBox").style.display="block";
-document.getElementById("selectedText").innerText=selectedPlan;
-document.getElementById("planInput").value=selectedPlan;
+  selectedPlan = `${n} - ₹${p} (${s})`;
 
-document.getElementById("formSection").scrollIntoView({behavior:"smooth"});
+  document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
+  el.classList.add("selected");
+
+  document.getElementById("selectedBox").style.display="block";
+  document.getElementById("selectedText").innerText=selectedPlan;
+  document.getElementById("planInput").value=selectedPlan;
+
+  // 🔥 CENTER CARD
+  centerCard(el);
+
+  // scroll to form
+  setTimeout(()=>{
+    document.getElementById("formSection").scrollIntoView({
+      behavior:"smooth"
+    });
+  }, 300);
 }
 
 function scrollPlans(dir){
