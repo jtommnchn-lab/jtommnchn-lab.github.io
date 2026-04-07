@@ -463,7 +463,7 @@ function updateCenterScale(){
 
     let scale = 1 - (distance/600);  //smooth scaling
 
-    scale = Mat.max(0.9, Math.min(1.08, scale));
+    scale = Math.max(0.9, Math.min(1.08, scale));
       card.style.transform = `scale(${scale})`;
       card.style.zIndex = Math.round(scale * 10);
 
