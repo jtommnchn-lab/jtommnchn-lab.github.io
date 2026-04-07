@@ -334,21 +334,30 @@ function detectLocation(){
   });
 }
 function render(){
-let c=document.getElementById("plans");
-  c.innerHTML="";
+
+  let c = document.getElementById("plans");
+  c.innerHTML = "";
+
   plans.forEach(p=>{
-let price = p.price[planType] || p.price.monthly;
-<div class="card ${p.popular?'popular':''}"
-onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
-${p.popular ? '<div class="badge">Most Popular</div>' : ''}
-<h3>${p.name}</h3>
-<h2>₹${price}</h2>
-<p>${p.speed}</p>
-<button onclick="event.stopPropagation();selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
-Select
-</button>
-</div>`;
-});
+
+    let price = p.price[planType] || p.price.monthly;
+
+    c.innerHTML += `
+    <div class="card"
+    onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
+
+      ${p.popular ? '<div class="badge">Most Popular</div>' : ''}
+
+      <h3>${p.name}</h3>
+      <h2>₹${price}</h2>
+      <p>${p.speed}</p>
+
+      <button onclick="event.stopPropagation();
+      selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
+      Select</button>
+
+    </div>`;
+  });
   setTimeout(centerPopular, 100); // 👈 important
 }
 
