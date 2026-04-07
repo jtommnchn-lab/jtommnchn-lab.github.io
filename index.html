@@ -102,6 +102,8 @@ body{
   overflow-x:auto;
   padding:20px 80px;   /* 👈 space for arrows */
   min-height:260px;   /* 👈 CRITICAL FIX */
+  scroll-snap-type:x mandatory;   /* 👈 SNAP ENABLE */
+  scroll-behavior:smooth;
   align-items:stretch;
 }
 
@@ -116,13 +118,14 @@ body{
   border-radius:12px;
   padding:14px;
   text-align:center;
+  scroll-snap-align:center;
   cursor:pointer;
   transition:0.3s ease;
 }
 
 .card.selected{
-  border:3px solid green;
-  transform:scale(1.08);
+  transform:scale(1.1) !important;
+  border:3px solid #2e7d32;
   z-index:2;
 }
 
@@ -295,7 +298,10 @@ const plans=[
  {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
 ];
 
-
+document.getElementById("plans").addEventListener("scroll", () => {
+  updateCenterScale();
+});
+  
 window.onload = function(){
   render();
   detectLocation();   // 👈 VERY IMPORTANT
@@ -361,7 +367,10 @@ function render(){
 
     </div>`;
   });
-  setTimeout(centerPopular, 100); // 👈 important
+  setTimeout(()=>{
+  centerPopular();
+  updateCenterScale();
+}, 150);
 }
 
 function centerCard(el){
@@ -412,7 +421,31 @@ function selectPlan(el,n,p,s){
     });
   }, 300);
 }
+function updateCenterScale(){
 
+  const cards = document.querySelectorAll(".card");
+  const container = document.getElementById("plans");
+
+  const containerCenter = container.offsetWidth / 2;
+
+  cards.forEach(card => {
+
+    const cardCenter =
+      card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
+
+    const distance = Math.abs(containerCenter - cardCenter);
+
+    if(distance < 80){
+      card.style.transform = "scale(1.08)";
+      card.style.zIndex = "2";
+    } else {
+      card.style.transform = "scale(0.92)";
+      card.style.zIndex = "1";
+    }
+
+  });
+}
+  
 function scrollPlans(dir){
 document.getElementById("plans").scrollBy({left:dir*250,behavior:"smooth"});
 }
