@@ -108,14 +108,16 @@ body{
 .plans::-webkit-scrollbar{display:none;}
 
 .card{
-  min-width:240px;
-  min-height:220px;   /* 👈 ensures visibility */
+  min-width:220px;        /* 👈 reduced from 240 */
+  max-width:220px;
+  min-height:200px;
   background:white;
   color:black;
   border-radius:12px;
-  padding:15px;
+  padding:14px;
   text-align:center;
   cursor:pointer;
+  transition:0.3s ease;
 }
 
 .card.selected{
