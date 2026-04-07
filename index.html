@@ -34,6 +34,7 @@ body{
 }
 
 /* HERO (FIXED) */
+/* HERO DEFAULT (Desktop) */
 .hero{
   width:100%;
   height:clamp(220px, 42vh, 420px);
@@ -41,6 +42,15 @@ body{
     linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)),
     url('https://jtommnchn-lab.github.io/Banner.jpg') center/cover no-repeat;
   border-bottom:2px solid rgba(255,255,255,0.1);
+}
+
+/* 📱 MOBILE FIX (Show full image) */
+@media(max-width:768px){
+  .hero{
+    height:220px;
+    background:
+      #0b1f4a url('https://jtommnchn-lab.github.io/Banner.jpg') center/contain no-repeat;
+  }
 }
 
 /* TABS */
