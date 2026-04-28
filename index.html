@@ -316,8 +316,25 @@ ott:[
 
 
 window.onload = function(){
+
   render();
   detectLocation();
+
+  // ✅ Attach ONCE (correct place)
+  const plansContainer = document.getElementById("plans");
+
+  let scrollTimeout;
+
+  plansContainer.addEventListener("scroll", () => {
+
+    clearTimeout(scrollTimeout);
+
+    scrollTimeout = setTimeout(() => {
+      autoSelectCenter();
+    }, 120);
+
+  });
+
 }
 
 function detectLocation(){
@@ -404,7 +421,9 @@ function selectPlan(el,n,p,s){
   document.getElementById("selectedText").innerText=selectedPlan;
   document.getElementById("planInput").value=selectedPlan;
 
+ if(!el.classList.contains("selected")){
   centerCard(el);
+}
 }
 
 function scrollPlans(dir){
@@ -417,16 +436,6 @@ function setCategory(cat,el){
     .forEach(b=>b.classList.remove("active"));
   el.classList.add("active");
   render();
-  let scrollTimeout;
-
-document.getElementById("plans").addEventListener("scroll", () => {
-
-  clearTimeout(scrollTimeout);
-
-  scrollTimeout = setTimeout(() => {
-    autoSelectCenter();
-  }, 120);
-});
 }
 function autoSelectCenter(){
   const cards = document.querySelectorAll(".card");
