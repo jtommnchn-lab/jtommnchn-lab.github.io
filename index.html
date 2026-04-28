@@ -135,6 +135,16 @@ body{
   display:inline-block;
 }
 
+.ott-badge{
+  background:#673ab7;
+  color:white;
+  font-size:11px;
+  padding:3px 6px;
+  border-radius:4px;
+  margin-bottom:6px;
+  display:inline-block;
+}
+
 /* EDGE FADE */
 .plans-wrapper::before,
 .plans-wrapper::after{
@@ -377,26 +387,35 @@ function detectLocation(){
 function render(){
   let c = document.getElementById("plans");
   c.innerHTML = "";
-
  let plans = plansData[category];
-
-plans.forEach(p=>{
+ plans.forEach(p=>{
     let price = p.price[planType];
     let freeText = "";
-
 if(planType === "quarterly") freeText = "🎁 7 Days FREE";
 if(planType === "half") freeText = "🎁 19 Days FREE";
 if(planType === "yearly") freeText = "🎁 1 Month FREE";
-  
+  let appsHTML = "";
+if(category === "ott"){
+  let shown = p.apps.slice(0,3).join(", ");
+  let more = p.apps.length - 3;
+
+  appsHTML = `
+    <p style="font-size:12px;color:#555;margin-top:6px">
+      ${shown} ${more>0 ? `+${more} more` : ""}
+    </p>
+  `;
+}
     c.innerHTML += `
     <div class="card ${p.popular ? 'popular' : ''}"
     onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
 
       ${p.popular ? '<div class="badge">Most Popular</div>' : ''}
       ${freeText ? `<div class="badge">${freeText}</div>` : ''}
+      ${category === "ott" ? '<div class="ott-badge">OTT Included</div>' : ''}
       <h3>${p.name}</h3>
       <h2>₹${price}</h2>
       <p>${p.speed}</p>
+      ${appsHTML}
 
       <button onclick="event.stopPropagation();
       selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
