@@ -33,68 +33,24 @@ body{
   text-decoration:none;
 }
 
-/* HERO */
+/* HERO (FIXED) */
+/* HERO DEFAULT (Desktop) */
 .hero{
-  position:relative;
-  height:clamp(260px,45vh,480px);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-.hero::before{
-  content:"";
-  position:absolute;
-  inset:0;
+  width:100%;
+  height:clamp(220px, 42vh, 420px);
   background:
-    linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
-    url('https://bsnlnanganallur.github.io/Banner-desktop.jpg') center/cover no-repeat;
-  animation:zoomHero 12s ease-in-out infinite alternate;
-}
-@media(max-width:768px){
-  .hero::before{
-    background:
-      linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
-      url('https://bsnlnanganallur.github.io/Banner-mobile.jpg') center/contain no-repeat;
-    background-color:#0b1f4a;
-  }
-}
-@keyframes zoomHero{
-  from{transform:scale(1);}
-  to{transform:scale(1.08);}
-}
-.hero-content{
-  position:relative;
-  z-index:2;
-  text-align:center;
-}
-.hero-btn{
-  display:inline-block;
-  padding:12px 20px;
-  background:#25D366;
-  border-radius:8px;
-  color:white;
-  text-decoration:none;
-  margin-top:10px;
+    linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)),
+    url('https://jtommnchn-lab.github.io/Banner.jpg') center/cover no-repeat;
+  border-bottom:2px solid rgba(255,255,255,0.1);
 }
 
-/* TYPE SWITCH */
-.type-switch{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-top:15px;
-}
-.type-btn{
-  padding:8px 16px;
-  border:none;
-  border-radius:20px;
-  background:#ffffff20;
-  color:white;
-  cursor:pointer;
-}
-.type-btn.active{
-  background:#ff9800;
+/* 📱 MOBILE FIX (Show full image) */
+@media(max-width:768px){
+  .hero{
+    height:220px;
+    background:
+      #0b1f4a url('https://jtommnchn-lab.github.io/Banner.jpg') center/contain no-repeat;
+  }
 }
 
 /* TABS */
@@ -104,6 +60,7 @@ body{
   margin:20px auto;
   gap:8px;
 }
+
 .tab{
   padding:8px 14px;
   border:none;
@@ -112,6 +69,7 @@ body{
   color:white;
   cursor:pointer;
 }
+
 .tab.active{
   background:white;
   color:#003a8f;
@@ -123,93 +81,179 @@ body{
   max-width:1100px;
   margin:40px auto;
 }
+
 .plans{
   display:flex;
   gap:16px;
   overflow-x:auto;
   padding:20px;
+  min-height:260px;
   scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
   scroll-padding:0 50%;
 }
+
 .plans::-webkit-scrollbar{display:none;}
 
 .card{
   flex:0 0 220px;
+  min-height:200px;
   background:white;
   color:black;
   border-radius:12px;
   padding:14px;
   text-align:center;
   scroll-snap-align:center;
-  transition:0.3s;
+  cursor:pointer;
+  transition:0.3s ease;
 }
+
 @media(max-width:768px){
-  .card{flex:0 0 70%;}
+  .card{
+    flex:0 0 70%;
+  }
 }
+
 .card.selected{
-  transform:scale(1.1);
+  transform:scale(1.1) !important;
   border:3px solid #2e7d32;
+  z-index:2;
 }
+
 .card.popular{
-  border:2px solid orange;
+  border:2px solid #ff9800;
+  box-shadow:0 0 20px rgba(255,152,0,0.6);
+  transform:scale(1.05);
 }
+
 .badge{
   background:#ff9800;
   color:white;
   padding:4px 8px;
   border-radius:4px;
   font-size:12px;
-  margin-bottom:6px;
+  margin-bottom:8px;
   display:inline-block;
+}
+
+/* EDGE FADE */
+.plans-wrapper::before,
+.plans-wrapper::after{
+  content:"";
+  position:absolute;
+  top:0;
+  width:40px;
+  height:100%;
+  z-index:5;
+  pointer-events:none;
+}
+.plans-wrapper::before{
+  left:0;
+  background:linear-gradient(to right,#0b1f4a 40%, transparent);
+}
+.plans-wrapper::after{
+  right:0;
+  background:linear-gradient(to left,#0b1f4a 40%, transparent);
+}
+
+/* ARROWS */
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:100;
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  background:rgba(0,0,0,0.7);
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.carousel-btn.left{left:10px;}
+.carousel-btn.right{right:10px;}
+
+/* SELECTED */
+.selected-box{
+  display:none;
+  text-align:center;
+  background:#dff0d8;
+  color:#2e7d32;
+  padding:10px;
 }
 
 /* FORM */
 .form-section{
-  padding:40px;
+  padding:40px 15px;
   display:flex;
   justify-content:center;
 }
+
 .form{
+  width:100%;
+  max-width:420px;
   background:white;
   color:black;
-  padding:20px;
-  border-radius:10px;
-  width:100%;
-  max-width:400px;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
-input,button{
+
+input{
   width:100%;
-  padding:10px;
-  margin-top:10px;
+  padding:12px;
+  margin-top:12px;
+  border-radius:6px;
+  border:1px solid #ccc;
 }
+
 button{
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border:none;
+  border-radius:6px;
   background:#003a8f;
   color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+.type-switch{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:15px;
+}
+
+.type-btn{
+  padding:8px 16px;
   border:none;
+  border-radius:20px;
+  background:#ffffff20;
+  color:white;
+  cursor:pointer;
+}
+
+.type-btn.active{
+  background:#ff9800;
+  color:white;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <div class="header">
-  <img src="https://bsnlnanganallur.github.io/bsnl-logo.png" class="logo">
+  <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" class="logo">
   <a href="https://wa.me/919447072230" class="wa-btn">WhatsApp</a>
 </div>
 
-<div class="hero">
-  <div class="hero-content">
-    <h1>Unlimited Fibre Internet</h1>
-    <p>Plans starting ₹333</p>
-    <a href="#formSection" class="hero-btn">Check Availability</a>
-  </div>
-</div>
-
-<!-- TYPE SWITCH -->
-<div class="type-switch">
-  <button class="type-btn active" onclick="setCategory('nonott',this)">Non-OTT</button>
-  <button class="type-btn" onclick="setCategory('ott',this)">OTT</button>
-</div>
+<!-- HERO -->
+<div class="hero"></div>
 
 <!-- TABS -->
 <div class="tabs">
@@ -221,25 +265,32 @@ button{
 
 <!-- CAROUSEL -->
 <div class="plans-wrapper">
+  <button class="carousel-btn left" onclick="scrollPlans(-1)">◀</button>
   <div class="plans" id="plans"></div>
+  <button class="carousel-btn right" onclick="scrollPlans(1)">▶</button>
+</div>
+
+<div id="selectedBox" class="selected-box">
+Selected Plan: <span id="selectedText"></span>
 </div>
 
 <!-- FORM -->
 <div class="form-section" id="formSection">
   <div class="form">
     <h3>Check Availability</h3>
-    <input id="name" placeholder="Name">
-    <input id="phone" placeholder="Mobile">
-    <input id="area" placeholder="Area">
+    <input id="name" placeholder="Your Name">
+    <input id="phone" placeholder="Mobile Number">
+    <input id="area" placeholder="Detecting your area...">
     <input type="hidden" id="planInput">
-    <button onclick="submitForm()">Submit</button>
+    <button onclick="submitForm()">Submit Request</button>
   </div>
 </div>
 
 <script>
-let category="nonott",planType="monthly",selectedPlan="";
+let selectedPlan="",planType="monthly",userLat="",userLng="";
+let category = "nonott";
+const plansData = {
 
-const plansData={
 nonott:[
 {name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
 {name:"Ghar Ka WiFi",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
@@ -249,65 +300,116 @@ nonott:[
 {name:"Fibre Value Plus",speed:"150 Mbps",price:{monthly:849,quarterly:3006,half:6011,yearly:10520}},
 {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
 ],
+
 ott:[
-{name:"Fibre OTT",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
-{name:"Ghar OTT",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
-{name:"Fibre Basic OTT",speed:"60 Mbps",price:{monthly:499,quarterly:1767,half:3533,yearly:7066}},
-{name:"Fibre Basic Plus OTT",speed:"100 Mbps",price:{monthly:599,quarterly:2121,half:4241,yearly:8482},popular:true},
-{name:"Fibre TB OTT",speed:"150 Mbps",price:{monthly:799,quarterly:2829,half:5657,yearly:9900}},
-{name:"Fibre Value Plus OTT",speed:"150 Mbps",price:{monthly:849,quarterly:3006,half:6011,yearly:10520}},
-{name:"Fibre Premium Plus OTT",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
+{name:"OTT Bronze",speed:"100 Mbps",price:{monthly:699,quarterly:2475,half:4950,yearly:9900}},
+{name:"OTT Silver",speed:"150 Mbps",price:{monthly:899,quarterly:3185,half:6370,yearly:12740},popular:true},
+{name:"OTT Gold",speed:"200 Mbps",price:{monthly:1199,quarterly:4250,half:8500,yearly:17000}}
 ]
-};
 
-function render(){
-  let plans=plansData[category];
-  let c=document.getElementById("plans");
-  c.innerHTML="";
+};  
 
-  plans.forEach(p=>{
-    let price=p.price[planType];
 
-    let free="";
-    if(planType==="quarterly") free="🎁 7 Days FREE";
-    if(planType==="half") free="🎁 19 Days FREE";
-    if(planType==="yearly") free="🎁 1 Month FREE";
+window.onload = function(){
+  render();
+  detectLocation();
+}
 
-    c.innerHTML+=`
-    <div class="card ${p.popular?'popular':''}"
-    onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
+function detectLocation(){
+  const areaInput = document.getElementById("area");
 
-    ${p.popular?'<div class="badge">Most Popular</div>':''}
-    ${free?`<div class="badge">${free}</div>`:''}
+  if(!navigator.geolocation){
+    areaInput.value = "Chennai";
+    return;
+  }
 
-    <h3>${p.name}</h3>
-    <h2>₹${price}</h2>
-    <p>${p.speed}</p>
-    <button onclick="event.stopPropagation();
-    selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
-    Select</button>
+  navigator.geolocation.getCurrentPosition(async pos => {
+    userLat = pos.coords.latitude;
+    userLng = pos.coords.longitude;
 
-    </div>`;
+    try{
+      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
+      const data = await res.json();
+
+      areaInput.value =
+        data.address.suburb ||
+        data.address.neighbourhood ||
+        data.address.city ||
+        "Chennai";
+    } catch {
+      areaInput.value = "Chennai";
+    }
   });
 }
 
-function selectPlan(el,n,p,s){
-  selectedPlan=`${n} ₹${p}`;
-  document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
-  el.classList.add("selected");
-  document.getElementById("planInput").value=selectedPlan;
+function render(){
+  let c = document.getElementById("plans");
+  c.innerHTML = "";
+
+ let plans = plansData[category];
+
+plans.forEach(p=>{
+    let price = p.price[planType];
+    let freeText = "";
+
+if(planType === "quarterly") freeText = "🎁 7 Days FREE";
+if(planType === "half") freeText = "🎁 19 Days FREE";
+if(planType === "yearly") freeText = "🎁 1 Month FREE";
+  
+    c.innerHTML += `
+    <div class="card ${p.popular ? 'popular' : ''}"
+    onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
+
+      ${p.popular ? '<div class="badge">Most Popular</div>' : ''}
+      ${freeText ? `<div class="badge">${freeText}</div>` : ''}
+      <h3>${p.name}</h3>
+      <h2>₹${price}</h2>
+      <p>${p.speed}</p>
+
+      <button onclick="event.stopPropagation();
+      selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
+      Select</button>
+
+    </div>`;
+  });
+
+  setTimeout(centerPopular,150);
 }
 
-function setType(t,el){
-  planType=t;
-  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
-  el.classList.add("active");
-  render();
+function centerCard(el){
+  const container = document.getElementById("plans");
+  container.scrollTo({
+    left: el.offsetLeft - container.offsetWidth/2 + el.offsetWidth/2,
+    behavior: "smooth"
+  });
+}
+
+function centerPopular(){
+  const popularCard = document.querySelector(".popular");
+  if(popularCard) popularCard.click();
+}
+
+function selectPlan(el,n,p,s){
+  selectedPlan = `${n} - ₹${p} (${s})`;
+
+  document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
+  el.classList.add("selected");
+
+  document.getElementById("selectedBox").style.display="block";
+  document.getElementById("selectedText").innerText=selectedPlan;
+  document.getElementById("planInput").value=selectedPlan;
+
+  centerCard(el);
+}
+
+function scrollPlans(dir){
+  document.getElementById("plans").scrollBy({left:dir*250,behavior:"smooth"});
 }
 
 function setCategory(cat,el){
-  category=cat;
-  document.querySelectorAll(".type-btn").forEach(x=>x.classList.remove("active"));
+  category = cat;
+  document.querySelectorAll(".type-btn")
+    .forEach(b=>b.classList.remove("active"));
   el.classList.add("active");
   render();
 }
@@ -317,6 +419,7 @@ async function submitForm(){
   let phone=document.getElementById("phone").value;
   let area=document.getElementById("area").value;
   let plan=document.getElementById("planInput").value;
+
   await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
     method:"POST",
     mode:"no-cors",
@@ -325,8 +428,6 @@ async function submitForm(){
 
   window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0APlan:${plan}`);
 }
-
-render();
 </script>
 
 </body>
