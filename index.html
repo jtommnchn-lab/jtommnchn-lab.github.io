@@ -19,7 +19,7 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:12px;
+  padding:12px 20px;
   background:white;
   color:black;
 }
@@ -86,11 +86,10 @@ body{
   display:flex;
   gap:16px;
   overflow-x:auto;
-  padding:20px 50vw;
+  padding:20px;
   min-height:260px;
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
-  scroll-padding:0 50%;
 }
 
 .plans::-webkit-scrollbar{display:none;}
@@ -400,8 +399,14 @@ if(planType === "yearly") freeText = "🎁 1 Month FREE";
 
 function centerCard(el){
   const container = document.getElementById("plans");
-  container.scrollTo({
-    left: el.offsetLeft - container.offsetWidth/2 + el.offsetWidth/2,
+  const cardRect = el.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+  const offset =
+    (cardRect.left - containerRect.left) -
+    (container.offsetWidth / 2) +
+    (cardRect.width / 2);
+  container.scrollBy({
+    left: offset,
     behavior: "smooth"
   });
 }
@@ -427,7 +432,12 @@ function selectPlan(el,n,p,s){
 }
 
 function scrollPlans(dir){
-  document.getElementById("plans").scrollBy({left:dir*250,behavior:"smooth"});
+  const container = document.getElementById("plans");
+  const cardWidth = container.querySelector(".card").offsetWidth + 16;
+  container.scrollBy({
+    left: dir * cardWidth,
+    behavior:"smooth"
+  });
 }
 
 function setCategory(cat,el){
