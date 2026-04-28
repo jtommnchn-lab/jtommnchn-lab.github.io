@@ -124,7 +124,29 @@ body{
   box-shadow:0 0 20px rgba(255,152,0,0.6);
   transform:scale(1.05);
 }
+.ott-logos{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
 
+.ott-logos img{
+  height:20px;
+  width:auto;
+  background:white;
+  padding:2px;
+  border-radius:4px;
+}
+
+.more-btn{
+  font-size:11px;
+  color:#003a8f;
+  cursor:pointer;
+  margin-top:4px;
+  display:block;
+}
 .badge{
   background:#ff9800;
   color:white;
@@ -310,8 +332,20 @@ Selected Plan: <span id="selectedText"></span>
 <script>
 let selectedPlan="",planType="monthly",userLat="",userLng="";
 let category = "nonott";
+const ottLogos = {
+"Zee5":"https://upload.wikimedia.org/wikipedia/commons/5/5a/ZEE5_logo.svg",
+"SonyLIV":"https://upload.wikimedia.org/wikipedia/commons/9/90/Sony_LIV_logo.svg",
+"SunNxt":"https://upload.wikimedia.org/wikipedia/commons/7/7a/Sun_NXT_logo.png",
+"Aha":"https://upload.wikimedia.org/wikipedia/commons/1/1f/Aha_OTT_Logo.png",
+"Discovery+":"https://upload.wikimedia.org/wikipedia/commons/3/3e/Discovery%2B_logo.svg",
+"Hungama":"https://upload.wikimedia.org/wikipedia/commons/2/2c/Hungama_Logo.png",
+"Fancode":"https://upload.wikimedia.org/wikipedia/commons/8/8a/Fancode_logo.png",
+"ShemarooMe":"https://upload.wikimedia.org/wikipedia/commons/6/6e/Shemaroo_logo.png",
+"ShortsTV":"https://upload.wikimedia.org/wikipedia/commons/4/4c/ShortsTV_logo.png",
+"Amazon Prime":"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
+"JioHotstar":"https://upload.wikimedia.org/wikipedia/commons/1/11/Hotstar_logo.png"
+};  
 const plansData = {
-
 nonott:[
 {name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
 {name:"Ghar Ka WiFi",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
@@ -394,15 +428,20 @@ function render(){
 if(planType === "quarterly") freeText = "🎁 7 Days FREE";
 if(planType === "half") freeText = "🎁 19 Days FREE";
 if(planType === "yearly") freeText = "🎁 1 Month FREE";
-  let appsHTML = "";
+let appsHTML = "";
+
 if(category === "ott"){
-  let shown = p.apps.slice(0,3).join(", ");
-  let more = p.apps.length - 3;
+  let shownApps = p.apps.slice(0,4);
+  let logos = shownApps.map(app=>{
+    let src = ottLogos[app];
+    return src ? `<img src="${src}">` : "";
+  }).join("");
+
+  let more = p.apps.length - 4;
 
   appsHTML = `
-    <p style="font-size:12px;color:#555;margin-top:6px">
-      ${shown} ${more>0 ? `+${more} more` : ""}
-    </p>
+    <div class="ott-logos">${logos}</div>
+    ${more>0 ? `<span class="more-btn" onclick="event.stopPropagation(); showApps(${JSON.stringify(p.apps)})">+${more} more</span>` : ""}
   `;
 }
     c.innerHTML += `
@@ -501,17 +540,23 @@ function autoSelectCenter(){
   }
 }
 
-  function setType(type, el){
+function showApps(apps){
+  const list = document.getElementById("appList");
+  list.innerHTML = apps.map(app=>`<p>• ${app}</p>`).join("");
+  document.getElementById("appPopup").style.display="flex";
+}
 
+function closePopup(){
+  document.getElementById("appPopup").style.display="none";
+}
+  
+  function setType(type, el){
   // update selected plan type
   planType = type;
-
   // toggle active button UI
   document.querySelectorAll(".tab")
     .forEach(btn => btn.classList.remove("active"));
-
   el.classList.add("active");
-
   // re-render plans
   render();
 }
@@ -531,6 +576,23 @@ async function submitForm(){
   window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0APlan:${plan}`);
 }
 </script>
+<div id="appPopup" style="display:none;
+position:fixed;inset:0;
+background:rgba(0,0,0,0.7);
+z-index:999;
+align-items:center;
+justify-content:center;">
 
+  <div style="background:white;color:black;
+  padding:20px;border-radius:10px;
+  max-width:300px;width:90%;
+  max-height:70vh;overflow:auto;">
+
+    <h3>Included OTT Apps</h3>
+    <div id="appList"></div>
+
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div>
 </body>
 </html>
