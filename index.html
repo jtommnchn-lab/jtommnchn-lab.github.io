@@ -459,6 +459,21 @@ function autoSelectCenter(){
     closest.click();
   }
 }
+
+  function setType(type, el){
+
+  // update selected plan type
+  planType = type;
+
+  // toggle active button UI
+  document.querySelectorAll(".tab")
+    .forEach(btn => btn.classList.remove("active"));
+
+  el.classList.add("active");
+
+  // re-render plans
+  render();
+}
   
 async function submitForm(){
   let name=document.getElementById("name").value;
