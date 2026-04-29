@@ -603,13 +603,28 @@ function updatePrice(){
   if(!selectedPlan) return;
   let base = parseInt(selectedPlan.match(/₹(\d+)/)[1]);
   let ottPrice = 0;
+  let logosHTML = "";
   if(selectedOTT !== "none"){
-    ottPrice = ottPlans[selectedOTT].price[planType];
+    let plan = ottPlans[selectedOTT];
+    ottPrice = plan.price[planType];
+    // 🔥 generate logos
+    logosHTML = `
+      <div class="ott-logos">
+        ${plan.apps.map(app=>{
+          return ottLogos[app]
+            ? `<img src="${ottLogos[app]}">`
+            : "";
+        }).join("")}
+      </div>
+    `;
   }
   let total = base + ottPrice;
-  document.getElementById("selectedText").innerText =
-    `Total: ₹${total} (Base ₹${base} + OTT ₹${ottPrice})`;
-
+  document.getElementById("selectedText").innerHTML =
+    `Total: ₹${total}<br>
+     <span style="font-size:12px">
+       Base ₹${base} + OTT ₹${ottPrice}
+     </span>
+     ${logosHTML}`;
   document.getElementById("planInput").value =
     `₹${total} | ${selectedPlan} | OTT: ${selectedOTT}`;
 }
