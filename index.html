@@ -52,7 +52,24 @@ body{
       #0b1f4a url('https://jtommnchn-lab.github.io/Banner.jpg') center/contain no-repeat;
   }
 }
+.ott-options{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin-top:10px;
+}
 
+.ott-options label{
+  background:#ffffff20;
+  padding:8px 12px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+#ottPreview{
+  margin-top:12px;
+}
 /* TABS */
 .tabs{
   display:flex;
@@ -90,7 +107,6 @@ body{
   min-height:260px;
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
-  scroll-padding:0 50%;
 }
 
 .plans::-webkit-scrollbar{display:none;}
@@ -125,7 +141,29 @@ body{
   box-shadow:0 0 20px rgba(255,152,0,0.6);
   transform:scale(1.05);
 }
+.ott-logos{
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-top:8px;
+  flex-wrap:wrap;
+}
 
+.ott-logos img{
+  height:20px;
+  width:auto;
+  background:white;
+  padding:2px;
+  border-radius:4px;
+}
+
+.more-btn{
+  font-size:11px;
+  color:#003a8f;
+  cursor:pointer;
+  margin-top:4px;
+  display:block;
+}
 .badge{
   background:#ff9800;
   color:white;
@@ -133,6 +171,16 @@ body{
   border-radius:4px;
   font-size:12px;
   margin-bottom:8px;
+  display:inline-block;
+}
+
+.ott-badge{
+  background:#673ab7;
+  color:white;
+  font-size:11px;
+  padding:3px 6px;
+  border-radius:4px;
+  margin-bottom:6px;
   display:inline-block;
 }
 
@@ -180,9 +228,14 @@ body{
 .selected-box{
   display:none;
   text-align:center;
-  background:#dff0d8;
-  color:#2e7d32;
-  padding:10px;
+  background:#2e7d32;
+  color:white;
+  padding:12px;
+  margin:15px auto;
+  max-width:500px;
+  border-radius:10px;
+  font-weight:bold;
+  box-shadow:0 5px 20px rgba(0,0,0,0.2);
 }
 
 /* FORM */
@@ -221,6 +274,26 @@ button{
   font-weight:bold;
   cursor:pointer;
 }
+.type-switch{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:15px;
+}
+
+.type-btn{
+  padding:8px 16px;
+  border:none;
+  border-radius:20px;
+  background:#ffffff20;
+  color:white;
+  cursor:pointer;
+}
+
+.type-btn.active{
+  background:#ff9800;
+  color:white;
+}
 </style>
 </head>
 
@@ -234,7 +307,14 @@ button{
 
 <!-- HERO -->
 <div class="hero"></div>
-
+<div class="type-switch">
+  <button class="type-btn active" onclick="setCategory('nonott',this)">
+    📶 Non-OTT
+  </button>
+  <button class="type-btn" onclick="setCategory('ott',this)">
+    🎬 OTT + Apps
+  </button>
+</div>
 <!-- TABS -->
 <div class="tabs">
   <button class="tab active" onclick="setType('monthly',this)">Monthly</button>
@@ -242,7 +322,12 @@ button{
   <button class="tab" onclick="setType('half',this)">Half-Yearly</button>
   <button class="tab" onclick="setType('yearly',this)">Yearly</button>
 </div>
-
+<div style="text-align:center;margin-top:10px">
+  <label style="cursor:pointer">
+    <input type="checkbox" id="ottToggle" onchange="toggleOTT()">
+    🎬 Add OTT Pack
+  </label>
+</div>
 <!-- CAROUSEL -->
 <div class="plans-wrapper">
   <button class="carousel-btn left" onclick="scrollPlans(-1)">◀</button>
@@ -253,7 +338,32 @@ button{
 <div id="selectedBox" class="selected-box">
 Selected Plan: <span id="selectedText"></span>
 </div>
-
+<div id="ottSection" style="display:none; text-align:center; margin:20px">
+  <h3>🎬 Add OTT Pack (Optional)</h3>
+  <div class="ott-options">
+    <label>
+      <input type="radio" name="ott" value="none" checked onclick="selectOTT('none')">
+      No OTT
+    </label>
+    <label>
+      <input type="radio" name="ott" value="basic" onclick="selectOTT('basic')">
+      OTT Basic
+    </label>
+    <label>
+      <input type="radio" name="ott" value="plus" onclick="selectOTT('plus')">
+      OTT Basic Plus
+    </label>
+    <label>
+      <input type="radio" name="ott" value="premium" onclick="selectOTT('premium')">
+      OTT Premium
+    </label>
+    <label>
+      <input type="radio" name="ott" value="premiumplus" onclick="selectOTT('premiumplus')">
+      OTT Premium Plus
+    </label>
+  </div>
+  <div id="ottPreview"></div>
+</div>
 <!-- FORM -->
 <div class="form-section" id="formSection">
   <div class="form">
@@ -268,8 +378,47 @@ Selected Plan: <span id="selectedText"></span>
 
 <script>
 let selectedPlan="",planType="monthly",userLat="",userLng="";
+let category = "nonott";
+let isOTT = false;  
+let selectedOTT = "none";
 
-const plans=[
+const ottPlans = {
+basic:{
+  name:"OTT Basic",
+  price:{monthly:151,quarterly:454,half:908,yearly:1817},
+  apps:["Zee5","SonyLIV","SunNxt","Aha","Discovery+"]
+},
+plus:{
+  name:"OTT Basic Plus",
+  price:{monthly:216,quarterly:647,half:1295,yearly:2590},
+  apps:["JioHotstar","Zee5","SonyLIV","SunNxt","Aha"]
+},
+premium:{
+  name:"OTT Premium",
+  price:{monthly:239,quarterly:718,half:1436,yearly:2873},
+  apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"]
+},
+premiumplus:{
+  name:"OTT Premium Plus",
+  price:{monthly:282,quarterly:847,half:1695,yearly:3389},
+  apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"]
+}
+}; 
+const ottLogos = {
+"Zee5":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Zee5_Logo_2018-2025.svg",
+"SonyLIV":"https://upload.wikimedia.org/wikipedia/commons/f/f7/SonyLIV_2020.png",
+"SunNxt":"https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Sun_NXT_logo_small.png",
+"Aha":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Aha_OTT_Logo.svg/500px-Aha_OTT_Logo.svg.png",
+"Discovery+":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2019_Discovery_logo.svg/960px-2019_Discovery_logo.svg.png",
+"Hungama":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Hungama_logo.png/960px-Hungama_logo.png",
+"Fancode":"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Fancode.png/960px-Fancode.png",
+"ShemarooMe":"https://upload.wikimedia.org/wikipedia/en/b/b9/Shemaroo_Entertainment_Logo.png",
+"ShortsTV":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Shorts_logo.jpg/960px-Shorts_logo.jpg",
+"Amazon Prime":"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
+"JioHotstar":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JioHotstar_2025.png/960px-JioHotstar_2025.png"
+};  
+const plansData = {
+nonott:[
 {name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
 {name:"Ghar Ka WiFi",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
 {name:"Fibre Basic",speed:"60 Mbps",price:{monthly:499,quarterly:1767,half:3533,yearly:7066}},
@@ -277,13 +426,48 @@ const plans=[
 {name:"Fibre TB",speed:"150 Mbps",price:{monthly:799,quarterly:2829,half:5657,yearly:9900}},
 {name:"Fibre Value Plus",speed:"150 Mbps",price:{monthly:849,quarterly:3006,half:6011,yearly:10520}},
 {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
-];
+],
+
+ott:[
+{name:"OTT Basic",apps:["Zee5","SonyLIV","SunNxt","Aha","Discovery+"],
+price:{monthly:159,quarterly:454,half:908,yearly:1817}},
+{name:"OTT Basic Plus",apps:["JioHotstar","Zee5","SonyLIV","SunNxt","Aha"],
+price:{monthly:224,quarterly:647,half:1295,yearly:2590}},
+{name:"OTT Premium",apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"],
+price:{monthly:248,quarterly:718,half:1436,yearly:2873},popular:true},
+{name:"OTT Premium Plus",apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"],
+price:{monthly:289,quarterly:847,half:1695,yearly:3389}}
+]
+};  
+
 
 window.onload = function(){
+
   render();
   detectLocation();
+
+  // ✅ Attach ONCE (correct place)
+  const plansContainer = document.getElementById("plans");
+
+  let scrollTimeout;
+
+  plansContainer.addEventListener("scroll", () => {
+
+    clearTimeout(scrollTimeout);
+
+    scrollTimeout = setTimeout(() => {
+      autoSelectCenter();
+    }, 120);
+
+  });
+
 }
 
+function toggleOTT(){
+  isOTT = document.getElementById("ottToggle").checked;
+  render();
+}
+  
 function detectLocation(){
   const areaInput = document.getElementById("area");
 
@@ -314,34 +498,57 @@ function detectLocation(){
 function render(){
   let c = document.getElementById("plans");
   c.innerHTML = "";
+ let plans = plansData[category];
+ plans.forEach(p=>{
+ let basePrice = p.price[planType];
+ let finalPrice = basePrice;
+ if(isOTT){
+  finalPrice += ottAddon[planType];
+ }
+if(planType === "quarterly") freeText = "🎁 7 Days FREE";
+if(planType === "half") freeText = "🎁 19 Days FREE";
+if(planType === "yearly") freeText = "🎁 1 Month FREE";
+let appsHTML = "";
 
-  plans.forEach(p=>{
-    let price = p.price[planType];
-
+if(isOTT){
+  let apps = ["Amazon Prime","JioHotstar","Zee5","SonyLIV"];
+  let logos = apps.map(app=>{
+    return `<img src="${ottLogos[app]}" style="height:20px">`;
+  }).join("");
+  appsHTML = `<div class="ott-logos">${logos}</div>`;
+}
     c.innerHTML += `
     <div class="card ${p.popular ? 'popular' : ''}"
     onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
 
       ${p.popular ? '<div class="badge">Most Popular</div>' : ''}
-
+      ${freeText ? `<div class="badge">${freeText}</div>` : ''}
+      ${category === "ott" ? '<div class="ott-badge">OTT Included</div>' : ''}
       <h3>${p.name}</h3>
       <h2>₹${price}</h2>
       <p>${p.speed}</p>
+      ${appsHTML}
 
       <button onclick="event.stopPropagation();
-      selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
+      selectPlan(this.closest('.card'),'${p.name}','${finalPrice}','${p.speed}')">
       Select</button>
 
     </div>`;
   });
-
+  document.getElementById("ottSection").style.display="block";
   setTimeout(centerPopular,150);
 }
 
 function centerCard(el){
   const container = document.getElementById("plans");
-  container.scrollTo({
-    left: el.offsetLeft - container.offsetWidth/2 + el.offsetWidth/2,
+  const cardRect = el.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+  const offset =
+    (cardRect.left - containerRect.left) -
+    (container.offsetWidth / 2) +
+    (cardRect.width / 2);
+  container.scrollBy({
+    left: offset,
     behavior: "smooth"
   });
 }
@@ -361,20 +568,105 @@ function selectPlan(el,n,p,s){
   document.getElementById("selectedText").innerText=selectedPlan;
   document.getElementById("planInput").value=selectedPlan;
 
+ if(!el.classList.contains("selected")){
   centerCard(el);
+}
 }
 
 function scrollPlans(dir){
-  document.getElementById("plans").scrollBy({left:dir*250,behavior:"smooth"});
+  const container = document.getElementById("plans");
+  const cardWidth = container.querySelector(".card").offsetWidth + 16;
+  container.scrollBy({
+    left: dir * cardWidth,
+    behavior:"smooth"
+  });
 }
 
-function setType(t,el){
-  planType=t;
-  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+function setCategory(cat,el){
+  category = cat;
+  document.querySelectorAll(".type-btn")
+    .forEach(b=>b.classList.remove("active"));
   el.classList.add("active");
   render();
 }
+  
+function autoSelectCenter(){
+  const cards = document.querySelectorAll(".card");
+  const container = document.getElementById("plans");
+  let closest = null;
+  let minDistance = Infinity;
+  const center = container.offsetWidth / 2;
 
+  cards.forEach(card=>{
+    const cardCenter =
+      card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
+    const dist = Math.abs(center - cardCenter);
+
+    if(dist < minDistance){
+      minDistance = dist;
+      closest = card;
+    }
+  });
+
+  if(closest){
+    closest.click();
+  }
+}
+function selectOTT(type){
+  selectedOTT = type;
+  if(type === "none"){
+    document.getElementById("ottPreview").innerHTML = "";
+    updatePrice();
+    return;
+  }
+  let plan = ottPlans[type];
+  let logos = plan.apps.map(app=>{
+    return `<img src="${ottLogos[app]}" style="height:22px;margin:2px">`;
+  }).join("");
+
+  document.getElementById("ottPreview").innerHTML = `
+    <p><b>${plan.name}</b></p>
+    <div>${logos}</div>
+  `;
+  updatePrice();
+}
+
+function updatePrice(){
+  if(!selectedPlan) return;
+  let base = parseInt(selectedPlan.match(/₹(\d+)/)[1]);
+  let ottPrice = 0;
+  if(selectedOTT !== "none"){
+    ottPrice = ottPlans[selectedOTT].price[planType];
+  }
+  let total = base + ottPrice;
+  document.getElementById("selectedText").innerText =
+    `Total: ₹${total} (Base ₹${base} + OTT ₹${ottPrice})`;
+
+  document.getElementById("planInput").value =
+    `₹${total} | ${selectedPlan} | OTT: ${selectedOTT}`;
+}
+  
+function showApps(apps){
+  const list = document.getElementById("appList");
+  list.innerHTML = apps.map(app=>`<p>• ${app}</p>`).join("");
+  document.getElementById("appPopup").style.display="flex";
+}
+
+function closePopup(){
+  document.getElementById("appPopup").style.display="none";
+}
+  
+  function setType(type, el){
+  // update selected plan type
+  planType = type;
+  // toggle active button UI
+  document.querySelectorAll(".tab")
+    .forEach(btn => btn.classList.remove("active"));
+  el.classList.add("active");
+  // re-render plans
+  render();
+}
+  
 async function submitForm(){
   let name=document.getElementById("name").value;
   let phone=document.getElementById("phone").value;
@@ -390,6 +682,23 @@ async function submitForm(){
   window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0APlan:${plan}`);
 }
 </script>
+<div id="appPopup" style="display:none;
+position:fixed;inset:0;
+background:rgba(0,0,0,0.7);
+z-index:999;
+align-items:center;
+justify-content:center;">
 
+  <div style="background:white;color:black;
+  padding:20px;border-radius:10px;
+  max-width:300px;width:90%;
+  max-height:70vh;overflow:auto;">
+
+    <h3>Included OTT Apps</h3>
+    <div id="appList"></div>
+
+    <button onclick="closePopup()">Close</button>
+  </div>
+</div>
 </body>
 </html>
