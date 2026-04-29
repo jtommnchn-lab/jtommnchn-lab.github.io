@@ -481,38 +481,28 @@ function detectLocation(){
 function render(){
   let c = document.getElementById("plans");
   c.innerHTML = "";
- let plans = plansData.nonott;
- plans.forEach(p=>{
- let basePrice = p.price[planType];
- let finalPrice = basePrice;
-if(planType === "quarterly") freeText = "🎁 7 Days FREE";
-if(planType === "half") freeText = "🎁 19 Days FREE";
-if(planType === "yearly") freeText = "🎁 1 Month FREE";
-let appsHTML = "";
+  let plans = plansData.nonott;   // ✅ ONLY INTERNET PLANS
+  plans.forEach(p=>{
+    let basePrice = p.price[planType];
+    // ✅ FIX: declare properly
+    let freeText = "";
+    if(planType === "quarterly") freeText = "🎁 7 Days FREE";
+    if(planType === "half") freeText = "🎁 19 Days FREE";
+    if(planType === "yearly") freeText = "🎁 1 Month FREE";
 
-if(isOTT){
-  let apps = ["Amazon Prime","JioHotstar","Zee5","SonyLIV"];
-  let logos = apps.map(app=>{
-    return `<img src="${ottLogos[app]}" style="height:20px">`;
-  }).join("");
-  appsHTML = `<div class="ott-logos">${logos}</div>`;
-}
     c.innerHTML += `
     <div class="card ${p.popular ? 'popular' : ''}"
     onclick="selectPlan(this,'${p.name}','${basePrice}','${p.speed}')">
 
       ${p.popular ? '<div class="badge">Most Popular</div>' : ''}
       ${freeText ? `<div class="badge">${freeText}</div>` : ''}
-      ${category === "ott" ? '<div class="ott-badge">OTT Included</div>' : ''}
+
       <h3>${p.name}</h3>
       <h2>₹${basePrice}</h2>
       <p>${p.speed}</p>
-      ${appsHTML}
-
       <button onclick="event.stopPropagation();
-      selectPlan(this.closest('.card'),'${p.name}','${finalPrice}','${p.speed}')">
+      selectPlan(this.closest('.card'),'${p.name}','${basePrice}','${p.speed}')">
       Select</button>
-
     </div>`;
   });
   setTimeout(centerPopular,150);
