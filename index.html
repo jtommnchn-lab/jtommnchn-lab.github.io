@@ -307,14 +307,7 @@ button{
 
 <!-- HERO -->
 <div class="hero"></div>
-<div class="type-switch">
-  <button class="type-btn active" onclick="setCategory('nonott',this)">
-    📶 Non-OTT
-  </button>
-  <button class="type-btn" onclick="setCategory('ott',this)">
-    🎬 OTT + Apps
-  </button>
-</div>
+
 <!-- TABS -->
 <div class="tabs">
   <button class="tab active" onclick="setType('monthly',this)">Monthly</button>
@@ -322,12 +315,7 @@ button{
   <button class="tab" onclick="setType('half',this)">Half-Yearly</button>
   <button class="tab" onclick="setType('yearly',this)">Yearly</button>
 </div>
-<div style="text-align:center;margin-top:10px">
-  <label style="cursor:pointer">
-    <input type="checkbox" id="ottToggle" onchange="toggleOTT()">
-    🎬 Add OTT Pack
-  </label>
-</div>
+
 <!-- CAROUSEL -->
 <div class="plans-wrapper">
   <button class="carousel-btn left" onclick="scrollPlans(-1)">◀</button>
@@ -378,7 +366,6 @@ Selected Plan: <span id="selectedText"></span>
 
 <script>
 let selectedPlan="",planType="monthly",userLat="",userLng="";
-let category = "nonott";
 let isOTT = false;  
 let selectedOTT = "none";
 
@@ -463,11 +450,7 @@ window.onload = function(){
 
 }
 
-function toggleOTT(){
-  isOTT = document.getElementById("ottToggle").checked;
-  render();
-}
-  
+ 
 function detectLocation(){
   const areaInput = document.getElementById("area");
 
@@ -498,13 +481,10 @@ function detectLocation(){
 function render(){
   let c = document.getElementById("plans");
   c.innerHTML = "";
- let plans = plansData[category];
+ let plans = plansData.nonott;
  plans.forEach(p=>{
  let basePrice = p.price[planType];
  let finalPrice = basePrice;
- if(isOTT){
-  finalPrice += ottAddon[planType];
- }
 if(planType === "quarterly") freeText = "🎁 7 Days FREE";
 if(planType === "half") freeText = "🎁 19 Days FREE";
 if(planType === "yearly") freeText = "🎁 1 Month FREE";
@@ -519,13 +499,13 @@ if(isOTT){
 }
     c.innerHTML += `
     <div class="card ${p.popular ? 'popular' : ''}"
-    onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
+    onclick="selectPlan(this,'${p.name}','${basePrice}','${p.speed}')">
 
       ${p.popular ? '<div class="badge">Most Popular</div>' : ''}
       ${freeText ? `<div class="badge">${freeText}</div>` : ''}
       ${category === "ott" ? '<div class="ott-badge">OTT Included</div>' : ''}
       <h3>${p.name}</h3>
-      <h2>₹${price}</h2>
+      <h2>₹${basePrice}</h2>
       <p>${p.speed}</p>
       ${appsHTML}
 
@@ -535,7 +515,6 @@ if(isOTT){
 
     </div>`;
   });
-  document.getElementById("ottSection").style.display="block";
   setTimeout(centerPopular,150);
 }
 
@@ -563,14 +542,11 @@ function selectPlan(el,n,p,s){
 
   document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
   el.classList.add("selected");
-
+  document.getElementById("ottSection").style.display="block";
   document.getElementById("selectedBox").style.display="block";
   document.getElementById("selectedText").innerText=selectedPlan;
   document.getElementById("planInput").value=selectedPlan;
-
- if(!el.classList.contains("selected")){
   centerCard(el);
-}
 }
 
 function scrollPlans(dir){
@@ -582,14 +558,6 @@ function scrollPlans(dir){
   });
 }
 
-function setCategory(cat,el){
-  category = cat;
-  document.querySelectorAll(".type-btn")
-    .forEach(b=>b.classList.remove("active"));
-  el.classList.add("active");
-  render();
-}
-  
 function autoSelectCenter(){
   const cards = document.querySelectorAll(".card");
   const container = document.getElementById("plans");
