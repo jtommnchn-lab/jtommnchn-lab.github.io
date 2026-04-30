@@ -13,7 +13,24 @@ body{
   background:#0b1f4a;
   color:white;
 }
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  background:white;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 15px;
+}
 
+.topbar img{height:32px;}
+
+.actions a{
+  margin-left:10px;
+  text-decoration:none;
+  font-size:20px;
+}
 /* HEADER */
 .header{
   display:flex;
@@ -75,6 +92,61 @@ body{
   transition:0.2s;
 }
 .ott-logos img:hover{
+  transform:scale(1.1);
+}
+
+.ott-cards{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  padding:10px;
+}
+
+.ott-card{
+  background:white;
+  color:black;
+  border-radius:12px;
+  padding:12px;
+  cursor:pointer;
+  transition:0.25s;
+  box-shadow:0 5px 15px rgba(0,0,0,0.15);
+}
+
+.ott-card.active{
+  border:2px solid #2e7d32;
+  transform:scale(1.03);
+}
+
+.ott-title{
+  font-weight:bold;
+}
+
+.ott-price{
+  color:#003a8f;
+  font-weight:bold;
+  margin-top:5px;
+}
+
+/* OTT logos grid */
+.ott-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+  margin-top:8px;
+}
+
+.ott-grid img{
+  width:100%;
+  height:40px;
+  object-fit:contain;
+  background:white;
+  padding:4px;
+  border-radius:6px;
+  transition:0.2s;
+}
+
+/* 🔥 animation */
+.ott-grid img:hover{
   transform:scale(1.1);
 }
   
@@ -305,11 +377,38 @@ button{
   background:#ff9800;
   color:white;
 }
+.bottom-bar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  color:black;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:10px 15px;
+  box-shadow:0 -5px 15px rgba(0,0,0,0.2);
+}
+
+.bottom-bar button{
+  background:#25D366;
+  color:white;
+  border:none;
+  padding:10px 15px;
+  border-radius:8px;
+}
 </style>
 </head>
 
 <body>
-
+<div class="topbar">
+  <img src="https://jtommnchn-lab.github.io/bsnl-logo.png">
+  <div class="actions">
+    <a href="tel:9447072230">📞</a>
+    <a href="https://wa.me/919447072230">💬</a>
+  </div>
+</div>
 <!-- HEADER -->
 <div class="header">
   <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" class="logo">
@@ -337,31 +436,9 @@ button{
 <div id="selectedBox" class="selected-box">
 Selected Plan: <span id="selectedText"></span>
 </div>
-<div id="ottSection" style="display:none; text-align:center; margin:20px">
-  <h3>🎬 Add OTT Pack (Optional)</h3>
-  <div class="ott-options">
-    <label>
-      <input type="radio" name="ott" value="none" checked onclick="selectOTT('none')">
-      No OTT
-    </label>
-    <label>
-      <input type="radio" name="ott" value="basic" onclick="selectOTT('basic')">
-      OTT Basic
-    </label>
-    <label>
-      <input type="radio" name="ott" value="plus" onclick="selectOTT('plus')">
-      OTT Basic Plus
-    </label>
-    <label>
-      <input type="radio" name="ott" value="premium" onclick="selectOTT('premium')">
-      OTT Premium
-    </label>
-    <label>
-      <input type="radio" name="ott" value="premiumplus" onclick="selectOTT('premiumplus')">
-      OTT Premium Plus
-    </label>
-  </div>
-  <div id="ottPreview"></div>
+<div id="ottSection" class="ott-grid-section" style="display:none">
+  <h3>🎬 Add OTT Pack</h3>
+  <div class="ott-cards" id="ottCards"></div>
 </div>
 <!-- FORM -->
 <div class="form-section" id="formSection">
@@ -489,6 +566,41 @@ function detectLocation(){
   });
 }
 
+  function renderOTT(){
+
+  let container = document.getElementById("ottCards");
+  container.innerHTML = "";
+
+  Object.keys(ottPlans).forEach(key=>{
+
+    let p = ottPlans[key];
+
+    let logos = p.apps.slice(0,6).map(app=>{
+      return ottLogos[app]
+        ? `<img src="${ottLogos[app]}">`
+        : "";
+    }).join("");
+
+    container.innerHTML += `
+    <div class="ott-card" onclick="selectOTTCard('${key}',this)">
+      <div class="ott-title">${p.name}</div>
+      <div class="ott-price">₹${p.price[planType]}</div>
+
+      <div class="ott-grid">
+        ${logos}
+      </div>
+    </div>`;
+  });
+}
+  
+function selectOTTCard(type, el){
+  selectedOTT = type;
+  document.querySelectorAll(".ott-card")
+    .forEach(c=>c.classList.remove("active"));
+  el.classList.add("active");
+  updatePrice();
+}  
+  
 function render(){
   let c = document.getElementById("plans");
   c.innerHTML = "";
@@ -556,6 +668,7 @@ function selectPlan(el,n,p,s){
   document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
   el.classList.add("selected");
   document.getElementById("ottSection").style.display="block";
+  renderOTT();
   document.getElementById("selectedBox").style.display="block";
   document.getElementById("selectedText").innerText=selectedPlan;
   document.getElementById("planInput").value=selectedPlan;
@@ -642,6 +755,7 @@ function updatePrice(){
      ${logosHTML}`;
   document.getElementById("planInput").value =
     `₹${total} | ${selectedPlan} | OTT: ${selectedOTT}`;
+  document.getElementById("bottomPrice").innerText = `₹${total}`;
 }
   
 function showApps(apps){
@@ -725,5 +839,9 @@ justify-content:center;">
     <button onclick="closePopup()">Close</button>
   </div>
 </div>
+<div id="bottomBar" class="bottom-bar">
+  <div id="bottomPrice">₹0</div>
+  <button onclick="submitForm()">Get Connection</button>
+</div>  
 </body>
 </html>
