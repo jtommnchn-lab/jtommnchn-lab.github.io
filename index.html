@@ -380,6 +380,7 @@ let selectedPlan="",planType="monthly",userLat="",userLng="";
 let isOTT = false;  
 let isAutoScrolling = false;  
 let selectedOTT = "none";
+let isTabSwitching = false;  
 
 const ottPlans = {
 basic:{
@@ -452,7 +453,7 @@ window.onload = function(){
 
  plansContainer.addEventListener("scroll", () => {
     updateScale();
-  if(isAutoScrolling) return;   // ✅ prevents loop
+ if(isAutoScrolling || isTabSwitching) return;  // ✅ prevents loop
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
     autoSelectCenter();
@@ -540,7 +541,13 @@ function centerCard(el){
 
 function centerPopular(){
   const popularCard = document.querySelector(".popular");
-  if(popularCard) popularCard.click();
+  if(!popularCard) return;
+  // just center visually, DO NOT trigger click
+  centerCard(popularCard);
+  // manually mark selected (without triggering scroll loop)
+  document.querySelectorAll(".card")
+    .forEach(c=>c.classList.remove("selected"));
+  popularCard.classList.add("selected");
 }
 
 function selectPlan(el,n,p,s){
@@ -647,15 +654,17 @@ function closePopup(){
   document.getElementById("appPopup").style.display="none";
 }
   
-  function setType(type, el){
-  // update selected plan type
+ function setType(type, el){
   planType = type;
-  // toggle active button UI
   document.querySelectorAll(".tab")
     .forEach(btn => btn.classList.remove("active"));
   el.classList.add("active");
-  // re-render plans
+  isTabSwitching = true;   // 🔥 mark switching
   render();
+  // stop after render settles
+  setTimeout(()=>{
+    isTabSwitching = false;
+  }, 500);
 }
 
 function updateScale(){
