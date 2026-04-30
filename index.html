@@ -129,7 +129,8 @@ body{
   text-align:center;
   scroll-snap-align:center;
   cursor:pointer;
-  transition:0.3s ease;
+  transition:0.2s ease;
+  transform-origin:center;
 }
 
 @media(max-width:768px){
@@ -450,6 +451,7 @@ window.onload = function(){
   let scrollTimeout;
 
  plansContainer.addEventListener("scroll", () => {
+    updateScale();
   if(isAutoScrolling) return;   // ✅ prevents loop
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
@@ -513,7 +515,10 @@ function render(){
       Select</button>
     </div>`;
   });
-  setTimeout(centerPopular,150);
+ setTimeout(()=>{
+  centerPopular();
+  updateScale();   // 🔥 IMPORTANT
+},150);
 }
 
 function centerCard(el){
@@ -651,6 +656,31 @@ function closePopup(){
   el.classList.add("active");
   // re-render plans
   render();
+}
+
+function updateScale(){
+
+  const cards = document.querySelectorAll(".card");
+  const container = document.getElementById("plans");
+
+  const center = container.offsetWidth / 2;
+
+  cards.forEach(card=>{
+
+    const cardCenter =
+      card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
+
+    const distance = Math.abs(center - cardCenter);
+
+    // 🎯 scaling logic
+    let scale = 1 - (distance / 400);
+
+    scale = Math.max(0.75, Math.min(1.1, scale));
+
+    card.style.transform = `scale(${scale})`;
+    card.style.zIndex = Math.round(scale * 10);
+
+  });
 }
   
 async function submitForm(){
