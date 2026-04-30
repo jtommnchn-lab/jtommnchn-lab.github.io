@@ -377,6 +377,7 @@ Selected Plan: <span id="selectedText"></span>
 <script>
 let selectedPlan="",planType="monthly",userLat="",userLng="";
 let isOTT = false;  
+let isAutoScrolling = false;  
 let selectedOTT = "none";
 
 const ottPlans = {
@@ -448,16 +449,13 @@ window.onload = function(){
 
   let scrollTimeout;
 
-  plansContainer.addEventListener("scroll", () => {
-
-    clearTimeout(scrollTimeout);
-
-    scrollTimeout = setTimeout(() => {
-      autoSelectCenter();
-    }, 120);
-
-  });
-
+ plansContainer.addEventListener("scroll", () => {
+  if(isAutoScrolling) return;   // ✅ prevents loop
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    autoSelectCenter();
+  }, 120);
+});
 }
 
  
@@ -520,16 +518,19 @@ function render(){
 
 function centerCard(el){
   const container = document.getElementById("plans");
-  const cardRect = el.getBoundingClientRect();
-  const containerRect = container.getBoundingClientRect();
-  const offset =
-    (cardRect.left - containerRect.left) -
+  isAutoScrolling = true;
+  const scrollLeft =
+    el.offsetLeft -
     (container.offsetWidth / 2) +
-    (cardRect.width / 2);
-  container.scrollBy({
-    left: offset,
+    (el.offsetWidth / 2);
+  container.scrollTo({
+    left: scrollLeft,
     behavior: "smooth"
   });
+  // stop flag after animation
+  setTimeout(()=>{
+    isAutoScrolling = false;
+  }, 400);
 }
 
 function centerPopular(){
@@ -577,7 +578,9 @@ function autoSelectCenter(){
   });
 
   if(closest){
-    closest.click();
+    closest.click();if(closest && !closest.classList.contains("selected")){
+  closest.click();
+}
   }
 }
 function selectOTT(type){
