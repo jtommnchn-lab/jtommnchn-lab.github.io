@@ -685,6 +685,7 @@ function selectPlan(el,n,p,s){
   document.getElementById("planInput").value = selectedPlan;
   centerCard(el);
   document.getElementById("ottSection").style.display="block";
+  renderOTT();
   updatePrice();   // 🔥 NOW ALWAYS WORKS
 }
 
