@@ -111,7 +111,10 @@ body{
   transition:0.25s;
   box-shadow:0 5px 15px rgba(0,0,0,0.15);
 }
-
+.ott-card:first-child{
+  background:#f5f5f5;
+  border:2px dashed #ccc;
+}
 .ott-card.active{
   border:2px solid #2e7d32;
   transform:scale(1.03);
@@ -632,24 +635,30 @@ function detectLocation(){
 function renderOTT(){
   let container = document.getElementById("ottCards");
   container.innerHTML = "";
+  // ✅ ADD ONLY ONCE (outside loop)
+  container.innerHTML += `
+  <div class="ott-card ${selectedOTT==='none'?'active':''}" 
+  onclick="selectOTTCard('none',this)">
+    <div class="ott-title">🚫 No OTT</div>
+    <div class="ott-price">₹0</div>
+  </div>`;
+
+  // 🔁 LOOP ONLY FOR REAL OTT PLANS
   Object.keys(ottPlans).forEach(key=>{
+
     let p = ottPlans[key];
     let isActive = key === selectedOTT ? "active" : "";
+
     let logos = p.apps.slice(0,6).map(app=>{
       return ottLogos[app]
         ? `<img src="${ottLogos[app]}">`
         : "";
     }).join("");
-    container.innerHTML += `
-    <div class="ott-card ${selectedOTT==='none'?'active':''}" 
-        onclick="selectOTTCard('none',this)">
-    <div class="ott-title">No OTT</div>
-    <div class="ott-price">₹0</div>
-    </div>`;
+
     container.innerHTML += `
     <div class="ott-card ${isActive}" onclick="selectOTTCard('${key}',this)">
       <div class="ott-title">${p.name}</div>
-      <div class="ott-price">&#8377; ${p.price[planType]}</div>
+      <div class="ott-price">₹${p.price[planType]}</div>
       <div class="ott-grid">${logos}</div>
     </div>`;
   });
