@@ -470,6 +470,7 @@ let isOTT = false;
 let isAutoScrolling = false;  
 let selectedOTT = "none";
 let isTabSwitching = false;  
+let selectedBasePrice = 0;  
 
 const ottPlans = {
 basic:{
@@ -675,16 +676,16 @@ function centerPopular(){
 }
 
 function selectPlan(el,n,p,s){
+  selectedBasePrice = p;   // ✅ store clean number
   selectedPlan = `${n} - ₹${p} (${s})`;
-
   document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
   el.classList.add("selected");
-  document.getElementById("ottSection").style.display="block";
-  renderOTT();
   document.getElementById("selectedBox").style.display="block";
-  document.getElementById("selectedText").innerText=selectedPlan;
-  document.getElementById("planInput").value=selectedPlan;
+  document.getElementById("selectedText").innerText = selectedPlan;
+  document.getElementById("planInput").value = selectedPlan;
   centerCard(el);
+  document.getElementById("ottSection").style.display="block";
+  updatePrice();   // 🔥 NOW ALWAYS WORKS
 }
 
 function scrollPlans(dir){
@@ -740,34 +741,21 @@ function selectOTT(type){
 }
 
 function updatePrice(){
-  if(!selectedPlan) return;
-  let base = parseInt(selectedPlan.match(/₹(\d+)/)[1]);
+  if(!selectedBasePrice) return;
   let ottPrice = 0;
-  let logosHTML = "";
   if(selectedOTT !== "none"){
-    let plan = ottPlans[selectedOTT];
-    ottPrice = plan.price[planType];
-    // 🔥 generate logos
-    logosHTML = `
-      <div class="ott-logos">
-        ${plan.apps.map(app=>{
-          return ottLogos[app]
-            ? `<img src="${ottLogos[app]}">`
-            : "";
-        }).join("")}
-      </div>
-    `;
+    ottPrice = ottPlans[selectedOTT].price[planType];
   }
-  let total = base + ottPrice;
+  let total = selectedBasePrice + ottPrice;
+  // ✅ bottom bar update
+  document.getElementById("bottomPrice").innerHTML = `&#8377; ${total}`;
+  // optional display
   document.getElementById("selectedText").innerHTML =
-    `Total: ₹${total}<br>
-     <span style="font-size:12px">
-       Base ₹${base} + OTT ₹${ottPrice}
-     </span>
-     ${logosHTML}`;
+    `₹${total} <br><span style="font-size:12px">
+     Base ₹${selectedBasePrice} + OTT ₹${ottPrice}
+     </span>`;
   document.getElementById("planInput").value =
-    `₹${total} | ${selectedPlan} | OTT: ${selectedOTT}`;
-  document.getElementById("bottomPrice").innerText =  `₹${total}`;
+    `₹${total} | Base ₹${selectedBasePrice} | OTT ${selectedOTT}`;
 }
   
 function showApps(apps){
