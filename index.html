@@ -628,29 +628,22 @@ function detectLocation(){
   });
 }
 
-  function renderOTT(){
-
+function renderOTT(){
   let container = document.getElementById("ottCards");
   container.innerHTML = "";
-
   Object.keys(ottPlans).forEach(key=>{
-
     let p = ottPlans[key];
-
+    let isActive = key === selectedOTT ? "active" : "";
     let logos = p.apps.slice(0,6).map(app=>{
       return ottLogos[app]
         ? `<img src="${ottLogos[app]}">`
         : "";
     }).join("");
-
     container.innerHTML += `
-    <div class="ott-card" onclick="selectOTTCard('${key}',this)">
+    <div class="ott-card ${isActive}" onclick="selectOTTCard('${key}',this)">
       <div class="ott-title">${p.name}</div>
-      <div class="ott-price">₹${p.price[planType]}</div>
-
-      <div class="ott-grid">
-        ${logos}
-      </div>
+      <div class="ott-price">&#8377; ${p.price[planType]}</div>
+      <div class="ott-grid">${logos}</div>
     </div>`;
   });
 }
@@ -805,9 +798,10 @@ function updatePrice(){
   let total = base + ottPrice;   // ✅ now always numeric
   document.getElementById("bottomPrice").innerHTML = `&#8377; ${total}`;
   document.getElementById("selectedText").innerHTML =
-    `₹${total} <br><span style="font-size:12px">
-     Base ₹${base} + OTT ₹${ottPrice}
-     </span>`;
+  `Total: ₹${total}<br>
+   <span style="font-size:12px">
+   Base ₹${base} ${ottPrice ? `+ OTT ₹${ottPrice}` : ""}
+   </span>`;
 }
   
 function showApps(apps){
@@ -820,24 +814,21 @@ function closePopup(){
   document.getElementById("appPopup").style.display="none";
 }
   
- function setType(type, el){
+function setType(type, el){
   planType = type;
   document.querySelectorAll(".duration-card")
     .forEach(c=>c.classList.remove("active"));
   el.classList.add("active");
-  render();
-  updatePrice();   // 🔥 keep price in sync
+  render();        // internet
+  renderOTT();     // 🔥 FIX
+  updatePrice();   // 🔥 FIX
 }
-
+  
 function updateScale(){
-
   const cards = document.querySelectorAll(".card");
   const container = document.getElementById("plans");
-
   const center = container.offsetWidth / 2;
-
   cards.forEach(card=>{
-
     const cardCenter =
       card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
 
@@ -850,7 +841,6 @@ function updateScale(){
 
     card.style.transform = `scale(${scale})`;
     card.style.zIndex = Math.round(scale * 10);
-
   });
 }
   
