@@ -422,7 +422,9 @@ button{
   flex-direction:column;   /* 🔥 STACKED */
   gap:8px;
 }
-
+#bottomBar{
+  display:none;
+}
 #bottomPrice{
   font-size:18px;
   font-weight:bold;
@@ -516,7 +518,6 @@ let isOTT = false;
 let isAutoScrolling = false;  
 let selectedOTT = "none";
 let isTabSwitching = false;  
-let selectedBasePrice = 0;  
 const ottPlans = {
 basic:{
   name:"OTT Basic",
@@ -640,6 +641,12 @@ function renderOTT(){
         : "";
     }).join("");
     container.innerHTML += `
+    <div class="ott-card ${selectedOTT==='none'?'active':''}" 
+        onclick="selectOTTCard('none',this)">
+    <div class="ott-title">No OTT</div>
+    <div class="ott-price">₹0</div>
+    </div>`;
+    container.innerHTML += `
     <div class="ott-card ${isActive}" onclick="selectOTTCard('${key}',this)">
       <div class="ott-title">${p.name}</div>
       <div class="ott-price">&#8377; ${p.price[planType]}</div>
@@ -719,7 +726,12 @@ function centerPopular(){
   // manually mark selected (without triggering scroll loop)
   document.querySelectorAll(".card")
     .forEach(c=>c.classList.remove("selected"));
-  popularCard.classList.add("selected");
+  selectPlan(
+  popularCard,
+  popularCard.querySelector("h3").innerText,
+  plansData.nonott.find(p=>p.popular).price[planType],
+  ""
+);
 }
 
 function selectPlan(el,n,p,s){
@@ -732,6 +744,7 @@ function selectPlan(el,n,p,s){
   document.getElementById("selectedBox").style.display="block";
   centerCard(el);
   document.getElementById("ottSection").style.display="block";
+  document.getElementById("bottomBar").style.display = "flex";
   renderOTT();
   updatePrice();
 }
@@ -763,11 +776,9 @@ function autoSelectCenter(){
     }
   });
 
-  if(closest){
-    closest.click();if(closest && !closest.classList.contains("selected")){
+if(closest && !closest.classList.contains("selected")){
   closest.click();
 }
-  }
 }
 function selectOTT(type){
   selectedOTT = type;
@@ -819,9 +830,15 @@ function setType(type, el){
   document.querySelectorAll(".duration-card")
     .forEach(c=>c.classList.remove("active"));
   el.classList.add("active");
-  render();        // internet
-  renderOTT();     // 🔥 FIX
-  updatePrice();   // 🔥 FIX
+  // 🔥 RESET OTT (important)
+  selectedOTT = "none";
+  selectedOTTName = "None";
+  if(selectedBasePrice){
+  renderOTT();
+}
+  render();        
+  renderOTT();     
+  updatePrice();   
 }
   
 function updateScale(){
