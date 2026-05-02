@@ -508,13 +508,15 @@ Selected Plan: <span id="selectedText"></span>
 </div>
 
 <script>
+let selectedPlanName = "";
+let selectedBasePrice = 0;
+let selectedOTTName = "None";  
 let selectedPlan="",planType="monthly",userLat="",userLng="";
 let isOTT = false;  
 let isAutoScrolling = false;  
 let selectedOTT = "none";
 let isTabSwitching = false;  
 let selectedBasePrice = 0;  
-
 const ottPlans = {
 basic:{
   name:"OTT Basic",
@@ -573,7 +575,11 @@ price:{monthly:289,quarterly:847,half:1695,yearly:3389}}
 ]
 };  
 
-
+function getCurrentDate(){
+  return new Date().toLocaleString("en-IN");
+}
+const source = "Website";  
+  
 window.onload = function(){
 
   render();
@@ -651,11 +657,16 @@ function detectLocation(){
   
 function selectOTTCard(type, el){
   selectedOTT = type;
+  if(type === "none"){
+    selectedOTTName = "None";
+  } else {
+    selectedOTTName = ottPlans[type].name;  // ✅ clean name
+  }
   document.querySelectorAll(".ott-card")
     .forEach(c=>c.classList.remove("active"));
   el.classList.add("active");
   updatePrice();
-}  
+}
   
 function render(){
   let c = document.getElementById("plans");
@@ -719,17 +730,17 @@ function centerPopular(){
 }
 
 function selectPlan(el,n,p,s){
-  selectedBasePrice = Number(p);   // ✅ force numeric
+
+  selectedPlanName = n;   // ✅ store only name
+  selectedBasePrice = Number(p);
   selectedPlan = `${n} - ₹${p} (${s})`;
   document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
   el.classList.add("selected");
   document.getElementById("selectedBox").style.display="block";
-  document.getElementById("selectedText").innerText = selectedPlan;
-  document.getElementById("planInput").value = selectedPlan;
   centerCard(el);
   document.getElementById("ottSection").style.display="block";
   renderOTT();
-  updatePrice();   // 🔥 NOW ALWAYS WORKS
+  updatePrice();
 }
 
 function scrollPlans(dir){
@@ -844,19 +855,37 @@ function updateScale(){
 }
   
 async function submitForm(){
-  let name=document.getElementById("name").value;
-  let phone=document.getElementById("phone").value;
-  let area=document.getElementById("area").value;
-  let plan=document.getElementById("planInput").value;
-
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let area = document.getElementById("area").value;
+  let data = {
+    Name: name,
+    Phone: phone,
+    Area: area,
+    Latitude: userLat,
+    Longitude: userLng,
+    "Plan Type": planType,
+    "Selected Plan": selectedPlanName,
+    "OTT Selected": selectedOTTName,
+    Date: getCurrentDate(),
+    Source: "Website"
+  };
+  // 🔥 send to Google Sheet
   await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
     method:"POST",
     mode:"no-cors",
-    body:JSON.stringify({name,phone,area,lat:userLat,lng:userLng,plan})
+    body: JSON.stringify(data)
   });
-
-  window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0APlan:${plan}`);
+  // 🔥 WhatsApp message (clean format)
+  let msg =
+`Name: ${name}
+Phone: ${phone}
+Plan: ${selectedPlanName}
+OTT: ${selectedOTTName}
+Type: ${planType}`;
+  window.open(`https://wa.me/919447072230?text=${encodeURIComponent(msg)}`);
 }
+
 </script>
 <div id="appPopup" style="display:none;
 position:fixed;inset:0;
