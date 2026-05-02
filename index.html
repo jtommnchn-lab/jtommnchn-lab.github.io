@@ -639,8 +639,8 @@ function renderOTT(){
   container.innerHTML += `
   <div class="ott-card ${selectedOTT==='none'?'active':''}" 
   onclick="selectOTTCard('none',this)">
-    <div class="ott-title">🚫 No OTT</div>
-    <div class="ott-price">₹0</div>
+   <div class="ott-title">🚫 No OTT</div>
+  <div class="ott-price">Continue without OTT</div>
   </div>`;
 
   // 🔁 LOOP ONLY FOR REAL OTT PLANS
@@ -726,25 +726,17 @@ function centerCard(el){
     isAutoScrolling = false;
   }, 400);
 }
-
+  
 function centerPopular(){
   const popularCard = document.querySelector(".popular");
   if(!popularCard) return;
-  // just center visually, DO NOT trigger click
   centerCard(popularCard);
-  // manually mark selected (without triggering scroll loop)
   document.querySelectorAll(".card")
     .forEach(c=>c.classList.remove("selected"));
-  selectPlan(
-  popularCard,
-  popularCard.querySelector("h3").innerText,
-  plansData.nonott.find(p=>p.popular).price[planType],
-  ""
-);
+  popularCard.classList.add("selected");
 }
 
 function selectPlan(el,n,p,s){
-
   selectedPlanName = n;   // ✅ store only name
   selectedBasePrice = Number(p);
   selectedPlan = `${n} - ₹${p} (${s})`;
@@ -809,14 +801,16 @@ function selectOTT(type){
 }
 
 function updatePrice(){
-  if(!selectedBasePrice) return;
-  let base = Number(selectedBasePrice);   // ✅ safety
-  let ottPrice = 0;
-  if(selectedOTT !== "none"){
-    ottPrice = Number(ottPlans[selectedOTT].price[planType]);  // ✅ safety
+  if(!selectedBasePrice){
+    document.getElementById("bottomPrice").innerHTML = "₹0";
+    return;
   }
-  let total = base + ottPrice;   // ✅ now always numeric
-  document.getElementById("bottomPrice").innerHTML = `&#8377; ${total}`;
+  let base = Number(selectedBasePrice);
+  let ottPrice = selectedOTT !== "none"
+    ? Number(ottPlans[selectedOTT].price[planType])
+    : 0;
+  let total = base + ottPrice;
+  document.getElementById("bottomPrice").innerHTML = `₹ ${total}`;
   document.getElementById("selectedText").innerHTML =
   `Total: ₹${total}<br>
    <span style="font-size:12px">
@@ -839,15 +833,14 @@ function setType(type, el){
   document.querySelectorAll(".duration-card")
     .forEach(c=>c.classList.remove("active"));
   el.classList.add("active");
-  // 🔥 RESET OTT (important)
+  // ✅ RESET OTT
   selectedOTT = "none";
   selectedOTTName = "None";
+  render();        // internet plans
   if(selectedBasePrice){
-  renderOTT();
-}
-  render();        
-  renderOTT();     
-  updatePrice();   
+    renderOTT();   // only if plan already selected
+  }
+  updatePrice();   // always update price
 }
   
 function updateScale(){
