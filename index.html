@@ -186,7 +186,8 @@ body{
   display:flex;
   gap:16px;
   overflow-x:auto;
-  padding:20px;
+  /* 🔥 MAGIC */
+  padding:20px 50vw;
   min-height:260px;
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
@@ -204,8 +205,11 @@ body{
   text-align:center;
   scroll-snap-align:center;
   cursor:pointer;
-  transition:0.2s ease;
-  transform-origin:center;
+  transition:0.25s ease;
+
+  /* 🔥 NEW */
+  opacity:0.5;
+  transform:scale(0.85);
 }
 
 @media(max-width:768px){
@@ -215,9 +219,10 @@ body{
 }
 
 .card.selected{
-  transform:scale(1.1) !important;
+  transform:scale(1.12) !important;
+  opacity:1;
   border:3px solid #2e7d32;
-  z-index:2;
+  z-index:5;
 }
 
 .card.popular{
@@ -308,18 +313,20 @@ body{
   content:"";
   position:absolute;
   top:0;
-  width:40px;
+  width:60px;
   height:100%;
   z-index:5;
   pointer-events:none;
 }
+
 .plans-wrapper::before{
   left:0;
-  background:linear-gradient(to right,#0b1f4a 40%, transparent);
+  background:linear-gradient(to right,#0b1f4a 60%, transparent);
 }
+
 .plans-wrapper::after{
   right:0;
-  background:linear-gradient(to left,#0b1f4a 40%, transparent);
+  background:linear-gradient(to left,#0b1f4a 60%, transparent);
 }
 
 /* ARROWS */
@@ -849,17 +856,13 @@ function updateScale(){
   const center = container.offsetWidth / 2;
   cards.forEach(card=>{
     const cardCenter =
-      card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
-
+     card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
     const distance = Math.abs(center - cardCenter);
-
-    // 🎯 scaling logic
-    let scale = 1 - (distance / 400);
-
-    scale = Math.max(0.75, Math.min(1.1, scale));
-
-    card.style.transform = `scale(${scale})`;
-    card.style.zIndex = Math.round(scale * 10);
+    let scale = Math.max(0.85, 1 - distance/600);
+    let opacity = Math.max(0.4, 1 - distance/400);
+    card.style.opacity = 1 - (distance / 500);
+    card.style.transform = `scale(${Math.max(0.85, 1 - distance/600)})`;
+    card.style.opacity = opacity;
   });
 }
   
