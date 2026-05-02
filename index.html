@@ -222,6 +222,38 @@ body{
   box-shadow:0 0 20px rgba(255,152,0,0.6);
   transform:scale(1.05);
 }
+.duration-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  padding:10px;
+}
+
+.duration-card{
+  background:#ffffff20;
+  padding:12px;
+  border-radius:12px;
+  text-align:center;
+  cursor:pointer;
+  transition:0.25s;
+}
+
+.duration-card.active{
+  background:white;
+  color:#003a8f;
+  transform:scale(1.05);
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.title{
+  font-weight:bold;
+}
+
+.offer{
+  font-size:11px;
+  margin-top:4px;
+  color:#ffeb3b;
+}  
 .ott-logos{
   display:flex;
   justify-content:center;
@@ -431,11 +463,22 @@ button{
 <div class="hero"></div>
 
 <!-- TABS -->
-<div class="tabs">
-  <button class="tab active" onclick="setType('monthly',this)">Monthly</button>
-  <button class="tab" onclick="setType('quarterly',this)">Quarterly</button>
-  <button class="tab" onclick="setType('half',this)">Half-Yearly</button>
-  <button class="tab" onclick="setType('yearly',this)">Yearly</button>
+<div class="duration-grid" id="durationGrid">
+  <div class="duration-card active" onclick="setType('monthly',this)">
+    <div class="title">Monthly</div>
+  </div>
+  <div class="duration-card" onclick="setType('quarterly',this)">
+    <div class="title">Quarterly</div>
+    <div class="offer">🎁 7 Days Free</div>
+  </div>
+  <div class="duration-card" onclick="setType('half',this)">
+    <div class="title">Half-Yearly</div>
+    <div class="offer">🎁 19 Days Free</div>
+  </div>
+  <div class="duration-card" onclick="setType('yearly',this)">
+    <div class="title">Annual</div>
+    <div class="offer">🎁 1 Month Free</div>
+  </div>
 </div>
 
 <!-- CAROUSEL -->
@@ -768,15 +811,11 @@ function closePopup(){
   
  function setType(type, el){
   planType = type;
-  document.querySelectorAll(".tab")
-    .forEach(btn => btn.classList.remove("active"));
+  document.querySelectorAll(".duration-card")
+    .forEach(c=>c.classList.remove("active"));
   el.classList.add("active");
-  isTabSwitching = true;   // 🔥 mark switching
   render();
-  // stop after render settles
-  setTimeout(()=>{
-    isTabSwitching = false;
-  }, 500);
+  updatePrice();   // 🔥 keep price in sync
 }
 
 function updateScale(){
