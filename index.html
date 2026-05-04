@@ -574,18 +574,6 @@ let isOTT = false;
 let isAutoScrolling = false;  
 let selectedOTT = "none";
 let isTabSwitching = false; 
-let msg =
-`🔥 New BSNL Request
-
-👤 Name: ${name}
-📞 Phone: ${phone}
-📍 Area: ${area}
-
-📶 Plan: ${selectedPlanName}
-🎬 OTT: ${selectedOTTName}
-⏳ Duration: ${planType}
-
-Please confirm availability.`;  
 const ottPlans = {
 basic:{
   name:"OTT Basic",
@@ -972,12 +960,18 @@ async function submitForm(){
     body: JSON.stringify(data)
   });
 
-  let msg =
-`Name: ${name}
-Phone: ${phone}
-Plan: ${selectedPlanName}
-OTT: ${selectedOTTName}
-Type: ${planType}`;
+ let msg =
+`🔥 New BSNL Request
+
+👤 Name: ${name}
+📞 Phone: ${phone}
+📍 Area: ${area}
+
+📶 Plan: ${selectedPlanName}
+🎬 OTT: ${selectedOTTName}
+⏳ Duration: ${planType}
+
+Please confirm availability.`;
   window.open(`https://wa.me/919447072230?text=${encodeURIComponent(msg)}`);
 }
   
