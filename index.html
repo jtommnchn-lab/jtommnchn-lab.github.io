@@ -782,6 +782,9 @@ function selectPlan(el,n,p,s){
   document.getElementById("selectedBox").style.display="block";
   centerCard(el);
   document.getElementById("ottSection").style.display="block";
+  setTimeout(()=>{
+  document.getElementById("ottSection").scrollIntoView({behavior:"smooth"});
+}, 150);
   document.getElementById("bottomBar").style.display = "flex";
   renderOTT();
   updatePrice();
