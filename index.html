@@ -10,7 +10,7 @@
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  background:#0b1f4a;
+  background: linear-gradient(180deg, #0b1f4a, #061433);
   color:white;
 }
 .topbar{
@@ -498,6 +498,7 @@ button:active{
   border-radius:10px;
   font-size:16px;
   font-weight:bold;
+  box-shadow:0 0 15px rgba(37,211,102,0.6);
 }
 .bottom-bar button:disabled{
   background:#ccc;
@@ -641,19 +642,20 @@ window.onload = function(){
 
   render();
   detectLocation();
-
   // ✅ Attach ONCE (correct place)
   const plansContainer = document.getElementById("plans");
-
   let scrollTimeout;
-
+  if(localStorage.getItem("visited")){
+  console.log("Returning user");
+}
+localStorage.setItem("visited", true);
  plansContainer.addEventListener("scroll", () => {
-    updateScale();
- if(isAutoScrolling || isTabSwitching) return;  // ✅ prevents loop
+  updateScale();
+  if(isAutoScrolling || isTabSwitching) return;
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
-//    autoSelectCenter();
-  }, 120);
+    autoSelectCenter();   // ✅ ENABLED
+  }, 150);
 });
 document.getElementById("name").addEventListener("input", ()=>{
   document.getElementById("name").classList.remove("error");
@@ -820,6 +822,7 @@ function selectPlan(el,n,p,s){
   renderOTT();
   updatePrice();
   checkFormReady();
+  localStorage.setItem("selectedPlan", selectedPlanName);
 }
 
 function scrollPlans(dir){
@@ -976,7 +979,7 @@ Please confirm availability.`;
 }
   
 function checkFormReady(){
-  const btn = document.querySelector(".bottom-bar button");
+  const btn = document.querySelector("#bottomBar button");
   if(selectedPlanName && 
      document.getElementById("name").value &&
      /^[6-9]\d{9}$/.test(document.getElementById("phone").value)){
