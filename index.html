@@ -712,6 +712,10 @@ function selectOTTCard(type, el){
   el.classList.add("active");
   updatePrice();
   checkFormReady();
+   setTimeout(()=>{
+    document.getElementById("formSection")
+      .scrollIntoView({behavior:"smooth"});
+  }, 150);
 }
   
 function render(){
