@@ -422,6 +422,16 @@ button{
   background:#ff9800;
   color:white;
 }
+  input.error{
+  border:2px solid #e53935;
+  background:#fff5f5;
+}
+
+.error-text{
+  color:#e53935;
+  font-size:12px;
+  margin-top:4px;
+}
 .bottom-bar{
   position:fixed;
   bottom:0;
@@ -515,7 +525,9 @@ Selected Plan: <span id="selectedText"></span>
   <div class="form">
     <h3>Check Availability</h3>
     <input id="name" placeholder="Your Name">
+    <div id="nameError" class="error-text"></div>
     <input id="phone" placeholder="Mobile Number">
+    <div id="phoneError" class="error-text"></div>
     <input id="area" placeholder="Detecting your area...">
     <input type="hidden" id="planInput">
     <button onclick="submitForm()">Submit Request</button>
@@ -612,6 +624,14 @@ window.onload = function(){
 //    autoSelectCenter();
   }, 120);
 });
+document.getElementById("name").addEventListener("input", ()=>{
+  document.getElementById("name").classList.remove("error");
+  document.getElementById("nameError").innerText = "";
+});
+document.getElementById("phone").addEventListener("input", ()=>{
+  document.getElementById("phone").classList.remove("error");
+  document.getElementById("phoneError").innerText = "";
+});  
 }
 
  
@@ -890,6 +910,11 @@ async function submitForm(){
     Date: getCurrentDate(),
     Source: "Website"
   };
+  // ✅ VALIDATION FIRST
+  if(!validateForm()) return;
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let area = document.getElementById("area").value;
   // 🔥 send to Google Sheet
   await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec",{
     method:"POST",
@@ -906,6 +931,35 @@ Type: ${planType}`;
   window.open(`https://wa.me/919447072230?text=${encodeURIComponent(msg)}`);
 }
 
+function validateForm(){
+  let isValid = true;
+  const name = document.getElementById("name");
+  const phone = document.getElementById("phone");
+  const nameError = document.getElementById("nameError");
+  const phoneError = document.getElementById("phoneError");
+  // reset
+  name.classList.remove("error");
+  phone.classList.remove("error");
+  nameError.innerText = "";
+  phoneError.innerText = "";
+  // Name validation
+  if(!name.value.trim()){
+    name.classList.add("error");
+    nameError.innerText = "Please enter your name";
+    name.focus();
+    isValid = false;
+  }
+  // Phone validation
+  else if(!/^[6-9]\d{9}$/.test(phone.value)){
+    phone.classList.add("error");
+    phoneError.innerText = "Enter valid 10-digit mobile number";
+    phone.focus();
+    isValid = false;
+  }
+
+  return isValid;
+}
+  
 </script>
 <div id="appPopup" style="display:none;
 position:fixed;inset:0;
