@@ -381,6 +381,10 @@ body{
   padding:25px;
   border-radius:12px;
   box-shadow:0 10px 30px rgba(0,0,0,0.2);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
 }
 .form.highlight{
   animation: glow 0.8s ease;
@@ -392,13 +396,23 @@ body{
   100%{box-shadow:0 0 0px transparent;}
 }
 input{
-  width:100%;
+  width:90%;
+  max-width:320px;
   padding:12px;
   margin-top:12px;
   border-radius:6px;
   border:1px solid #ccc;
 }
 
+.form h3{
+  text-align:center;
+}
+
+.form button{
+  width:90%;
+  max-width:320px;
+}
+  
 button{
   width:100%;
   padding:12px;
