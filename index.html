@@ -226,7 +226,9 @@ body{
   z-index:5;
   filter: none;
 }
-
+.card.selected h2{
+  color:#2e7d32;
+}
 
 .card.popular{
   border:2px solid #ff9800;
@@ -424,6 +426,9 @@ button{
   font-weight:bold;
   cursor:pointer;
 }
+button:active{
+  transform:scale(0.96);
+}  
 .type-switch{
   display:flex;
   justify-content:center;
@@ -568,7 +573,19 @@ let selectedPlan="",planType="monthly",userLat="",userLng="";
 let isOTT = false;  
 let isAutoScrolling = false;  
 let selectedOTT = "none";
-let isTabSwitching = false;  
+let isTabSwitching = false; 
+let msg =
+`🔥 New BSNL Request
+
+👤 Name: ${name}
+📞 Phone: ${phone}
+📍 Area: ${area}
+
+📶 Plan: ${selectedPlanName}
+🎬 OTT: ${selectedOTTName}
+⏳ Duration: ${planType}
+
+Please confirm availability.`;  
 const ottPlans = {
 basic:{
   name:"OTT Basic",
@@ -737,7 +754,7 @@ function selectOTTCard(type, el){
    setTimeout(()=>{
     document.getElementById("formSection")
       .scrollIntoView({behavior:"smooth"});
-  }, 150);
+  }, 250);
 }
   
 function render(){
@@ -965,7 +982,7 @@ Type: ${planType}`;
 }
   
 function checkFormReady(){
-  const btn = document.querySelector(".bottom-bar button");
+  const btn = document.querySelector("#bottomBar button");
   if(selectedPlanName && 
      document.getElementById("name").value &&
      /^[6-9]\d{9}$/.test(document.getElementById("phone").value)){
