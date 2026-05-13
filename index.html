@@ -950,28 +950,32 @@ function scrollPlans(dir){
   }, 400);
 }
   
-function autoSelectCenter(){
+  function autoSelectCenter(){
   const cards = document.querySelectorAll(".card");
   const container = document.getElementById("plans");
   let closest = null;
   let minDistance = Infinity;
   const center = container.offsetWidth / 2;
-
   cards.forEach(card=>{
     const cardCenter =
-      card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
+      card.offsetLeft -
+      container.scrollLeft +
+      (card.offsetWidth / 2);
     const dist = Math.abs(center - cardCenter);
-
     if(dist < minDistance){
       minDistance = dist;
       closest = card;
     }
   });
 
-if(closest && !closest.classList.contains("selected")){
-  closest.click();
+  // ✅ ONLY highlight visually
+  cards.forEach(c=>c.classList.remove("selected"));
+
+  if(closest){
+    closest.classList.add("selected");
+  }
 }
-}
+  
 function selectOTT(type){
   selectedOTT = type;
   if(type === "none"){
