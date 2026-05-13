@@ -950,7 +950,7 @@ function scrollPlans(dir){
   }, 400);
 }
   
-  function autoSelectCenter(){
+ function autoSelectCenter(){
   const cards = document.querySelectorAll(".card");
   const container = document.getElementById("plans");
   let closest = null;
@@ -962,18 +962,14 @@ function scrollPlans(dir){
       container.scrollLeft +
       (card.offsetWidth / 2);
     const dist = Math.abs(center - cardCenter);
+
     if(dist < minDistance){
       minDistance = dist;
       closest = card;
     }
   });
-
-  // ✅ ONLY highlight visually
-  cards.forEach(c=>c.classList.remove("selected"));
-
-  if(closest){
-    closest.classList.add("selected");
-  }
+  // ✅ ONLY scale non-selected cards
+  updateScale();
 }
   
 function selectOTT(type){
@@ -1047,6 +1043,7 @@ function updateScale(){
     if(card.classList.contains("selected")){
       card.style.transform = "scale(1.12)";
       card.style.opacity = "1";
+      card.style.zIndex = "5";
       return;
     }
     const cardCenter =
