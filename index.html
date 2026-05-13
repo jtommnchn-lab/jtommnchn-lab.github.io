@@ -237,6 +237,7 @@ body{
   display:flex;
   gap:16px;
   overflow-x:auto;
+  overscroll-behavior-x:contain;
   /* 🔥 MAGIC */
   padding:20px max(calc((100% - 180px)/2), 20px);
   scroll-padding-inline:50%;
@@ -421,6 +422,10 @@ body{
   display:flex;
   align-items:center;
   justify-content:center;
+  pointer-events:auto;
+  touch-action:manipulation;
+  user-select:none;
+-webkit-tap-highlight-color:transparent;
 }
 .carousel-btn.left{left:10px;}
 .carousel-btn.right{right:10px;}
@@ -909,14 +914,11 @@ function scrollPlans(dir){
   if(!card) return;
   const cardWidth = card.offsetWidth + 16;
   isArrowScrolling = true;
-  container.scrollBy({
-    left: dir * cardWidth,
-    behavior:"smooth"
-  });
-  // ✅ wait longer than smooth scroll
+  // ✅ FORCE SCROLL
+  container.scrollLeft += dir * cardWidth;
   setTimeout(()=>{
     isArrowScrolling = false;
-  }, 900);
+  }, 400);
 }
   
 function autoSelectCenter(){
