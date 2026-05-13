@@ -721,13 +721,21 @@ window.onload = function(){
   console.log("Returning user");
 }
 localStorage.setItem("visited", true);
- plansContainer.addEventListener("scroll", () => {
+plansContainer.addEventListener("scroll", () => {
   updateScale();
- if(isAutoScrolling || isTabSwitching || isArrowScrolling) return;
+  // 🚫 disable auto select during manual/arrow scrolling
+  if(
+    isAutoScrolling ||
+    isTabSwitching ||
+    isArrowScrolling
+  ) return;
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
-    autoSelectCenter();   // ✅ ENABLED
-  }, 150);
+    // ✅ ONLY desktop auto-center
+    if(window.innerWidth > 768){
+      autoSelectCenter();
+    }
+  }, 300);
 });
 document.getElementById("name").addEventListener("input", ()=>{
   document.getElementById("name").classList.remove("error");
@@ -897,17 +905,18 @@ function selectPlan(el,n,p,s){
 
 function scrollPlans(dir){
   const container = document.getElementById("plans");
-  const cardWidth =
-    container.querySelector(".card").offsetWidth + 16;
-  // ✅ prevent auto select
+  const card = container.querySelector(".card");
+  if(!card) return;
+  const cardWidth = card.offsetWidth + 16;
   isArrowScrolling = true;
   container.scrollBy({
     left: dir * cardWidth,
     behavior:"smooth"
   });
+  // ✅ wait longer than smooth scroll
   setTimeout(()=>{
     isArrowScrolling = false;
-  }, 500);
+  }, 900);
 }
   
 function autoSelectCenter(){
