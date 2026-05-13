@@ -216,7 +216,7 @@ body{
   gap:16px;
   overflow-x:auto;
   /* 🔥 MAGIC */
-  padding:20px calc(50vw - 110px); /* 110 = half card width */
+  padding:20px max(calc((100% - 220px)/2), 20px);
   min-height:260px;
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
