@@ -217,6 +217,7 @@ body{
   overflow-x:auto;
   /* 🔥 MAGIC */
   padding:20px max(calc((100% - 220px)/2), 20px);
+  scroll-padding-inline:50%;
   min-height:260px;
   scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
@@ -812,10 +813,7 @@ function render(){
 function centerCard(el){
   const container = document.getElementById("plans");
   isAutoScrolling = true;
-  const scrollLeft =
-    el.offsetLeft -
-    (container.offsetWidth / 2) +
-    (el.offsetWidth / 2);
+  const scrollLeft =   el.offsetLeft - ((container.clientWidth - el.clientWidth) / 2);
   container.scrollTo({
     left: scrollLeft,
     behavior: "smooth"
