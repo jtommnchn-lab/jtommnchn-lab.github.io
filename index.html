@@ -611,9 +611,9 @@ button:active{
 
 <!-- CAROUSEL -->
 <div class="plans-wrapper">
-  <button class="carousel-btn left" onclick="scrollPlans(-1)">◀</button>
+  <button class="carousel-btn left" onclick="event.stopPropagation(); scrollPlans(-1)"> ◀</button>
   <div class="plans" id="plans"></div>
-  <button class="carousel-btn right" onclick="scrollPlans(1)">▶</button>
+  <button class="carousel-btn right" onclick="event.stopPropagation(); scrollPlans(1)"> ▶</button>
 </div>
 
 <div id="selectedBox" class="selected-box">
@@ -1125,7 +1125,7 @@ function validateForm(){
 <div id="appPopup" style="display:none;
 position:fixed;inset:0;
 background:rgba(0,0,0,0.7);
-z-index:999;
+z-index:99999;
 align-items:center;
 justify-content:center;">
 
