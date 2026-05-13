@@ -627,6 +627,7 @@ let isOTT = false;
 let isAutoScrolling = false;  
 let selectedOTT = "none";
 let isTabSwitching = false; 
+let isArrowScrolling = false;  
 const ottPlans = {
 basic:{
   name:"OTT Basic",
@@ -703,7 +704,7 @@ window.onload = function(){
 localStorage.setItem("visited", true);
  plansContainer.addEventListener("scroll", () => {
   updateScale();
-  if(isAutoScrolling || isTabSwitching) return;
+ if(isAutoScrolling || isTabSwitching || isArrowScrolling) return;
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
     autoSelectCenter();   // ✅ ENABLED
@@ -877,13 +878,19 @@ function selectPlan(el,n,p,s){
 
 function scrollPlans(dir){
   const container = document.getElementById("plans");
-  const cardWidth = container.querySelector(".card").offsetWidth + 16;
+  const cardWidth =
+    container.querySelector(".card").offsetWidth + 16;
+  // ✅ prevent auto select
+  isArrowScrolling = true;
   container.scrollBy({
     left: dir * cardWidth,
     behavior:"smooth"
   });
+  setTimeout(()=>{
+    isArrowScrolling = false;
+  }, 500);
 }
-
+  
 function autoSelectCenter(){
   const cards = document.querySelectorAll(".card");
   const container = document.getElementById("plans");
