@@ -228,7 +228,6 @@ body{
 
 /* CAROUSEL */
 .plans-wrapper{
-  position:relative;
   max-width:1100px;
   margin:40px auto;
   overflow:visible;
@@ -408,7 +407,11 @@ body{
   right:0;
   background:linear-gradient(to left,#0b1f4a 60%, transparent);
 }
-
+.carousel-container{
+  position:relative;
+  max-width:1100px;
+  margin:40px auto;
+}
 /* ARROWS */
 .carousel-btn{
   position:absolute;
@@ -432,8 +435,8 @@ body{
   -webkit-tap-highlight-color:transparent;
   isolation:isolate;
 }
-.carousel-btn.left{left:10px;}
-.carousel-btn.right{right:10px;}
+.carousel-btn.left{left:-10px;}
+.carousel-btn.right{right:-10px;}
 .carousel-btn *{
   pointer-events:none;
 }  
@@ -623,10 +626,21 @@ button:active{
 </div>
 
 <!-- CAROUSEL -->
-<div class="plans-wrapper">
-  <button class="carousel-btn left" onclick="event.stopPropagation(); scrollPlans(-1)"> ◀</button>
-  <div class="plans" id="plans"></div>
-  <button class="carousel-btn right" onclick="event.stopPropagation(); scrollPlans(1)"> ▶</button>
+<div class="carousel-container">
+  <button class="carousel-btn left"
+    onclick="scrollPlans(-1)">
+    ◀
+  </button>
+
+  <div class="plans-wrapper">
+    <div class="plans" id="plans"></div>
+  </div>
+
+  <button class="carousel-btn right"
+    onclick="scrollPlans(1)">
+    ▶
+  </button>
+
 </div>
 
 <div id="selectedBox" class="selected-box">
