@@ -42,6 +42,28 @@ body{
   background: linear-gradient(180deg, #0b1f4a, #061433);
   color:white;
 }
+.lead-prompt{
+  position:fixed;
+  bottom:90px;
+  left:50%;
+  transform:translateX(-50%) translateY(20px);
+  background:#25D366;
+  color:white;
+  padding:12px 18px;
+  border-radius:30px;
+  font-size:14px;
+  font-weight:600;
+  box-shadow:0 8px 25px rgba(0,0,0,0.25);
+  z-index:9999;
+  opacity:0;
+  pointer-events:none;
+  transition:0.35s ease;
+}
+
+.lead-prompt.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}  
 .topbar{
   position:sticky;
   top:0;
@@ -771,6 +793,7 @@ function selectOTTCard(type, el){
   el.classList.add("active");
   updatePrice();
   checkFormReady();
+  showLeadPrompt();
    setTimeout(()=>{
     document.getElementById("formSection")
       .scrollIntoView({behavior:"smooth"});
@@ -966,6 +989,14 @@ function updateScale(){
   });
 }
   
+function showLeadPrompt(){
+  const prompt = document.getElementById("leadPrompt"); 
+  prompt.classList.add("show");
+  setTimeout(()=>{
+    prompt.classList.remove("show");
+  }, 2500);
+}
+  
 async function submitForm(){
   // ✅ VALIDATION FIRST
   if(!validateForm()) return;
@@ -1089,5 +1120,8 @@ justify-content:center;">
   </div>
   <button onclick="submitForm()" disabled>Get Connection</button>
 </div> 
+<div id="leadPrompt" class="lead-prompt">
+  ✨ Enter your name and contact details to continue
+</div>  
 </body>
 </html>
