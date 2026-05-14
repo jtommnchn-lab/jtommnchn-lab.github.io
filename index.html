@@ -1,549 +1,499 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-gtag('config', 'AW-XXXXXXXXX');  //replace xxx with Google ads ID
-</script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s){
-if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)
-}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-
-fbq('init', '994711108634772'); 
-fbq('track', 'PageView');
-</script>
-
-<noscript>
-<img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=994711108634772&ev=PageView&noscript=1"/>
-</noscript>  
 <title>BSNL Bharat Fibre Chennai</title>
 
 <style>
+
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  background: linear-gradient(180deg, #0b1f4a, #061433);
+  background:linear-gradient(180deg,#061433,#0b1f4a);
   color:white;
-}
-.lead-prompt{
-  position:fixed;
-  bottom:90px;
-  left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:#25D366;
-  color:white;
-  padding:12px 18px;
-  border-radius:30px;
-  font-size:14px;
-  font-weight:600;
-  box-shadow:0 8px 25px rgba(0,0,0,0.25);
-  z-index:9999;
-  opacity:0;
-  pointer-events:none;
-  transition:0.35s ease;
+  overflow-x:hidden;
 }
 
-.lead-prompt.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}  
+/* TOP BAR */
+
 .topbar{
   position:sticky;
   top:0;
-  z-index:1000;
+  z-index:9999;
+
   background:white;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
+
   padding:10px 15px;
+
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
-.topbar img{height:32px;}
+.topbar img{
+  height:34px;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+}
 
 .actions a{
-  margin-left:10px;
   text-decoration:none;
-  font-size:20px;
-}
-/* HEADER */
-.header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:12px 20px;
-  background:white;
-  color:black;
-}
-.logo{height:40px;}
-
-.wa-btn{
-  background:#25D366;
-  color:white;
-  padding:8px 14px;
-  border-radius:6px;
-  text-decoration:none;
+  font-size:22px;
 }
 
-/* HERO (FIXED) */
-/* HERO DEFAULT (Desktop) */
+/* HERO */
+
 .hero{
   width:100%;
-  height:clamp(220px, 42vh, 420px);
+  height:clamp(220px,42vh,420px);
+
   background:
-    linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)),
-    url('https://jtommnchn-lab.github.io/Banner.jpg') center/cover no-repeat;
-  border-bottom:2px solid rgba(255,255,255,0.1);
+  linear-gradient(rgba(0,0,0,0.15),rgba(0,0,0,0.35)),
+  url('https://jtommnchn-lab.github.io/Banner.jpg')
+  center/cover no-repeat;
 }
 
-/* 📱 MOBILE FIX (Show full image) */
 @media(max-width:768px){
+
   .hero{
     height:220px;
+
     background:
-      #0b1f4a url('https://jtommnchn-lab.github.io/Banner.jpg') center/contain no-repeat;
+    #061433
+    url('https://jtommnchn-lab.github.io/Banner.jpg')
+    center/contain no-repeat;
   }
-}
-.ott-options{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-  margin-top:10px;
+
 }
 
-.ott-options label{
-  background:#ffffff20;
-  padding:8px 12px;
-  border-radius:20px;
-  cursor:pointer;
-}
+/* TRUST */
 
-#ottPreview{
-  margin-top:12px;
-}
-
-.ott-logos img{
-  transition:0.2s;
-}
-.ott-logos img:hover{
-  transform:scale(1.1);
-}
-
-.ott-cards{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  padding:10px;
-}
-
-.ott-card{
-  background:white;
-  color:black;
-  border-radius:12px;
-  padding:12px;
-  cursor:pointer;
-  transition:0.25s;
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
-}
-.ott-card:first-child{
-  background:#f5f5f5;
-  border:2px dashed #ccc;
-}
-.ott-card.active{
-  border:2px solid #2e7d32;
-  transform:scale(1.03);
-}
-
-.ott-title{
-  font-weight:bold;
-}
-
-.ott-price{
-  color:#003a8f;
-  font-weight:bold;
-  margin-top:5px;
-}
-
-/* OTT logos grid */
-.ott-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:6px;
-  margin-top:8px;
-}
-
-.ott-grid img{
-  width:100%;
-  height:40px;
-  object-fit:contain;
-  background:white;
-  padding:4px;
-  border-radius:6px;
-  transition:0.2s;
-}
-
-/* 🔥 animation */
-.ott-grid img:hover{
-  transform:scale(1.1);
-}
-  
-/* TABS */
-.tabs{
-  display:flex;
-  justify-content:center;
-  margin:20px auto;
-  gap:8px;
-}
-
-.tab{
-  padding:8px 14px;
-  border:none;
-  border-radius:20px;
-  background:#ffffff20;
-  color:white;
-  cursor:pointer;
-}
-
-.tab.active{
-  background:white;
-  color:#003a8f;
-}
-
-/* CAROUSEL */
-.plans-wrapper{
-  max-width:1100px;
-  margin:40px auto;
-  overflow:visible;
-}
-
-.plans{
-  display:flex;
-  gap:16px;
-  overflow-x:auto;
-  overscroll-behavior-x:contain;
-  /* 🔥 MAGIC */
-  padding:20px max(calc((100% - 180px)/2), 20px);
-  scroll-padding-inline:50%;
-  min-height:260px;
-  scroll-snap-type:x mandatory;
-  scroll-behavior:smooth;
-  position:relative;
-  z-index:2;
-}
-
-.plans::-webkit-scrollbar{display:none;}
-
-.card{
-  flex:0 0 180px;
-  min-height:170px;
-  background:white;
-  color:black;
-  border-radius:12px;
-  padding:14px;
+.trust-strip{
+  background:#ffffff10;
   text-align:center;
-  scroll-snap-align:center;
-  cursor:pointer;
-  transition:0.25s ease;
-  filter: blur(0.5px);
-  /* 🔥 NEW */
-  opacity:0.5;
-  transform:scale(0.85);
+  padding:10px;
+  font-size:13px;
+  color:#e6e6e6;
 }
 
-@media(max-width:768px){
-  .card{
-    flex:0 0 70%;
-  }
-}
+/* DURATION */
 
-.card.selected{
-  transform:scale(1.12) !important;
-  opacity:1;
-  border:3px solid #2e7d32;
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
-  z-index:5;
-  filter: none;
-}
-.card.selected h2{
-  color:#2e7d32;
-}
-
-.card.popular{
-  border:2px solid #ff9800;
-  box-shadow:0 0 20px rgba(255,152,0,0.6);
-  transform:scale(1.05);
-}
 .duration-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
+
   gap:10px;
-  padding:10px;
-}
-@media(max-width:768px){
 
-  .duration-grid{
-    grid-template-columns:repeat(4,1fr);
-    gap:6px;
-    padding:8px;
-  }
-
-  .duration-card{
-    padding:10px 6px;
-  }
-
-  .title{
-    font-size:13px;
-  }
-
-  .offer{
-    font-size:10px;
-  }
-}
-.duration-card{
-  background:#ffffff20;
   padding:12px;
+}
+
+.duration-card{
+
+  background:#ffffff12;
+
   border-radius:12px;
+
   text-align:center;
+
+  padding:12px 8px;
+
   cursor:pointer;
+
   transition:0.25s;
 }
 
 .duration-card.active{
   background:white;
   color:#003a8f;
-  transform:scale(1.05);
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+
+  transform:translateY(-2px);
+
+  box-shadow:0 5px 18px rgba(0,0,0,0.25);
 }
 
 .title{
-  font-weight:bold;
+  font-weight:700;
+  font-size:15px;
 }
 
 .offer{
-  font-size:11px;
-  margin-top:4px;
+  font-size:10px;
+  margin-top:3px;
   color:#ffeb3b;
-}  
-.ott-logos{
+}
+
+@media(max-width:768px){
+
+  .duration-grid{
+    gap:6px;
+    padding:8px;
+  }
+
+  .duration-card{
+    padding:10px 5px;
+  }
+
+  .title{
+    font-size:12px;
+  }
+
+  .offer{
+    font-size:9px;
+  }
+
+}
+
+/* CAROUSEL */
+
+.carousel-section{
+  position:relative;
+
+  width:100%;
+
+  padding:10px 0 20px;
+}
+
+.plans{
+
   display:flex;
-  justify-content:center;
-  gap:6px;
-  margin-top:8px;
-  flex-wrap:wrap;
+
+  gap:16px;
+
+  overflow-x:auto;
+
+  scroll-behavior:smooth;
+
+  padding:10px 60px 20px;
+
+  -ms-overflow-style:none;
+  scrollbar-width:none;
 }
 
-.ott-logos img{
-  height:28px;
-  width:auto;
+.plans::-webkit-scrollbar{
+  display:none;
+}
+
+.card{
+
+  flex:0 0 190px;
+
   background:white;
-  padding:4px;
-  border-radius:6px;
-  object-fit:contain;
-  box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  color:black;
+
+  border-radius:16px;
+
+  padding:16px;
+
+  min-height:205px;
+
+  text-align:center;
+
+  transition:0.25s ease;
+
+  opacity:0.72;
+
+  cursor:pointer;
+
+  position:relative;
 }
 
-.more-btn{
-  font-size:11px;
-  color:#003a8f;
-  cursor:pointer;
-  margin-top:4px;
-  display:block;
+.card.selected{
+
+  opacity:1;
+
+  transform:translateY(-6px);
+
+  border:3px solid #2e7d32;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.25);
 }
+
+.card.popular{
+  border:2px solid #ff9800;
+}
+
+.card h3{
+  font-size:21px;
+  margin-top:6px;
+}
+
+.card h2{
+  font-size:34px;
+  margin:10px 0;
+  color:#2e7d32;
+}
+
+.card p{
+  font-size:15px;
+}
+
 .badge{
+
+  display:inline-block;
+
   background:#ff9800;
   color:white;
+
   padding:4px 8px;
-  border-radius:4px;
-  font-size:12px;
-  margin-bottom:8px;
-  display:inline-block;
-}
 
-.ott-badge{
-  background:#673ab7;
-  color:white;
+  border-radius:5px;
+
   font-size:11px;
-  padding:3px 6px;
-  border-radius:4px;
-  margin-bottom:6px;
-  display:inline-block;
+
+  margin-bottom:8px;
 }
 
-/* EDGE FADE */
-.plans-wrapper::before,
-.plans-wrapper::after{
-  content:"";
-  position:absolute;
-  top:0;
-  width:60px;
-  height:100%;
-  z-index:1;
-  pointer-events:none;
-}
-  
-.plans-wrapper::before{
-  left:0;
-  background:linear-gradient(to right,#0b1f4a 60%, transparent);
-}
+.select-btn{
 
-.plans-wrapper::after{
-  right:0;
-  background:linear-gradient(to left,#0b1f4a 60%, transparent);
-}
-.carousel-container{
-  position:relative;
-  max-width:1100px;
-  margin:40px auto;
-}
-/* ARROWS */
-.carousel-btn{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%) translateZ(999px);
-  z-index:9999999;
-  width:52px;
-  height:52px;
-  border-radius:50%;
+  width:100%;
+
+  margin-top:12px;
+
   border:none;
-  cursor:pointer;
-  background:rgba(0,0,0,0.75);
+
+  border-radius:8px;
+
+  padding:11px;
+
+  background:#003a8f;
+
   color:white;
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  transition:0.2s;
+}
+
+.select-btn:active{
+  transform:scale(0.97);
+}
+
+/* ARROWS */
+
+.carousel-btn{
+
+  position:absolute;
+
+  top:50%;
+
+  transform:translateY(-50%);
+
+  z-index:99999;
+
+  width:48px;
+  height:48px;
+
+  border:none;
+
+  border-radius:50%;
+
+  background:rgba(0,0,0,0.75);
+
+  color:white;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  pointer-events:auto !important;
-  touch-action:manipulation;
+
+  cursor:pointer;
+
+  font-size:18px;
+
+  transition:0.2s;
+
   user-select:none;
-  -webkit-user-select:none;
-  -webkit-tap-highlight-color:transparent;
-  isolation:isolate;
+}
+
+.carousel-btn:hover{
+  background:black;
 }
 
 .carousel-btn.left{
-  left:-10px;
+  left:8px;
 }
 
 .carousel-btn.right{
-  right:-10px;
+  right:8px;
 }
 
-.carousel-btn *{
-  pointer-events:none;
-}  
+@media(max-width:768px){
+
+  .carousel-btn{
+    width:42px;
+    height:42px;
+  }
+
+  .card{
+    flex:0 0 72%;
+  }
+
+}
 
 /* SELECTED */
+
 .selected-box{
+
   display:none;
-  text-align:center;
+
+  margin:10px auto;
+
+  max-width:520px;
+
   background:#2e7d32;
-  color:white;
-  padding:12px;
-  margin:15px auto;
-  max-width:500px;
-  border-radius:10px;
+
+  border-radius:12px;
+
+  padding:14px;
+
+  text-align:center;
+
   font-weight:bold;
-  box-shadow:0 5px 20px rgba(0,0,0,0.2);
+
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* OTT */
+
+#ottSection{
+  display:none;
+  padding:10px 12px 25px;
+}
+
+#ottSection h3{
+  text-align:center;
+}
+
+.ott-cards{
+
+  display:grid;
+
+  grid-template-columns:repeat(2,1fr);
+
+  gap:12px;
+
+  margin-top:10px;
+}
+
+@media(max-width:768px){
+
+  .ott-cards{
+    grid-template-columns:1fr;
+  }
+
+}
+
+.ott-card{
+
+  background:white;
+
+  color:black;
+
+  border-radius:14px;
+
+  padding:14px;
+
+  cursor:pointer;
+
+  transition:0.25s;
+}
+
+.ott-card.active{
+  border:3px solid #2e7d32;
+}
+
+.ott-title{
+  font-weight:700;
+}
+
+.ott-price{
+  margin-top:6px;
+  color:#003a8f;
+  font-weight:700;
+}
+
+.ott-grid{
+
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:6px;
+
+  margin-top:10px;
+}
+
+.ott-grid img{
+
+  width:100%;
+  height:38px;
+
+  object-fit:contain;
+
+  background:white;
+
+  padding:4px;
+
+  border-radius:6px;
 }
 
 /* FORM */
+
 .form-section{
-  padding:40px 15px;
-  display:flex;
-  justify-content:center;
+  padding:20px 15px 120px;
 }
 
 .form{
-  width:100%;
-  max-width:420px;
-  background:white;
-  color:black;
-  padding:25px;
-  border-radius:12px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.2);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-}
-.form.highlight{
-  animation: glow 0.8s ease;
-}
 
-@keyframes glow{
-  0%{box-shadow:0 0 0px transparent;}
-  50%{box-shadow:0 0 20px rgba(255,152,0,0.8);}
-  100%{box-shadow:0 0 0px transparent;}
-}
-input{
-  width:90%;
-  max-width:320px;
-  padding:12px;
-  margin-top:12px;
-  border-radius:6px;
-  border:1px solid #ccc;
+  max-width:420px;
+
+  margin:auto;
+
+  background:white;
+
+  color:black;
+
+  border-radius:16px;
+
+  padding:24px;
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
 }
 
 .form h3{
   text-align:center;
+  margin-top:0;
 }
 
-.form button{
-  width:90%;
-  max-width:320px;
-}
-  
-button{
+input{
+
   width:100%;
-  padding:12px;
-  margin-top:15px;
-  border:none;
-  border-radius:6px;
-  background:#003a8f;
-  color:white;
-  font-weight:bold;
-  cursor:pointer;
-}
-button:active{
-  transform:scale(0.96);
-}  
-.type-switch{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-top:15px;
+
+  margin-top:14px;
+
+  padding:13px;
+
+  border-radius:8px;
+
+  border:1px solid #ccc;
+
+  font-size:15px;
 }
 
-.type-btn{
-  padding:8px 16px;
-  border:none;
-  border-radius:20px;
-  background:#ffffff20;
-  color:white;
-  cursor:pointer;
-}
-
-.type-btn.active{
-  background:#ff9800;
-  color:white;
-}
-  input.error{
+input.error{
   border:2px solid #e53935;
   background:#fff5f5;
 }
@@ -553,557 +503,973 @@ button:active{
   font-size:12px;
   margin-top:4px;
 }
-.bottom-bar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:white;
-  color:black;
-  padding:12px 15px;
-  box-shadow:0 -5px 15px rgba(0,0,0,0.2);
-  display:flex;
-  flex-direction:column;   /* 🔥 STACKED */
-  gap:8px;
+
+.submit-btn{
+
+  width:100%;
+
+  margin-top:18px;
+
+  border:none;
+
+  border-radius:10px;
+
+  padding:13px;
+
+  background:#003a8f;
+
+  color:white;
+
+  font-weight:700;
+
+  cursor:pointer;
 }
+
+/* BOTTOM BAR */
+
 #bottomBar{
   display:none;
 }
-#bottomPrice{
-  font-size:18px;
-  font-weight:bold;
-  color:#003a8f;
+
+.bottom-bar{
+
+  position:fixed;
+
+  bottom:0;
+  left:0;
+  right:0;
+
+  background:white;
+
+  color:black;
+
+  padding:12px;
+
+  z-index:9999;
+
+  box-shadow:0 -5px 18px rgba(0,0,0,0.2);
 }
 
 .price-line{
-  font-size:20px;
-  font-weight:bold;
-  color:#003a8f;
+
   text-align:center;
-  letter-spacing:0.5px;
+
+  color:#003a8f;
+
+  font-size:22px;
+
+  font-weight:700;
+
+  margin-bottom:10px;
 }
-  
+
 .bottom-bar button{
+
   width:100%;
-  background:#25D366;
-  color:white;
+
   border:none;
-  padding:12px;
-  border-radius:10px;
+
+  border-radius:12px;
+
+  padding:14px;
+
+  background:#25D366;
+
+  color:white;
+
   font-size:16px;
-  font-weight:bold;
-  box-shadow:0 0 15px rgba(37,211,102,0.6);
+
+  font-weight:700;
+
+  cursor:pointer;
+
+  box-shadow:0 0 18px rgba(37,211,102,0.5);
 }
+
 .bottom-bar button:disabled{
   background:#ccc;
+  box-shadow:none;
   cursor:not-allowed;
-}  
+}
+
+/* LEAD PROMPT */
+
+.lead-prompt{
+
+  position:fixed;
+
+  bottom:95px;
+
+  left:50%;
+
+  transform:translateX(-50%) translateY(20px);
+
+  background:#25D366;
+
+  color:white;
+
+  padding:12px 18px;
+
+  border-radius:30px;
+
+  font-size:14px;
+
+  font-weight:700;
+
+  z-index:99999;
+
+  opacity:0;
+
+  transition:0.35s ease;
+
+  pointer-events:none;
+}
+
+.lead-prompt.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
 </style>
 </head>
 
 <body>
+
+<!-- TOPBAR -->
+
 <div class="topbar">
+
   <img src="https://jtommnchn-lab.github.io/bsnl-logo.png">
+
   <div class="actions">
     <a href="tel:9447072230">📞</a>
     <a href="https://wa.me/919447072230">💬</a>
   </div>
+
 </div>
 
 <!-- HERO -->
+
 <div class="hero"></div>
 
-<!-- TABS -->
-<div class="duration-grid" id="durationGrid">
-  <div class="duration-card active" onclick="setType('monthly',this)">
+<!-- TRUST -->
+
+<div class="trust-strip">
+  ✅ Trusted BSNL Partner |
+  ⚡ 24–48 Hr Installation |
+  📍 Chennai Support
+</div>
+
+<!-- DURATION -->
+
+<div class="duration-grid">
+
+  <div class="duration-card active"
+  onclick="setType('monthly',this)">
     <div class="title">Monthly</div>
   </div>
-  <div class="duration-card" onclick="setType('quarterly',this)">
+
+  <div class="duration-card"
+  onclick="setType('quarterly',this)">
     <div class="title">Quarterly</div>
     <div class="offer">🎁 7 Days Free</div>
   </div>
-  <div class="duration-card" onclick="setType('half',this)">
+
+  <div class="duration-card"
+  onclick="setType('half',this)">
     <div class="title">Half-Yearly</div>
     <div class="offer">🎁 19 Days Free</div>
   </div>
-  <div class="duration-card" onclick="setType('yearly',this)">
+
+  <div class="duration-card"
+  onclick="setType('yearly',this)">
     <div class="title">Annual</div>
     <div class="offer">🎁 1 Month Free</div>
   </div>
+
 </div>
 
 <!-- CAROUSEL -->
-<div class="carousel-container">
+
+<div class="carousel-section">
+
   <button class="carousel-btn left"
-    onclick="scrollPlans(-1)">
+  onclick="scrollPlans(-1)">
     ◀
   </button>
 
-  <div class="plans-wrapper">
-    <div class="plans" id="plans"></div>
-  </div>
+  <div class="plans" id="plans"></div>
 
   <button class="carousel-btn right"
-    onclick="scrollPlans(1)">
+  onclick="scrollPlans(1)">
     ▶
   </button>
 
 </div>
 
-<div id="selectedBox" class="selected-box">
-Selected Plan: <span id="selectedText"></span>
+<!-- SELECTED -->
+
+<div class="selected-box" id="selectedBox">
+  Selected Plan:
+  <span id="selectedText"></span>
 </div>
-<div id="ottSection" class="ott-grid-section" style="display:none">
+
+<!-- OTT -->
+
+<div id="ottSection">
+
   <h3>🎬 Add OTT Pack</h3>
+
   <div class="ott-cards" id="ottCards"></div>
+
 </div>
+
 <!-- FORM -->
+
 <div class="form-section" id="formSection">
+
   <div class="form">
+
     <h3>Check Availability</h3>
+
     <input id="name" placeholder="Your Name">
     <div id="nameError" class="error-text"></div>
+
     <input id="phone" placeholder="Mobile Number">
     <div id="phoneError" class="error-text"></div>
+
     <input id="area" placeholder="Detecting your area...">
-    <input type="hidden" id="planInput">
-    <button onclick="submitForm()">Submit Request</button>
+
+    <button class="submit-btn"
+    onclick="submitForm()">
+      Submit Request
+    </button>
+
   </div>
+
+</div>
+
+<!-- BOTTOM -->
+
+<div id="bottomBar" class="bottom-bar">
+
+  <div class="price-line" id="bottomPrice">
+    ₹0
+  </div>
+
+  <button onclick="submitForm()" disabled>
+    Get Connection
+  </button>
+
+</div>
+
+<!-- PROMPT -->
+
+<div id="leadPrompt" class="lead-prompt">
+  ✨ Enter name and contact details
 </div>
 
 <script>
+
 let selectedPlanName = "";
 let selectedBasePrice = 0;
-let selectedOTTName = "None";  
-let selectedPlan="",planType="monthly",userLat="",userLng="";
-let isOTT = false;  
-let isAutoScrolling = false;  
+let selectedOTTName = "None";
 let selectedOTT = "none";
-let isTabSwitching = false; 
-let isArrowScrolling = false;  
+
+let planType = "monthly";
+
+let userLat = "";
+let userLng = "";
+
+/* OTT */
+
 const ottPlans = {
+
 basic:{
   name:"OTT Basic",
-  price:{monthly:151,quarterly:454,half:908,yearly:1817},
-  apps:["Zee5","SonyLIV","SunNxt","Aha","Discovery+"]
+  price:{
+    monthly:151,
+    quarterly:454,
+    half:908,
+    yearly:1817
+  },
+  apps:[
+    "Zee5",
+    "SonyLIV",
+    "SunNxt",
+    "Aha",
+    "Discovery+"
+  ]
 },
+
 plus:{
   name:"OTT Basic Plus",
-  price:{monthly:216,quarterly:647,half:1295,yearly:2590},
-  apps:["JioHotstar","Zee5","SonyLIV","SunNxt","Aha"]
+  price:{
+    monthly:216,
+    quarterly:647,
+    half:1295,
+    yearly:2590
+  },
+  apps:[
+    "JioHotstar",
+    "Zee5",
+    "SonyLIV",
+    "SunNxt",
+    "Aha"
+  ]
 },
+
 premium:{
   name:"OTT Premium",
-  price:{monthly:239,quarterly:718,half:1436,yearly:2873},
-  apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"]
+  price:{
+    monthly:239,
+    quarterly:718,
+    half:1436,
+    yearly:2873
+  },
+  apps:[
+    "Amazon Prime",
+    "JioHotstar",
+    "Zee5",
+    "SonyLIV",
+    "SunNxt"
+  ]
 },
+
 premiumplus:{
   name:"OTT Premium Plus",
-  price:{monthly:282,quarterly:847,half:1695,yearly:3389},
-  apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"]
+  price:{
+    monthly:282,
+    quarterly:847,
+    half:1695,
+    yearly:3389
+  },
+  apps:[
+    "Amazon Prime",
+    "JioHotstar",
+    "Zee5",
+    "SonyLIV",
+    "SunNxt"
+  ]
 }
-}; 
+
+};
+
+/* LOGOS */
+
 const ottLogos = {
+
 "Zee5":"https://upload.wikimedia.org/wikipedia/commons/5/5a/Zee5-official-logo.jpeg",
+
 "SonyLIV":"https://upload.wikimedia.org/wikipedia/commons/f/f7/SonyLIV_2020.png",
+
 "SunNxt":"https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Sun_NXT_logo_small.png/250px-Sun_NXT_logo_small.png",
+
 "Aha":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Aha_OTT_Logo.svg/500px-Aha_OTT_Logo.svg.png",
+
 "Discovery+":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2019_Discovery_logo.svg/960px-2019_Discovery_logo.svg.png",
-"Hungama":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Hungama_logo.png/960px-Hungama_logo.png",
-"Fancode":"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Fancode.png/960px-Fancode.png",
-"ShemarooMe":"https://upload.wikimedia.org/wikipedia/en/b/b9/Shemaroo_Entertainment_Logo.png",
-"ShortsTV":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Shorts_logo.jpg/960px-Shorts_logo.jpg",
+
 "Amazon Prime":"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
+
 "JioHotstar":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JioHotstar_2025.png/960px-JioHotstar_2025.png"
-};  
-const plansData = {
-nonott:[
-{name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
-{name:"Ghar Ka WiFi",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
-{name:"Fibre Basic",speed:"60 Mbps",price:{monthly:499,quarterly:1767,half:3533,yearly:7066}},
-{name:"Fibre Basic Plus",speed:"100 Mbps",price:{monthly:599,quarterly:2121,half:4241,yearly:8482},popular:true},
-{name:"Fibre TB",speed:"150 Mbps",price:{monthly:799,quarterly:2829,half:5657,yearly:9900}},
-{name:"Fibre Value Plus",speed:"150 Mbps",price:{monthly:849,quarterly:3006,half:6011,yearly:10520}},
-{name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
-],
 
-ott:[
-{name:"OTT Basic",apps:["Zee5","SonyLIV","SunNxt","Aha","Discovery+"],
-price:{monthly:159,quarterly:454,half:908,yearly:1817}},
-{name:"OTT Basic Plus",apps:["JioHotstar","Zee5","SonyLIV","SunNxt","Aha"],
-price:{monthly:224,quarterly:647,half:1295,yearly:2590}},
-{name:"OTT Premium",apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"],
-price:{monthly:248,quarterly:718,half:1436,yearly:2873},popular:true},
-{name:"OTT Premium Plus",apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"],
-price:{monthly:289,quarterly:847,half:1695,yearly:3389}}
-]
-};  
+};
 
-function getCurrentDate(){
-  return new Date().toLocaleString("en-IN");
+/* PLANS */
+
+const plansData = [
+
+{
+  name:"Fibre Entry",
+  speed:"25 Mbps",
+  popular:false,
+  price:{
+    monthly:333,
+    quarterly:1178,
+    half:2356,
+    yearly:4712
+  }
+},
+
+{
+  name:"Ghar Ka WiFi",
+  speed:"40 Mbps",
+  popular:false,
+  price:{
+    monthly:399,
+    quarterly:1413,
+    half:2826,
+    yearly:5652
+  }
+},
+
+{
+  name:"Fibre Basic",
+  speed:"60 Mbps",
+  popular:false,
+  price:{
+    monthly:499,
+    quarterly:1767,
+    half:3533,
+    yearly:7066
+  }
+},
+
+{
+  name:"Fibre Basic Plus",
+  speed:"100 Mbps",
+  popular:true,
+  price:{
+    monthly:599,
+    quarterly:2121,
+    half:4241,
+    yearly:8482
+  }
+},
+
+{
+  name:"Fibre TB",
+  speed:"150 Mbps",
+  popular:false,
+  price:{
+    monthly:799,
+    quarterly:2829,
+    half:5657,
+    yearly:9900
+  }
+},
+
+{
+  name:"Fibre Value Plus",
+  speed:"150 Mbps",
+  popular:false,
+  price:{
+    monthly:849,
+    quarterly:3006,
+    half:6011,
+    yearly:10520
+  }
+},
+
+{
+  name:"Fibre Premium Plus",
+  speed:"250 Mbps",
+  popular:false,
+  price:{
+    monthly:1299,
+    quarterly:4602,
+    half:9197,
+    yearly:18394
+  }
 }
-const source = "Website";  
-  
+
+];
+
+/* INIT */
+
 window.onload = function(){
 
-  render();
-  detectLocation();
-  // ✅ Attach ONCE (correct place)
-  const plansContainer = document.getElementById("plans");
-  let scrollTimeout;
-  if(localStorage.getItem("visited")){
-  console.log("Returning user");
-}
-localStorage.setItem("visited", true);
-plansContainer.addEventListener("scroll", () => {
-  updateScale();
-  // 🚫 disable auto select during manual/arrow scrolling
-  if(
-    isAutoScrolling ||
-    isTabSwitching ||
-    isArrowScrolling
-  ) return;
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    // ✅ ONLY desktop auto-center
-    if(window.innerWidth > 768){
-      autoSelectCenter();
-    }
-  }, 300);
-});
-document.getElementById("name").addEventListener("input", ()=>{
-  document.getElementById("name").classList.remove("error");
-  document.getElementById("nameError").innerText = "";
-  checkFormReady();
-});
-document.getElementById("phone").addEventListener("input", ()=>{
-  document.getElementById("phone").classList.remove("error");
-  document.getElementById("phoneError").innerText = "";
-  checkFormReady();
-});  
-}
+  renderPlans();
 
- 
+  detectLocation();
+
+  document.getElementById("name")
+  .addEventListener("input",()=>{
+    clearErrors();
+    checkFormReady();
+  });
+
+  document.getElementById("phone")
+  .addEventListener("input",()=>{
+    clearErrors();
+    checkFormReady();
+  });
+
+};
+
+/* LOCATION */
+
 function detectLocation(){
-  const areaInput = document.getElementById("area");
+
+  const areaInput =
+  document.getElementById("area");
 
   if(!navigator.geolocation){
     areaInput.value = "Chennai";
     return;
   }
 
-  navigator.geolocation.getCurrentPosition(async pos => {
+  navigator.geolocation.getCurrentPosition(async pos=>{
+
     userLat = pos.coords.latitude;
     userLng = pos.coords.longitude;
 
     try{
-      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
+
+      const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`
+      );
+
       const data = await res.json();
 
       areaInput.value =
-        data.address.suburb ||
-        data.address.neighbourhood ||
-        data.address.city ||
-        "Chennai";
-    } catch {
+      data.address.suburb ||
+      data.address.neighbourhood ||
+      data.address.city ||
+      "Chennai";
+
+    }catch{
+
       areaInput.value = "Chennai";
+
     }
+
   });
+
 }
 
-function renderOTT(){
-  let container = document.getElementById("ottCards");
-  container.innerHTML = "";
-  // ✅ ADD ONLY ONCE (outside loop)
-  container.innerHTML += `
-  <div class="ott-card ${selectedOTT==='none'?'active':''}" 
-  onclick="selectOTTCard('none',this)">
-   <div class="ott-title">🚫 No OTT</div>
-  <div class="ott-price">Continue without OTT</div>
-  </div>`;
+/* RENDER PLANS */
 
-  // 🔁 LOOP ONLY FOR REAL OTT PLANS
+function renderPlans(){
+
+  const container =
+  document.getElementById("plans");
+
+  container.innerHTML = "";
+
+  plansData.forEach(p=>{
+
+    let price = p.price[planType];
+
+    let freeText = "";
+
+    if(planType==="quarterly"){
+      freeText = "🎁 7 Days FREE";
+    }
+
+    if(planType==="half"){
+      freeText = "🎁 19 Days FREE";
+    }
+
+    if(planType==="yearly"){
+      freeText = "🎁 1 Month FREE";
+    }
+
+    container.innerHTML += `
+
+    <div class="card ${p.popular ? 'popular':''}"
+    data-name="${p.name}"
+    data-price="${price}"
+    data-speed="${p.speed}">
+
+      ${p.popular ?
+      `<div class="badge">Most Popular</div>` : ''}
+
+      ${freeText ?
+      `<div class="badge">${freeText}</div>` : ''}
+
+      <h3>${p.name}</h3>
+
+      <h2>₹${price}</h2>
+
+      <p>${p.speed}</p>
+
+      <button class="select-btn">
+        Select
+      </button>
+
+    </div>
+
+    `;
+
+  });
+
+}
+
+/* PLAN CLICK */
+
+document.addEventListener("click",function(e){
+
+  if(e.target.classList.contains("select-btn")){
+
+    const card =
+    e.target.closest(".card");
+
+    selectPlan(card);
+
+  }
+
+});
+
+/* SELECT PLAN */
+
+function selectPlan(card){
+
+  document.querySelectorAll(".card")
+  .forEach(c=>c.classList.remove("selected"));
+
+  card.classList.add("selected");
+
+  selectedPlanName =
+  card.dataset.name;
+
+  selectedBasePrice =
+  Number(card.dataset.price);
+
+  document.getElementById("selectedBox")
+  .style.display = "block";
+
+  document.getElementById("selectedText")
+  .innerHTML = `
+  Total: ₹${selectedBasePrice}
+  `;
+
+  document.getElementById("bottomBar")
+  .style.display = "block";
+
+  updatePrice();
+
+  renderOTT();
+
+  document.getElementById("ottSection")
+  .style.display = "block";
+
+  setTimeout(()=>{
+    document.getElementById("ottSection")
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+  },150);
+
+}
+
+/* ARROWS */
+
+function scrollPlans(dir){
+
+  const container =
+  document.getElementById("plans");
+
+  const card =
+  container.querySelector(".card");
+
+  if(!card) return;
+
+  const width =
+  card.offsetWidth + 16;
+
+  container.scrollBy({
+    left:dir * width * 2,
+    behavior:"smooth"
+  });
+
+}
+
+/* OTT */
+
+function renderOTT(){
+
+  const container =
+  document.getElementById("ottCards");
+
+  container.innerHTML = "";
+
+  container.innerHTML += `
+
+  <div class="ott-card ${selectedOTT==='none' ? 'active':''}"
+  onclick="selectOTTCard('none',this)">
+
+    <div class="ott-title">
+      🚫 No OTT
+    </div>
+
+    <div class="ott-price">
+      Continue without OTT
+    </div>
+
+  </div>
+
+  `;
+
   Object.keys(ottPlans).forEach(key=>{
 
-    let p = ottPlans[key];
-    let isActive = key === selectedOTT ? "active" : "";
+    const p = ottPlans[key];
 
-    let logos = p.apps.slice(0,6).map(app=>{
-      return ottLogos[app]
-        ? `<img src="${ottLogos[app]}">`
-        : "";
+    let logos =
+    p.apps.map(app=>{
+
+      if(!ottLogos[app]) return "";
+
+      return `
+      <img src="${ottLogos[app]}">
+      `;
+
     }).join("");
 
     container.innerHTML += `
-    <div class="ott-card ${isActive}" onclick="selectOTTCard('${key}',this)">
-      <div class="ott-title">${p.name}</div>
-      <div class="ott-price">₹${p.price[planType]}</div>
-      <div class="ott-grid">${logos}</div>
-    </div>`;
+
+    <div class="ott-card ${selectedOTT===key ? 'active':''}"
+    onclick="selectOTTCard('${key}',this)">
+
+      <div class="ott-title">
+        ${p.name}
+      </div>
+
+      <div class="ott-price">
+        ₹${p.price[planType]}
+      </div>
+
+      <div class="ott-grid">
+        ${logos}
+      </div>
+
+    </div>
+
+    `;
+
   });
+
 }
-  
-function selectOTTCard(type, el){
+
+/* SELECT OTT */
+
+function selectOTTCard(type,el){
+
   selectedOTT = type;
-  if(type === "none"){
+
+  if(type==="none"){
     selectedOTTName = "None";
-  } else {
-    selectedOTTName = ottPlans[type].name;  // ✅ clean name
+  }else{
+    selectedOTTName =
+    ottPlans[type].name;
   }
+
   document.querySelectorAll(".ott-card")
-    .forEach(c=>c.classList.remove("active"));
+  .forEach(c=>c.classList.remove("active"));
+
   el.classList.add("active");
+
   updatePrice();
+
   checkFormReady();
+
   showLeadPrompt();
-   setTimeout(()=>{
+
+  setTimeout(()=>{
+
     document.getElementById("formSection")
-      .scrollIntoView({behavior:"smooth"});
-  }, 250);
-}
-  
-function render(){
-  let c = document.getElementById("plans");
-  c.innerHTML = "";
-  let plans = plansData.nonott;   // ✅ ONLY INTERNET PLANS
-  plans.forEach(p=>{
-    let basePrice = p.price[planType];
-    // ✅ FIX: declare properly
-    let freeText = "";
-    if(planType === "quarterly") freeText = "🎁 7 Days FREE";
-    if(planType === "half") freeText = "🎁 19 Days FREE";
-    if(planType === "yearly") freeText = "🎁 1 Month FREE";
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"center"
+    });
 
-    c.innerHTML += `
-    <div class="card ${p.popular ? 'popular' : ''}"
-data-name="${p.name}"
-data-price="${basePrice}"
-data-speed="${p.speed}">
+  },250);
 
-      ${p.popular ? '<div class="badge">Most Popular</div>' : ''}
-      ${freeText ? `<div class="badge">${freeText}</div>` : ''}
-
-      <h3>${p.name}</h3>
-      <h2>₹${basePrice}</h2>
-      <p>${p.speed}</p>
-      <button class="select-btn">Select</button>
-    </div>`;
-  });
- setTimeout(()=>{
-  centerPopular();
-  updateScale();   // 🔥 IMPORTANT
-},150);
 }
 
-function centerCard(el){
-  const container = document.getElementById("plans");
-  isAutoScrolling = true;
-  const scrollLeft =   el.offsetLeft - ((container.clientWidth - el.clientWidth) / 2);
-  container.scrollTo({
-    left: scrollLeft,
-    behavior: "smooth"
-  });
-  // stop flag after animation
-  setTimeout(()=>{
-    isAutoScrolling = false;
-  }, 400);
-}
-  
-function centerPopular(){
-  const popularCard = document.querySelector(".popular");
-  if(!popularCard) return;
-  centerCard(popularCard);
-  document.querySelectorAll(".card")
-    .forEach(c=>c.classList.remove("selected"));
-  popularCard.classList.add("selected");
-}
-
-function selectPlan(el,n,p,s){
-  selectedPlanName = n;   // ✅ store only name
-  selectedBasePrice = Number(p);
-  selectedPlan = `${n} - ₹${p} (${s})`;
-  document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
-  el.classList.add("selected");
-  document.getElementById("selectedBox").style.display="block";
-  centerCard(el);
-  document.getElementById("ottSection").style.display="block";
-  setTimeout(()=>{
-  document.getElementById("ottSection").scrollIntoView({behavior:"smooth"});
-}, 150);
-  document.getElementById("bottomBar").style.display = "flex";
-  renderOTT();
-  updatePrice();
-  checkFormReady();
-  localStorage.setItem("selectedPlan", selectedPlanName);
-}
-
-function scrollPlans(dir){
-  const container = document.getElementById("plans");
-  const card = container.querySelector(".card");
-  if(!card) return;
-  const cardWidth = card.offsetWidth + 16;
-  isArrowScrolling = true;
-  // ✅ FORCE SCROLL
-  container.scrollLeft += dir * cardWidth;
-  setTimeout(()=>{
-    isArrowScrolling = false;
-  }, 400);
-}
-  
- function autoSelectCenter(){
-  const cards = document.querySelectorAll(".card");
-  const container = document.getElementById("plans");
-  let closest = null;
-  let minDistance = Infinity;
-  const center = container.offsetWidth / 2;
-  cards.forEach(card=>{
-    const cardCenter =
-      card.offsetLeft -
-      container.scrollLeft +
-      (card.offsetWidth / 2);
-    const dist = Math.abs(center - cardCenter);
-
-    if(dist < minDistance){
-      minDistance = dist;
-      closest = card;
-    }
-  });
-  // ✅ ONLY scale non-selected cards
-  updateScale();
-}
-  
-function selectOTT(type){
-  selectedOTT = type;
-  if(type === "none"){
-    document.getElementById("ottPreview").innerHTML = "";
-    updatePrice();
-    return;
-  }
-  let plan = ottPlans[type];
-  let logos = plan.apps.map(app=>{
-    return `<img src="${ottLogos[app]}" style="height:22px;margin:2px">`;
-  }).join("");
-
-  document.getElementById("ottPreview").innerHTML = `
-    <p><b>${plan.name}</b></p>
-    <div>${logos}</div>
-  `;
-  updatePrice();
-}
+/* PRICE */
 
 function updatePrice(){
-  if(!selectedBasePrice){
-    document.getElementById("bottomPrice").innerHTML = "₹0";
-    return;
+
+  let ottPrice = 0;
+
+  if(selectedOTT !== "none"){
+    ottPrice =
+    ottPlans[selectedOTT]
+    .price[planType];
   }
-  let base = Number(selectedBasePrice);
-  let ottPrice = selectedOTT !== "none"
-    ? Number(ottPlans[selectedOTT].price[planType])
-    : 0;
-  let total = base + ottPrice;
-  document.getElementById("bottomPrice").innerHTML = `₹ ${total}`;
-  document.getElementById("selectedText").innerHTML =
-  `Total: ₹${total}<br>
-   <span style="font-size:12px">
-   Base ₹${base} ${ottPrice ? `+ OTT ₹${ottPrice}` : ""}
-   </span>`;
-}
-  
-function showApps(apps){
-  const list = document.getElementById("appList");
-  list.innerHTML = apps.map(app=>`<p>• ${app}</p>`).join("");
-  document.getElementById("appPopup").style.display="flex";
+
+  const total =
+  selectedBasePrice + ottPrice;
+
+  document.getElementById("bottomPrice")
+  .innerHTML = `₹ ${total}`;
+
+  document.getElementById("selectedText")
+  .innerHTML = `
+  Total: ₹${total}<br>
+  <span style="font-size:12px">
+  Base ₹${selectedBasePrice}
+  ${ottPrice ? `+ OTT ₹${ottPrice}`:''}
+  </span>
+  `;
+
 }
 
-function closePopup(){
-  document.getElementById("appPopup").style.display="none";
-}
-  
-function setType(type, el){
+/* TYPE */
+
+function setType(type,el){
+
   planType = type;
+
   document.querySelectorAll(".duration-card")
-    .forEach(c=>c.classList.remove("active"));
+  .forEach(c=>c.classList.remove("active"));
+
   el.classList.add("active");
-  // ✅ RESET OTT
+
   selectedOTT = "none";
   selectedOTTName = "None";
-  render();        // internet plans
-  if(selectedBasePrice){
-    renderOTT();   // only if plan already selected
-  }
-  updatePrice();   // always update price
+
+  renderPlans();
+
+  document.getElementById("ottSection")
+  .style.display = "none";
+
+  document.getElementById("selectedBox")
+  .style.display = "none";
+
+  document.getElementById("bottomBar")
+  .style.display = "none";
+
 }
-  
-function updateScale(){
-  const cards = document.querySelectorAll(".card");
-  const container = document.getElementById("plans");
-  const center = container.offsetWidth / 2;
-  cards.forEach(card=>{
-    // ✅ DO NOT TOUCH SELECTED CARD
-    if(card.classList.contains("selected")){
-      card.style.transform = "scale(1.12)";
-      card.style.opacity = "1";
-      card.style.zIndex = "5";
-      return;
-    }
-    const cardCenter =
-      card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
-    const distance = Math.abs(center - cardCenter);
-    let scale = Math.max(0.85, 1 - distance/600);
-    let opacity = Math.max(0.4, 1 - distance/400);
-    card.style.transform = `scale(${scale})`;
-    card.style.opacity = opacity;
-  });
-}
-  
+
+/* LEAD PROMPT */
+
 function showLeadPrompt(){
-  const prompt = document.getElementById("leadPrompt"); 
+
+  const prompt =
+  document.getElementById("leadPrompt");
+
   prompt.classList.add("show");
+
   setTimeout(()=>{
     prompt.classList.remove("show");
-  }, 2500);
-}
-  
-async function submitForm(){
-  // ✅ VALIDATION FIRST
-  if(!validateForm()) return;
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let area = document.getElementById("area").value;
-  
-  // 🔥 GOOGLE ADS
-  gtag('event', 'conversion', {
-    'send_to': 'AW-XXXXXXXXX/CONVERSION_ID',
-    'value': selectedBasePrice,
-    'currency': 'INR'
-  });
+  },2500);
 
-  // 🔥 META PIXEL
-  fbq('track', 'Lead', {
-    content_name: selectedPlanName,
-    value: selectedBasePrice,
-    currency: 'INR'
-  });
-  
-  let data = {
-    Name: name,
-    Phone: phone,
-    Area: area,
-    Latitude: userLat,
-    Longitude: userLng,
-    "Plan Type": planType,
-    "Selected Plan": selectedPlanName,
-    "OTT Selected": selectedOTTName,
-    Date: getCurrentDate(),
-    Source: "Website"
+}
+
+/* VALIDATION */
+
+function clearErrors(){
+
+  document.getElementById("name")
+  .classList.remove("error");
+
+  document.getElementById("phone")
+  .classList.remove("error");
+
+  document.getElementById("nameError")
+  .innerText = "";
+
+  document.getElementById("phoneError")
+  .innerText = "";
+
+}
+
+function checkFormReady(){
+
+  const btn =
+  document.querySelector("#bottomBar button");
+
+  if(
+    selectedPlanName &&
+    document.getElementById("name").value &&
+    /^[6-9]\d{9}$/.test(
+      document.getElementById("phone").value
+    )
+  ){
+    btn.disabled = false;
+  }else{
+    btn.disabled = true;
+  }
+
+}
+
+function validateForm(){
+
+  let valid = true;
+
+  const name =
+  document.getElementById("name");
+
+  const phone =
+  document.getElementById("phone");
+
+  clearErrors();
+
+  if(!name.value.trim()){
+
+    name.classList.add("error");
+
+    document.getElementById("nameError")
+    .innerText =
+    "Please enter your name";
+
+    valid = false;
+
+  }
+
+  else if(
+    !/^[6-9]\d{9}$/.test(phone.value)
+  ){
+
+    phone.classList.add("error");
+
+    document.getElementById("phoneError")
+    .innerText =
+    "Enter valid 10-digit mobile number";
+
+    valid = false;
+
+  }
+
+  if(!selectedPlanName){
+
+    alert("Please select a plan");
+
+    return false;
+
+  }
+
+  return valid;
+
+}
+
+/* SUBMIT */
+
+async function submitForm(){
+
+  if(!validateForm()) return;
+
+  const name =
+  document.getElementById("name").value;
+
+  const phone =
+  document.getElementById("phone").value;
+
+  const area =
+  document.getElementById("area").value;
+
+  const data = {
+
+    Name:name,
+    Phone:phone,
+    Area:area,
+
+    Latitude:userLat,
+    Longitude:userLng,
+
+    "Plan Type":planType,
+
+    "Selected Plan":selectedPlanName,
+
+    "OTT Selected":selectedOTTName,
+
+    Date:new Date().toLocaleString("en-IN"),
+
+    Source:"Website"
+
   };
-  await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec",{
+
+  await fetch(
+  "https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec",
+  {
     method:"POST",
     mode:"no-cors",
-    body: JSON.stringify(data)
+    body:JSON.stringify(data)
   });
 
- let msg =
+  let msg =
 `🔥 New BSNL Request
 
 👤 Name: ${name}
@@ -1116,107 +1482,14 @@ async function submitForm(){
 
 Please confirm availability.`;
 
-  window.open(`https://wa.me/919447072230?text=${encodeURIComponent(msg)}`);
-}
-  
-function checkFormReady(){
-  const btn = document.querySelector("#bottomBar button");
-  if(selectedPlanName && 
-     document.getElementById("name").value &&
-     /^[6-9]\d{9}$/.test(document.getElementById("phone").value)){
-    btn.disabled = false;
-  } else {
-    btn.disabled = true;
-  }
-}
-  
-function validateForm(){
-  let isValid = true;
-  const name = document.getElementById("name");
-  const phone = document.getElementById("phone");
-  const nameError = document.getElementById("nameError");
-  const phoneError = document.getElementById("phoneError");
-  // reset
-  name.classList.remove("error");
-  phone.classList.remove("error");
-  nameError.innerText = "";
-  phoneError.innerText = "";
-  // Name validation
-  if(!name.value.trim()){
-    name.classList.add("error");
-    nameError.innerText = "Please enter your name";
-    name.focus();
-    isValid = false;
-  }
-  // Phone validation
-  else if(!/^[6-9]\d{9}$/.test(phone.value)){
-    phone.classList.add("error");
-    phoneError.innerText = "Enter valid 10-digit mobile number";
-    phone.focus();
-    isValid = false;
-  }
-  if(!selectedPlanName){
-  alert("Please select a plan first");
-  return false;
-}
-  return isValid;
+  window.open(
+  `https://wa.me/919447072230?text=${encodeURIComponent(msg)}`
+  );
+
 }
 
-  document.addEventListener("click", function(e){
-  // ✅ Arrow buttons
-  if(e.target.closest(".carousel-btn")){
-    return;
-  }
-  // ✅ Select button
-  if(e.target.classList.contains("select-btn")){
-    const card = e.target.closest(".card");
-    selectPlan(
-      card,
-      card.dataset.name,
-      card.dataset.price,
-      card.dataset.speed
-    );
-    return;
-  }
-  // ✅ Card click
-  const card = e.target.closest(".card");
-  if(card){
-    selectPlan(
-      card,
-      card.dataset.name,
-      card.dataset.price,
-      card.dataset.speed
-    );
-  }
-});
-  
 </script>
-<div id="appPopup" style="display:none;
-position:fixed;inset:0;
-background:rgba(0,0,0,0.7);
-z-index:99999;
-align-items:center;
-justify-content:center;">
 
-  <div style="background:white;color:black;
-  padding:20px;border-radius:10px;
-  max-width:300px;width:90%;
-  max-height:70vh;overflow:auto;">
-
-    <h3>Included OTT Apps</h3>
-    <div id="appList"></div>
-
-    <button onclick="closePopup()">Close</button>
-  </div>
-</div>
-<div id="bottomBar" class="bottom-bar">
-  <div class="price-line" id="bottomPrice">
-    ₹0
-  </div>
-  <button onclick="submitForm()" disabled>Get Connection</button>
-</div> 
-<div id="leadPrompt" class="lead-prompt">
-  ✨ Enter your name and contact details to continue
-</div>  
 </body>
 </html>
+```
