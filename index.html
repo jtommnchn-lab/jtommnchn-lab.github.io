@@ -1,801 +1,833 @@
+Here is an HTML document that implements a tabbed interface for BSNL fibre plans, requiring users to select a plan before accessing the OTT section.
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<!-- Google tag (gtag.js) - Replace with actual ID -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'AW-XXXXXXXXX');
-</script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s){
-if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)
-}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '994711108634772'); 
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=994711108634772&ev=PageView&noscript=1"/></noscript>
-<title>BSNL Bharat Fibre Chennai | Unlimited Internet + OTT</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>BSNL Bharat Fibre | Choose Plan First</title>
 <style>
-*{box-sizing:border-box;}
-body{
-  margin:0;
-  font-family:'Segoe UI', Roboto, system-ui, sans-serif;
-  background: linear-gradient(145deg, #0b1f4a 0%, #05112e 100%);
-  color:white;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.lead-prompt{
-  position:fixed;
-  bottom:100px;
-  left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:#25D366;
-  color:white;
-  padding:12px 22px;
-  border-radius:40px;
-  font-size:14px;
-  font-weight:600;
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
-  z-index:10000;
-  opacity:0;
-  pointer-events:none;
-  transition:0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-  white-space:nowrap;
+
+body {
+  background: linear-gradient(135deg, #071a3b 0%, #0e2a5a 100%);
+  font-family: 'Segoe UI', system-ui, 'Roboto', sans-serif;
+  color: #ffffff;
+  scroll-behavior: smooth;
 }
-.lead-prompt.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 24px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:8px 18px;
-  box-shadow:0 2px 8px rgba(0,0,0,0.05);
+.logo {
+  height: 46px;
+  object-fit: contain;
 }
-.topbar img{height:34px;}
-.actions a{
-  margin-left:14px;
-  text-decoration:none;
-  font-size:22px;
+.wa-btn {
+  background: #25D366;
+  color: white;
+  padding: 8px 18px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  transition: 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-.hero{
-  width:100%;
-  height:clamp(200px, 38vh, 380px);
-  background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.3)), url('https://jtommnchn-lab.github.io/Banner.jpg') center/cover no-repeat;
-  border-bottom:2px solid rgba(255,255,255,0.15);
+.wa-btn:hover {
+  background: #1da15a;
+  transform: scale(0.97);
 }
-@media(max-width:768px){
-  .hero{
-    height:200px;
-    background:#0b1f4a url('https://jtommnchn-lab.github.io/Banner.jpg') center/contain no-repeat;
+
+/* HERO BANNER */
+.hero {
+  width: 100%;
+  height: clamp(220px, 42vh, 400px);
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.45)), 
+              url('https://jtommnchn-lab.github.io/Banner.jpg') center/cover no-repeat;
+  border-bottom: 2px solid rgba(255,215,120,0.3);
+}
+@media (max-width: 768px) {
+  .hero {
+    height: 210px;
+    background: #0b1f4a url('https://jtommnchn-lab.github.io/Banner.jpg') center/contain no-repeat;
   }
 }
-.trust-strip{
-  background: rgba(255,255,240,0.08);
-  backdrop-filter: blur(2px);
-  text-align:center;
-  padding:12px 8px;
-  font-size:13px;
-  font-weight:500;
-  letter-spacing:0.3px;
-  color:#f0f0f0;
-  border-bottom:1px solid rgba(255,255,255,0.1);
+
+/* ========== TAB FRAME STYLES (OTT / NON-OTT as Tabs) ========== */
+.tab-frames {
+  max-width: 1100px;
+  margin: 28px auto 10px;
+  padding: 0 20px;
 }
-.duration-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  padding:18px 16px;
-  max-width:700px;
-  margin:0 auto;
+.tab-headers {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  border-radius: 60px;
+  padding: 6px;
+  width: fit-content;
+  margin: 0 auto 20px;
+  border: 1px solid rgba(255,255,255,0.2);
 }
-.duration-card{
-  background:rgba(255,255,255,0.12);
+.tab-header {
+  padding: 12px 32px;
+  font-size: 1rem;
+  font-weight: 700;
+  border: none;
+  background: transparent;
+  color: #eef3ff;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.3px;
+}
+.tab-header.active {
+  background: #ff9800;
+  color: #0a1f3a;
+  box-shadow: 0 6px 14px rgba(255,152,0,0.35);
+}
+.tab-header.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(0.1);
+}
+.tab-header:not(.active):not(.disabled):hover {
+  background: rgba(255,255,255,0.2);
+  color: white;
+}
+/* Lock icon hint */
+.lock-hint {
+  font-size: 0.7rem;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* Tab panes */
+.tab-pane {
+  display: none;
+  animation: fadeSlide 0.3s ease-out;
+}
+.tab-pane.active-pane {
+  display: block;
+}
+@keyframes fadeSlide {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Tenure Tabs (monthly/quarterly etc) */
+.tenure-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px auto 24px;
+}
+.tenure-btn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 40px;
+  background: rgba(255,255,255,0.12);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  font-size: 0.9rem;
+}
+.tenure-btn.active {
+  background: white;
+  color: #003a8f;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+
+/* CAROUSEL WRAPPER */
+.plans-wrapper {
+  position: relative;
+  max-width: 1300px;
+  margin: 10px auto 20px;
+  padding: 0 12px;
+}
+.plans {
+  display: flex;
+  gap: 22px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 20px 40px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.plans::-webkit-scrollbar {
+  height: 6px;
+}
+.plans::-webkit-scrollbar-track {
+  background: #1e3a6b;
+  border-radius: 10px;
+}
+.plans::-webkit-scrollbar-thumb {
+  background: #ff9800;
+  border-radius: 10px;
+}
+.card {
+  flex: 0 0 250px;
+  background: white;
+  color: #0e2c48;
+  border-radius: 32px;
+  padding: 20px 14px;
+  text-align: center;
+  scroll-snap-align: center;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  box-shadow: 0 20px 30px -12px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+@media (max-width: 720px) {
+  .card {
+    flex: 0 0 72%;
+  }
+}
+.card.selected {
+  transform: scale(1.04);
+  border: 3px solid #2e7d32;
+  background: #fffef5;
+}
+.card.popular {
+  border-top: 5px solid #ff9800;
+  box-shadow: 0 18px 28px -8px rgba(255,152,0,0.5);
+  transform: scale(1.01);
+}
+.badge {
+  background: #ff9800;
+  color: #1f2f47;
+  padding: 5px 12px;
+  border-radius: 60px;
+  font-size: 11px;
+  font-weight: 800;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.card h3 {
+  font-size: 1.4rem;
+  margin: 8px 0 4px;
+}
+.card h2 {
+  font-size: 2rem;
+  color: #1e6b2f;
+  margin: 8px 0;
+}
+.card p {
+  font-weight: 500;
+  color: #4a627a;
+}
+.card button {
+  background: #0b3b6b;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  margin-top: 14px;
+  border-radius: 40px;
+  font-weight: bold;
+  width: 85%;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.card button:hover {
+  background: #ff9800;
+  color: #0b2a44;
+}
+
+/* Edge fade */
+.plans-wrapper::before,
+.plans-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 55px;
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+}
+.plans-wrapper::before {
+  left: 0;
+  background: linear-gradient(to right, #0a2352 30%, transparent);
+}
+.plans-wrapper::after {
+  right: 0;
+  background: linear-gradient(to left, #0a2352 30%, transparent);
+}
+
+/* Arrows */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.65);
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 20;
   backdrop-filter: blur(4px);
-  padding:12px 6px;
-  border-radius:28px;
-  text-align:center;
-  cursor:pointer;
-  transition:0.2s;
-  border:1px solid rgba(255,255,255,0.2);
+  transition: 0.2s;
 }
-.duration-card.active{
-  background:white;
-  color:#003a8f;
-  transform:scale(1.03);
-  box-shadow:0 10px 18px rgba(0,0,0,0.2);
-  border-color:#ff9800;
+.carousel-btn.left {
+  left: 5px;
 }
-.offer{
-  font-size:10px;
-  margin-top:5px;
-  background:#ff9800;
-  display:inline-block;
-  padding:2px 8px;
-  border-radius:20px;
-  color:#1e2a3a;
-  font-weight:bold;
+.carousel-btn.right {
+  right: 5px;
 }
-.plans-wrapper{
-  position:relative;
-  max-width:1200px;
-  margin:15px auto 30px;
+.carousel-btn:hover {
+  background: #ff9800;
+  color: #0b1f3a;
 }
-.plans{
-  display:flex;
-  gap:20px;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-  scroll-behavior:smooth;
-  padding:25px max(calc((100% - 260px)/2), 25px);
-  scrollbar-width:none;
+
+/* Selected plan indicator */
+.selected-box {
+  background: #dff0d8;
+  color: #2e7d32;
+  text-align: center;
+  padding: 10px 16px;
+  margin: 5px auto 10px;
+  border-radius: 60px;
+  font-weight: bold;
+  max-width: 500px;
+  display: none;
+  font-size: 0.95rem;
+  width: fit-content;
 }
-.plans::-webkit-scrollbar{display:none;}
-.card{
-  flex:0 0 260px;
-  background:white;
-  color:#121826;
-  border-radius:28px;
-  padding:18px 12px;
-  text-align:center;
-  scroll-snap-align:center;
-  cursor:pointer;
-  transition:all 0.25s ease;
-  opacity:0.55;
-  transform:scale(0.88);
-  box-shadow:0 15px 30px rgba(0,0,0,0.2);
-  position:relative;
+
+/* FORM */
+.form-section {
+  padding: 30px 20px 55px;
+  display: flex;
+  justify-content: center;
 }
-.card.selected{
-  transform:scale(1.08) !important;
-  opacity:1;
-  border:3px solid #2e7d32;
-  box-shadow:0 20px 35px rgba(0,0,0,0.4);
+.form {
+  width: 100%;
+  max-width: 480px;
+  background: white;
+  color: #0e2e4a;
+  padding: 28px 26px;
+  border-radius: 36px;
+  box-shadow: 0 25px 40px -10px rgba(0,0,0,0.4);
 }
-.card.selected h2{color:#2e7d32;}
-.card.popular{
-  border:2px solid #ff9800;
-  box-shadow:0 0 20px rgba(255,152,0,0.6);
+.form h3 {
+  font-size: 1.7rem;
+  text-align: center;
+  margin-bottom: 8px;
 }
-.badge{
-  background:#ff9800;
-  color:#1e2a2f;
-  padding:5px 12px;
-  border-radius:40px;
-  font-size:12px;
-  font-weight:800;
-  display:inline-block;
-  margin-bottom:10px;
+input {
+  width: 100%;
+  padding: 14px 18px;
+  margin-top: 14px;
+  border-radius: 60px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
 }
-.card h3{margin:8px 0;}
-.card h2{font-size:26px;margin:8px 0;}
-.card p{color:#4a5568;font-weight:500;}
-.card button{
-  background:#003a8f;
-  border:none;
-  padding:10px 18px;
-  border-radius:40px;
-  color:white;
-  font-weight:bold;
-  margin-top:12px;
-  cursor:pointer;
-  transition:0.15s;
+input:focus {
+  outline: none;
+  border-color: #ff9800;
+  box-shadow: 0 0 0 3px rgba(255,152,0,0.2);
 }
-.carousel-btn{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  background:rgba(0,0,0,0.7);
-  border:none;
-  width:44px;
-  height:44px;
-  border-radius:60px;
-  color:white;
-  font-size:24px;
-  cursor:pointer;
-  z-index:20;
+.form button {
+  background: #ff9800;
+  color: #0b2a44;
+  font-weight: bold;
+  border: none;
+  padding: 14px;
+  width: 100%;
+  margin-top: 24px;
+  border-radius: 60px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.2s;
 }
-.carousel-btn.left{left:8px;}
-.carousel-btn.right{right:8px;}
-.selected-box{
-  background:#2e7d32;
-  max-width:500px;
-  margin:5px auto 10px;
-  padding:12px;
-  border-radius:60px;
-  text-align:center;
-  font-weight:bold;
-  display:none;
+.form button:hover {
+  background: #e68600;
+  transform: translateY(-2px);
 }
-.ott-section{
-  background: rgba(0,0,0,0.2);
-  border-radius:40px;
-  margin:20px 16px;
-  padding:18px 12px;
+.small-note {
+  font-size: 0.7rem;
+  text-align: center;
+  margin-top: 16px;
+  color: #7e95b5;
 }
-.ott-cards{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:18px;
-  margin-top:12px;
-}
-.ott-card{
-  background:white;
-  border-radius:28px;
-  padding:14px;
-  cursor:pointer;
-  transition:0.2s;
-  color:#111;
-  box-shadow:0 6px 14px rgba(0,0,0,0.1);
-  border:2px solid transparent;
-}
-.ott-card.active{
-  border:2px solid #2e7d32;
-  background:#f0fff0;
-  transform:scale(1.02);
-}
-.ott-title{
-  font-weight:800;
-  font-size:1.2rem;
-}
-.ott-price{
-  color:#0b5e2e;
-  font-weight:bold;
-  margin:6px 0;
-}
-.ott-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:6px;
-  margin-top:10px;
-}
-.ott-grid img{
-  width:100%;
-  height:44px;
-  object-fit:contain;
-  background:#f5f5f5;
-  border-radius:12px;
-  padding:6px;
-}
-.form-section{
-  padding:20px 20px 50px;
-  display:flex;
-  justify-content:center;
-}
-.form{
-  width:100%;
-  max-width:440px;
-  background:white;
-  border-radius:36px;
-  padding:28px 20px;
-  text-align:center;
-  box-shadow:0 25px 40px rgba(0,0,0,0.25);
-}
-.form h3{color:#003a8f; margin-top:0;}
-input{
-  width:90%;
-  padding:14px 16px;
-  margin:12px 0 4px;
-  border-radius:60px;
-  border:1px solid #ccc;
-  font-size:16px;
-}
-input.error{
-  border:2px solid #e53935;
-  background:#fff5f5;
-}
-.error-text{
-  color:#e53935;
-  font-size:12px;
-  text-align:left;
-  padding-left:16px;
-}
-button{
-  background:#003a8f;
-  color:white;
-  border:none;
-  padding:14px;
-  border-radius:60px;
-  font-weight:bold;
-  font-size:16px;
-  cursor:pointer;
-  width:90%;
-  margin-top:15px;
-  transition:0.2s;
-}
-button:active{transform:scale(0.97);}
-.bottom-bar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:white;
-  padding:12px 18px;
-  display:none;
-  flex-direction:column;
-  gap:8px;
-  box-shadow:0 -8px 25px rgba(0,0,0,0.2);
-  z-index:1000;
-  border-radius:24px 24px 0 0;
-}
-.price-line{
-  font-size:24px;
-  font-weight:800;
-  text-align:center;
-  color:#003a8f;
-}
-.bottom-bar button{
-  background:#25D366;
-  width:100%;
-  margin:0;
-  font-size:18px;
-  box-shadow:0 4px 12px rgba(37,211,102,0.4);
-}
-.bottom-bar button:disabled{
-  background:#aaaaaa;
-  opacity:0.7;
-  cursor:not-allowed;
+/* info message */
+.info-message {
+  text-align: center;
+  background: rgba(255,152,0,0.2);
+  padding: 8px;
+  border-radius: 30px;
+  max-width: 320px;
+  margin: 0 auto 15px;
+  font-size: 0.8rem;
 }
 </style>
 </head>
 <body>
 
-<div class="topbar">
-  <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" alt="BSNL">
-  <div class="actions">
-    <a href="tel:9447072230">📞</a>
-    <a href="https://wa.me/919447072230">💬</a>
-  </div>
+<div class="header">
+  <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" class="logo" alt="BSNL Logo">
+  <a href="https://wa.me/919447072230" class="wa-btn">📞 WhatsApp</a>
 </div>
+
 <div class="hero"></div>
-<div class="trust-strip">
-  ✅ Made In India | ⚡ Free Installation 24–48Hr | 📍 24x7 Chennai Support
-</div>
 
-<!-- Duration selector -->
-<div class="duration-grid" id="durationGrid">
-  <div class="duration-card active" data-type="monthly" onclick="setPlanDuration('monthly',this)"><div class="title">Monthly</div></div>
-  <div class="duration-card" data-type="quarterly" onclick="setPlanDuration('quarterly',this)"><div class="title">Quarterly</div><div class="offer">🎁 7 Days Free</div></div>
-  <div class="duration-card" data-type="half" onclick="setPlanDuration('half',this)"><div class="title">Half-Yearly</div><div class="offer">🎁 19 Days Free</div></div>
-  <div class="duration-card" data-type="yearly" onclick="setPlanDuration('yearly',this)"><div class="title">Annual</div><div class="offer">🎁 1 Month Free</div></div>
-</div>
-
-<div class="plans-wrapper">
-  <button class="carousel-btn left" onclick="scrollPlans(-1)">◀</button>
-  <div class="plans" id="plansContainer"></div>
-  <button class="carousel-btn right" onclick="scrollPlans(1)">▶</button>
-</div>
-<div id="selectedBox" class="selected-box"></div>
-
-<!-- OTT ADDON SECTION -->
-<div id="ottSection" class="ott-section" style="display:none;">
-  <h3 style="margin:0 0 5px 8px;">🎬 Add OTT Super Pack (Optional)</h3>
-  <div id="ottCardsContainer" class="ott-cards"></div>
-</div>
-
-<div class="form-section">
-  <div class="form">
-    <h3>📡 Check Availability & Get Offer</h3>
-    <input id="userName" placeholder="Full Name" autocomplete="name">
-    <div id="nameErr" class="error-text"></div>
-    <input id="userPhone" placeholder="10-digit Mobile Number" maxlength="10" autocomplete="tel">
-    <div id="phoneErr" class="error-text"></div>
-    <input id="userArea" placeholder="Detecting location...">
-    <button onclick="submitLead()">🚀 Get Connection →</button>
+<!-- ========== TAB FRAME (OTT / NON-OTT as tabs) ========== -->
+<div class="tab-frames">
+  <div class="tab-headers">
+    <button class="tab-header active" data-tab="nonott" id="tabNonOTT">📡 Non-OTT Plans</button>
+    <button class="tab-header disabled" data-tab="ott" id="tabOTT">🎬 OTT Entertainment Plans 🔒</button>
+  </div>
+  
+  <!-- Info message: require plan selection -->
+  <div id="lockInfo" class="info-message" style="background:#ff980030;">
+    ⚠️ Please select a plan in Non-OTT section first to unlock OTT plans.
+  </div>
+  
+  <!-- Non-OTT Pane -->
+  <div class="tab-pane active-pane" id="pane-nonott">
+    <div class="tenure-tabs" id="tenureNonOTT"></div>
+    <div class="plans-wrapper">
+      <button class="carousel-btn left" data-carousel="nonott">◀</button>
+      <div class="plans" id="plans-nonott"></div>
+      <button class="carousel-btn right" data-carousel="nonott">▶</button>
+    </div>
+  </div>
+  
+  <!-- OTT Pane -->
+  <div class="tab-pane" id="pane-ott">
+    <div class="tenure-tabs" id="tenureOTT"></div>
+    <div class="plans-wrapper">
+      <button class="carousel-btn left" data-carousel="ott">◀</button>
+      <div class="plans" id="plans-ott"></div>
+      <button class="carousel-btn right" data-carousel="ott">▶</button>
+    </div>
   </div>
 </div>
 
-<div id="bottomBar" class="bottom-bar">
-  <div class="price-line" id="bottomTotalPrice">₹0</div>
-  <button id="bottomSubmitBtn" onclick="submitLead()" disabled>Proceed with Plan</button>
+<!-- Global selected plan display (shared) -->
+<div id="selectedBox" class="selected-box">
+  ✅ Selected Plan: <span id="selectedText"></span>
 </div>
-<div id="leadPrompt" class="lead-prompt">✨ Fill your name & phone to book free installation</div>
+
+<!-- Lead Form -->
+<div class="form-section" id="formSection">
+  <div class="form">
+    <h3>🔌 Fibre at your Doorstep</h3>
+    <input type="text" id="userName" placeholder="Full Name" autocomplete="name">
+    <input type="tel" id="userPhone" placeholder="Mobile Number" autocomplete="tel">
+    <input type="text" id="userArea" placeholder="Detecting your area..." readonly>
+    <input type="hidden" id="planHidden">
+    <button id="submitBtn">📲 Get Callback / WhatsApp</button>
+    <div class="small-note">*Executive will confirm availability & offers</div>
+  </div>
+</div>
 
 <script>
-// ---------- DATA MODELS ----------
-const internetPlans = [
-  { name: "Fibre Entry", speed: "25 Mbps", price: { monthly: 333, quarterly: 1178, half: 2356, yearly: 4712 } },
-  { name: "Ghar Ka WiFi", speed: "40 Mbps", price: { monthly: 399, quarterly: 1413, half: 2826, yearly: 5652 } },
-  { name: "Fibre Basic", speed: "60 Mbps", price: { monthly: 499, quarterly: 1767, half: 3533, yearly: 7066 } },
-  { name: "Fibre Basic Plus", speed: "100 Mbps", price: { monthly: 599, quarterly: 2121, half: 4241, yearly: 8482 }, popular: true },
-  { name: "Fibre TB", speed: "150 Mbps", price: { monthly: 799, quarterly: 2829, half: 5657, yearly: 9900 } },
-  { name: "Fibre Value Plus", speed: "150 Mbps", price: { monthly: 849, quarterly: 3006, half: 6011, yearly: 10520 } },
-  { name: "Fibre Premium Plus", speed: "250 Mbps", price: { monthly: 1299, quarterly: 4602, half: 9197, yearly: 18394 } }
-];
-
-const ottAddons = {
-  basic: { name: "OTT Basic", price: { monthly: 151, quarterly: 454, half: 908, yearly: 1817 }, apps: ["Zee5","SonyLIV","SunNxt","Aha","Discovery+"] },
-  plus: { name: "OTT Basic Plus", price: { monthly: 216, quarterly: 647, half: 1295, yearly: 2590 }, apps: ["JioHotstar","Zee5","SonyLIV","SunNxt","Aha"] },
-  premium: { name: "OTT Premium", price: { monthly: 239, quarterly: 718, half: 1436, yearly: 2873 }, apps: ["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"] },
-  premiumplus: { name: "OTT Premium Plus", price: { monthly: 282, quarterly: 847, half: 1695, yearly: 3389 }, apps: ["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"] }
+// ======================= DATA MODELS =======================
+const plansLibrary = {
+  nonott: [
+    { name: "Fibre Entry", speed: "25 Mbps", price: { monthly: 333, quarterly: 1178, half: 2356, yearly: 4712 }, popular: false },
+    { name: "Ghar Ka WiFi", speed: "40 Mbps", price: { monthly: 399, quarterly: 1413, half: 2826, yearly: 5652 }, popular: false },
+    { name: "Fibre Basic", speed: "60 Mbps", price: { monthly: 499, quarterly: 1767, half: 3533, yearly: 7066 }, popular: false },
+    { name: "Fibre Basic Plus", speed: "100 Mbps", price: { monthly: 599, quarterly: 2121, half: 4241, yearly: 8482 }, popular: true },
+    { name: "Fibre TB", speed: "150 Mbps", price: { monthly: 799, quarterly: 2829, half: 5657, yearly: 9900 }, popular: false },
+    { name: "Fibre Value Plus", speed: "150 Mbps", price: { monthly: 849, quarterly: 3006, half: 6011, yearly: 10520 }, popular: false },
+    { name: "Fibre Premium Plus", speed: "250 Mbps", price: { monthly: 1299, quarterly: 4602, half: 9197, yearly: 18394 }, popular: false }
+  ],
+  ott: [
+    { name: "OTT Bronze", speed: "100 Mbps + OTT", price: { monthly: 699, quarterly: 2475, half: 4950, yearly: 9900 }, popular: false },
+    { name: "OTT Silver", speed: "150 Mbps + OTT", price: { monthly: 899, quarterly: 3185, half: 6370, yearly: 12740 }, popular: true },
+    { name: "OTT Gold", speed: "200 Mbps + OTT", price: { monthly: 1199, quarterly: 4250, half: 8500, yearly: 17000 }, popular: false },
+    { name: "OTT Platinum", speed: "300 Mbps + All OTT", price: { monthly: 1499, quarterly: 5297, half: 10594, yearly: 21188 }, popular: false }
+  ]
 };
 
-const ottLogos = {
-  "Zee5":"https://upload.wikimedia.org/wikipedia/commons/5/5a/Zee5-official-logo.jpeg",
-  "SonyLIV":"https://upload.wikimedia.org/wikipedia/commons/f/f7/SonyLIV_2020.png",
-  "SunNxt":"https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Sun_NXT_logo_small.png/250px-Sun_NXT_logo_small.png",
-  "Aha":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Aha_OTT_Logo.svg/500px-Aha_OTT_Logo.svg.png",
-  "Discovery+":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2019_Discovery_logo.svg/960px-2019_Discovery_logo.svg.png",
-  "Amazon Prime":"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
-  "JioHotstar":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JioHotstar_2025.png/960px-JioHotstar_2025.png"
+// Global state
+let currentActiveTab = "nonott";    // 'nonott' or 'ott'
+let tenureMap = { nonott: "monthly", ott: "monthly" };
+let selectedPlanPerTab = {
+  nonott: { name: "", price: 0, speed: "" },
+  ott: { name: "", price: 0, speed: "" }
 };
+let ottTabUnlocked = false;   // becomes true once a plan is selected in nonott
 
-// ---------- GLOBAL STATE ----------
-let currentDuration = "monthly";     // monthly, quarterly, half, yearly
-let selectedInternetPlan = null;     // object reference {name, speed, priceObject}
-let selectedOttKey = "none";         // 'none', 'basic', 'plus', 'premium', 'premiumplus'
-let selectedOttName = "None";
-let userLat = "", userLng = "";
-let isAutoScrolling = false;
+// DOM elements
+const areaInput = document.getElementById("userArea");
+const globalSelectedBox = document.getElementById("selectedBox");
+const globalSelectedSpan = document.getElementById("selectedText");
+const planHidden = document.getElementById("planHidden");
+const tabNonOTT = document.getElementById("tabNonOTT");
+const tabOTT = document.getElementById("tabOTT");
+const lockInfoDiv = document.getElementById("lockInfo");
 
-// Helper: get current price for internet plan based on duration
-function getCurrentInternetPrice(plan) {
-  if(!plan) return 0;
-  return plan.price[currentDuration] || 0;
+// Helper: get price from plan & tenure
+function getPlanPrice(plan, tenureKey) {
+  return plan.price[tenureKey] || plan.price.monthly;
 }
 
-// total price (internet + OTT)
-function computeTotal() {
-  let internetCost = selectedInternetPlan ? getCurrentInternetPrice(selectedInternetPlan) : 0;
-  let ottCost = 0;
-  if(selectedOttKey !== "none" && ottAddons[selectedOttKey]) {
-    ottCost = ottAddons[selectedOttKey].price[currentDuration] || 0;
-  }
-  return internetCost + ottCost;
+function getBonusText(tenure) {
+  if (tenure === "quarterly") return "🎁 7 Days FREE";
+  if (tenure === "half") return "🎁 19 Days FREE";
+  if (tenure === "yearly") return "🎁 1 Month FREE";
+  return "";
 }
 
-// Update UI bottom bar & selected box
-function refreshPriceUI() {
-  const total = computeTotal();
-  const internetCost = selectedInternetPlan ? getCurrentInternetPrice(selectedInternetPlan) : 0;
-  const ottCost = (selectedOttKey !== "none" && ottAddons[selectedOttKey]) ? ottAddons[selectedOttKey].price[currentDuration] : 0;
-  document.getElementById("bottomTotalPrice").innerHTML = `₹ ${total}`;
-  const selectedBox = document.getElementById("selectedBox");
-  if(selectedInternetPlan) {
-    selectedBox.style.display = "block";
-    let ottLine = selectedOttKey !== "none" ? ` + ${ottAddons[selectedOttKey].name} (₹${ottCost})` : "";
-    selectedBox.innerHTML = `📡 ${selectedInternetPlan.name} (${selectedInternetPlan.speed}) &nbsp; ₹${internetCost} ${ottLine}<br>💰 Total ₹${total}`;
-  } else {
-    selectedBox.style.display = "none";
-  }
-  // Bottom bar visibility
-  const bottomBar = document.getElementById("bottomBar");
-  if(selectedInternetPlan) bottomBar.style.display = "flex";
-  else bottomBar.style.display = "none";
-  // Enable/disable bottom submit button depending on form + plan
-  updateBottomButtonState();
+// Unlock OTT tab (enable clicking)
+function unlockOttTab() {
+  if (ottTabUnlocked) return;
+  ottTabUnlocked = true;
+  tabOTT.classList.remove("disabled");
+  tabOTT.style.pointerEvents = "auto";
+  tabOTT.style.opacity = "1";
+  tabOTT.innerHTML = "🎬 OTT Entertainment Plans";
+  if (lockInfoDiv) lockInfoDiv.style.display = "none";
+  // small visual hint
+  const hint = document.createElement("div");
+  hint.className = "info-message";
+  hint.style.background = "#2e7d3240";
+  hint.style.marginTop = "5px";
+  hint.innerText = "✅ OTT tab unlocked! You can now explore OTT plans.";
+  setTimeout(() => hint.remove(), 3500);
+  lockInfoDiv.insertAdjacentElement("afterend", hint);
 }
 
-// RENDER INTERNET PLANS with dynamic scaling
-function renderInternetPlans() {
-  const container = document.getElementById("plansContainer");
+// Render plans for a specific tab (nonott / ott)
+function renderTabPlans(tabId) {
+  const plansList = plansLibrary[tabId];
+  if (!plansList) return;
+  const container = document.getElementById(`plans-${tabId}`);
+  if (!container) return;
+  const currentTenure = tenureMap[tabId];
+  
   container.innerHTML = "";
-  internetPlans.forEach(plan => {
-    const priceVal = plan.price[currentDuration];
-    const freeText = currentDuration === "quarterly" ? "7 Days FREE" : (currentDuration === "half" ? "19 Days FREE" : (currentDuration === "yearly" ? "1 Month FREE" : ""));
-    const isPopular = plan.popular;
-    const isSelected = (selectedInternetPlan && selectedInternetPlan.name === plan.name);
-    const selectedClass = isSelected ? "selected" : "";
-    const popularBadge = isPopular ? '<div class="badge">🌟 Most Popular</div>' : '';
-    const freeBadge = freeText ? `<div class="badge" style="background:#2e7d32;">🎁 ${freeText}</div>` : '';
-    container.innerHTML += `
-      <div class="card ${selectedClass} ${isPopular ? 'popular' : ''}" data-plan-name="${plan.name}" onclick="selectInternetPlan('${plan.name}')">
-        ${popularBadge}
-        ${freeBadge}
-        <h3>${plan.name}</h3>
-        <h2>₹${priceVal}</h2>
-        <p>${plan.speed} | Unlimited Data</p>
-        <button onclick="event.stopPropagation(); selectInternetPlan('${plan.name}')">Select Plan</button>
-      </div>
+  
+  plansList.forEach(plan => {
+    const priceVal = getPlanPrice(plan, currentTenure);
+    const bonus = getBonusText(currentTenure);
+    const isPopular = !!plan.popular;
+    
+    const cardDiv = document.createElement("div");
+    cardDiv.className = `card ${isPopular ? "popular" : ""}`;
+    cardDiv.setAttribute("data-plan-name", plan.name);
+    cardDiv.setAttribute("data-plan-price", priceVal);
+    cardDiv.setAttribute("data-plan-speed", plan.speed);
+    cardDiv.setAttribute("data-tab", tabId);
+    
+    let badgesHtml = "";
+    if (isPopular) badgesHtml += `<div class="badge">⭐ Most Popular</div>`;
+    if (bonus) badgesHtml += `<div class="badge">${bonus}</div>`;
+    
+    cardDiv.innerHTML = `
+      ${badgesHtml}
+      <h3>${plan.name}</h3>
+      <h2>₹${priceVal.toLocaleString('en-IN')}</h2>
+      <p>⚡ ${plan.speed}</p>
+      <button class="select-card-btn">Choose Plan</button>
     `;
+    
+    const selectHandler = () => {
+      selectPlanForTab(tabId, plan.name, priceVal, plan.speed, cardDiv);
+    };
+    cardDiv.addEventListener("click", (e) => {
+      if (e.target.classList && e.target.classList.contains("select-card-btn")) e.stopPropagation();
+      selectHandler();
+    });
+    const btn = cardDiv.querySelector(".select-card-btn");
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      selectHandler();
+    });
+    
+    container.appendChild(cardDiv);
   });
-  // after render, reapply scale & snap based on selected
-  setTimeout(() => {
-    updateCardScales();
-    if(selectedInternetPlan) {
-      const selectedCard = document.querySelector(`.card[data-plan-name="${selectedInternetPlan.name}"]`);
-      if(selectedCard) centerCardInView(selectedCard);
-    } else {
-      autoSelectCenterPlan();
+  
+  // Highlight previously selected plan for this tab if exists
+  const savedSelection = selectedPlanPerTab[tabId];
+  if (savedSelection.name) {
+    const cards = document.querySelectorAll(`#plans-${tabId} .card`);
+    for (let card of cards) {
+      const cName = card.getAttribute("data-plan-name");
+      const cPrice = Number(card.getAttribute("data-plan-price"));
+      if (cName === savedSelection.name && cPrice === savedSelection.price) {
+        card.classList.add("selected");
+        break;
+      }
     }
-  }, 50);
-}
-
-function selectInternetPlan(planName) {
-  const planObj = internetPlans.find(p => p.name === planName);
-  if(!planObj) return;
-  selectedInternetPlan = planObj;
-  // Reset OTT selection when changing base plan (fresh selection)
-  selectedOttKey = "none";
-  selectedOttName = "None";
-  // re-render OTT section
-  renderOttCards();
-  // re-render cards to highlight selected
-  renderInternetPlans();
-  refreshPriceUI();
-  document.getElementById("ottSection").style.display = "block";
-  // scroll to OTT section gently
-  setTimeout(() => document.getElementById("ottSection").scrollIntoView({ behavior: "smooth", block: "nearest" }), 200);
-  showLeadPromptMsg();
-  updateBottomButtonState();
-}
-
-function setPlanDuration(duration, element) {
-  currentDuration = duration;
-  // update active UI on duration cards
-  document.querySelectorAll(".duration-card").forEach(card => card.classList.remove("active"));
-  element.classList.add("active");
-  // preserve selected internet plan? we need to keep same plan name, but re-evaluate price
-  let previousPlanName = selectedInternetPlan ? selectedInternetPlan.name : null;
-  // reset OTT selection when duration changes (fair pricing)
-  selectedOttKey = "none";
-  selectedOttName = "None";
-  renderInternetPlans();
-  if(previousPlanName) {
-    const stillExists = internetPlans.find(p => p.name === previousPlanName);
-    if(stillExists) {
-      selectedInternetPlan = stillExists;
-    } else {
-      selectedInternetPlan = null;
+  } else {
+    // Auto-select popular plan only for nonott on initial load, but we need to trigger unlock if nonott gets selected
+    // However, we must not auto-select for OTT before unlocking, but that's fine.
+    if (tabId === "nonott") {
+      const defaultPlan = plansList.find(p => p.popular === true) || plansList[0];
+      const defPrice = getPlanPrice(defaultPlan, currentTenure);
+      selectedPlanPerTab[tabId] = {
+        name: defaultPlan.name,
+        price: defPrice,
+        speed: defaultPlan.speed
+      };
+      // Important: after setting default selection, unlock OTT tab because user has effectively selected a plan (auto selection counts)
+      if (tabId === "nonott" && !ottTabUnlocked) {
+        unlockOttTab();
+      }
+      renderTabPlans(tabId); // re-render to highlight
     }
   }
-  if(!selectedInternetPlan && internetPlans.length) {
-    // default to popular or first
-    const defaultPlan = internetPlans.find(p => p.popular) || internetPlans[0];
-    selectedInternetPlan = defaultPlan;
+  
+  // If current active tab, update global selection display
+  if (currentActiveTab === tabId) {
+    updateGlobalSelectionDisplay();
   }
-  renderOttCards();   // re-render OTT with updated pricing
-  renderInternetPlans(); // re-render to reflect new price and selected plan
-  refreshPriceUI();
-  if(selectedInternetPlan) document.getElementById("ottSection").style.display = "block";
-  updateBottomButtonState();
 }
 
-function renderOttCards() {
-  const container = document.getElementById("ottCardsContainer");
-  if(!container) return;
+function selectPlanForTab(tabId, planName, priceVal, speedVal, cardElement) {
+  // Remove selected class from other cards in same tab
+  const container = document.getElementById(`plans-${tabId}`);
+  if (container) {
+    container.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
+  }
+  cardElement.classList.add("selected");
+  
+  // store selection per tab
+  selectedPlanPerTab[tabId] = {
+    name: planName,
+    price: priceVal,
+    speed: speedVal
+  };
+  
+  // CRITICAL: If the selection happens in nonott tab and OTT tab is still locked -> unlock it
+  if (tabId === "nonott" && !ottTabUnlocked) {
+    unlockOttTab();
+  }
+  
+  // If the currently active tab is this one, update global selection box
+  if (currentActiveTab === tabId) {
+    updateGlobalSelectionDisplay();
+  }
+  
+  // center card nice scroll
+  centerCardInView(cardElement, tabId);
+}
+
+function updateGlobalSelectionDisplay() {
+  const selection = selectedPlanPerTab[currentActiveTab];
+  if (selection && selection.name) {
+    const displayStr = `${selection.name} - ₹${selection.price} (${selection.speed})`;
+    globalSelectedSpan.innerText = displayStr;
+    globalSelectedBox.style.display = "block";
+    planHidden.value = displayStr;
+  } else {
+    globalSelectedBox.style.display = "none";
+    planHidden.value = "";
+  }
+}
+
+function centerCardInView(cardEl, tabId) {
+  const container = document.getElementById(`plans-${tabId}`);
+  if (!container || !cardEl) return;
+  const containerRect = container.getBoundingClientRect();
+  const cardRect = cardEl.getBoundingClientRect();
+  const scrollLeft = cardEl.offsetLeft - (containerRect.width / 2) + (cardRect.width / 2);
+  container.scrollTo({ left: Math.max(0, scrollLeft), behavior: "smooth" });
+}
+
+// change tenure for a specific tab
+function setTenureForTab(tabId, tenureKey, activeBtnElement) {
+  tenureMap[tabId] = tenureKey;
+  const tenureContainer = tabId === "nonott" ? document.getElementById("tenureNonOTT") : document.getElementById("tenureOTT");
+  if (tenureContainer) {
+    tenureContainer.querySelectorAll(".tenure-btn").forEach(btn => btn.classList.remove("active"));
+    if (activeBtnElement) activeBtnElement.classList.add("active");
+  }
+  renderTabPlans(tabId);
+  if (currentActiveTab === tabId) updateGlobalSelectionDisplay();
+}
+
+// Switch between OTT / Non-OTT tabs, but only if OTT is unlocked when attempting to go to OTT
+function switchMainTab(tabKey, activeHeaderBtn) {
+  // Block switching to OTT if not unlocked
+  if (tabKey === "ott" && !ottTabUnlocked) {
+    alert("🔒 Please select a plan in Non-OTT section first to unlock OTT plans.");
+    return;
+  }
+  
+  currentActiveTab = tabKey;
+  // update tab header active style
+  document.querySelectorAll(".tab-header").forEach(btn => btn.classList.remove("active"));
+  activeHeaderBtn.classList.add("active");
+  
+  // Show relevant pane
+  document.querySelectorAll(".tab-pane").forEach(pane => pane.classList.remove("active-pane"));
+  document.getElementById(`pane-${tabKey}`).classList.add("active-pane");
+  
+  // Ensure the tab plans are rendered (already done, but just in case)
+  renderTabPlans(tabKey);
+  updateGlobalSelectionDisplay();
+}
+
+// Build tenure buttons inside each tab
+function generateTenureButtons(tabId) {
+  const container = document.getElementById(`tenure${tabId === "nonott" ? "NonOTT" : "OTT"}`);
+  if (!container) return;
+  const tenures = [
+    { key: "monthly", label: "Monthly" },
+    { key: "quarterly", label: "Quarterly 🎁" },
+    { key: "half", label: "Half-Yearly 🎁" },
+    { key: "yearly", label: "Yearly 🎁" }
+  ];
   container.innerHTML = "";
-  // None option
-  const isNoneActive = (selectedOttKey === "none");
-  container.innerHTML += `
-    <div class="ott-card ${isNoneActive ? 'active' : ''}" onclick="selectOttAddon('none')">
-      <div class="ott-title">🚫 No OTT Pack</div>
-      <div class="ott-price">Continue without OTT</div>
-    </div>
-  `;
-  Object.keys(ottAddons).forEach(key => {
-    const pack = ottAddons[key];
-    const priceVal = pack.price[currentDuration];
-    const isActive = (selectedOttKey === key);
-    // show app logos limited
-    let logosHtml = pack.apps.slice(0,6).map(app => {
-      const logoUrl = ottLogos[app] || "";
-      return logoUrl ? `<img src="${logoUrl}" alt="${app}" loading="lazy">` : `<div style="background:#eee; border-radius:8px; padding:4px; font-size:9px;">${app}</div>`;
-    }).join("");
-    container.innerHTML += `
-      <div class="ott-card ${isActive ? 'active' : ''}" onclick="selectOttAddon('${key}')">
-        <div class="ott-title">🎬 ${pack.name}</div>
-        <div class="ott-price">+ ₹${priceVal} / ${currentDuration}</div>
-        <div class="ott-grid">${logosHtml}</div>
-        <div style="font-size:11px; margin-top:8px;">✨ ${pack.apps.length}+ Apps</div>
-      </div>
-    `;
+  const currentTenure = tenureMap[tabId];
+  tenures.forEach(t => {
+    const btn = document.createElement("button");
+    btn.className = `tenure-btn ${currentTenure === t.key ? "active" : ""}`;
+    btn.textContent = t.label;
+    btn.setAttribute("data-tenure", t.key);
+    btn.addEventListener("click", () => {
+      setTenureForTab(tabId, t.key, btn);
+    });
+    container.appendChild(btn);
   });
 }
 
-function selectOttAddon(key) {
-  selectedOttKey = key;
-  if(key === "none") {
-    selectedOttName = "None";
-  } else {
-    selectedOttName = ottAddons[key].name;
+// Carousel scrolling for each plan container
+function bindCarouselArrows() {
+  document.querySelectorAll(".carousel-btn").forEach(btn => {
+    btn.removeEventListener("click", carouselHandler);
+    btn.addEventListener("click", carouselHandler);
+  });
+}
+function carouselHandler(e) {
+  const btn = e.currentTarget;
+  const direction = btn.classList.contains("left") ? -1 : 1;
+  const parentWrapper = btn.closest(".plans-wrapper");
+  if (!parentWrapper) return;
+  const plansDiv = parentWrapper.querySelector(".plans");
+  if (plansDiv) {
+    const scrollAmount = direction * 280;
+    plansDiv.scrollBy({ left: scrollAmount, behavior: "smooth" });
   }
-  renderOttCards();   // re-render to update active style
-  refreshPriceUI();
-  showLeadPromptMsg();
-  updateBottomButtonState();
 }
 
-// Carousel & scaling logic
-function scrollPlans(direction) {
-  const container = document.getElementById("plansContainer");
-  const cards = document.querySelectorAll(".card");
-  if(!cards.length) return;
-  const cardWidth = cards[0].offsetWidth + 20;
-  container.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
-  setTimeout(updateCardScales, 200);
-}
-
-function updateCardScales() {
-  const container = document.getElementById("plansContainer");
-  const cards = document.querySelectorAll(".card");
-  if(!container || !cards.length) return;
-  const containerCenter = container.offsetWidth / 2;
-  cards.forEach(card => {
-    if(card.classList.contains("selected")) {
-      card.style.transform = "scale(1.08)";
-      card.style.opacity = "1";
-      return;
+// Geolocation
+function detectLocation() {
+  if (!navigator.geolocation) {
+    areaInput.value = "Chennai region";
+    return;
+  }
+  navigator.geolocation.getCurrentPosition(async (pos) => {
+    window.userLat = pos.coords.latitude;
+    window.userLng = pos.coords.longitude;
+    try {
+      const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${window.userLat}&lon=${window.userLng}&format=json&addressdetails=1`);
+      const data = await resp.json();
+      let detected = data.address?.suburb || data.address?.neighbourhood || data.address?.city || "Chennai";
+      areaInput.value = detected;
+    } catch {
+      areaInput.value = "Chennai (Fibre Zone)";
     }
-    const rect = card.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    const cardCenter = rect.left + rect.width/2 - containerRect.left;
-    const distance = Math.abs(containerCenter - cardCenter);
-    let scale = Math.max(0.85, 1 - distance / 550);
-    let opacity = Math.max(0.55, 1 - distance / 450);
-    card.style.transform = `scale(${scale})`;
-    card.style.opacity = opacity;
+  }, () => {
+    areaInput.value = "Chennai Metro";
   });
 }
 
-function centerCardInView(cardEl) {
-  const container = document.getElementById("plansContainer");
-  if(!container || !cardEl) return;
-  isAutoScrolling = true;
-  const scrollPos = cardEl.offsetLeft - (container.clientWidth / 2) + (cardEl.clientWidth / 2);
-  container.scrollTo({ left: scrollPos, behavior: "smooth" });
-  setTimeout(() => { isAutoScrolling = false; updateCardScales(); }, 350);
-}
-
-function autoSelectCenterPlan() {
-  const container = document.getElementById("plansContainer");
-  const cards = document.querySelectorAll(".card");
-  if(!cards.length) return;
-  const center = container.offsetWidth / 2;
-  let closestCard = null;
-  let minDist = Infinity;
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    const cardCenter = rect.left + rect.width/2 - containerRect.left;
-    const dist = Math.abs(center - cardCenter);
-    if(dist < minDist) {
-      minDist = dist;
-      closestCard = card;
-    }
-  });
-  if(closestCard && !closestCard.classList.contains("selected")) {
-    const planName = closestCard.getAttribute("data-plan-name");
-    if(planName) selectInternetPlan(planName);
-  }
-}
-
-function showLeadPromptMsg() {
-  const promptDiv = document.getElementById("leadPrompt");
-  promptDiv.classList.add("show");
-  setTimeout(() => promptDiv.classList.remove("show"), 2300);
-}
-
-// Form validation & Google Sheets + WhatsApp lead
-function validateBasicFields() {
-  let valid = true;
-  const name = document.getElementById("userName");
-  const phone = document.getElementById("userPhone");
-  const nameErr = document.getElementById("nameErr");
-  const phoneErr = document.getElementById("phoneErr");
-  name.classList.remove("error");
-  phone.classList.remove("error");
-  nameErr.innerText = "";
-  phoneErr.innerText = "";
-  if(!name.value.trim()) {
-    name.classList.add("error");
-    nameErr.innerText = "Enter your full name";
-    valid = false;
-  }
-  const phoneVal = phone.value.trim();
-  if(!/^[6-9]\d{9}$/.test(phoneVal)) {
-    phone.classList.add("error");
-    phoneErr.innerText = "Valid 10-digit mobile number required";
-    valid = false;
-  }
-  if(!selectedInternetPlan) {
-    alert("📡 Please select an internet plan first");
-    return false;
-  }
-  return valid;
-}
-
-function updateBottomButtonState() {
-  const btn = document.getElementById("bottomSubmitBtn");
-  if(!btn) return;
-  const nameValid = document.getElementById("userName") && document.getElementById("userName").value.trim() !== "";
-  const phoneValid = document.getElementById("userPhone") && /^[6-9]\d{9}$/.test(document.getElementById("userPhone").value.trim());
-  if(selectedInternetPlan && nameValid && phoneValid) {
-    btn.disabled = false;
-  } else {
-    btn.disabled = true;
-  }
-}
-
-async function submitLead() {
-  if(!validateBasicFields()) return;
+// Form submission
+async function submitEnquiry() {
   const name = document.getElementById("userName").value.trim();
   const phone = document.getElementById("userPhone").value.trim();
-  let area = document.getElementById("userArea").value.trim() || "Chennai";
-  const internetPlanName = selectedInternetPlan.name;
-  const internetSpeed = selectedInternetPlan.speed;
-  const internetPrice = getCurrentInternetPrice(selectedInternetPlan);
-  const ottName = selectedOttName;
-  const ottPrice = (selectedOttKey !== "none" && ottAddons[selectedOttKey]) ? ottAddons[selectedOttKey].price[currentDuration] : 0;
-  const totalAmount = internetPrice + ottPrice;
-  const dateNow = new Date().toLocaleString("en-IN");
+  let area = areaInput.value;
+  let selectedPlanFinal = planHidden.value || "No plan selected";
+  const tenureActive = tenureMap[currentActiveTab];
+  const categoryLabel = currentActiveTab === "nonott" ? "Non-OTT" : "OTT";
   
-  // tracking pixels
-  gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXX/CONVERSION_ID', 'value': totalAmount, 'currency': 'INR' });
-  fbq('track', 'Lead', { content_name: internetPlanName, value: totalAmount, currency: 'INR' });
+  if (!name || !phone) {
+    alert("Please enter your name and mobile number.");
+    return;
+  }
+  if (!/^\d{10,12}$/.test(phone.replace(/\D/g, ''))) {
+    alert("Valid 10-digit mobile required.");
+    return;
+  }
+  if (area === "Detecting your area..." || !area) area = "Chennai area";
   
-  const payload = {
-    Name: name, Phone: phone, Area: area, Latitude: userLat, Longitude: userLng,
-    "Plan Type": currentDuration, "Selected Plan": internetPlanName, "Speed": internetSpeed,
-    "OTT Selected": ottName, "Base Price": internetPrice, "OTT Price": ottPrice,
-    "Total": totalAmount, Date: dateNow, Source: "BSNL Website Chennai"
-  };
-  // send to Google Sheets
-  await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", {
-    method: "POST", mode: "no-cors", body: JSON.stringify(payload)
+  const waMsg = `🏢 BSNL Bharat Fibre Enquiry (Chennai)%0A👤 Name: ${encodeURIComponent(name)}%0A📞 Mobile: ${encodeURIComponent(phone)}%0A📍 Area: ${encodeURIComponent(area)}%0A📡 Plan: ${encodeURIComponent(selectedPlanFinal)}%0A📂 Category: ${encodeURIComponent(categoryLabel)}%0A⏱️ Tenure: ${tenureActive.toUpperCase()}%0A🔹 Need availability & best offer.`;
+  const waNumber = "919447072230";
+  const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
+  
+  try {
+    await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec", {
+      method: "POST",
+      mode: "no-cors",
+      body: JSON.stringify({ name, phone, area, lat: window.userLat || '', lng: window.userLng || '', plan: selectedPlanFinal, tenure: tenureActive, type: categoryLabel })
+    });
+  } catch(e) { /* silent */ }
+  
+  window.open(waLink, "_blank");
+  alert(`Thank you ${name}! Our team will contact you on WhatsApp.`);
+}
+
+// Initialize everything
+function init() {
+  detectLocation();
+  
+  // Generate tenure buttons for both tabs
+  generateTenureButtons("nonott");
+  generateTenureButtons("ott");
+  
+  // Initially OTT tab is disabled
+  tabOTT.classList.add("disabled");
+  tabOTT.style.pointerEvents = "none";
+  tabOTT.style.opacity = "0.6";
+  ottTabUnlocked = false;
+  
+  // Render both tabs (nonott will auto-select popular plan and unlock)
+  renderTabPlans("nonott");
+  renderTabPlans("ott");
+  
+  // Set default active tab
+  currentActiveTab = "nonott";
+  tabNonOTT.classList.add("active");
+  document.getElementById("pane-nonott").classList.add("active-pane");
+  document.getElementById("pane-ott").classList.remove("active-pane");
+  updateGlobalSelectionDisplay();
+  
+  // bind tab switching events
+  tabNonOTT.addEventListener("click", () => {
+    switchMainTab("nonott", tabNonOTT);
   });
-  const waMsg = `🔥 *New BSNL Lead* 🔥%0A👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A📍 *Area:* ${area}%0A📶 *Plan:* ${internetPlanName} (${internetSpeed})%0A⏳ *Duration:* ${currentDuration}%0A🎬 *OTT:* ${ottName}%0A💰 *Total:* ₹${totalAmount}%0A✅ Request installation.`;
-  window.open(`https://wa.me/919447072230?text=${waMsg}`);
-}
-
-// location detection
-function detectUserArea() {
-  const areaInput = document.getElementById("userArea");
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(async pos => {
-      userLat = pos.coords.latitude;
-      userLng = pos.coords.longitude;
-      try {
-        const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
-        const data = await res.json();
-        areaInput.value = data.address.suburb || data.address.city || "Chennai";
-      } catch(e) { areaInput.value = "Chennai"; }
-    }, () => { areaInput.value = "Chennai"; });
-  } else { areaInput.value = "Chennai"; }
-}
-
-// event listeners for live button state
-function bindFormEvents() {
-  document.getElementById("userName").addEventListener("input", updateBottomButtonState);
-  document.getElementById("userPhone").addEventListener("input", updateBottomButtonState);
-}
-
-window.onload = () => {
-  detectUserArea();
-  renderInternetPlans();
-  // default select popular or first
-  const defaultPlan = internetPlans.find(p => p.popular) || internetPlans[0];
-  selectedInternetPlan = defaultPlan;
-  renderOttCards();
-  refreshPriceUI();
-  if(selectedInternetPlan) document.getElementById("ottSection").style.display = "block";
-  bindFormEvents();
-  const plansContainer = document.getElementById("plansContainer");
-  plansContainer.addEventListener("scroll", () => {
-    if(!isAutoScrolling) updateCardScales();
-    clearTimeout(window.scrollTimeout);
-    window.scrollTimeout = setTimeout(() => { if(!isAutoScrolling) autoSelectCenterPlan(); }, 180);
+  tabOTT.addEventListener("click", () => {
+    switchMainTab("ott", tabOTT);
   });
-  updateBottomButtonState();
-};
+  
+  bindCarouselArrows();
+  
+  document.getElementById("submitBtn").addEventListener("click", submitEnquiry);
+}
+
+window.onload = init;
 </script>
 </body>
 </html>
+```
