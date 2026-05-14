@@ -251,8 +251,10 @@ body{
   padding:20px max(calc((100% - 220px)/2), 20px);
   scroll-padding-inline:50%;
   min-height:260px;
-  scroll-snap-type:x mandatory;
+  scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;
   scroll-behavior:smooth;
+  scrollbar-width:none;
 }
 
 .plans::-webkit-scrollbar{display:none;}
@@ -267,16 +269,25 @@ body{
   text-align:center;
   scroll-snap-align:center;
   cursor:pointer;
-  transition:0.25s ease;
-  filter: blur(0.5px);
-  /* 🔥 NEW */
-  opacity:0.5;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+  opacity:0.65;
   transform:scale(0.85);
+  will-change:transform;
 }
 
 @media(max-width:768px){
+  .plans{
+    padding:16px;
+    gap:12px;
+    scroll-padding-inline:16px;
+  }
   .card{
-    flex:0 0 70%;
+    flex:0 0 82%;
+  }
+  .card.selected{
+    transform:scale(1.02) !important;
   }
 }
 
@@ -712,19 +723,28 @@ window.onload = function(){
   render();
   detectLocation();
   // ✅ Attach ONCE (correct place)
-  const plansContainer = document.getElementById("plans");
-  let scrollTimeout;
-  if(localStorage.getItem("visited")){
-  console.log("Returning user");
-}
-localStorage.setItem("visited", true);
- plansContainer.addEventListener("scroll", () => {
-  updateScale();
-  if(isAutoScrolling || isTabSwitching) return;
+const plansContainer = document.getElementById("plans");
+let scrollTimeout;
+let touchScrolling = false;
+plansContainer.addEventListener("touchstart", () => {
+  touchScrolling = true;
+});
+plansContainer.addEventListener("touchend", () => {
   clearTimeout(scrollTimeout);
   scrollTimeout = setTimeout(() => {
-    autoSelectCenter();   // ✅ ENABLED
-  }, 150);
+    touchScrolling = false;
+    autoSelectCenter();
+  }, 180);
+});
+
+plansContainer.addEventListener("scroll", () => {
+  requestAnimationFrame(updateScale);
+  if(isAutoScrolling || touchScrolling) return;
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    autoSelectCenter();
+  }, 120);
+
 });
 document.getElementById("name").addEventListener("input", ()=>{
   document.getElementById("name").classList.remove("error");
@@ -880,7 +900,10 @@ function selectPlan(el,n,p,s){
   document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
   el.classList.add("selected");
   document.getElementById("selectedBox").style.display="block";
+//  centerCard(el);
+  if(window.innerWidth > 768){
   centerCard(el);
+}
   document.getElementById("ottSection").style.display="block";
   setTimeout(()=>{
   document.getElementById("ottSection").scrollIntoView({behavior:"smooth"});
@@ -904,25 +927,28 @@ function scrollPlans(dir){
 function autoSelectCenter(){
   const cards = document.querySelectorAll(".card");
   const container = document.getElementById("plans");
+  if(!cards.length) return;
   let closest = null;
   let minDistance = Infinity;
-  const center = container.offsetWidth / 2;
-
-  cards.forEach(card=>{
+  const containerCenter =
+    container.scrollLeft + (container.offsetWidth / 2);
+  cards.forEach(card => {
     const cardCenter =
-      card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
-    const dist = Math.abs(center - cardCenter);
-
-    if(dist < minDistance){
-      minDistance = dist;
+      card.offsetLeft + (card.offsetWidth / 2);
+    const distance = Math.abs(containerCenter - cardCenter);
+    if(distance < minDistance){
+      minDistance = distance;
       closest = card;
     }
   });
-
-if(closest && !closest.classList.contains("selected")){
-  closest.click();
+  if(
+    closest &&
+    !closest.classList.contains("selected")
+  ){
+    closest.click();
+  }
 }
-}
+  
 function selectOTT(type){
   selectedOTT = type;
   if(type === "none"){
@@ -988,19 +1014,21 @@ function setType(type, el){
 function updateScale(){
   const cards = document.querySelectorAll(".card");
   const container = document.getElementById("plans");
-  const center = container.offsetWidth / 2;
-  cards.forEach(card=>{
-    // ✅ DO NOT TOUCH SELECTED CARD
+  const containerCenter =
+    container.scrollLeft + (container.offsetWidth / 2);
+  cards.forEach(card => {
     if(card.classList.contains("selected")){
-      card.style.transform = "scale(1.12)";
       card.style.opacity = "1";
       return;
     }
     const cardCenter =
-      card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
-    const distance = Math.abs(center - cardCenter);
-    let scale = Math.max(0.85, 1 - distance/600);
-    let opacity = Math.max(0.4, 1 - distance/400);
+      card.offsetLeft + (card.offsetWidth / 2);
+    const distance =
+      Math.abs(containerCenter - cardCenter);
+    let scale =
+      Math.max(0.92, 1 - distance / 1200);
+    let opacity =
+      Math.max(0.55, 1 - distance / 900);
     card.style.transform = `scale(${scale})`;
     card.style.opacity = opacity;
   });
