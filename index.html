@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>BSNL Bharat Fibre | Choose Plan First</title>
+<title>BSNL Bharat Fibre | Chennai | Unlimited FTTH Plans</title>
 <style>
 * {
   margin: 0;
@@ -103,21 +103,9 @@ body {
   color: #0a1f3a;
   box-shadow: 0 6px 14px rgba(255,152,0,0.35);
 }
-.tab-header.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-  filter: grayscale(0.1);
-}
-.tab-header:not(.active):not(.disabled):hover {
+.tab-header:not(.active):hover {
   background: rgba(255,255,255,0.2);
   color: white;
-}
-/* Lock icon hint */
-.lock-hint {
-  font-size: 0.7rem;
-  margin-left: 6px;
-  vertical-align: middle;
 }
 
 /* Tab panes */
@@ -373,16 +361,6 @@ input:focus {
   margin-top: 16px;
   color: #7e95b5;
 }
-/* info message */
-.info-message {
-  text-align: center;
-  background: rgba(255,152,0,0.2);
-  padding: 8px;
-  border-radius: 30px;
-  max-width: 320px;
-  margin: 0 auto 15px;
-  font-size: 0.8rem;
-}
 </style>
 </head>
 <body>
@@ -397,13 +375,8 @@ input:focus {
 <!-- ========== TAB FRAME (OTT / NON-OTT as tabs) ========== -->
 <div class="tab-frames">
   <div class="tab-headers">
-    <button class="tab-header active" data-tab="nonott" id="tabNonOTT">📡 Non-OTT Plans</button>
-    <button class="tab-header disabled" data-tab="ott" id="tabOTT">🎬 OTT Entertainment Plans 🔒</button>
-  </div>
-  
-  <!-- Info message: require plan selection -->
-  <div id="lockInfo" class="info-message" style="background:#ff980030;">
-    ⚠️ Please select a plan in Non-OTT section first to unlock OTT plans.
+    <button class="tab-header active" data-tab="nonott">📡 Non-OTT Plans</button>
+    <button class="tab-header" data-tab="ott">🎬 OTT Entertainment Plans</button>
   </div>
   
   <!-- Non-OTT Pane -->
@@ -458,60 +431,38 @@ const plansLibrary = {
     { name: "Fibre Premium Plus", speed: "250 Mbps", price: { monthly: 1299, quarterly: 4602, half: 9197, yearly: 18394 }, popular: false }
   ],
   ott: [
-    { name: "OTT Basic", speed: "100 Mbps + OTT", price: { monthly:151,quarterly:454,half:908,yearly:1817 }, popular: false },
-    { name: "OTT Basic Plus", speed: "150 Mbps + OTT", price: { monthly:216,quarterly:647,half:1295,yearly:2590 }, popular: true },
-    { name: "OTT Premium", speed: "200 Mbps + OTT", price: { monthly:239,quarterly:718,half:1436,yearly:2873 }, popular: false },
-    { name: "OTT Premium Plus", speed: "300 Mbps + All OTT", price: { monthly:282,quarterly:847,half:1695,yearly:3389 }, popular: false }
+    { name: "OTT Bronze", speed: "100 Mbps + OTT", price: { monthly: 699, quarterly: 2475, half: 4950, yearly: 9900 }, popular: false },
+    { name: "OTT Silver", speed: "150 Mbps + OTT", price: { monthly: 899, quarterly: 3185, half: 6370, yearly: 12740 }, popular: true },
+    { name: "OTT Gold", speed: "200 Mbps + OTT", price: { monthly: 1199, quarterly: 4250, half: 8500, yearly: 17000 }, popular: false },
+    { name: "OTT Platinum", speed: "300 Mbps + All OTT", price: { monthly: 1499, quarterly: 5297, half: 10594, yearly: 21188 }, popular: false }
   ]
 };
 
 // Global state
 let currentActiveTab = "nonott";    // 'nonott' or 'ott'
-let tenureMap = { nonott: "monthly", ott: "monthly" };
+let tenureMap = { nonott: "monthly", ott: "monthly" };  // each tab keeps its own tenure
 let selectedPlanPerTab = {
   nonott: { name: "", price: 0, speed: "" },
   ott: { name: "", price: 0, speed: "" }
 };
-let ottTabUnlocked = false;   // becomes true once a plan is selected in nonott
 
-// DOM elements
+let userLat = "", userLng = "";
 const areaInput = document.getElementById("userArea");
 const globalSelectedBox = document.getElementById("selectedBox");
 const globalSelectedSpan = document.getElementById("selectedText");
 const planHidden = document.getElementById("planHidden");
-const tabNonOTT = document.getElementById("tabNonOTT");
-const tabOTT = document.getElementById("tabOTT");
-const lockInfoDiv = document.getElementById("lockInfo");
 
 // Helper: get price from plan & tenure
 function getPlanPrice(plan, tenureKey) {
   return plan.price[tenureKey] || plan.price.monthly;
 }
 
+// Get bonus text based on tenure
 function getBonusText(tenure) {
   if (tenure === "quarterly") return "🎁 7 Days FREE";
   if (tenure === "half") return "🎁 19 Days FREE";
   if (tenure === "yearly") return "🎁 1 Month FREE";
   return "";
-}
-
-// Unlock OTT tab (enable clicking)
-function unlockOttTab() {
-  if (ottTabUnlocked) return;
-  ottTabUnlocked = true;
-  tabOTT.classList.remove("disabled");
-  tabOTT.style.pointerEvents = "auto";
-  tabOTT.style.opacity = "1";
-  tabOTT.innerHTML = "🎬 OTT Entertainment Plans";
-  if (lockInfoDiv) lockInfoDiv.style.display = "none";
-  // small visual hint
-  const hint = document.createElement("div");
-  hint.className = "info-message";
-  hint.style.background = "#2e7d3240";
-  hint.style.marginTop = "5px";
-  hint.innerText = "✅ OTT tab unlocked! You can now explore OTT plans.";
-  setTimeout(() => hint.remove(), 3500);
-  lockInfoDiv.insertAdjacentElement("afterend", hint);
 }
 
 // Render plans for a specific tab (nonott / ott)
@@ -548,6 +499,7 @@ function renderTabPlans(tabId) {
       <button class="select-card-btn">Choose Plan</button>
     `;
     
+    // selection handler
     const selectHandler = () => {
       selectPlanForTab(tabId, plan.name, priceVal, plan.speed, cardDiv);
     };
@@ -564,7 +516,7 @@ function renderTabPlans(tabId) {
     container.appendChild(cardDiv);
   });
   
-  // Highlight previously selected plan for this tab if exists
+  // After render, highlight previously selected plan for this tab if exists
   const savedSelection = selectedPlanPerTab[tabId];
   if (savedSelection.name) {
     const cards = document.querySelectorAll(`#plans-${tabId} .card`);
@@ -577,28 +529,20 @@ function renderTabPlans(tabId) {
       }
     }
   } else {
-    // Auto-select popular plan only for nonott on initial load, but we need to trigger unlock if nonott gets selected
-    // However, we must not auto-select for OTT before unlocking, but that's fine.
-    if (tabId === "nonott") {
-      const defaultPlan = plansList.find(p => p.popular === true) || plansList[0];
-      const defPrice = getPlanPrice(defaultPlan, currentTenure);
-      selectedPlanPerTab[tabId] = {
-        name: defaultPlan.name,
-        price: defPrice,
-        speed: defaultPlan.speed
-      };
-      // Important: after setting default selection, unlock OTT tab because user has effectively selected a plan (auto selection counts)
-      if (tabId === "nonott" && !ottTabUnlocked) {
-        unlockOttTab();
-      }
-      renderTabPlans(tabId); // re-render to highlight
-    }
+    // Auto-select popular plan if nothing selected for this tab
+    const defaultPlan = plansList.find(p => p.popular === true) || plansList[0];
+    const defPrice = getPlanPrice(defaultPlan, currentTenure);
+    selectedPlanPerTab[tabId] = {
+      name: defaultPlan.name,
+      price: defPrice,
+      speed: defaultPlan.speed
+    };
+    // re-render after selection update to highlight correctly
+    renderTabPlans(tabId);
   }
   
-  // If current active tab, update global selection display
-  if (currentActiveTab === tabId) {
-    updateGlobalSelectionDisplay();
-  }
+  // Update global selection display if active tab matches
+  updateGlobalSelectionDisplay();
 }
 
 function selectPlanForTab(tabId, planName, priceVal, speedVal, cardElement) {
@@ -615,11 +559,6 @@ function selectPlanForTab(tabId, planName, priceVal, speedVal, cardElement) {
     price: priceVal,
     speed: speedVal
   };
-  
-  // CRITICAL: If the selection happens in nonott tab and OTT tab is still locked -> unlock it
-  if (tabId === "nonott" && !ottTabUnlocked) {
-    unlockOttTab();
-  }
   
   // If the currently active tab is this one, update global selection box
   if (currentActiveTab === tabId) {
@@ -652,26 +591,22 @@ function centerCardInView(cardEl, tabId) {
   container.scrollTo({ left: Math.max(0, scrollLeft), behavior: "smooth" });
 }
 
-// change tenure for a specific tab
+// change tenure for a specific tab, re-render that tab only
 function setTenureForTab(tabId, tenureKey, activeBtnElement) {
   tenureMap[tabId] = tenureKey;
+  // update active class on tenure buttons for that tab group
   const tenureContainer = tabId === "nonott" ? document.getElementById("tenureNonOTT") : document.getElementById("tenureOTT");
   if (tenureContainer) {
     tenureContainer.querySelectorAll(".tenure-btn").forEach(btn => btn.classList.remove("active"));
     if (activeBtnElement) activeBtnElement.classList.add("active");
   }
   renderTabPlans(tabId);
+  // also if active tab changed, update display
   if (currentActiveTab === tabId) updateGlobalSelectionDisplay();
 }
 
-// Switch between OTT / Non-OTT tabs, but only if OTT is unlocked when attempting to go to OTT
+// Switch between OTT / Non-OTT tabs
 function switchMainTab(tabKey, activeHeaderBtn) {
-  // Block switching to OTT if not unlocked
-  if (tabKey === "ott" && !ottTabUnlocked) {
-    alert("🔒 Please select a plan in Non-OTT section first to unlock OTT plans.");
-    return;
-  }
-  
   currentActiveTab = tabKey;
   // update tab header active style
   document.querySelectorAll(".tab-header").forEach(btn => btn.classList.remove("active"));
@@ -681,7 +616,7 @@ function switchMainTab(tabKey, activeHeaderBtn) {
   document.querySelectorAll(".tab-pane").forEach(pane => pane.classList.remove("active-pane"));
   document.getElementById(`pane-${tabKey}`).classList.add("active-pane");
   
-  // Ensure the tab plans are rendered (already done, but just in case)
+  // re-render the target tab (ensures latest tenure and selection)
   renderTabPlans(tabKey);
   updateGlobalSelectionDisplay();
 }
@@ -692,9 +627,9 @@ function generateTenureButtons(tabId) {
   if (!container) return;
   const tenures = [
     { key: "monthly", label: "Monthly" },
-    { key: "quarterly", label: "Quarterly 🎁" },
-    { key: "half", label: "Half-Yearly 🎁" },
-    { key: "yearly", label: "Yearly 🎁" }
+    { key: "quarterly", label: "Quarterly🎁" },
+    { key: "half", label: "Half-Yearly🎁" },
+    { key: "yearly", label: "Yearly🎁" }
   ];
   container.innerHTML = "";
   const currentTenure = tenureMap[tabId];
@@ -729,17 +664,17 @@ function carouselHandler(e) {
   }
 }
 
-// Geolocation
+// Geolocation + area detect
 function detectLocation() {
   if (!navigator.geolocation) {
     areaInput.value = "Chennai region";
     return;
   }
   navigator.geolocation.getCurrentPosition(async (pos) => {
-    window.userLat = pos.coords.latitude;
-    window.userLng = pos.coords.longitude;
+    userLat = pos.coords.latitude;
+    userLng = pos.coords.longitude;
     try {
-      const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${window.userLat}&lon=${window.userLng}&format=json&addressdetails=1`);
+      const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json&addressdetails=1`);
       const data = await resp.json();
       let detected = data.address?.suburb || data.address?.neighbourhood || data.address?.city || "Chennai";
       areaInput.value = detected;
@@ -751,7 +686,7 @@ function detectLocation() {
   });
 }
 
-// Form submission
+// Form submission (WhatsApp + Google Sheets)
 async function submitEnquiry() {
   const name = document.getElementById("userName").value.trim();
   const phone = document.getElementById("userPhone").value.trim();
@@ -774,11 +709,12 @@ async function submitEnquiry() {
   const waNumber = "919447072230";
   const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
   
+  // background post to google script (no-cors)
   try {
     await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec", {
       method: "POST",
       mode: "no-cors",
-      body: JSON.stringify({ name, phone, area, lat: window.userLat || '', lng: window.userLng || '', plan: selectedPlanFinal, tenure: tenureActive, type: categoryLabel })
+      body: JSON.stringify({ name, phone, area, lat: userLat, lng: userLng, plan: selectedPlanFinal, tenure: tenureActive, type: categoryLabel })
     });
   } catch(e) { /* silent */ }
   
@@ -790,37 +726,34 @@ async function submitEnquiry() {
 function init() {
   detectLocation();
   
-  // Generate tenure buttons for both tabs
+  // Build tenure buttons for both tabs
   generateTenureButtons("nonott");
   generateTenureButtons("ott");
   
-  // Initially OTT tab is disabled
-  tabOTT.classList.add("disabled");
-  tabOTT.style.pointerEvents = "none";
-  tabOTT.style.opacity = "0.6";
-  ottTabUnlocked = false;
-  
-  // Render both tabs (nonott will auto-select popular plan and unlock)
+  // Initial render for both tabs
   renderTabPlans("nonott");
   renderTabPlans("ott");
   
-  // Set default active tab
+  // set default active tab
   currentActiveTab = "nonott";
-  tabNonOTT.classList.add("active");
+  document.querySelector(".tab-header[data-tab='nonott']").classList.add("active");
   document.getElementById("pane-nonott").classList.add("active-pane");
   document.getElementById("pane-ott").classList.remove("active-pane");
   updateGlobalSelectionDisplay();
   
-  // bind tab switching events
-  tabNonOTT.addEventListener("click", () => {
-    switchMainTab("nonott", tabNonOTT);
-  });
-  tabOTT.addEventListener("click", () => {
-    switchMainTab("ott", tabOTT);
+  // bind tab switching
+  const tabHeaders = document.querySelectorAll(".tab-header");
+  tabHeaders.forEach(header => {
+    header.addEventListener("click", () => {
+      const tabVal = header.getAttribute("data-tab");
+      if (tabVal === "nonott") switchMainTab("nonott", header);
+      else if (tabVal === "ott") switchMainTab("ott", header);
+    });
   });
   
   bindCarouselArrows();
   
+  // submit button
   document.getElementById("submitBtn").addEventListener("click", submitEnquiry);
 }
 
