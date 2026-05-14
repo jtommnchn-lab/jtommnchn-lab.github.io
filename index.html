@@ -3,761 +3,696 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<title>BSNL Bharat Fibre | Chennai | Unlimited FTTH Plans</title>
+<title>BSNL Bharat Fibre | Chennai | Unlimited Plans</title>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-body {
-  background: linear-gradient(135deg, #071a3b 0%, #0e2a5a 100%);
-  font-family: 'Segoe UI', system-ui, 'Roboto', sans-serif;
-  color: #ffffff;
-  scroll-behavior: smooth;
-}
+  body {
+    background: linear-gradient(145deg, #052049 0%, #0a2a5e 100%);
+    font-family: 'Segoe UI', Roboto, system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+    color: #f0f4ff;
+    scroll-behavior: smooth;
+  }
 
-/* HEADER */
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 24px;
-  background: white;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.logo {
-  height: 46px;
-  object-fit: contain;
-}
-.wa-btn {
-  background: #25D366;
-  color: white;
-  padding: 8px 18px;
-  border-radius: 40px;
-  text-decoration: none;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.9rem;
-  transition: 0.2s;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-}
-.wa-btn:hover {
-  background: #1da15a;
-  transform: scale(0.97);
-}
+  /* header */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: rgba(255,255,255,0.98);
+    backdrop-filter: blur(0px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+  }
+  .wa-btn {
+    background: #25D366;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 40px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .wa-btn:hover {
+    background: #20b859;
+    transform: scale(1.02);
+  }
 
-/* HERO BANNER */
-.hero {
-  width: 100%;
-  height: clamp(220px, 42vh, 400px);
-  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.45)), 
-              url('https://jtommnchn-lab.github.io/Banner.jpg') center/cover no-repeat;
-  border-bottom: 2px solid rgba(255,215,120,0.3);
-}
-@media (max-width: 768px) {
+  /* hero with smooth animation */
   .hero {
-    height: 210px;
-    background: #0b1f4a url('https://jtommnchn-lab.github.io/Banner.jpg') center/contain no-repeat;
+    position: relative;
+    height: clamp(280px, 48vh, 500px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
   }
-}
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, rgba(0,20,50,0.55) 0%, rgba(0,0,0,0.4) 100%),
+                url('https://bsnlnanganallur.github.io/Banner-desktop.jpg') center/cover no-repeat;
+    animation: slowZoom 14s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  @keyframes slowZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.08); }
+  }
+  @media (max-width: 768px) {
+    .hero::before {
+      background: linear-gradient(105deg, rgba(0,30,60,0.6), rgba(0,0,0,0.5)),
+                  url('https://bsnlnanganallur.github.io/Banner-mobile.jpg') center/cover no-repeat;
+      background-color: #0b2b50;
+    }
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(2px);
+    padding: 1.2rem 1.8rem;
+    border-radius: 48px;
+    margin: 0 16px;
+  }
+  .hero-content h1 {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+  .hero-content p {
+    font-size: 1.1rem;
+    margin-top: 8px;
+  }
+  .hero-btn {
+    display: inline-block;
+    background: #ff9800;
+    color: #0b1f4a;
+    padding: 12px 26px;
+    margin-top: 12px;
+    border-radius: 40px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+    transition: 0.2s;
+  }
+  .hero-btn:hover {
+    background: #ffb42b;
+    transform: translateY(-2px);
+  }
 
-/* ========== TAB FRAME STYLES (OTT / NON-OTT as Tabs) ========== */
-.tab-frames {
-  max-width: 1100px;
-  margin: 28px auto 10px;
-  padding: 0 20px;
-}
-.tab-headers {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(6px);
-  border-radius: 60px;
-  padding: 6px;
-  width: fit-content;
-  margin: 0 auto 20px;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-.tab-header {
-  padding: 12px 32px;
-  font-size: 1rem;
-  font-weight: 700;
-  border: none;
-  background: transparent;
-  color: #eef3ff;
-  border-radius: 50px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  letter-spacing: 0.3px;
-}
-.tab-header.active {
-  background: #ff9800;
-  color: #0a1f3a;
-  box-shadow: 0 6px 14px rgba(255,152,0,0.35);
-}
-.tab-header:not(.active):hover {
-  background: rgba(255,255,255,0.2);
-  color: white;
-}
+  /* type switch (non-ott / ott) */
+  .type-switch {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 28px auto 12px;
+  }
+  .type-btn {
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 60px;
+    background: rgba(255,255,255,0.12);
+    color: white;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: all 0.2s;
+  }
+  .type-btn.active {
+    background: #ff9800;
+    color: #0a1f3e;
+    box-shadow: 0 4px 12px rgba(255,152,0,0.3);
+  }
 
-/* Tab panes */
-.tab-pane {
-  display: none;
-  animation: fadeSlide 0.3s ease-out;
-}
-.tab-pane.active-pane {
-  display: block;
-}
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+  /* tabs */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 16px 10px;
+  }
+  .tab {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.12);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .tab.active {
+    background: white;
+    color: #003a8f;
+    font-weight: 700;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
 
-/* Tenure Tabs (monthly/quarterly etc) */
-.tenure-tabs {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin: 16px auto 24px;
-}
-.tenure-btn {
-  padding: 8px 20px;
-  border: none;
-  border-radius: 40px;
-  background: rgba(255,255,255,0.12);
-  color: white;
-  font-weight: 600;
-  cursor: pointer;
-  transition: 0.2s;
-  font-size: 0.9rem;
-}
-.tenure-btn.active {
-  background: white;
-  color: #003a8f;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-}
-
-/* CAROUSEL WRAPPER */
-.plans-wrapper {
-  position: relative;
-  max-width: 1300px;
-  margin: 10px auto 20px;
-  padding: 0 12px;
-}
-.plans {
-  display: flex;
-  gap: 22px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding: 20px 40px;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-.plans::-webkit-scrollbar {
-  height: 6px;
-}
-.plans::-webkit-scrollbar-track {
-  background: #1e3a6b;
-  border-radius: 10px;
-}
-.plans::-webkit-scrollbar-thumb {
-  background: #ff9800;
-  border-radius: 10px;
-}
-.card {
-  flex: 0 0 250px;
-  background: white;
-  color: #0e2c48;
-  border-radius: 32px;
-  padding: 20px 14px;
-  text-align: center;
-  scroll-snap-align: center;
-  cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-  box-shadow: 0 20px 30px -12px rgba(0,0,0,0.4);
-  border: 1px solid rgba(255,255,255,0.4);
-}
-@media (max-width: 720px) {
+  /* carousel */
+  .plans-wrapper {
+    max-width: 1280px;
+    margin: 20px auto 30px;
+    position: relative;
+    padding: 12px 0;
+  }
+  .plans {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 20px 32px;
+    scroll-behavior: smooth;
+  }
+  .plans::-webkit-scrollbar {
+    height: 6px;
+  }
+  .plans::-webkit-scrollbar-track {
+    background: #1e3a6b;
+    border-radius: 10px;
+  }
+  .plans::-webkit-scrollbar-thumb {
+    background: #ff9800;
+    border-radius: 10px;
+  }
   .card {
-    flex: 0 0 72%;
+    flex: 0 0 260px;
+    background: white;
+    color: #0f2b4d;
+    border-radius: 28px;
+    padding: 20px 12px;
+    text-align: center;
+    scroll-snap-align: center;
+    transition: all 0.25s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    cursor: pointer;
+    box-shadow: 0 18px 28px -10px rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.3);
+    position: relative;
   }
-}
-.card.selected {
-  transform: scale(1.04);
-  border: 3px solid #2e7d32;
-  background: #fffef5;
-}
-.card.popular {
-  border-top: 5px solid #ff9800;
-  box-shadow: 0 18px 28px -8px rgba(255,152,0,0.5);
-  transform: scale(1.01);
-}
-.badge {
-  background: #ff9800;
-  color: #1f2f47;
-  padding: 5px 12px;
-  border-radius: 60px;
-  font-size: 11px;
-  font-weight: 800;
-  display: inline-block;
-  margin-bottom: 10px;
-}
-.card h3 {
-  font-size: 1.4rem;
-  margin: 8px 0 4px;
-}
-.card h2 {
-  font-size: 2rem;
-  color: #1e6b2f;
-  margin: 8px 0;
-}
-.card p {
-  font-weight: 500;
-  color: #4a627a;
-}
-.card button {
-  background: #0b3b6b;
-  border: none;
-  color: white;
-  padding: 10px 16px;
-  margin-top: 14px;
-  border-radius: 40px;
-  font-weight: bold;
-  width: 85%;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.card button:hover {
-  background: #ff9800;
-  color: #0b2a44;
-}
+  @media (max-width: 720px) {
+    .card {
+      flex: 0 0 78%;
+    }
+  }
+  .card.selected {
+    transform: scale(1.05);
+    border: 3px solid #ff9800;
+    background: #fffdf7;
+    box-shadow: 0 20px 35px -5px rgba(0,0,0,0.4);
+  }
+  .card.popular {
+    border-top: 4px solid #ffaa33;
+    position: relative;
+  }
+  .badge {
+    background: #ff9800;
+    color: #0d2c4b;
+    padding: 5px 12px;
+    border-radius: 60px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+  .card h3 {
+    font-size: 1.45rem;
+    margin: 8px 0 6px;
+  }
+  .card h2 {
+    font-size: 1.9rem;
+    color: #1e6b2f;
+    margin: 6px 0;
+  }
+  .card p {
+    color: #4a627a;
+    font-weight: 500;
+    margin: 6px 0;
+  }
+  .card button {
+    background: #0b3b6b;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 40px;
+    font-weight: bold;
+    margin-top: 10px;
+    width: 85%;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .card button:hover {
+    background: #ff9800;
+    color: #0a1f39;
+    transform: scale(0.97);
+  }
 
-/* Edge fade */
-.plans-wrapper::before,
-.plans-wrapper::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  width: 55px;
-  height: 100%;
-  z-index: 3;
-  pointer-events: none;
-}
-.plans-wrapper::before {
-  left: 0;
-  background: linear-gradient(to right, #0a2352 30%, transparent);
-}
-.plans-wrapper::after {
-  right: 0;
-  background: linear-gradient(to left, #0a2352 30%, transparent);
-}
-
-/* Arrows */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.65);
-  border: none;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  color: white;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 20;
-  backdrop-filter: blur(4px);
-  transition: 0.2s;
-}
-.carousel-btn.left {
-  left: 5px;
-}
-.carousel-btn.right {
-  right: 5px;
-}
-.carousel-btn:hover {
-  background: #ff9800;
-  color: #0b1f3a;
-}
-
-/* Selected plan indicator */
-.selected-box {
-  background: #dff0d8;
-  color: #2e7d32;
-  text-align: center;
-  padding: 10px 16px;
-  margin: 5px auto 10px;
-  border-radius: 60px;
-  font-weight: bold;
-  max-width: 500px;
-  display: none;
-  font-size: 0.95rem;
-  width: fit-content;
-}
-
-/* FORM */
-.form-section {
-  padding: 30px 20px 55px;
-  display: flex;
-  justify-content: center;
-}
-.form {
-  width: 100%;
-  max-width: 480px;
-  background: white;
-  color: #0e2e4a;
-  padding: 28px 26px;
-  border-radius: 36px;
-  box-shadow: 0 25px 40px -10px rgba(0,0,0,0.4);
-}
-.form h3 {
-  font-size: 1.7rem;
-  text-align: center;
-  margin-bottom: 8px;
-}
-input {
-  width: 100%;
-  padding: 14px 18px;
-  margin-top: 14px;
-  border-radius: 60px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
-}
-input:focus {
-  outline: none;
-  border-color: #ff9800;
-  box-shadow: 0 0 0 3px rgba(255,152,0,0.2);
-}
-.form button {
-  background: #ff9800;
-  color: #0b2a44;
-  font-weight: bold;
-  border: none;
-  padding: 14px;
-  width: 100%;
-  margin-top: 24px;
-  border-radius: 60px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: 0.2s;
-}
-.form button:hover {
-  background: #e68600;
-  transform: translateY(-2px);
-}
-.small-note {
-  font-size: 0.7rem;
-  text-align: center;
-  margin-top: 16px;
-  color: #7e95b5;
-}
+  /* form */
+  .form-section {
+    display: flex;
+    justify-content: center;
+    padding: 30px 20px 60px;
+  }
+  .form {
+    background: white;
+    color: #0e2e4a;
+    border-radius: 32px;
+    padding: 30px 24px;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 25px 40px -12px rgba(0,0,0,0.35);
+  }
+  .form h3 {
+    font-size: 1.8rem;
+    margin-bottom: 12px;
+    text-align: center;
+    font-weight: 700;
+  }
+  .form input {
+    width: 100%;
+    padding: 14px 16px;
+    margin-top: 12px;
+    border-radius: 48px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.2s;
+  }
+  .form input:focus {
+    border-color: #ff9800;
+    box-shadow: 0 0 0 3px rgba(255,152,0,0.2);
+  }
+  .form button {
+    width: 100%;
+    background: #ff9800;
+    color: #0b2a44;
+    font-weight: bold;
+    padding: 14px;
+    margin-top: 18px;
+    border: none;
+    border-radius: 48px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .form button:hover {
+    background: #e68600;
+    transform: translateY(-2px);
+  }
+  .small-note {
+    font-size: 0.75rem;
+    text-align: center;
+    margin-top: 14px;
+    color: #5e7c9c;
+  }
+  footer {
+    text-align: center;
+    padding: 24px;
+    background: #03132e;
+    font-size: 0.8rem;
+    color: #89a9d6;
+  }
 </style>
 </head>
 <body>
 
 <div class="header">
-  <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" class="logo" alt="BSNL Logo">
+  <img src="https://bsnlnanganallur.github.io/bsnl-logo.png" alt="BSNL Logo" class="logo" loading="eager">
   <a href="https://wa.me/919447072230" class="wa-btn">📞 WhatsApp</a>
 </div>
 
-<div class="hero"></div>
-
-<!-- ========== TAB FRAME (OTT / NON-OTT as tabs) ========== -->
-<div class="tab-frames">
-  <div class="tab-headers">
-    <button class="tab-header active" data-tab="nonott">📡 Non-OTT Plans</button>
-    <button class="tab-header" data-tab="ott">🎬 OTT Entertainment Plans</button>
-  </div>
-  
-  <!-- Non-OTT Pane -->
-  <div class="tab-pane active-pane" id="pane-nonott">
-    <div class="tenure-tabs" id="tenureNonOTT"></div>
-    <div class="plans-wrapper">
-      <button class="carousel-btn left" data-carousel="nonott">◀</button>
-      <div class="plans" id="plans-nonott"></div>
-      <button class="carousel-btn right" data-carousel="nonott">▶</button>
-    </div>
-  </div>
-  
-  <!-- OTT Pane -->
-  <div class="tab-pane" id="pane-ott">
-    <div class="tenure-tabs" id="tenureOTT"></div>
-    <div class="plans-wrapper">
-      <button class="carousel-btn left" data-carousel="ott">◀</button>
-      <div class="plans" id="plans-ott"></div>
-      <button class="carousel-btn right" data-carousel="ott">▶</button>
-    </div>
+<div class="hero">
+  <div class="hero-content">
+    <h1>⚡ Unlimited Fibre Internet</h1>
+    <p>Lightning speed | Free Wi-Fi | 24x7 Chennai support</p>
+    <a href="#formSection" class="hero-btn">📡 Check Availability</a>
   </div>
 </div>
 
-<!-- Global selected plan display (shared) -->
-<div id="selectedBox" class="selected-box">
-  ✅ Selected Plan: <span id="selectedText"></span>
+<!-- Category Switch: Non-OTT / OTT -->
+<div class="type-switch">
+  <button class="type-btn active" data-cat="nonott">📶 Non-OTT Plans</button>
+  <button class="type-btn" data-cat="ott">🎬 OTT Plans (Hotstar, SonyLIV etc)</button>
 </div>
 
-<!-- Lead Form -->
+<!-- Tenure Tabs -->
+<div class="tabs">
+  <button class="tab active" data-dur="monthly">Monthly</button>
+  <button class="tab" data-dur="quarterly">Quarterly 🎁 +7 Days</button>
+  <button class="tab" data-dur="half">Half-Yearly 🎁 +19 Days</button>
+  <button class="tab" data-dur="yearly">Yearly 🎁 +1 Month</button>
+</div>
+
+<!-- Carousel container -->
+<div class="plans-wrapper">
+  <div class="plans" id="plansContainer"></div>
+</div>
+
+<!-- Lead form -->
 <div class="form-section" id="formSection">
   <div class="form">
-    <h3>🔌 Fibre at your Doorstep</h3>
+    <h3>✨ Get Fibre at your door</h3>
     <input type="text" id="userName" placeholder="Full Name" autocomplete="name">
     <input type="tel" id="userPhone" placeholder="Mobile Number" autocomplete="tel">
-    <input type="text" id="userArea" placeholder="Detecting your area..." readonly>
-    <input type="hidden" id="planHidden">
-    <button id="submitBtn">📲 Get Callback / WhatsApp</button>
-    <div class="small-note">*Executive will confirm availability & offers</div>
+    <input type="text" id="userArea" placeholder="Area / Street / Landmark">
+    <input type="hidden" id="selectedPlanHidden">
+    <button id="submitLeadBtn">📲 Send enquiry via WhatsApp</button>
+    <div class="small-note">*Our executive will confirm availability instantly</div>
   </div>
 </div>
 
+<footer>
+  © BSNL Bharat Fibre Chennai | Unlimited data | No daily cap
+</footer>
+
 <script>
-// ======================= DATA MODELS =======================
-const plansLibrary = {
-  nonott: [
-    { name: "Fibre Entry", speed: "25 Mbps", price: { monthly: 333, quarterly: 1178, half: 2356, yearly: 4712 }, popular: false },
-    { name: "Ghar Ka WiFi", speed: "40 Mbps", price: { monthly: 399, quarterly: 1413, half: 2826, yearly: 5652 }, popular: false },
-    { name: "Fibre Basic", speed: "60 Mbps", price: { monthly: 499, quarterly: 1767, half: 3533, yearly: 7066 }, popular: false },
-    { name: "Fibre Basic Plus", speed: "100 Mbps", price: { monthly: 599, quarterly: 2121, half: 4241, yearly: 8482 }, popular: true },
-    { name: "Fibre TB", speed: "150 Mbps", price: { monthly: 799, quarterly: 2829, half: 5657, yearly: 9900 }, popular: false },
-    { name: "Fibre Value Plus", speed: "150 Mbps", price: { monthly: 849, quarterly: 3006, half: 6011, yearly: 10520 }, popular: false },
-    { name: "Fibre Premium Plus", speed: "250 Mbps", price: { monthly: 1299, quarterly: 4602, half: 9197, yearly: 18394 }, popular: false }
-  ],
-  ott: [
-    { name: "OTT Bronze", speed: "100 Mbps + OTT", price: { monthly: 699, quarterly: 2475, half: 4950, yearly: 9900 }, popular: false },
-    { name: "OTT Silver", speed: "150 Mbps + OTT", price: { monthly: 899, quarterly: 3185, half: 6370, yearly: 12740 }, popular: true },
-    { name: "OTT Gold", speed: "200 Mbps + OTT", price: { monthly: 1199, quarterly: 4250, half: 8500, yearly: 17000 }, popular: false },
-    { name: "OTT Platinum", speed: "300 Mbps + All OTT", price: { monthly: 1499, quarterly: 5297, half: 10594, yearly: 21188 }, popular: false }
-  ]
-};
+  // ======================= DATA MODEL =======================
+  const tariffDB = {
+    nonott: [
+      { name: "Fibre Entry", speed: "25 Mbps", price: { monthly: 333, quarterly: 1178, half: 2356, yearly: 4712 }, popular: false },
+      { name: "Fibre Basic Plus", speed: "100 Mbps", price: { monthly: 599, quarterly: 2121, half: 4241, yearly: 8482 }, popular: true },
+      { name: "Fibre Super", speed: "200 Mbps", price: { monthly: 899, quarterly: 3148, half: 6296, yearly: 12592 }, popular: false }
+    ],
+    ott: [
+      { name: "OTT Silver (150 Mbps)", speed: "150 Mbps + OTT", price: { monthly: 899, quarterly: 3185, half: 6370, yearly: 12740 }, popular: true },
+      { name: "OTT Gold (200 Mbps)", speed: "200 Mbps + OTT", price: { monthly: 1199, quarterly: 4250, half: 8500, yearly: 17000 }, popular: false },
+      { name: "OTT Platinum (300 Mbps)", speed: "300 Mbps + All OTT", price: { monthly: 1499, quarterly: 5297, half: 10594, yearly: 21188 }, popular: false }
+    ]
+  };
 
-// Global state
-let currentActiveTab = "nonott";    // 'nonott' or 'ott'
-let tenureMap = { nonott: "monthly", ott: "monthly" };  // each tab keeps its own tenure
-let selectedPlanPerTab = {
-  nonott: { name: "", price: 0, speed: "" },
-  ott: { name: "", price: 0, speed: "" }
-};
+  // Utility: free bonus text based on tenure
+  function getBonusText(planType) {
+    if (planType === 'quarterly') return "🎁 7 Days FREE";
+    if (planType === 'half') return "🎁 19 Days FREE";
+    if (planType === 'yearly') return "🎁 1 Month FREE + Installation";
+    return "";
+  }
 
-let userLat = "", userLng = "";
-const areaInput = document.getElementById("userArea");
-const globalSelectedBox = document.getElementById("selectedBox");
-const globalSelectedSpan = document.getElementById("selectedText");
-const planHidden = document.getElementById("planHidden");
+  // Global state
+  let currentCategory = "nonott";      // "nonott" or "ott"
+  let currentTenure = "monthly";       // monthly, quarterly, half, yearly
+  let selectedPlanObj = { name: "", price: 0, speed: "" };
 
-// Helper: get price from plan & tenure
-function getPlanPrice(plan, tenureKey) {
-  return plan.price[tenureKey] || plan.price.monthly;
-}
+  // DOM elements
+  const plansContainer = document.getElementById("plansContainer");
+  const hiddenPlanInput = document.getElementById("selectedPlanHidden");
 
-// Get bonus text based on tenure
-function getBonusText(tenure) {
-  if (tenure === "quarterly") return "🎁 7 Days FREE";
-  if (tenure === "half") return "🎁 19 Days FREE";
-  if (tenure === "yearly") return "🎁 1 Month FREE";
-  return "";
-}
+  // Helper to get price number
+  function getPlanPrice(plan, tenure) {
+    return plan.price[tenure] || plan.price.monthly;
+  }
 
-// Render plans for a specific tab (nonott / ott)
-function renderTabPlans(tabId) {
-  const plansList = plansLibrary[tabId];
-  if (!plansList) return;
-  const container = document.getElementById(`plans-${tabId}`);
-  if (!container) return;
-  const currentTenure = tenureMap[tabId];
-  
-  container.innerHTML = "";
-  
-  plansList.forEach(plan => {
-    const priceVal = getPlanPrice(plan, currentTenure);
-    const bonus = getBonusText(currentTenure);
-    const isPopular = !!plan.popular;
-    
-    const cardDiv = document.createElement("div");
-    cardDiv.className = `card ${isPopular ? "popular" : ""}`;
-    cardDiv.setAttribute("data-plan-name", plan.name);
-    cardDiv.setAttribute("data-plan-price", priceVal);
-    cardDiv.setAttribute("data-plan-speed", plan.speed);
-    cardDiv.setAttribute("data-tab", tabId);
-    
-    let badgesHtml = "";
-    if (isPopular) badgesHtml += `<div class="badge">⭐ Most Popular</div>`;
-    if (bonus) badgesHtml += `<div class="badge">${bonus}</div>`;
-    
-    cardDiv.innerHTML = `
-      ${badgesHtml}
-      <h3>${plan.name}</h3>
-      <h2>₹${priceVal.toLocaleString('en-IN')}</h2>
-      <p>⚡ ${plan.speed}</p>
-      <button class="select-card-btn">Choose Plan</button>
-    `;
-    
-    // selection handler
-    const selectHandler = () => {
-      selectPlanForTab(tabId, plan.name, priceVal, plan.speed, cardDiv);
-    };
-    cardDiv.addEventListener("click", (e) => {
-      if (e.target.classList && e.target.classList.contains("select-card-btn")) e.stopPropagation();
-      selectHandler();
-    });
-    const btn = cardDiv.querySelector(".select-card-btn");
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      selectHandler();
+  // Render full carousel
+  function renderPlans() {
+    const plansList = tariffDB[currentCategory];
+    if (!plansList) return;
+    plansContainer.innerHTML = "";
+
+    plansList.forEach((plan, idx) => {
+      const priceValue = getPlanPrice(plan, currentTenure);
+      const bonus = getBonusText(currentTenure);
+      const isPopular = plan.popular === true;
+
+      // create card element
+      const cardDiv = document.createElement("div");
+      cardDiv.className = `card ${isPopular ? "popular" : ""}`;
+      if (selectedPlanObj.name === plan.name && selectedPlanObj.price === priceValue) {
+        cardDiv.classList.add("selected");
+      }
+      // set data attributes for selection
+      cardDiv.setAttribute("data-plan-name", plan.name);
+      cardDiv.setAttribute("data-plan-price", priceValue);
+      cardDiv.setAttribute("data-plan-speed", plan.speed);
+      
+      // inner html structure
+      let badgesHtml = "";
+      if (isPopular) badgesHtml += `<div class="badge">⭐ Most Popular</div>`;
+      if (bonus) badgesHtml += `<div class="badge">${bonus}</div>`;
+      
+      cardDiv.innerHTML = `
+        ${badgesHtml}
+        <h3>${plan.name}</h3>
+        <h2>₹${priceValue.toLocaleString('en-IN')}</h2>
+        <p>🚀 ${plan.speed}</p>
+        <button class="select-card-btn">Select Plan</button>
+      `;
+      
+      // click on card (except button inside to avoid double, but we handle via event delegation)
+      cardDiv.addEventListener("click", (e) => {
+        // prevent if click on button because button has its own handler
+        if (e.target.classList && e.target.classList.contains("select-card-btn")) {
+          e.stopPropagation();
+        }
+        selectPlan(cardDiv, plan.name, priceValue, plan.speed);
+      });
+      
+      // button click separate for clarity
+      const btn = cardDiv.querySelector(".select-card-btn");
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        selectPlan(cardDiv, plan.name, priceValue, plan.speed);
+      });
+      
+      plansContainer.appendChild(cardDiv);
     });
     
-    container.appendChild(cardDiv);
-  });
-  
-  // After render, highlight previously selected plan for this tab if exists
-  const savedSelection = selectedPlanPerTab[tabId];
-  if (savedSelection.name) {
-    const cards = document.querySelectorAll(`#plans-${tabId} .card`);
-    for (let card of cards) {
-      const cName = card.getAttribute("data-plan-name");
-      const cPrice = Number(card.getAttribute("data-plan-price"));
-      if (cName === savedSelection.name && cPrice === savedSelection.price) {
-        card.classList.add("selected");
-        break;
+    // if no plan selected but we have a previous selection that might not exist anymore, reset selectedPlan
+    if (selectedPlanObj.name) {
+      const exists = plansList.some(p => p.name === selectedPlanObj.name && getPlanPrice(p, currentTenure) === selectedPlanObj.price);
+      if (!exists) {
+        selectedPlanObj = { name: "", price: 0, speed: "" };
+        hiddenPlanInput.value = "";
       }
     }
-  } else {
-    // Auto-select popular plan if nothing selected for this tab
-    const defaultPlan = plansList.find(p => p.popular === true) || plansList[0];
-    const defPrice = getPlanPrice(defaultPlan, currentTenure);
-    selectedPlanPerTab[tabId] = {
-      name: defaultPlan.name,
-      price: defPrice,
-      speed: defaultPlan.speed
-    };
-    // re-render after selection update to highlight correctly
-    renderTabPlans(tabId);
-  }
-  
-  // Update global selection display if active tab matches
-  updateGlobalSelectionDisplay();
-}
-
-function selectPlanForTab(tabId, planName, priceVal, speedVal, cardElement) {
-  // Remove selected class from other cards in same tab
-  const container = document.getElementById(`plans-${tabId}`);
-  if (container) {
-    container.querySelectorAll(".card").forEach(c => c.classList.remove("selected"));
-  }
-  cardElement.classList.add("selected");
-  
-  // store selection per tab
-  selectedPlanPerTab[tabId] = {
-    name: planName,
-    price: priceVal,
-    speed: speedVal
-  };
-  
-  // If the currently active tab is this one, update global selection box
-  if (currentActiveTab === tabId) {
-    updateGlobalSelectionDisplay();
-  }
-  
-  // center card nice scroll
-  centerCardInView(cardElement, tabId);
-}
-
-function updateGlobalSelectionDisplay() {
-  const selection = selectedPlanPerTab[currentActiveTab];
-  if (selection && selection.name) {
-    const displayStr = `${selection.name} - ₹${selection.price} (${selection.speed})`;
-    globalSelectedSpan.innerText = displayStr;
-    globalSelectedBox.style.display = "block";
-    planHidden.value = displayStr;
-  } else {
-    globalSelectedBox.style.display = "none";
-    planHidden.value = "";
-  }
-}
-
-function centerCardInView(cardEl, tabId) {
-  const container = document.getElementById(`plans-${tabId}`);
-  if (!container || !cardEl) return;
-  const containerRect = container.getBoundingClientRect();
-  const cardRect = cardEl.getBoundingClientRect();
-  const scrollLeft = cardEl.offsetLeft - (containerRect.width / 2) + (cardRect.width / 2);
-  container.scrollTo({ left: Math.max(0, scrollLeft), behavior: "smooth" });
-}
-
-// change tenure for a specific tab, re-render that tab only
-function setTenureForTab(tabId, tenureKey, activeBtnElement) {
-  tenureMap[tabId] = tenureKey;
-  // update active class on tenure buttons for that tab group
-  const tenureContainer = tabId === "nonott" ? document.getElementById("tenureNonOTT") : document.getElementById("tenureOTT");
-  if (tenureContainer) {
-    tenureContainer.querySelectorAll(".tenure-btn").forEach(btn => btn.classList.remove("active"));
-    if (activeBtnElement) activeBtnElement.classList.add("active");
-  }
-  renderTabPlans(tabId);
-  // also if active tab changed, update display
-  if (currentActiveTab === tabId) updateGlobalSelectionDisplay();
-}
-
-// Switch between OTT / Non-OTT tabs
-function switchMainTab(tabKey, activeHeaderBtn) {
-  currentActiveTab = tabKey;
-  // update tab header active style
-  document.querySelectorAll(".tab-header").forEach(btn => btn.classList.remove("active"));
-  activeHeaderBtn.classList.add("active");
-  
-  // Show relevant pane
-  document.querySelectorAll(".tab-pane").forEach(pane => pane.classList.remove("active-pane"));
-  document.getElementById(`pane-${tabKey}`).classList.add("active-pane");
-  
-  // re-render the target tab (ensures latest tenure and selection)
-  renderTabPlans(tabKey);
-  updateGlobalSelectionDisplay();
-}
-
-// Build tenure buttons inside each tab
-function generateTenureButtons(tabId) {
-  const container = document.getElementById(`tenure${tabId === "nonott" ? "NonOTT" : "OTT"}`);
-  if (!container) return;
-  const tenures = [
-    { key: "monthly", label: "Monthly" },
-    { key: "quarterly", label: "Quarterly🎁" },
-    { key: "half", label: "Half-Yearly🎁" },
-    { key: "yearly", label: "Yearly🎁" }
-  ];
-  container.innerHTML = "";
-  const currentTenure = tenureMap[tabId];
-  tenures.forEach(t => {
-    const btn = document.createElement("button");
-    btn.className = `tenure-btn ${currentTenure === t.key ? "active" : ""}`;
-    btn.textContent = t.label;
-    btn.setAttribute("data-tenure", t.key);
-    btn.addEventListener("click", () => {
-      setTenureForTab(tabId, t.key, btn);
-    });
-    container.appendChild(btn);
-  });
-}
-
-// Carousel scrolling for each plan container
-function bindCarouselArrows() {
-  document.querySelectorAll(".carousel-btn").forEach(btn => {
-    btn.removeEventListener("click", carouselHandler);
-    btn.addEventListener("click", carouselHandler);
-  });
-}
-function carouselHandler(e) {
-  const btn = e.currentTarget;
-  const direction = btn.classList.contains("left") ? -1 : 1;
-  const parentWrapper = btn.closest(".plans-wrapper");
-  if (!parentWrapper) return;
-  const plansDiv = parentWrapper.querySelector(".plans");
-  if (plansDiv) {
-    const scrollAmount = direction * 280;
-    plansDiv.scrollBy({ left: scrollAmount, behavior: "smooth" });
-  }
-}
-
-// Geolocation + area detect
-function detectLocation() {
-  if (!navigator.geolocation) {
-    areaInput.value = "Chennai region";
-    return;
-  }
-  navigator.geolocation.getCurrentPosition(async (pos) => {
-    userLat = pos.coords.latitude;
-    userLng = pos.coords.longitude;
-    try {
-      const resp = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json&addressdetails=1`);
-      const data = await resp.json();
-      let detected = data.address?.suburb || data.address?.neighbourhood || data.address?.city || "Chennai";
-      areaInput.value = detected;
-    } catch {
-      areaInput.value = "Chennai (Fibre Zone)";
+    // update hidden field sync
+    if (selectedPlanObj.name) {
+      hiddenPlanInput.value = `${selectedPlanObj.name} | ₹${selectedPlanObj.price} | ${selectedPlanObj.speed}`;
+    } else {
+      hiddenPlanInput.value = "";
     }
-  }, () => {
-    areaInput.value = "Chennai Metro";
-  });
-}
-
-// Form submission (WhatsApp + Google Sheets)
-async function submitEnquiry() {
-  const name = document.getElementById("userName").value.trim();
-  const phone = document.getElementById("userPhone").value.trim();
-  let area = areaInput.value;
-  let selectedPlanFinal = planHidden.value || "No plan selected";
-  const tenureActive = tenureMap[currentActiveTab];
-  const categoryLabel = currentActiveTab === "nonott" ? "Non-OTT" : "OTT";
-  
-  if (!name || !phone) {
-    alert("Please enter your name and mobile number.");
-    return;
   }
-  if (!/^\d{10,12}$/.test(phone.replace(/\D/g, ''))) {
-    alert("Valid 10-digit mobile required.");
-    return;
+  
+  // selectPlan logic: highlights card, updates global selection
+  function selectPlan(cardElement, planName, priceVal, speedVal) {
+    // Remove selected class from all cards
+    document.querySelectorAll(".card").forEach(card => {
+      card.classList.remove("selected");
+    });
+    cardElement.classList.add("selected");
+    selectedPlanObj = {
+      name: planName,
+      price: priceVal,
+      speed: speedVal
+    };
+    hiddenPlanInput.value = `${selectedPlanObj.name} | ₹${selectedPlanObj.price} | ${selectedPlanObj.speed}`;
+    
+    // subtle scroll into view if needed
+    cardElement.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
   }
-  if (area === "Detecting your area..." || !area) area = "Chennai area";
   
-  const waMsg = `🏢 BSNL Bharat Fibre Enquiry (Chennai)%0A👤 Name: ${encodeURIComponent(name)}%0A📞 Mobile: ${encodeURIComponent(phone)}%0A📍 Area: ${encodeURIComponent(area)}%0A📡 Plan: ${encodeURIComponent(selectedPlanFinal)}%0A📂 Category: ${encodeURIComponent(categoryLabel)}%0A⏱️ Tenure: ${tenureActive.toUpperCase()}%0A🔹 Need availability & best offer.`;
-  const waNumber = "919447072230";
-  const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
+  // change tenure (monthly/quarterly etc)
+  function setTenure(tenure, activeTabElement) {
+    currentTenure = tenure;
+    // update active tab UI
+    document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+    if (activeTabElement) activeTabElement.classList.add("active");
+    else {
+      // fallback: find tab by data-dur
+      const matchingTab = document.querySelector(`.tab[data-dur="${tenure}"]`);
+      if (matchingTab) matchingTab.classList.add("active");
+    }
+    // re-render with new tenure (preserve selection if same plan exists across tenure)
+    preserveAndRender();
+  }
   
-  // background post to google script (no-cors)
-  try {
-    await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec", {
-      method: "POST",
-      mode: "no-cors",
-      body: JSON.stringify({ name, phone, area, lat: userLat, lng: userLng, plan: selectedPlanFinal, tenure: tenureActive, type: categoryLabel })
+  // change category (non-ott / ott)
+  function setCategory(category, activeCatElement) {
+    currentCategory = category;
+    // reset selected plan when switching category because different plans
+    selectedPlanObj = { name: "", price: 0, speed: "" };
+    hiddenPlanInput.value = "";
+    // update type button active style
+    document.querySelectorAll(".type-btn").forEach(btn => btn.classList.remove("active"));
+    if (activeCatElement) activeCatElement.classList.add("active");
+    else {
+      const matchingCat = document.querySelector(`.type-btn[data-cat="${category}"]`);
+      if (matchingCat) matchingCat.classList.add("active");
+    }
+    renderPlans();
+  }
+  
+  // re-render after preserving possible same-plan (only if exists under new tenure)
+  function preserveAndRender() {
+    const plansList = tariffDB[currentCategory];
+    if (!plansList) {
+      renderPlans();
+      return;
+    }
+    // If we had a selected plan, check if it still exists under current tenure
+    if (selectedPlanObj.name) {
+      const matchedPlan = plansList.find(p => p.name === selectedPlanObj.name);
+      if (matchedPlan) {
+        const newPrice = getPlanPrice(matchedPlan, currentTenure);
+        // update price in selectedObj
+        selectedPlanObj.price = newPrice;
+        selectedPlanObj.speed = matchedPlan.speed;
+        hiddenPlanInput.value = `${selectedPlanObj.name} | ₹${selectedPlanObj.price} | ${selectedPlanObj.speed}`;
+        renderPlans();  // will highlight correct card with updated price
+        // after render, manually re-highlight the card with new price
+        setTimeout(() => {
+          const cards = document.querySelectorAll(".card");
+          for (let card of cards) {
+            const cardName = card.getAttribute("data-plan-name");
+            const cardPrice = Number(card.getAttribute("data-plan-price"));
+            if (cardName === selectedPlanObj.name && cardPrice === selectedPlanObj.price) {
+              card.classList.add("selected");
+              break;
+            }
+          }
+        }, 10);
+      } else {
+        selectedPlanObj = { name: "", price: 0, speed: "" };
+        hiddenPlanInput.value = "";
+        renderPlans();
+      }
+    } else {
+      renderPlans();
+    }
+  }
+  
+  // Set up event listeners and initial load
+  function initEventListeners() {
+    // Category buttons
+    const catBtns = document.querySelectorAll(".type-btn");
+    catBtns.forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const cat = btn.getAttribute("data-cat");
+        if (cat === "nonott") setCategory("nonott", btn);
+        else if (cat === "ott") setCategory("ott", btn);
+      });
     });
-  } catch(e) { /* silent */ }
-  
-  window.open(waLink, "_blank");
-  alert(`Thank you ${name}! Our team will contact you on WhatsApp.`);
-}
-
-// Initialize everything
-function init() {
-  detectLocation();
-  
-  // Build tenure buttons for both tabs
-  generateTenureButtons("nonott");
-  generateTenureButtons("ott");
-  
-  // Initial render for both tabs
-  renderTabPlans("nonott");
-  renderTabPlans("ott");
-  
-  // set default active tab
-  currentActiveTab = "nonott";
-  document.querySelector(".tab-header[data-tab='nonott']").classList.add("active");
-  document.getElementById("pane-nonott").classList.add("active-pane");
-  document.getElementById("pane-ott").classList.remove("active-pane");
-  updateGlobalSelectionDisplay();
-  
-  // bind tab switching
-  const tabHeaders = document.querySelectorAll(".tab-header");
-  tabHeaders.forEach(header => {
-    header.addEventListener("click", () => {
-      const tabVal = header.getAttribute("data-tab");
-      if (tabVal === "nonott") switchMainTab("nonott", header);
-      else if (tabVal === "ott") switchMainTab("ott", header);
+    
+    // Tenure tabs
+    const tabBtns = document.querySelectorAll(".tab");
+    tabBtns.forEach(tab => {
+      tab.addEventListener("click", () => {
+        const dur = tab.getAttribute("data-dur");
+        if (dur === "monthly") setTenure("monthly", tab);
+        else if (dur === "quarterly") setTenure("quarterly", tab);
+        else if (dur === "half") setTenure("half", tab);
+        else if (dur === "yearly") setTenure("yearly", tab);
+      });
     });
-  });
+  }
   
-  bindCarouselArrows();
+  // Form submission via WhatsApp (works without plan selection optional)
+  function setupForm() {
+    const submitBtn = document.getElementById("submitLeadBtn");
+    submitBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      const nameField = document.getElementById("userName");
+      const phoneField = document.getElementById("userPhone");
+      const areaField = document.getElementById("userArea");
+      const name = nameField.value.trim();
+      const phone = phoneField.value.trim();
+      const area = areaField.value.trim();
+      let planDetail = hiddenPlanInput.value;
+      if (!planDetail) planDetail = "Not selected yet (we will suggest best plan)";
+      
+      if (!name || !phone) {
+        alert("Please enter your Name and Mobile number to proceed.");
+        return;
+      }
+      if (!/^\d{10,12}$/.test(phone.replace(/\D/g, ''))) {
+        alert("Please enter a valid mobile number (10 digits).");
+        return;
+      }
+      
+      let message = `🏢 BSNL Bharat Fibre Enquiry (Chennai)%0A`;
+      message += `👤 Name: ${encodeURIComponent(name)}%0A`;
+      message += `📞 Mobile: ${encodeURIComponent(phone)}%0A`;
+      if (area) message += `📍 Area: ${encodeURIComponent(area)}%0A`;
+      message += `📡 Selected Plan: ${encodeURIComponent(planDetail)}%0A`;
+      message += `⏱️ Tenure: ${currentTenure.toUpperCase()}%0A%0A`;
+      message += `🔹 Need fibre connection at earliest. Please check availability.`;
+      
+      const waNumber = "919447072230";
+      const waLink = `https://wa.me/${waNumber}?text=${message}`;
+      window.open(waLink, "_blank");
+      
+      // optional: reset highlight feedback
+      nameField.style.border = "1px solid #ccc";
+    });
+  }
   
-  // submit button
-  document.getElementById("submitBtn").addEventListener("click", submitEnquiry);
-}
+  // making plans interactive: pre-select first popular by default on load? improve UX: select first popular plan
+  function autoSelectDefaultPlan() {
+    // after initial render, select the plan which is popular or first plan
+    const plansList = tariffDB[currentCategory];
+    if (plansList && plansList.length > 0) {
+      let defaultPlan = plansList.find(p => p.popular === true) || plansList[0];
+      const defaultPrice = getPlanPrice(defaultPlan, currentTenure);
+      selectedPlanObj = {
+        name: defaultPlan.name,
+        price: defaultPrice,
+        speed: defaultPlan.speed
+      };
+      hiddenPlanInput.value = `${selectedPlanObj.name} | ₹${selectedPlanObj.price} | ${selectedPlanObj.speed}`;
+      renderPlans(); // re-render to show selection border
+      setTimeout(() => {
+        // highlight the right card after render
+        const cards = document.querySelectorAll(".card");
+        for (let card of cards) {
+          const cardName = card.getAttribute("data-plan-name");
+          const cardPrice = Number(card.getAttribute("data-plan-price"));
+          if (cardName === defaultPlan.name && cardPrice === defaultPrice) {
+            card.classList.add("selected");
+            break;
+          }
+        }
+      }, 15);
+    } else {
+      renderPlans();
+    }
+  }
 
-window.onload = init;
+  // initial load full
+  function init() {
+    initEventListeners();
+    setupForm();
+    // initial render with default category nonott and monthly
+    currentCategory = "nonott";
+    currentTenure = "monthly";
+    // set active states manually for UI consistency
+    document.querySelector(".type-btn[data-cat='nonott']").classList.add("active");
+    document.querySelector(".tab[data-dur='monthly']").classList.add("active");
+    renderPlans();
+    autoSelectDefaultPlan();
+  }
+  
+  init();
 </script>
 </body>
 </html>
