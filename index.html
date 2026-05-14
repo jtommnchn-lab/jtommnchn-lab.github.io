@@ -3,85 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
-<script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
 
-gtag('config', 'AW-XXXXXXXXX');  //replace xxx with Google ads ID
-</script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s){
-if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;
-n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)
-}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-
-fbq('init', '994711108634772'); 
-fbq('track', 'PageView');
-</script>
-
-<noscript>
-<img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=994711108634772&ev=PageView&noscript=1"/>
-</noscript>  
 <title>BSNL Bharat Fibre Chennai</title>
 
 <style>
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
-  background: linear-gradient(180deg, #0b1f4a, #061433);
+  background:#0b1f4a;
   color:white;
 }
-.lead-prompt{
-  position:fixed;
-  bottom:90px;
-  left:50%;
-  transform:translateX(-50%) translateY(20px);
-  background:#25D366;
-  color:white;
-  padding:12px 18px;
-  border-radius:30px;
-  font-size:14px;
-  font-weight:600;
-  box-shadow:0 8px 25px rgba(0,0,0,0.25);
-  z-index:9999;
-  opacity:0;
-  pointer-events:none;
-  transition:0.35s ease;
-}
 
-.lead-prompt.show{
-  opacity:1;
-  transform:translateX(-50%) translateY(0);
-}  
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:1000;
-  background:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:10px 15px;
-}
-
-.topbar img{height:32px;}
-
-.actions a{
-  margin-left:10px;
-  text-decoration:none;
-  font-size:20px;
-}
 /* HEADER */
 .header{
   display:flex;
@@ -121,99 +53,6 @@ body{
   }
 }
 
-/* TRUST */
-
-.trust-strip{
-  background:#ffffff10;
-  text-align:center;
-  padding:10px;
-  font-size:13px;
-  color:#e6e6e6;
-}
-.ott-options{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-  margin-top:10px;
-}
-
-.ott-options label{
-  background:#ffffff20;
-  padding:8px 12px;
-  border-radius:20px;
-  cursor:pointer;
-}
-
-#ottPreview{
-  margin-top:12px;
-}
-
-.ott-logos img{
-  transition:0.2s;
-}
-.ott-logos img:hover{
-  transform:scale(1.1);
-}
-
-.ott-cards{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  padding:10px;
-}
-
-.ott-card{
-  background:white;
-  color:black;
-  border-radius:12px;
-  padding:12px;
-  cursor:pointer;
-  transition:0.25s;
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
-}
-.ott-card:first-child{
-  background:#f5f5f5;
-  border:2px dashed #ccc;
-}
-.ott-card.active{
-  border:2px solid #2e7d32;
-  transform:scale(1.03);
-}
-
-.ott-title{
-  font-weight:bold;
-}
-
-.ott-price{
-  color:#003a8f;
-  font-weight:bold;
-  margin-top:5px;
-}
-
-/* OTT logos grid */
-.ott-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:6px;
-  margin-top:8px;
-}
-
-.ott-grid img{
-  width:100%;
-  height:40px;
-  object-fit:contain;
-  background:white;
-  padding:4px;
-  border-radius:6px;
-  transition:0.2s;
-}
-
-/* 🔥 animation */
-.ott-grid img:hover{
-  transform:scale(1.1);
-}
-  
 /* TABS */
 .tabs{
   display:flex;
@@ -247,14 +86,11 @@ body{
   display:flex;
   gap:16px;
   overflow-x:auto;
-  /* 🔥 MAGIC */
-  padding:20px max(calc((100% - 220px)/2), 20px);
-  scroll-padding-inline:50%;
+  padding:20px;
   min-height:260px;
-  
-  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
   scroll-behavior:smooth;
-  scrollbar-width:none;
+  scroll-padding:0 50%;
 }
 
 .plans::-webkit-scrollbar{display:none;}
@@ -267,40 +103,21 @@ body{
   border-radius:12px;
   padding:14px;
   text-align:center;
-  
+  scroll-snap-align:center;
   cursor:pointer;
-  transition:
-    transform 0.25s ease,
-    opacity 0.25s ease;
-  opacity:0.65;
-  transform:scale(0.85);
-  will-change:transform;
+  transition:0.3s ease;
 }
 
 @media(max-width:768px){
-  .plans{
-    padding:16px;
-    gap:12px;
-    scroll-padding-inline:16px;
-  }
   .card{
-    flex:0 0 82%;
-  }
-  .card.selected{
-    transform:scale(1.02) !important;
+    flex:0 0 70%;
   }
 }
 
 .card.selected{
-  transform:scale(1.12) !important;
-  opacity:1;
+  transform:scale(1.1) !important;
   border:3px solid #2e7d32;
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
-  z-index:5;
-  filter: none;
-}
-.card.selected h2{
-  color:#2e7d32;
+  z-index:2;
 }
 
 .card.popular{
@@ -308,63 +125,7 @@ body{
   box-shadow:0 0 20px rgba(255,152,0,0.6);
   transform:scale(1.05);
 }
-.duration-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:10px;
-  padding:12px;
-}
 
-.duration-card{
-  background:#ffffff20;
-  padding:12px;
-  border-radius:12px;
-  text-align:center;
-  cursor:pointer;
-  transition:0.25s;
-}
-
-.duration-card.active{
-  background:white;
-  color:#003a8f;
-  transform:scale(1.05);
-  box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
-
-.title{
-  font-weight:bold;
-}
-
-.offer{
-  font-size:11px;
-  margin-top:4px;
-  color:#ffeb3b;
-}  
-.ott-logos{
-  display:flex;
-  justify-content:center;
-  gap:6px;
-  margin-top:8px;
-  flex-wrap:wrap;
-}
-
-.ott-logos img{
-  height:28px;
-  width:auto;
-  background:white;
-  padding:4px;
-  border-radius:6px;
-  object-fit:contain;
-  box-shadow:0 2px 6px rgba(0,0,0,0.2);
-}
-
-.more-btn{
-  font-size:11px;
-  color:#003a8f;
-  cursor:pointer;
-  margin-top:4px;
-  display:block;
-}
 .badge{
   background:#ff9800;
   color:white;
@@ -375,36 +136,24 @@ body{
   display:inline-block;
 }
 
-.ott-badge{
-  background:#673ab7;
-  color:white;
-  font-size:11px;
-  padding:3px 6px;
-  border-radius:4px;
-  margin-bottom:6px;
-  display:inline-block;
-}
-
 /* EDGE FADE */
 .plans-wrapper::before,
 .plans-wrapper::after{
   content:"";
   position:absolute;
   top:0;
-  width:60px;
+  width:40px;
   height:100%;
   z-index:5;
   pointer-events:none;
 }
-
 .plans-wrapper::before{
   left:0;
-  background:linear-gradient(to right,#0b1f4a 60%, transparent);
+  background:linear-gradient(to right,#0b1f4a 40%, transparent);
 }
-
 .plans-wrapper::after{
   right:0;
-  background:linear-gradient(to left,#0b1f4a 60%, transparent);
+  background:linear-gradient(to left,#0b1f4a 40%, transparent);
 }
 
 /* ARROWS */
@@ -431,14 +180,9 @@ body{
 .selected-box{
   display:none;
   text-align:center;
-  background:#2e7d32;
-  color:white;
-  padding:12px;
-  margin:15px auto;
-  max-width:500px;
-  border-radius:10px;
-  font-weight:bold;
-  box-shadow:0 5px 20px rgba(0,0,0,0.2);
+  background:#dff0d8;
+  color:#2e7d32;
+  padding:10px;
 }
 
 /* FORM */
@@ -456,38 +200,16 @@ body{
   padding:25px;
   border-radius:12px;
   box-shadow:0 10px 30px rgba(0,0,0,0.2);
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-}
-.form.highlight{
-  animation: glow 0.8s ease;
 }
 
-@keyframes glow{
-  0%{box-shadow:0 0 0px transparent;}
-  50%{box-shadow:0 0 20px rgba(255,152,0,0.8);}
-  100%{box-shadow:0 0 0px transparent;}
-}
 input{
-  width:90%;
-  max-width:320px;
+  width:100%;
   padding:12px;
   margin-top:12px;
   border-radius:6px;
   border:1px solid #ccc;
 }
 
-.form h3{
-  text-align:center;
-}
-
-.form button{
-  width:90%;
-  max-width:320px;
-}
-  
 button{
   width:100%;
   padding:12px;
@@ -499,123 +221,26 @@ button{
   font-weight:bold;
   cursor:pointer;
 }
-button:active{
-  transform:scale(0.96);
-}  
-.type-switch{
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  margin-top:15px;
-}
-
-.type-btn{
-  padding:8px 16px;
-  border:none;
-  border-radius:20px;
-  background:#ffffff20;
-  color:white;
-  cursor:pointer;
-}
-
-.type-btn.active{
-  background:#ff9800;
-  color:white;
-}
-  input.error{
-  border:2px solid #e53935;
-  background:#fff5f5;
-}
-
-.error-text{
-  color:#e53935;
-  font-size:12px;
-  margin-top:4px;
-}
-.bottom-bar{
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:white;
-  color:black;
-  padding:12px 15px;
-  box-shadow:0 -5px 15px rgba(0,0,0,0.2);
-  display:flex;
-  flex-direction:column;   /* 🔥 STACKED */
-  gap:8px;
-}
-#bottomBar{
-  display:none;
-}
-#bottomPrice{
-  font-size:18px;
-  font-weight:bold;
-  color:#003a8f;
-}
-
-.price-line{
-  font-size:20px;
-  font-weight:bold;
-  color:#003a8f;
-  text-align:center;
-  letter-spacing:0.5px;
-}
-  
-.bottom-bar button{
-  width:100%;
-  background:#25D366;
-  color:white;
-  border:none;
-  padding:12px;
-  border-radius:10px;
-  font-size:16px;
-  font-weight:bold;
-  box-shadow:0 0 15px rgba(37,211,102,0.6);
-}
-.bottom-bar button:disabled{
-  background:#ccc;
-  cursor:not-allowed;
-}  
 </style>
 </head>
 
 <body>
-<div class="topbar">
-  <img src="https://jtommnchn-lab.github.io/bsnl-logo.png">
-  <div class="actions">
-    <a href="tel:9447072230">📞</a>
-    <a href="https://wa.me/919447072230">💬</a>
-  </div>
+
+<!-- HEADER -->
+<div class="header">
+  <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" class="logo">
+  <a href="https://wa.me/919447072230" class="wa-btn">WhatsApp</a>
 </div>
 
 <!-- HERO -->
 <div class="hero"></div>
 
-<!-- TRUST -->
-<div class="trust-strip">
-  ✅ Made In India, By Indians, For Indians |
-  ⚡ FREE Installation within 24–48 Hr |
-  📍 24 X 7 Support
-</div>
-
 <!-- TABS -->
-<div class="duration-grid" id="durationGrid">
-  <div class="duration-card active" onclick="setType('monthly',this)">
-    <div class="title">Monthly</div>
-  </div>
-  <div class="duration-card" onclick="setType('quarterly',this)">
-    <div class="title">Quarterly</div>
-    <div class="offer">🎁 7 Days Free</div>
-  </div>
-  <div class="duration-card" onclick="setType('half',this)">
-    <div class="title">Half-Yearly</div>
-    <div class="offer">🎁 19 Days Free</div>
-  </div>
-  <div class="duration-card" onclick="setType('yearly',this)">
-    <div class="title">Annual</div>
-    <div class="offer">🎁 1 Month Free</div>
-  </div>
+<div class="tabs">
+  <button class="tab active" onclick="setType('monthly',this)">Monthly</button>
+  <button class="tab" onclick="setType('quarterly',this)">Quarterly</button>
+  <button class="tab" onclick="setType('half',this)">Half-Yearly</button>
+  <button class="tab" onclick="setType('yearly',this)">Yearly</button>
 </div>
 
 <!-- CAROUSEL -->
@@ -628,18 +253,13 @@ button:active{
 <div id="selectedBox" class="selected-box">
 Selected Plan: <span id="selectedText"></span>
 </div>
-<div id="ottSection" class="ott-grid-section" style="display:none">
-  <h3>🎬 Add OTT Pack</h3>
-  <div class="ott-cards" id="ottCards"></div>
-</div>
+
 <!-- FORM -->
 <div class="form-section" id="formSection">
   <div class="form">
     <h3>Check Availability</h3>
     <input id="name" placeholder="Your Name">
-    <div id="nameError" class="error-text"></div>
     <input id="phone" placeholder="Mobile Number">
-    <div id="phoneError" class="error-text"></div>
     <input id="area" placeholder="Detecting your area...">
     <input type="hidden" id="planInput">
     <button onclick="submitForm()">Submit Request</button>
@@ -647,51 +267,9 @@ Selected Plan: <span id="selectedText"></span>
 </div>
 
 <script>
-let selectedPlanName = "";
-let selectedBasePrice = 0;
-let selectedOTTName = "None";  
 let selectedPlan="",planType="monthly",userLat="",userLng="";
-let isOTT = false;  
-let isAutoScrolling = false;  
-let selectedOTT = "none";
-let isTabSwitching = false; 
-const ottPlans = {
-basic:{
-  name:"OTT Basic",
-  price:{monthly:151,quarterly:454,half:908,yearly:1817},
-  apps:["Zee5","SonyLIV","SunNxt","Aha","Discovery+"]
-},
-plus:{
-  name:"OTT Basic Plus",
-  price:{monthly:216,quarterly:647,half:1295,yearly:2590},
-  apps:["JioHotstar","Zee5","SonyLIV","SunNxt","Aha"]
-},
-premium:{
-  name:"OTT Premium",
-  price:{monthly:239,quarterly:718,half:1436,yearly:2873},
-  apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"]
-},
-premiumplus:{
-  name:"OTT Premium Plus",
-  price:{monthly:282,quarterly:847,half:1695,yearly:3389},
-  apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"]
-}
-}; 
-const ottLogos = {
-"Zee5":"https://upload.wikimedia.org/wikipedia/commons/5/5a/Zee5-official-logo.jpeg",
-"SonyLIV":"https://upload.wikimedia.org/wikipedia/commons/f/f7/SonyLIV_2020.png",
-"SunNxt":"https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Sun_NXT_logo_small.png/250px-Sun_NXT_logo_small.png",
-"Aha":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Aha_OTT_Logo.svg/500px-Aha_OTT_Logo.svg.png",
-"Discovery+":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2019_Discovery_logo.svg/960px-2019_Discovery_logo.svg.png",
-"Hungama":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Hungama_logo.png/960px-Hungama_logo.png",
-"Fancode":"https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Fancode.png/960px-Fancode.png",
-"ShemarooMe":"https://upload.wikimedia.org/wikipedia/en/b/b9/Shemaroo_Entertainment_Logo.png",
-"ShortsTV":"https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Shorts_logo.jpg/960px-Shorts_logo.jpg",
-"Amazon Prime":"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
-"JioHotstar":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JioHotstar_2025.png/960px-JioHotstar_2025.png"
-};  
-const plansData = {
-nonott:[
+
+const plans=[
 {name:"Fibre Entry",speed:"25 Mbps",price:{monthly:333,quarterly:1178,half:2356,yearly:4712}},
 {name:"Ghar Ka WiFi",speed:"40 Mbps",price:{monthly:399,quarterly:1413,half:2826,yearly:5652}},
 {name:"Fibre Basic",speed:"60 Mbps",price:{monthly:499,quarterly:1767,half:3533,yearly:7066}},
@@ -699,60 +277,13 @@ nonott:[
 {name:"Fibre TB",speed:"150 Mbps",price:{monthly:799,quarterly:2829,half:5657,yearly:9900}},
 {name:"Fibre Value Plus",speed:"150 Mbps",price:{monthly:849,quarterly:3006,half:6011,yearly:10520}},
 {name:"Fibre Premium Plus",speed:"250 Mbps",price:{monthly:1299,quarterly:4602,half:9197,yearly:18394}}
-],
+];
 
-ott:[
-{name:"OTT Basic",apps:["Zee5","SonyLIV","SunNxt","Aha","Discovery+"],
-price:{monthly:159,quarterly:454,half:908,yearly:1817}},
-{name:"OTT Basic Plus",apps:["JioHotstar","Zee5","SonyLIV","SunNxt","Aha"],
-price:{monthly:224,quarterly:647,half:1295,yearly:2590}},
-{name:"OTT Premium",apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"],
-price:{monthly:248,quarterly:718,half:1436,yearly:2873},popular:true},
-{name:"OTT Premium Plus",apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"],
-price:{monthly:289,quarterly:847,half:1695,yearly:3389}}
-]
-};  
-
-function getCurrentDate(){
-  return new Date().toLocaleString("en-IN");
-}
-const source = "Website";  
-  
 window.onload = function(){
-
   render();
   detectLocation();
-  // ✅ Attach ONCE (correct place)
-const plansContainer = document.getElementById("plans");
-let scrollTimeout;
-let touchScrolling = false;
-plansContainer.addEventListener("touchstart", () => {
-  touchScrolling = true;
-});
-plansContainer.addEventListener("touchend", () => {
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    touchScrolling = false;
-    }, 180);
-});
-
-plansContainer.addEventListener("scroll", () => {
-  window.requestAnimationFrame(updateScale);
-});
-  
-document.getElementById("name").addEventListener("input", ()=>{
-  document.getElementById("name").classList.remove("error");
-  document.getElementById("nameError").innerText = "";
-  checkFormReady();
-});
-document.getElementById("phone").addEventListener("input", ()=>{
-  document.getElementById("phone").classList.remove("error");
-  document.getElementById("phoneError").innerText = "";
-  checkFormReady();
-});  
 }
 
- 
 function detectLocation(){
   const areaInput = document.getElementById("area");
 
@@ -780,362 +311,85 @@ function detectLocation(){
   });
 }
 
-function renderOTT(){
-  let container = document.getElementById("ottCards");
-  container.innerHTML = "";
-  // ✅ ADD ONLY ONCE (outside loop)
-  container.innerHTML += `
-  <div class="ott-card ${selectedOTT==='none'?'active':''}" 
-  onclick="selectOTTCard('none',this)">
-   <div class="ott-title">🚫 No OTT</div>
-  <div class="ott-price">Continue without OTT</div>
-  </div>`;
-
-  // 🔁 LOOP ONLY FOR REAL OTT PLANS
-  Object.keys(ottPlans).forEach(key=>{
-
-    let p = ottPlans[key];
-    let isActive = key === selectedOTT ? "active" : "";
-
-    let logos = p.apps.slice(0,6).map(app=>{
-      return ottLogos[app]
-        ? `<img src="${ottLogos[app]}">`
-        : "";
-    }).join("");
-
-    container.innerHTML += `
-    <div class="ott-card ${isActive}" onclick="selectOTTCard('${key}',this)">
-      <div class="ott-title">${p.name}</div>
-      <div class="ott-price">₹${p.price[planType]}</div>
-      <div class="ott-grid">${logos}</div>
-    </div>`;
-  });
-}
-  
-function selectOTTCard(type, el){
-  selectedOTT = type;
-  if(type === "none"){
-    selectedOTTName = "None";
-  } else {
-    selectedOTTName = ottPlans[type].name;  // ✅ clean name
-  }
-  document.querySelectorAll(".ott-card")
-    .forEach(c=>c.classList.remove("active"));
-  el.classList.add("active");
-  updatePrice();
-  checkFormReady();
-  showLeadPrompt();
-   setTimeout(()=>{
-    document.getElementById("formSection")
-      .scrollIntoView({behavior:"smooth"});
-  }, 250);
-}
-  
 function render(){
   let c = document.getElementById("plans");
   c.innerHTML = "";
-  let plans = plansData.nonott;   // ✅ ONLY INTERNET PLANS
+
   plans.forEach(p=>{
-    let basePrice = p.price[planType];
-    // ✅ FIX: declare properly
-    let freeText = "";
-    if(planType === "quarterly") freeText = "🎁 7 Days FREE";
-    if(planType === "half") freeText = "🎁 19 Days FREE";
-    if(planType === "yearly") freeText = "🎁 1 Month FREE";
+    let price = p.price[planType];
 
     c.innerHTML += `
     <div class="card ${p.popular ? 'popular' : ''}"
-    onclick="selectPlan(this,'${p.name}','${basePrice}','${p.speed}')">
+    onclick="selectPlan(this,'${p.name}','${price}','${p.speed}')">
 
       ${p.popular ? '<div class="badge">Most Popular</div>' : ''}
-      ${freeText ? `<div class="badge">${freeText}</div>` : ''}
 
       <h3>${p.name}</h3>
-      <h2>₹${basePrice}</h2>
+      <h2>₹${price}</h2>
       <p>${p.speed}</p>
+
       <button onclick="event.stopPropagation();
-      selectPlan(this.closest('.card'),'${p.name}','${basePrice}','${p.speed}')">
+      selectPlan(this.closest('.card'),'${p.name}','${price}','${p.speed}')">
       Select</button>
+
     </div>`;
   });
- setTimeout(()=>{
-  centerPopular();
-  updateScale();   // 🔥 IMPORTANT
-},150);
+
+  setTimeout(centerPopular,150);
 }
 
 function centerCard(el){
   const container = document.getElementById("plans");
-  isAutoScrolling = true;
-  const scrollLeft =   el.offsetLeft - ((container.clientWidth - el.clientWidth) / 2);
   container.scrollTo({
-    left: scrollLeft,
+    left: el.offsetLeft - container.offsetWidth/2 + el.offsetWidth/2,
     behavior: "smooth"
   });
-  // stop flag after animation
-  setTimeout(()=>{
-    isAutoScrolling = false;
-  }, 400);
 }
-  
+
 function centerPopular(){
   const popularCard = document.querySelector(".popular");
-  if(!popularCard) return;
-  centerCard(popularCard);
-  document.querySelectorAll(".card")
-    .forEach(c=>c.classList.remove("selected"));
-  popularCard.classList.add("selected");
+  if(popularCard) popularCard.click();
 }
 
 function selectPlan(el,n,p,s){
-  selectedPlanName = n;   // ✅ store only name
-  selectedBasePrice = Number(p);
   selectedPlan = `${n} - ₹${p} (${s})`;
+
   document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
   el.classList.add("selected");
+
   document.getElementById("selectedBox").style.display="block";
-//  centerCard(el);
-  document.getElementById("ottSection").style.display="block";
-  setTimeout(()=>{
-  document.getElementById("ottSection").scrollIntoView({behavior:"smooth"});
-}, 150);
-  document.getElementById("bottomBar").style.display = "flex";
-  renderOTT();
-  updatePrice();
-  checkFormReady();
-  localStorage.setItem("selectedPlan", selectedPlanName);
+  document.getElementById("selectedText").innerText=selectedPlan;
+  document.getElementById("planInput").value=selectedPlan;
+
+  centerCard(el);
 }
 
 function scrollPlans(dir){
-  const container = document.getElementById("plans");
-  const cardWidth = container.querySelector(".card").offsetWidth + 16;
-  container.scrollBy({
-    left: dir * cardWidth,
-    behavior:"smooth"
-  });
+  document.getElementById("plans").scrollBy({left:dir*250,behavior:"smooth"});
 }
 
-
-  
-function selectOTT(type){
-  selectedOTT = type;
-  if(type === "none"){
-    document.getElementById("ottPreview").innerHTML = "";
-    updatePrice();
-    return;
-  }
-  let plan = ottPlans[type];
-  let logos = plan.apps.map(app=>{
-    return `<img src="${ottLogos[app]}" style="height:22px;margin:2px">`;
-  }).join("");
-
-  document.getElementById("ottPreview").innerHTML = `
-    <p><b>${plan.name}</b></p>
-    <div>${logos}</div>
-  `;
-  updatePrice();
-}
-
-function updatePrice(){
-  if(!selectedBasePrice){
-    document.getElementById("bottomPrice").innerHTML = "₹0";
-    return;
-  }
-  let base = Number(selectedBasePrice);
-  let ottPrice = selectedOTT !== "none"
-    ? Number(ottPlans[selectedOTT].price[planType])
-    : 0;
-  let total = base + ottPrice;
-  document.getElementById("bottomPrice").innerHTML = `₹ ${total}`;
-  document.getElementById("selectedText").innerHTML =
-  `Total: ₹${total}<br>
-   <span style="font-size:12px">
-   Base ₹${base} ${ottPrice ? `+ OTT ₹${ottPrice}` : ""}
-   </span>`;
-}
-  
-function showApps(apps){
-  const list = document.getElementById("appList");
-  list.innerHTML = apps.map(app=>`<p>• ${app}</p>`).join("");
-  document.getElementById("appPopup").style.display="flex";
-}
-
-function closePopup(){
-  document.getElementById("appPopup").style.display="none";
-}
-  
-function setType(type, el){
-  planType = type;
-  document.querySelectorAll(".duration-card")
-    .forEach(c=>c.classList.remove("active"));
+function setType(t,el){
+  planType=t;
+  document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
   el.classList.add("active");
-  // ✅ RESET OTT
-  selectedOTT = "none";
-  selectedOTTName = "None";
-  render();        // internet plans
-  if(selectedBasePrice){
-    renderOTT();   // only if plan already selected
-  }
-  updatePrice();   // always update price
+  render();
 }
-  
-function updateScale(){
-  const cards = document.querySelectorAll(".card");
-  const container = document.getElementById("plans");
-  const center =
-    container.scrollLeft + container.offsetWidth/2;
-  cards.forEach(card=>{
-    if(card.classList.contains("selected")){
-      card.style.transform = "scale(1.02)";
-      card.style.opacity = "1";
-      return;
-    }
-    const cardCenter =
-      card.offsetLeft + card.offsetWidth/2;
-    const distance =
-      Math.abs(center - cardCenter);
-    const scale =
-      Math.max(0.94, 1 - distance/1400);
-    const opacity =
-      Math.max(0.7, 1 - distance/1200);
-    card.style.transform = `scale(${scale})`;
-    card.style.opacity = opacity;
-  });
-}
-  
-function showLeadPrompt(){
-  const prompt = document.getElementById("leadPrompt"); 
-  prompt.classList.add("show");
-  setTimeout(()=>{
-    prompt.classList.remove("show");
-  }, 2500);
-}
-  
-async function submitForm(){
-  // ✅ VALIDATION FIRST
-  if(!validateForm()) return;
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let area = document.getElementById("area").value;
-  
-  // 🔥 GOOGLE ADS
-  gtag('event', 'conversion', {
-    'send_to': 'AW-XXXXXXXXX/CONVERSION_ID',
-    'value': selectedBasePrice,
-    'currency': 'INR'
-  });
 
-  // 🔥 META PIXEL
-  fbq('track', 'Lead', {
-    content_name: selectedPlanName,
-    value: selectedBasePrice,
-    currency: 'INR'
-  });
-  
-  let data = {
-    Name: name,
-    Phone: phone,
-    Area: area,
-    Latitude: userLat,
-    Longitude: userLng,
-    "Plan Type": planType,
-    "Selected Plan": selectedPlanName,
-    "OTT Selected": selectedOTTName,
-    Date: getCurrentDate(),
-    Source: "Website"
-  };
-  await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec",{
+async function submitForm(){
+  let name=document.getElementById("name").value;
+  let phone=document.getElementById("phone").value;
+  let area=document.getElementById("area").value;
+  let plan=document.getElementById("planInput").value;
+
+  await fetch("https://script.google.com/macros/s/AKfycbwIicLwVFLG3UNOGYp3FUuMIrfFtkfEeLrrG4k9QPhh3yflFDi0t4B7pki6DL-cKy-aig/exec",{
     method:"POST",
     mode:"no-cors",
-    body: JSON.stringify(data)
+    body:JSON.stringify({name,phone,area,lat:userLat,lng:userLng,plan})
   });
 
- let msg =
-`🔥 New BSNL Request
-
-👤 Name: ${name}
-📞 Phone: ${phone}
-📍 Area: ${area}
-
-📶 Plan: ${selectedPlanName}
-🎬 OTT: ${selectedOTTName}
-⏳ Duration: ${planType}
-
-Please confirm availability.`;
-
-  window.open(`https://wa.me/919447072230?text=${encodeURIComponent(msg)}`);
+  window.open(`https://wa.me/919447072230?text=Name:${name}%0APhone:${phone}%0APlan:${plan}`);
 }
-  
-function checkFormReady(){
-  const btn = document.querySelector("#bottomBar button");
-  if(selectedPlanName && 
-     document.getElementById("name").value &&
-     /^[6-9]\d{9}$/.test(document.getElementById("phone").value)){
-    btn.disabled = false;
-  } else {
-    btn.disabled = true;
-  }
-}
-  
-function validateForm(){
-  let isValid = true;
-  const name = document.getElementById("name");
-  const phone = document.getElementById("phone");
-  const nameError = document.getElementById("nameError");
-  const phoneError = document.getElementById("phoneError");
-  // reset
-  name.classList.remove("error");
-  phone.classList.remove("error");
-  nameError.innerText = "";
-  phoneError.innerText = "";
-  // Name validation
-  if(!name.value.trim()){
-    name.classList.add("error");
-    nameError.innerText = "Please enter your name";
-    name.focus();
-    isValid = false;
-  }
-  // Phone validation
-  else if(!/^[6-9]\d{9}$/.test(phone.value)){
-    phone.classList.add("error");
-    phoneError.innerText = "Enter valid 10-digit mobile number";
-    phone.focus();
-    isValid = false;
-  }
-  if(!selectedPlanName){
-  alert("Please select a plan first");
-  return false;
-}
-  return isValid;
-}
-  
 </script>
-<div id="appPopup" style="display:none;
-position:fixed;inset:0;
-background:rgba(0,0,0,0.7);
-z-index:999;
-align-items:center;
-justify-content:center;">
 
-  <div style="background:white;color:black;
-  padding:20px;border-radius:10px;
-  max-width:300px;width:90%;
-  max-height:70vh;overflow:auto;">
-
-    <h3>Included OTT Apps</h3>
-    <div id="appList"></div>
-
-    <button onclick="closePopup()">Close</button>
-  </div>
-</div>
-<div id="bottomBar" class="bottom-bar">
-  <div class="price-line" id="bottomPrice">
-    ₹0
-  </div>
-  <button onclick="submitForm()" disabled>Get Connection</button>
-</div> 
-<div id="leadPrompt" class="lead-prompt">
-  ✨ Enter your name and contact details to continue
-</div>  
 </body>
 </html>
