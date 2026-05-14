@@ -1,3 +1,5 @@
+Here is the updated HTML document that now centers the popular plan by default when the page loads, ensuring the best offer is immediately visible.
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -439,20 +441,18 @@ const ottLogos = {
 };
 
 // ---------- GLOBAL STATE ----------
-let currentDuration = "monthly";     // monthly, quarterly, half, yearly
-let selectedInternetPlan = null;     // object reference {name, speed, priceObject}
-let selectedOttKey = "none";         // 'none', 'basic', 'plus', 'premium', 'premiumplus'
+let currentDuration = "monthly";     
+let selectedInternetPlan = null;     
+let selectedOttKey = "none";         
 let selectedOttName = "None";
 let userLat = "", userLng = "";
 let isAutoScrolling = false;
 
-// Helper: get current price for internet plan based on duration
 function getCurrentInternetPrice(plan) {
   if(!plan) return 0;
   return plan.price[currentDuration] || 0;
 }
 
-// total price (internet + OTT)
 function computeTotal() {
   let internetCost = selectedInternetPlan ? getCurrentInternetPrice(selectedInternetPlan) : 0;
   let ottCost = 0;
@@ -462,7 +462,6 @@ function computeTotal() {
   return internetCost + ottCost;
 }
 
-// Update UI bottom bar & selected box
 function refreshPriceUI() {
   const total = computeTotal();
   const internetCost = selectedInternetPlan ? getCurrentInternetPrice(selectedInternetPlan) : 0;
@@ -476,15 +475,29 @@ function refreshPriceUI() {
   } else {
     selectedBox.style.display = "none";
   }
-  // Bottom bar visibility
   const bottomBar = document.getElementById("bottomBar");
   if(selectedInternetPlan) bottomBar.style.display = "flex";
   else bottomBar.style.display = "none";
-  // Enable/disable bottom submit button depending on form + plan
   updateBottomButtonState();
 }
 
-// RENDER INTERNET PLANS with dynamic scaling
+// CENTER THE SELECTED PLAN IN CAROUSEL (POPULAR BY DEFAULT)
+function centerSelectedPlanCard() {
+  if(!selectedInternetPlan) return;
+  const container = document.getElementById("plansContainer");
+  const targetCard = document.querySelector(`.card[data-plan-name="${selectedInternetPlan.name}"]`);
+  if(!targetCard || !container) return;
+  isAutoScrolling = true;
+  const containerWidth = container.clientWidth;
+  const cardWidth = targetCard.offsetWidth;
+  const scrollPos = targetCard.offsetLeft - (containerWidth / 2) + (cardWidth / 2);
+  container.scrollTo({ left: Math.max(0, scrollPos), behavior: "smooth" });
+  setTimeout(() => {
+    isAutoScrolling = false;
+    updateCardScales();
+  }, 400);
+}
+
 function renderInternetPlans() {
   const container = document.getElementById("plansContainer");
   container.innerHTML = "";
@@ -507,32 +520,27 @@ function renderInternetPlans() {
       </div>
     `;
   });
-  // after render, reapply scale & snap based on selected
   setTimeout(() => {
     updateCardScales();
+    // After rendering, if a plan is selected, center it (ensures popular is centered)
     if(selectedInternetPlan) {
-      const selectedCard = document.querySelector(`.card[data-plan-name="${selectedInternetPlan.name}"]`);
-      if(selectedCard) centerCardInView(selectedCard);
+      centerSelectedPlanCard();
     } else {
       autoSelectCenterPlan();
     }
-  }, 50);
+  }, 80);
 }
 
 function selectInternetPlan(planName) {
   const planObj = internetPlans.find(p => p.name === planName);
   if(!planObj) return;
   selectedInternetPlan = planObj;
-  // Reset OTT selection when changing base plan (fresh selection)
   selectedOttKey = "none";
   selectedOttName = "None";
-  // re-render OTT section
   renderOttCards();
-  // re-render cards to highlight selected
-  renderInternetPlans();
+  renderInternetPlans();   // re-render with new selection & centering happens inside render
   refreshPriceUI();
   document.getElementById("ottSection").style.display = "block";
-  // scroll to OTT section gently
   setTimeout(() => document.getElementById("ottSection").scrollIntoView({ behavior: "smooth", block: "nearest" }), 200);
   showLeadPromptMsg();
   updateBottomButtonState();
@@ -540,12 +548,9 @@ function selectInternetPlan(planName) {
 
 function setPlanDuration(duration, element) {
   currentDuration = duration;
-  // update active UI on duration cards
   document.querySelectorAll(".duration-card").forEach(card => card.classList.remove("active"));
   element.classList.add("active");
-  // preserve selected internet plan? we need to keep same plan name, but re-evaluate price
   let previousPlanName = selectedInternetPlan ? selectedInternetPlan.name : null;
-  // reset OTT selection when duration changes (fair pricing)
   selectedOttKey = "none";
   selectedOttName = "None";
   renderInternetPlans();
@@ -558,12 +563,11 @@ function setPlanDuration(duration, element) {
     }
   }
   if(!selectedInternetPlan && internetPlans.length) {
-    // default to popular or first
     const defaultPlan = internetPlans.find(p => p.popular) || internetPlans[0];
     selectedInternetPlan = defaultPlan;
   }
-  renderOttCards();   // re-render OTT with updated pricing
-  renderInternetPlans(); // re-render to reflect new price and selected plan
+  renderOttCards();
+  renderInternetPlans();  // centers selected plan again due to internal call
   refreshPriceUI();
   if(selectedInternetPlan) document.getElementById("ottSection").style.display = "block";
   updateBottomButtonState();
@@ -573,7 +577,6 @@ function renderOttCards() {
   const container = document.getElementById("ottCardsContainer");
   if(!container) return;
   container.innerHTML = "";
-  // None option
   const isNoneActive = (selectedOttKey === "none");
   container.innerHTML += `
     <div class="ott-card ${isNoneActive ? 'active' : ''}" onclick="selectOttAddon('none')">
@@ -585,7 +588,6 @@ function renderOttCards() {
     const pack = ottAddons[key];
     const priceVal = pack.price[currentDuration];
     const isActive = (selectedOttKey === key);
-    // show app logos limited
     let logosHtml = pack.apps.slice(0,6).map(app => {
       const logoUrl = ottLogos[app] || "";
       return logoUrl ? `<img src="${logoUrl}" alt="${app}" loading="lazy">` : `<div style="background:#eee; border-radius:8px; padding:4px; font-size:9px;">${app}</div>`;
@@ -603,18 +605,13 @@ function renderOttCards() {
 
 function selectOttAddon(key) {
   selectedOttKey = key;
-  if(key === "none") {
-    selectedOttName = "None";
-  } else {
-    selectedOttName = ottAddons[key].name;
-  }
-  renderOttCards();   // re-render to update active style
+  selectedOttName = (key === "none") ? "None" : ottAddons[key].name;
+  renderOttCards();
   refreshPriceUI();
   showLeadPromptMsg();
   updateBottomButtonState();
 }
 
-// Carousel & scaling logic
 function scrollPlans(direction) {
   const container = document.getElementById("plansContainer");
   const cards = document.querySelectorAll(".card");
@@ -646,15 +643,6 @@ function updateCardScales() {
   });
 }
 
-function centerCardInView(cardEl) {
-  const container = document.getElementById("plansContainer");
-  if(!container || !cardEl) return;
-  isAutoScrolling = true;
-  const scrollPos = cardEl.offsetLeft - (container.clientWidth / 2) + (cardEl.clientWidth / 2);
-  container.scrollTo({ left: scrollPos, behavior: "smooth" });
-  setTimeout(() => { isAutoScrolling = false; updateCardScales(); }, 350);
-}
-
 function autoSelectCenterPlan() {
   const container = document.getElementById("plansContainer");
   const cards = document.querySelectorAll(".card");
@@ -684,7 +672,6 @@ function showLeadPromptMsg() {
   setTimeout(() => promptDiv.classList.remove("show"), 2300);
 }
 
-// Form validation & Google Sheets + WhatsApp lead
 function validateBasicFields() {
   let valid = true;
   const name = document.getElementById("userName");
@@ -738,7 +725,6 @@ async function submitLead() {
   const totalAmount = internetPrice + ottPrice;
   const dateNow = new Date().toLocaleString("en-IN");
   
-  // tracking pixels
   gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXX/CONVERSION_ID', 'value': totalAmount, 'currency': 'INR' });
   fbq('track', 'Lead', { content_name: internetPlanName, value: totalAmount, currency: 'INR' });
   
@@ -748,7 +734,6 @@ async function submitLead() {
     "OTT Selected": ottName, "Base Price": internetPrice, "OTT Price": ottPrice,
     "Total": totalAmount, Date: dateNow, Source: "BSNL Website Chennai"
   };
-  // send to Google Sheets
   await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", {
     method: "POST", mode: "no-cors", body: JSON.stringify(payload)
   });
@@ -756,7 +741,6 @@ async function submitLead() {
   window.open(`https://wa.me/919447072230?text=${waMsg}`);
 }
 
-// location detection
 function detectUserArea() {
   const areaInput = document.getElementById("userArea");
   if(navigator.geolocation) {
@@ -772,7 +756,6 @@ function detectUserArea() {
   } else { areaInput.value = "Chennai"; }
 }
 
-// event listeners for live button state
 function bindFormEvents() {
   document.getElementById("userName").addEventListener("input", updateBottomButtonState);
   document.getElementById("userPhone").addEventListener("input", updateBottomButtonState);
@@ -780,10 +763,10 @@ function bindFormEvents() {
 
 window.onload = () => {
   detectUserArea();
-  renderInternetPlans();
-  // default select popular or first
+  // Set default plan: the one marked popular (Fibre Basic Plus) or first
   const defaultPlan = internetPlans.find(p => p.popular) || internetPlans[0];
   selectedInternetPlan = defaultPlan;
+  renderInternetPlans();  // this will also center the selected (popular) plan automatically inside renderInternetPlans via centerSelectedPlanCard
   renderOttCards();
   refreshPriceUI();
   if(selectedInternetPlan) document.getElementById("ottSection").style.display = "block";
@@ -799,3 +782,4 @@ window.onload = () => {
 </script>
 </body>
 </html>
+```
