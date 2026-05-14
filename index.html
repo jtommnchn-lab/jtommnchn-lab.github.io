@@ -241,22 +241,18 @@ body{
   position:relative;
   max-width:1100px;
   margin:40px auto;
-  overflow:hidden;
 }
 
 .plans{
   display:flex;
-  gap:14px;
+  gap:16px;
   overflow-x:auto;
-  overflow-y:hidden;
-  padding:16px;
+  /* 🔥 MAGIC */
+  padding:20px max(calc((100% - 220px)/2), 20px);
   scroll-padding-inline:50%;
   min-height:260px;
-  scroll-behavior:auto;
-  -webkit-overflow-scrolling:touch;
-  scrollbar-width:none;
-  touch-action:pan-x;
-  overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
 }
 
 .plans::-webkit-scrollbar{display:none;}
@@ -264,47 +260,43 @@ body{
 .card{
   flex:0 0 220px;
   min-height:200px;
-  background:#fff;
-  color:#000;
-  border-radius:14px;
+  background:white;
+  color:black;
+  border-radius:12px;
   padding:14px;
-  box-sizing:border-box;
   text-align:center;
+  scroll-snap-align:center;
   cursor:pointer;
-  border:2px solid transparent;
-  opacity:.96;
-  transition:
-    border-color .18s ease,
-    opacity .18s ease,
-    background .18s ease;
-  -webkit-tap-highlight-color:transparent;
-  user-select:none;
+  transition:0.25s ease;
+  filter: blur(0.5px);
+  /* 🔥 NEW */
+  opacity:0.5;
+  transform:scale(0.85);
+}
+
+@media(max-width:768px){
+  .card{
+    flex:0 0 70%;
+  }
 }
 
 .card.selected{
-  border:3px solid #2e7d32;
+  transform:scale(1.12) !important;
   opacity:1;
-  background:#fff;
+  border:3px solid #2e7d32;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  z-index:5;
+  filter: none;
 }
-
 .card.selected h2{
   color:#2e7d32;
 }
 
 .card.popular{
   border:2px solid #ff9800;
+  box-shadow:0 0 20px rgba(255,152,0,0.6);
+  transform:scale(1.05);
 }
-
-@media(max-width:768px){
-  .plans{
-    gap:12px;
-    padding:14px;
-  }
-  .card{
-    flex:0 0 82%;
-  }
-}
-    
 .duration-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -382,37 +374,47 @@ body{
   display:inline-block;
 }
 
+/* EDGE FADE */
+.plans-wrapper::before,
+.plans-wrapper::after{
+  content:"";
+  position:absolute;
+  top:0;
+  width:60px;
+  height:100%;
+  z-index:5;
+  pointer-events:none;
+}
+
+.plans-wrapper::before{
+  left:0;
+  background:linear-gradient(to right,#0b1f4a 60%, transparent);
+}
+
+.plans-wrapper::after{
+  right:0;
+  background:linear-gradient(to left,#0b1f4a 60%, transparent);
+}
+
 /* ARROWS */
 .carousel-btn{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  z-index:20;
-  width:40px;
-  height:40px;
-  border:none;
+  z-index:100;
+  width:42px;
+  height:42px;
   border-radius:50%;
+  border:none;
+  cursor:pointer;
   background:rgba(0,0,0,0.7);
-  color:#fff;
+  color:white;
   display:flex;
   align-items:center;
   justify-content:center;
-  cursor:pointer;
 }
-
-.carousel-btn.left{
-  left:8px;
-}
-
-.carousel-btn.right{
-  right:8px;
-}
-
-/* REMOVE EDGE FADE */
-.plans-wrapper::before,
-.plans-wrapper::after{
-  display:none;
-}
+.carousel-btn.left{left:10px;}
+.carousel-btn.right{right:10px;}
 
 /* SELECTED */
 .selected-box{
@@ -607,9 +609,9 @@ button:active{
 
 <!-- CAROUSEL -->
 <div class="plans-wrapper">
-  <button type="button" class="carousel-btn left" onclick="scrollPlans(-1)">◀</button>
+  <button class="carousel-btn left" onclick="scrollPlans(-1)">◀</button>
   <div class="plans" id="plans"></div>
-  <button type="button" class="carousel-btn right" onclick="scrollPlans(1)">▶</button>
+  <button class="carousel-btn right" onclick="scrollPlans(1)">▶</button>
 </div>
 
 <div id="selectedBox" class="selected-box">
@@ -629,7 +631,7 @@ Selected Plan: <span id="selectedText"></span>
     <div id="phoneError" class="error-text"></div>
     <input id="area" placeholder="Detecting your area...">
     <input type="hidden" id="planInput">
-    <button type="button" onclick="submitForm()">Submit Request</button>
+    <button onclick="submitForm()">Submit Request</button>
   </div>
 </div>
 
@@ -716,7 +718,15 @@ window.onload = function(){
   console.log("Returning user");
 }
 localStorage.setItem("visited", true);
-  document.getElementById("name").addEventListener("input", ()=>{
+ plansContainer.addEventListener("scroll", () => {
+  updateScale();
+  if(isAutoScrolling || isTabSwitching) return;
+  clearTimeout(scrollTimeout);
+  scrollTimeout = setTimeout(() => {
+    autoSelectCenter();   // ✅ ENABLED
+  }, 150);
+});
+document.getElementById("name").addEventListener("input", ()=>{
   document.getElementById("name").classList.remove("error");
   document.getElementById("nameError").innerText = "";
   checkFormReady();
@@ -829,42 +839,66 @@ function render(){
       <h3>${p.name}</h3>
       <h2>₹${basePrice}</h2>
       <p>${p.speed}</p>
-      <button type="button" onclick="event.stopPropagation();
+      <button onclick="event.stopPropagation();
       selectPlan(this.closest('.card'),'${p.name}','${basePrice}','${p.speed}')">
       Select</button>
     </div>`;
   });
+ setTimeout(()=>{
+  centerPopular();
+  updateScale();   // 🔥 IMPORTANT
+},150);
+}
+
+function centerCard(el){
+  const container = document.getElementById("plans");
+  isAutoScrolling = true;
+  const scrollLeft =   el.offsetLeft - ((container.clientWidth - el.clientWidth) / 2);
+  container.scrollTo({
+    left: scrollLeft,
+    behavior: "smooth"
+  });
+  // stop flag after animation
+  setTimeout(()=>{
+    isAutoScrolling = false;
+  }, 400);
+}
+  
+function centerPopular(){
+  const popularCard = document.querySelector(".popular");
+  if(!popularCard) return;
+  centerCard(popularCard);
+  document.querySelectorAll(".card")
+    .forEach(c=>c.classList.remove("selected"));
+  popularCard.classList.add("selected");
 }
 
 function selectPlan(el,n,p,s){
-  selectedPlanName = n;
+  selectedPlanName = n;   // ✅ store only name
   selectedBasePrice = Number(p);
   selectedPlan = `${n} - ₹${p} (${s})`;
-  document
-    .querySelectorAll(".card")
-    .forEach(c=>c.classList.remove("selected"));
+  document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
   el.classList.add("selected");
   document.getElementById("selectedBox").style.display="block";
+  centerCard(el);
   document.getElementById("ottSection").style.display="block";
-  document.getElementById("bottomBar").style.display="flex";
+  setTimeout(()=>{
+  document.getElementById("ottSection").scrollIntoView({behavior:"smooth"});
+}, 150);
+  document.getElementById("bottomBar").style.display = "flex";
   renderOTT();
   updatePrice();
   checkFormReady();
-  localStorage.setItem(
-    "selectedPlan",
-    selectedPlanName
-  );
+  localStorage.setItem("selectedPlan", selectedPlanName);
 }
 
 function scrollPlans(dir){
-  const container =
-    document.getElementById("plans");
-  const card =
-    container.querySelector(".card");
-  if(!card) return;
-  const amount =
-    card.offsetWidth + 14;
-  container.scrollLeft += dir * amount;
+  const container = document.getElementById("plans");
+  const cardWidth = container.querySelector(".card").offsetWidth + 16;
+  container.scrollBy({
+    left: dir * cardWidth,
+    behavior:"smooth"
+  });
 }
 
 function autoSelectCenter(){
@@ -951,7 +985,27 @@ function setType(type, el){
   updatePrice();   // always update price
 }
   
-
+function updateScale(){
+  const cards = document.querySelectorAll(".card");
+  const container = document.getElementById("plans");
+  const center = container.offsetWidth / 2;
+  cards.forEach(card=>{
+    // ✅ DO NOT TOUCH SELECTED CARD
+    if(card.classList.contains("selected")){
+      card.style.transform = "scale(1.12)";
+      card.style.opacity = "1";
+      return;
+    }
+    const cardCenter =
+      card.offsetLeft - container.scrollLeft + (card.offsetWidth / 2);
+    const distance = Math.abs(center - cardCenter);
+    let scale = Math.max(0.85, 1 - distance/600);
+    let opacity = Math.max(0.4, 1 - distance/400);
+    card.style.transform = `scale(${scale})`;
+    card.style.opacity = opacity;
+  });
+}
+  
 function showLeadPrompt(){
   const prompt = document.getElementById("leadPrompt"); 
   prompt.classList.add("show");
@@ -1074,14 +1128,14 @@ justify-content:center;">
     <h3>Included OTT Apps</h3>
     <div id="appList"></div>
 
-    <button type="button" onclick="closePopup()">Close</button>
+    <button onclick="closePopup()">Close</button>
   </div>
 </div>
 <div id="bottomBar" class="bottom-bar">
   <div class="price-line" id="bottomPrice">
     ₹0
   </div>
-  <button type="button" onclick="submitForm()" disabled>Get Connection</button>
+  <button onclick="submitForm()" disabled>Get Connection</button>
 </div> 
 <div id="leadPrompt" class="lead-prompt">
   ✨ Enter your name and contact details to continue
