@@ -230,7 +230,8 @@ body{
   border-radius:40px;
   margin:20px 16px;
   padding:18px 12px;
-  scroll-margin-top: 70px;
+  scroll-margin-top: 80px;
+  transition: all 0.2s;
 }
 .ott-cards{
   display:grid;
@@ -280,7 +281,7 @@ body{
   padding:20px 20px 50px;
   display:flex;
   justify-content:center;
-  scroll-margin-top: 70px;
+  scroll-margin-top: 80px;
 }
 .form{
   width:100%;
@@ -447,7 +448,7 @@ let selectedOttKey = "none";
 let selectedOttName = "None";
 let userLat = "", userLng = "";
 let isAutoScrolling = false;
-let hasScrolledToForm = false; // to avoid multiple auto scrolls on repeated OTT clicks
+let flowStep = 0; // 0: plan selection, 1: OTT selection, 2: form
 
 function getCurrentInternetPrice(plan) {
   if(!plan) return 0;
@@ -482,7 +483,6 @@ function refreshPriceUI() {
   updateBottomButtonState();
 }
 
-// CENTER THE SELECTED PLAN IN CAROUSEL
 function centerSelectedPlanCard() {
   if(!selectedInternetPlan) return;
   const container = document.getElementById("plansContainer");
@@ -538,18 +538,20 @@ function selectInternetPlan(planName) {
   renderOttCards();
   renderInternetPlans();
   refreshPriceUI();
-  document.getElementById("ottSection").style.display = "block";
-  // Scroll to OTT section smoothly after plan selection
+  // Show OTT section
+  const ottSection = document.getElementById("ottSection");
+  ottSection.style.display = "block";
+  flowStep = 1;
+  // Smooth scroll to OTT section after a short delay to ensure DOM is ready
   setTimeout(() => {
-    document.getElementById("ottSection").scrollIntoView({ behavior: "smooth", block: "start" });
-  }, 200);
+    ottSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 150);
   showLeadPromptMsg();
   updateBottomButtonState();
-  // reset form scroll flag so that next OTT selection can scroll again
-  hasScrolledToForm = false;
 }
 
 function setPlanDuration(duration, element) {
+  if (currentDuration === duration) return;
   currentDuration = duration;
   document.querySelectorAll(".duration-card").forEach(card => card.classList.remove("active"));
   element.classList.add("active");
@@ -572,9 +574,14 @@ function setPlanDuration(duration, element) {
   renderOttCards();
   renderInternetPlans();
   refreshPriceUI();
-  if(selectedInternetPlan) document.getElementById("ottSection").style.display = "block";
+  if(selectedInternetPlan) {
+    document.getElementById("ottSection").style.display = "block";
+    flowStep = 1;
+  } else {
+    document.getElementById("ottSection").style.display = "none";
+    flowStep = 0;
+  }
   updateBottomButtonState();
-  hasScrolledToForm = false;
 }
 
 function renderOttCards() {
@@ -614,12 +621,12 @@ function selectOttAddon(key) {
   refreshPriceUI();
   showLeadPromptMsg();
   updateBottomButtonState();
-  // Auto-scroll to form after OTT selection (only once per plan selection)
-  if (!hasScrolledToForm) {
-    hasScrolledToForm = true;
+  // After OTT selection, scroll to the form section (step 2)
+  if (flowStep === 1) {
+    flowStep = 2;
     setTimeout(() => {
       document.getElementById("formSection").scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 250);
+    }, 200);
   }
 }
 
@@ -756,15 +763,15 @@ window.onload = () => {
   renderInternetPlans();  // popular plan selected and centered
   renderOttCards();
   refreshPriceUI();
-  if(selectedInternetPlan) document.getElementById("ottSection").style.display = "block";
+  // Show OTT section by default since a plan is preselected
+  document.getElementById("ottSection").style.display = "block";
+  flowStep = 1; // after load, user is at plan selected, ready for OTT
   bindFormEvents();
   const plansContainer = document.getElementById("plansContainer");
   plansContainer.addEventListener("scroll", () => {
     if(!isAutoScrolling) updateCardScales();
-    // No auto-selection on scroll
   });
   updateBottomButtonState();
-  hasScrolledToForm = false;
 };
 </script>
 </body>
