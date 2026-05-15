@@ -99,56 +99,55 @@ body{
   color:#f0f0f0;
   border-bottom:1px solid rgba(255,255,255,0.1);
 }
-/* DURATION TABS - BIGGER, SINGLE ROW */
-.duration-tabs{
-  max-width: 100%;
+/* DURATION TABS - RECTANGULAR STRIP */
+.duration-strip{
+  background: rgba(0,0,0,0.3);
+  border-radius: 0;
+  margin: 8px 0 0;
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
-  padding: 12px 16px;
-  margin: 0 auto;
+  white-space: nowrap;
 }
-.duration-grid{
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-  justify-content: stretch;
-  min-width: min-content;
+.duration-tabs{
+  display: inline-flex;
+  width: 100%;
+  min-width: 100%;
 }
 .duration-card{
-  flex: 1 1 auto;
-  min-width: 100px;
+  flex: 1 0 auto;
   text-align: center;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
-  padding: 14px 10px;
-  border-radius: 60px;
+  background: rgba(255,255,255,0.1);
+  padding: 14px 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border: 1px solid rgba(255,255,255,0.3);
+  transition: all 0.2s;
+  border-right: 1px solid rgba(255,255,255,0.15);
+  border-bottom: 3px solid transparent;
   font-weight: 600;
 }
+.duration-card:last-child{
+  border-right: none;
+}
 .duration-card .title{
-  font-size: 1.2rem;
-  font-weight: bold;
-  letter-spacing: 0.5px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
 }
 .duration-card .offer{
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   background: #ff9800;
   display: inline-block;
-  padding: 4px 8px;
-  border-radius: 30px;
-  margin-top: 6px;
+  padding: 2px 6px;
+  border-radius: 20px;
+  margin-top: 5px;
   color: #1e2a3a;
   font-weight: bold;
 }
 .duration-card.active{
   background: white;
   color: #003a8f;
-  transform: scale(1.02);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  border-color: #ff9800;
+  border-bottom: 3px solid #ff9800;
 }
 .plans-wrapper{
   position:relative;
@@ -388,23 +387,23 @@ button:active{transform:scale(0.97);}
   ✅ Made In India | ⚡ Free Installation 24–48Hr | 📍 24x7 Chennai Support
 </div>
 
-<!-- DURATION TABS - BIGGER SINGLE ROW -->
-<div class="duration-tabs">
-  <div class="duration-grid" id="durationGrid">
+<!-- DURATION STRIP - RECTANGULAR, SINGLE ROW -->
+<div class="duration-strip">
+  <div class="duration-tabs" id="durationGrid">
     <div class="duration-card active" data-type="monthly" onclick="setPlanDuration('monthly',this)">
       <div class="title">Monthly</div>
     </div>
     <div class="duration-card" data-type="quarterly" onclick="setPlanDuration('quarterly',this)">
       <div class="title">Quarterly</div>
-      <div class="offer">🎁 7 Days Free</div>
+      <div class="offer">7 Days Free</div>
     </div>
     <div class="duration-card" data-type="half" onclick="setPlanDuration('half',this)">
       <div class="title">Half-Yearly</div>
-      <div class="offer">🎁 19 Days Free</div>
+      <div class="offer">19 Days Free</div>
     </div>
     <div class="duration-card" data-type="yearly" onclick="setPlanDuration('yearly',this)">
       <div class="title">Annual</div>
-      <div class="offer">🎁 1 Month Free</div>
+      <div class="offer">1 Month Free</div>
     </div>
   </div>
 </div>
