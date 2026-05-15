@@ -520,11 +520,8 @@ function renderInternetPlans() {
   });
   setTimeout(() => {
     updateCardScales();
-    // After rendering, if a plan is selected, center it (ensures popular is centered)
     if(selectedInternetPlan) {
       centerSelectedPlanCard();
-    } else {
-      autoSelectCenterPlan();
     }
   }, 80);
 }
@@ -536,7 +533,7 @@ function selectInternetPlan(planName) {
   selectedOttKey = "none";
   selectedOttName = "None";
   renderOttCards();
-  renderInternetPlans();   // re-render with new selection & centering happens inside render
+  renderInternetPlans();   // re-render with new selection & centering
   refreshPriceUI();
   document.getElementById("ottSection").style.display = "block";
   setTimeout(() => document.getElementById("ottSection").scrollIntoView({ behavior: "smooth", block: "nearest" }), 200);
@@ -565,7 +562,7 @@ function setPlanDuration(duration, element) {
     selectedInternetPlan = defaultPlan;
   }
   renderOttCards();
-  renderInternetPlans();  // centers selected plan again due to internal call
+  renderInternetPlans();  // centers selected plan
   refreshPriceUI();
   if(selectedInternetPlan) document.getElementById("ottSection").style.display = "block";
   updateBottomButtonState();
@@ -639,29 +636,6 @@ function updateCardScales() {
     card.style.transform = `scale(${scale})`;
     card.style.opacity = opacity;
   });
-}
-
-function autoSelectCenterPlan() {
-  const container = document.getElementById("plansContainer");
-  const cards = document.querySelectorAll(".card");
-  if(!cards.length) return;
-  const center = container.offsetWidth / 2;
-  let closestCard = null;
-  let minDist = Infinity;
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    const containerRect = container.getBoundingClientRect();
-    const cardCenter = rect.left + rect.width/2 - containerRect.left;
-    const dist = Math.abs(center - cardCenter);
-    if(dist < minDist) {
-      minDist = dist;
-      closestCard = card;
-    }
-  });
-  if(closestCard && !closestCard.classList.contains("selected")) {
-    const planName = closestCard.getAttribute("data-plan-name");
-    if(planName) selectInternetPlan(planName);
-  }
 }
 
 function showLeadPromptMsg() {
@@ -764,7 +738,7 @@ window.onload = () => {
   // Set default plan: the one marked popular (Fibre Basic Plus) or first
   const defaultPlan = internetPlans.find(p => p.popular) || internetPlans[0];
   selectedInternetPlan = defaultPlan;
-  renderInternetPlans();  // this will also center the selected (popular) plan automatically inside renderInternetPlans via centerSelectedPlanCard
+  renderInternetPlans();  // this will also center the selected plan
   renderOttCards();
   refreshPriceUI();
   if(selectedInternetPlan) document.getElementById("ottSection").style.display = "block";
@@ -772,8 +746,7 @@ window.onload = () => {
   const plansContainer = document.getElementById("plansContainer");
   plansContainer.addEventListener("scroll", () => {
     if(!isAutoScrolling) updateCardScales();
-    clearTimeout(window.scrollTimeout);
-    window.scrollTimeout = setTimeout(() => { if(!isAutoScrolling) autoSelectCenterPlan(); }, 180);
+    // REMOVED autoSelectCenterPlan to prevent accidental selection on manual scroll
   });
   updateBottomButtonState();
 };
