@@ -99,40 +99,56 @@ body{
   color:#f0f0f0;
   border-bottom:1px solid rgba(255,255,255,0.1);
 }
+/* DURATION TABS - BIGGER, SINGLE ROW */
+.duration-tabs{
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  padding: 12px 16px;
+  margin: 0 auto;
+}
 .duration-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-  padding:18px 16px;
-  max-width:700px;
-  margin:0 auto;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  justify-content: stretch;
+  min-width: min-content;
 }
 .duration-card{
-  background:rgba(255,255,255,0.12);
-  backdrop-filter: blur(4px);
-  padding:12px 6px;
-  border-radius:28px;
-  text-align:center;
-  cursor:pointer;
-  transition:0.2s;
-  border:1px solid rgba(255,255,255,0.2);
+  flex: 1 1 auto;
+  min-width: 100px;
+  text-align: center;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  padding: 14px 10px;
+  border-radius: 60px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255,255,255,0.3);
+  font-weight: 600;
+}
+.duration-card .title{
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+.duration-card .offer{
+  font-size: 0.7rem;
+  background: #ff9800;
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 30px;
+  margin-top: 6px;
+  color: #1e2a3a;
+  font-weight: bold;
 }
 .duration-card.active{
-  background:white;
-  color:#003a8f;
-  transform:scale(1.03);
-  box-shadow:0 10px 18px rgba(0,0,0,0.2);
-  border-color:#ff9800;
-}
-.offer{
-  font-size:10px;
-  margin-top:5px;
-  background:#ff9800;
-  display:inline-block;
-  padding:2px 8px;
-  border-radius:20px;
-  color:#1e2a3a;
-  font-weight:bold;
+  background: white;
+  color: #003a8f;
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  border-color: #ff9800;
 }
 .plans-wrapper{
   position:relative;
@@ -231,7 +247,6 @@ body{
   margin:20px 16px;
   padding:18px 12px;
   scroll-margin-top: 80px;
-  transition: all 0.2s;
 }
 .ott-cards{
   display:grid;
@@ -373,12 +388,25 @@ button:active{transform:scale(0.97);}
   ✅ Made In India | ⚡ Free Installation 24–48Hr | 📍 24x7 Chennai Support
 </div>
 
-<!-- Duration selector -->
-<div class="duration-grid" id="durationGrid">
-  <div class="duration-card active" data-type="monthly" onclick="setPlanDuration('monthly',this)"><div class="title">Monthly</div></div>
-  <div class="duration-card" data-type="quarterly" onclick="setPlanDuration('quarterly',this)"><div class="title">Quarterly</div><div class="offer">🎁 7 Days Free</div></div>
-  <div class="duration-card" data-type="half" onclick="setPlanDuration('half',this)"><div class="title">Half-Yearly</div><div class="offer">🎁 19 Days Free</div></div>
-  <div class="duration-card" data-type="yearly" onclick="setPlanDuration('yearly',this)"><div class="title">Annual</div><div class="offer">🎁 1 Month Free</div></div>
+<!-- DURATION TABS - BIGGER SINGLE ROW -->
+<div class="duration-tabs">
+  <div class="duration-grid" id="durationGrid">
+    <div class="duration-card active" data-type="monthly" onclick="setPlanDuration('monthly',this)">
+      <div class="title">Monthly</div>
+    </div>
+    <div class="duration-card" data-type="quarterly" onclick="setPlanDuration('quarterly',this)">
+      <div class="title">Quarterly</div>
+      <div class="offer">🎁 7 Days Free</div>
+    </div>
+    <div class="duration-card" data-type="half" onclick="setPlanDuration('half',this)">
+      <div class="title">Half-Yearly</div>
+      <div class="offer">🎁 19 Days Free</div>
+    </div>
+    <div class="duration-card" data-type="yearly" onclick="setPlanDuration('yearly',this)">
+      <div class="title">Annual</div>
+      <div class="offer">🎁 1 Month Free</div>
+    </div>
+  </div>
 </div>
 
 <div class="plans-wrapper">
@@ -448,7 +476,7 @@ let selectedOttKey = "none";
 let selectedOttName = "None";
 let userLat = "", userLng = "";
 let isAutoScrolling = false;
-let flowStep = 0; // 0: plan selection, 1: OTT selection, 2: form
+let flowStep = 0;
 
 function getCurrentInternetPrice(plan) {
   if(!plan) return 0;
@@ -538,11 +566,9 @@ function selectInternetPlan(planName) {
   renderOttCards();
   renderInternetPlans();
   refreshPriceUI();
-  // Show OTT section
   const ottSection = document.getElementById("ottSection");
   ottSection.style.display = "block";
   flowStep = 1;
-  // Smooth scroll to OTT section after a short delay to ensure DOM is ready
   setTimeout(() => {
     ottSection.scrollIntoView({ behavior: "smooth", block: "start" });
   }, 150);
@@ -621,7 +647,6 @@ function selectOttAddon(key) {
   refreshPriceUI();
   showLeadPromptMsg();
   updateBottomButtonState();
-  // After OTT selection, scroll to the form section (step 2)
   if (flowStep === 1) {
     flowStep = 2;
     setTimeout(() => {
@@ -760,12 +785,11 @@ window.onload = () => {
   detectUserArea();
   const defaultPlan = internetPlans.find(p => p.popular) || internetPlans[0];
   selectedInternetPlan = defaultPlan;
-  renderInternetPlans();  // popular plan selected and centered
+  renderInternetPlans();
   renderOttCards();
   refreshPriceUI();
-  // Show OTT section by default since a plan is preselected
   document.getElementById("ottSection").style.display = "block";
-  flowStep = 1; // after load, user is at plan selected, ready for OTT
+  flowStep = 1;
   bindFormEvents();
   const plansContainer = document.getElementById("plansContainer");
   plansContainer.addEventListener("scroll", () => {
