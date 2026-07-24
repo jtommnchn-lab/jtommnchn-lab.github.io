@@ -830,8 +830,10 @@
         // ============================================================
         //  DATA
         // ============================================================
+        // Monthly internet values are WITHOUT GST; quarterly, half, yearly are WITH GST.
+        // OTT prices are always treated as final (no GST conversion).
         const internetPlans = [
-            { name: "Fibre Entry", speed: "25 Mbps", price: { monthly: undefined, quarterly: 1178, half: 2356, yearly: 4712 } },
+            { name: "Fibre Entry", speed: "25 Mbps", price: { monthly: 333, quarterly: 1178, half: 2356, yearly: 4712 } },
             { name: "Ghar Ka WiFi", speed: "40 Mbps", price: { monthly: 399, quarterly: 1413, half: 2826, yearly: 5652 } },
             { name: "Fibre Basic", speed: "60 Mbps", price: { monthly: 499, quarterly: 1767, half: 3533, yearly: 7066 } },
             { name: "Fibre Basic Plus", speed: "100 Mbps", price: { monthly: 599, quarterly: 2121, half: 4241, yearly: 8482 },
@@ -841,6 +843,7 @@
                     yearly: 12728 } },
             { name: "Super Star Premium Plus", speed: "200 Mbps", price: { monthly: 999, quarterly: 3537, half: 7073,
                     yearly: 14146 } },
+            // Plans with missing quarterly prices (shown as undefined)
             { name: "Fibre Premium Plus", speed: "250 Mbps", price: { monthly: 1299, quarterly: undefined, half: 9197,
                     yearly: 18394 } },
             { name: "Fibre Ultra OTT", speed: "300 Mbps", price: { monthly: 1799, quarterly: undefined, half: 12737,
@@ -851,6 +854,7 @@
                     yearly: 67954 } }
         ];
 
+        // OTT addons: prices are final (no GST conversion applied).
         const ottAddons = {
             basic: { name: "OTT Basic", price: { monthly: 151, quarterly: 454, half: 908, yearly: 1817 },
                 apps: ["Zee5", "SonyLIV", "SunNxt", "Aha", "Discovery+"] },
@@ -885,26 +889,56 @@
         let flowStep = 0;
 
         // ============================================================
-        //  HELPERS
+        //  PRICING HELPERS
         // ============================================================
-        function getPrice(plan) {
-            if (!plan) return 0;
+        // For internet plans: monthly = without GST, others = with GST
+        function getPlanStoredPrice(plan) {
             return plan.price[currentDuration] || 0;
         }
 
-        function getWithoutGST(priceWithGST) {
-            return Math.round(priceWithGST / 1.18);
+        function getPlanWithGST(plan) {
+            const base = getPlanStoredPrice(plan);
+            if (currentDuration === 'monthly') {
+                return Math.round(base * 1.18);
+            } else {
+                return Math.round(base);
+            }
         }
 
-        function computeTotal() {
-            const internet = selectedInternetPlan ? getPrice(selectedInternetPlan) : 0;
-            const ott = (selectedOttKey !== "none" && ottAddons[selectedOttKey]) ?
-                ottAddons[selectedOttKey].price[currentDuration] || 0 : 0;
-            return internet + ott;
+        function getPlanWithoutGST(plan) {
+            const base = getPlanStoredPrice(plan);
+            if (currentDuration === 'monthly') {
+                return Math.round(base);
+            } else {
+                return Math.round(base / 1.18);
+            }
+        }
+
+        // For OTT addons: no GST conversion, just return the stored price as final.
+        function getOttPrice(addon) {
+            if (!addon) return 0;
+            return addon.price[currentDuration] || 0;
+        }
+
+        // Check if a plan is available for current duration
+        function isPlanAvailable(plan) {
+            return plan.price[currentDuration] !== undefined && plan.price[currentDuration] !== null;
         }
 
         function getAvailablePlans() {
-            return internetPlans.filter(p => p.price[currentDuration] !== undefined && p.price[currentDuration] !== null);
+            return internetPlans.filter(isPlanAvailable);
+        }
+
+        // Compute total with GST for internet + OTT (OTT price is final, no GST added)
+        function computeTotalWithGST() {
+            let total = 0;
+            if (selectedInternetPlan) {
+                total += getPlanWithGST(selectedInternetPlan);
+            }
+            if (selectedOttKey !== "none" && ottAddons[selectedOttKey]) {
+                total += getOttPrice(ottAddons[selectedOttKey]);
+            }
+            return total;
         }
 
         // ============================================================
@@ -921,8 +955,7 @@
             }
 
             if (selectedInternetPlan) {
-                const stillExists = available.some(p => p.name === selectedInternetPlan.name);
-                if (!stillExists) {
+                if (!available.some(p => p.name === selectedInternetPlan.name)) {
                     selectedInternetPlan = available.find(p => p.popular) || available[0];
                 }
             } else {
@@ -930,8 +963,8 @@
             }
 
             container.innerHTML = available.map(plan => {
-                const priceWithGST = plan.price[currentDuration];
-                const priceWithoutGST = getWithoutGST(priceWithGST);
+                const priceWithGST = getPlanWithGST(plan);
+                const priceWithoutGST = getPlanWithoutGST(plan);
                 const freeText = currentDuration === "quarterly" ? "7 Days FREE" :
                     currentDuration === "half" ? "19 Days FREE" :
                     currentDuration === "yearly" ? "1 Month FREE" : "";
@@ -983,7 +1016,7 @@
 
             Object.keys(ottAddons).forEach(key => {
                 const pack = ottAddons[key];
-                const price = pack.price[currentDuration] || 0;
+                const price = getOttPrice(pack); // final price, no GST conversion
                 const active = selectedOttKey === key;
                 const logos = pack.apps.slice(0, 6).map(app => {
                     const src = ottLogos[app] || '';
@@ -1011,7 +1044,7 @@
         function selectInternetPlan(name) {
             const plan = internetPlans.find(p => p.name === name);
             if (!plan) return;
-            if (plan.price[currentDuration] === undefined || plan.price[currentDuration] === null) {
+            if (!isPlanAvailable(plan)) {
                 alert("This plan is not available for the selected duration. Please choose another.");
                 return;
             }
@@ -1071,19 +1104,25 @@
         //  UI UPDATES
         // ============================================================
         function refreshUI() {
-            const total = computeTotal();
-            const internetCost = selectedInternetPlan ? getPrice(selectedInternetPlan) : 0;
-            const ottCost = (selectedOttKey !== "none" && ottAddons[selectedOttKey]) ?
-                ottAddons[selectedOttKey].price[currentDuration] || 0 : 0;
+            const totalWithGST = computeTotalWithGST();
 
-            document.getElementById("bottomTotalPrice").innerHTML = `₹${total} <small>total</small>`;
+            let internetWithGST = 0,
+                ottPrice = 0;
+            if (selectedInternetPlan) {
+                internetWithGST = getPlanWithGST(selectedInternetPlan);
+            }
+            if (selectedOttKey !== "none" && ottAddons[selectedOttKey]) {
+                ottPrice = getOttPrice(ottAddons[selectedOttKey]);
+            }
+
+            document.getElementById("bottomTotalPrice").innerHTML = `₹${totalWithGST} <small>total</small>`;
 
             const box = document.getElementById("selectedBox");
             if (selectedInternetPlan) {
                 box.style.display = "block";
-                let ottLine = selectedOttKey !== "none" ? ` + ${ottAddons[selectedOttKey].name} (₹${ottCost})` : "";
+                let ottLine = selectedOttKey !== "none" ? ` + ${ottAddons[selectedOttKey].name} (₹${ottPrice})` : "";
                 box.innerHTML =
-                    `📡 <strong>${selectedInternetPlan.name}</strong> (${selectedInternetPlan.speed})  ₹${internetCost} ${ottLine}<br>💰 Total: <strong>₹${total}</strong>`;
+                    `📡 <strong>${selectedInternetPlan.name}</strong> (${selectedInternetPlan.speed})  ₹${internetWithGST} ${ottLine}<br>💰 Total: <strong>₹${totalWithGST}</strong>`;
             } else {
                 box.style.display = "none";
             }
@@ -1201,14 +1240,16 @@
             const phone = document.getElementById("userPhone").value.trim();
             const area = document.getElementById("userArea").value.trim() || "Chennai";
             const plan = selectedInternetPlan;
-            const internetPrice = getPrice(plan);
+            const internetWithGST = getPlanWithGST(plan);
+            const internetWithoutGST = getPlanWithoutGST(plan);
             const ottPrice = (selectedOttKey !== "none" && ottAddons[selectedOttKey]) ?
-                ottAddons[selectedOttKey].price[currentDuration] || 0 : 0;
-            const total = internetPrice + ottPrice;
+                getOttPrice(ottAddons[selectedOttKey]) : 0;
+            const totalWithGST = computeTotalWithGST();
             const date = new Date().toLocaleString("en-IN");
 
-            gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXX/CONVERSION_ID', 'value': total, 'currency': 'INR' });
-            fbq('track', 'Lead', { content_name: plan.name, value: total, currency: 'INR' });
+            gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXX/CONVERSION_ID', 'value': totalWithGST,
+                'currency': 'INR' });
+            fbq('track', 'Lead', { content_name: plan.name, value: totalWithGST, currency: 'INR' });
 
             const payload = {
                 Name: name,
@@ -1220,9 +1261,10 @@
                 "Selected Plan": plan.name,
                 "Speed": plan.speed,
                 "OTT Selected": selectedOttName,
-                "Base Price": internetPrice,
-                "OTT Price": ottPrice,
-                "Total": total,
+                "Internet Price (Without GST)": internetWithoutGST,
+                "Internet Price (With GST)": internetWithGST,
+                "OTT Price": ottPrice, // final price, no GST
+                "Total (With GST)": totalWithGST,
                 Date: date,
                 Source: "BSNL Website Chennai"
             };
@@ -1234,7 +1276,8 @@
                     body: JSON.stringify(payload)
                 });
 
-            const wa = `🔥 *New BSNL Lead* 🔥%0A👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A📍 *Area:* ${area}%0A📶 *Plan:* ${plan.name} (${plan.speed})%0A⏳ *Duration:* ${currentDuration}%0A🎬 *OTT:* ${selectedOttName}%0A💰 *Total:* ₹${total}%0A✅ Request installation.`;
+            const wa =
+                `🔥 *New BSNL Lead* 🔥%0A👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A📍 *Area:* ${area}%0A📶 *Plan:* ${plan.name} (${plan.speed})%0A⏳ *Duration:* ${currentDuration}%0A🎬 *OTT:* ${selectedOttName}%0A💰 *Total (With GST):* ₹${totalWithGST}%0A✅ Request installation.`;
             window.open(`https://wa.me/919447072230?text=${wa}`);
         }
 
