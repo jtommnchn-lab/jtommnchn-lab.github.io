@@ -49,12 +49,11 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
             background: #0a1628;
-            color: #fff;
+            color: #1a1a2e;
             min-height: 100vh;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
-        /* fallback fonts if Inter not loaded */
         @supports (font-variation-settings: normal) {
             body {
                 font-family: 'Inter var', sans-serif;
@@ -269,45 +268,45 @@
             display: none;
         }
 
-        /* ----- INDIVIDUAL PLAN CARD ----- */
+        /* ----- INDIVIDUAL PLAN CARD - LIGHT THEME ----- */
         .card {
             flex: 0 0 270px;
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #ffffff;
+            backdrop-filter: none;
             border-radius: 32px;
             padding: 22px 16px 20px;
             text-align: center;
             scroll-snap-align: center;
             cursor: pointer;
             transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            opacity: 0.5;
+            opacity: 0.6;
             transform: scale(0.88) translateY(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
             position: relative;
-            color: #fff;
+            color: #1a1a2e;
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
         .card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
+            transform: scale(0.92) translateY(5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
         .card.selected {
             transform: scale(1.05) translateY(0) !important;
             opacity: 1;
             border-color: #2e7d32;
-            background: rgba(46, 125, 50, 0.15);
-            box-shadow: 0 20px 50px rgba(46, 125, 50, 0.25), inset 0 0 0 1px rgba(46, 125, 50, 0.3);
+            box-shadow: 0 20px 50px rgba(46, 125, 50, 0.3);
+            background: #ffffff;
         }
         .card.selected h2 {
-            color: #4caf50;
+            color: #2e7d32;
         }
         .card.popular {
             border-color: #ff9800;
-            box-shadow: 0 0 30px rgba(255, 152, 0, 0.15);
+            box-shadow: 0 0 30px rgba(255, 152, 0, 0.2);
         }
         .card.popular.selected {
             border-color: #ff9800;
-            box-shadow: 0 20px 50px rgba(255, 152, 0, 0.25), inset 0 0 0 1px rgba(255, 152, 0, 0.3);
+            box-shadow: 0 20px 50px rgba(255, 152, 0, 0.3);
         }
         .card .badge {
             background: #ff9800;
@@ -327,39 +326,52 @@
         }
         .card h3 {
             font-size: 1.1rem;
-            font-weight: 600;
+            font-weight: 700;
             margin: 6px 0 4px;
             letter-spacing: -0.3px;
+            color: #1a1a2e;
         }
         .card .speed-tag {
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
+            color: #6b6b8a;
             font-weight: 500;
             margin-bottom: 6px;
         }
         .card h2 {
             font-size: 28px;
             font-weight: 800;
-            margin: 8px 0;
+            margin: 8px 0 2px;
             letter-spacing: -0.5px;
+            color: #1a1a2e;
             transition: color 0.3s;
         }
         .card h2 small {
             font-size: 14px;
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.4);
+            color: #8a8aaa;
+        }
+        .card .gst-details {
+            font-size: 0.6rem;
+            color: #8a8aaa;
+            line-height: 1.4;
+            margin: 4px 0 10px;
+            letter-spacing: 0.2px;
+        }
+        .card .gst-details span {
+            display: inline-block;
+            margin: 0 4px;
         }
         .card .features {
             font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
+            color: #6b6b8a;
             margin: 6px 0 14px;
         }
         .card button {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: #e8edf5;
+            border: none;
             padding: 10px 24px;
             border-radius: 60px;
-            color: #fff;
+            color: #1a1a2e;
             font-weight: 600;
             font-size: 0.9rem;
             cursor: pointer;
@@ -369,12 +381,12 @@
             margin: 0 auto;
         }
         .card button:hover {
-            background: rgba(255, 255, 255, 0.15);
+            background: #d5dde8;
             transform: scale(1.02);
         }
         .card.selected button {
             background: #2e7d32;
-            border-color: #2e7d32;
+            color: #fff;
         }
         .card.selected button:hover {
             background: #388e3c;
@@ -423,11 +435,14 @@
             .card h2 {
                 font-size: 24px;
             }
+            .card .gst-details {
+                font-size: 0.5rem;
+            }
         }
 
         /* ----- SELECTED BOX (floating summary) ----- */
         .selected-box {
-            background: rgba(46, 125, 50, 0.2);
+            background: rgba(46, 125, 50, 0.15);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(46, 125, 50, 0.3);
             max-width: 560px;
@@ -444,7 +459,7 @@
             color: #81c784;
         }
 
-        /* ----- OTT SECTION ----- */
+        /* ----- OTT SECTION - LIGHT CARDS ----- */
         .ott-section {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 40px;
@@ -460,6 +475,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            color: #fff;
         }
         .ott-cards {
             display: grid;
@@ -467,23 +483,24 @@
             gap: 16px;
         }
         .ott-card {
-            background: rgba(255, 255, 255, 0.06);
+            background: #ffffff;
             border-radius: 28px;
             padding: 18px 14px 16px;
             cursor: pointer;
             transition: all 0.3s ease;
-            color: #fff;
-            border: 2px solid transparent;
-            backdrop-filter: blur(4px);
+            color: #1a1a2e;
+            border: 2px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         }
         .ott-card:hover {
-            background: rgba(255, 255, 255, 0.09);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
         }
         .ott-card.active {
             border-color: #2e7d32;
-            background: rgba(46, 125, 50, 0.15);
+            background: #f0faf0;
             transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(46, 125, 50, 0.1);
+            box-shadow: 0 12px 30px rgba(46, 125, 50, 0.15);
         }
         .ott-card .ott-title {
             font-weight: 700;
@@ -491,9 +508,10 @@
             display: flex;
             align-items: center;
             gap: 6px;
+            color: #1a1a2e;
         }
         .ott-card .ott-price {
-            color: #81c784;
+            color: #2e7d32;
             font-weight: 600;
             margin: 4px 0 10px;
             font-size: 0.95rem;
@@ -508,7 +526,7 @@
             width: 100%;
             height: 40px;
             object-fit: contain;
-            background: rgba(255, 255, 255, 0.06);
+            background: #f5f5f5;
             border-radius: 12px;
             padding: 4px;
             transition: transform 0.2s;
@@ -518,7 +536,7 @@
         }
         .ott-card .app-count {
             font-size: 0.7rem;
-            color: rgba(255, 255, 255, 0.4);
+            color: #8a8aaa;
             margin-top: 8px;
             letter-spacing: 0.3px;
         }
@@ -548,9 +566,6 @@
             font-weight: 600;
             letter-spacing: -0.3px;
             margin-bottom: 20px;
-        }
-        .form h3 span {
-            display: inline-block;
         }
         input {
             width: 100%;
@@ -848,6 +863,10 @@
             return plan.price[currentDuration] || 0;
         }
 
+        function getWithoutGST(priceWithGST) {
+            return Math.round(priceWithGST / 1.18);
+        }
+
         function computeTotal() {
             const internet = selectedInternetPlan ? getPrice(selectedInternetPlan) : 0;
             const ott = (selectedOttKey !== "none" && ottAddons[selectedOttKey]) ?
@@ -872,7 +891,6 @@
                 return;
             }
 
-            // If selected plan is not available, pick first (prefer popular)
             if (selectedInternetPlan) {
                 const stillExists = available.some(p => p.name === selectedInternetPlan.name);
                 if (!stillExists) {
@@ -883,7 +901,8 @@
             }
 
             container.innerHTML = available.map(plan => {
-                const price = plan.price[currentDuration];
+                const priceWithGST = plan.price[currentDuration];
+                const priceWithoutGST = getWithoutGST(priceWithGST);
                 const freeText = currentDuration === "quarterly" ? "7 Days FREE" :
                     currentDuration === "half" ? "19 Days FREE" :
                     currentDuration === "yearly" ? "1 Month FREE" : "";
@@ -899,7 +918,12 @@
                 ${freeText ? `<div class="badge free">🎁 ${freeText}</div>` : ''}
                 <h3>${plan.name}</h3>
                 <div class="speed-tag">${plan.speed} · Unlimited</div>
-                <h2>₹${price} <small>/${currentDuration}</small></h2>
+                <h2>₹${priceWithGST} <small>/${currentDuration}</small></h2>
+                <div class="gst-details">
+                  <span>With GST: ₹${priceWithGST}</span>
+                  <span>|</span>
+                  <span>Without GST: ₹${priceWithoutGST}</span>
+                </div>
                 <button onclick="event.stopPropagation(); selectInternetPlan('${plan.name}')">
                   ${isSelected ? '✓ Selected' : 'Select Plan'}
                 </button>
@@ -907,7 +931,6 @@
             `;
             }).join('');
 
-            // Update scales after render
             requestAnimationFrame(() => {
                 updateCardScales();
                 if (selectedInternetPlan) centerSelectedPlanCard();
@@ -937,7 +960,7 @@
                     const src = ottLogos[app] || '';
                     return src ?
                         `<img src="${src}" alt="${app}" loading="lazy">` :
-                        `<div style="background:rgba(255,255,255,0.04);border-radius:10px;padding:4px;font-size:9px;color:rgba(255,255,255,0.3);text-align:center;">${app}</div>`;
+                        `<div style="background:#f0f0f0;border-radius:10px;padding:4px;font-size:9px;color:#999;text-align:center;">${app}</div>`;
                 }).join('');
 
                 html += `
@@ -986,7 +1009,7 @@
 
             selectedOttKey = "none";
             selectedOttName = "None";
-            renderInternetPlans(); // auto-selects fallback
+            renderInternetPlans();
             renderOttCards();
             refreshUI();
 
@@ -1058,7 +1081,7 @@
                 const cardCenter = r.left + r.width / 2 - rect.left;
                 const dist = Math.abs(center - cardCenter);
                 const scale = Math.max(0.82, 1 - dist / 600);
-                const opacity = Math.max(0.4, 1 - dist / 500);
+                const opacity = Math.max(0.5, 1 - dist / 500);
                 card.style.transform = `scale(${scale}) translateY(${10 - scale * 10}px)`;
                 card.style.opacity = opacity;
             });
@@ -1155,7 +1178,6 @@
             const total = internetPrice + ottPrice;
             const date = new Date().toLocaleString("en-IN");
 
-            // Tracking
             gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXX/CONVERSION_ID', 'value': total, 'currency': 'INR' });
             fbq('track', 'Lead', { content_name: plan.name, value: total, currency: 'INR' });
 
