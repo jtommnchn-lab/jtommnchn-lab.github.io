@@ -53,11 +53,51 @@
             min-height: 100vh;
             line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
         }
         @supports (font-variation-settings: normal) {
             body {
                 font-family: 'Inter var', sans-serif;
             }
+        }
+
+        /* ----- ANIMATED BACKGROUND GLOW ----- */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(46, 125, 50, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 70% 80%, rgba(255, 152, 0, 0.06) 0%, transparent 60%),
+                radial-gradient(circle at 50% 20%, rgba(0, 100, 255, 0.04) 0%, transparent 50%);
+            z-index: 0;
+            pointer-events: none;
+            animation: backgroundFloat 25s ease-in-out infinite alternate;
+        }
+        @keyframes backgroundFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(-5%, -5%) scale(1.1);
+            }
+        }
+
+        /* Ensure content sits above background */
+        .topbar,
+        .hero,
+        .trust-strip,
+        .duration-strip,
+        .plans-wrapper,
+        .ott-section,
+        .form-section,
+        .bottom-bar,
+        .lead-prompt {
+            position: relative;
+            z-index: 1;
         }
 
         /* ----- SCROLLBAR ----- */
@@ -69,33 +109,39 @@
             background: rgba(255, 255, 255, 0.05);
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.25);
             border-radius: 20px;
         }
 
         /* ----- LEAD PROMPT (floating) ----- */
         .lead-prompt {
             position: fixed;
-            bottom: 110px;
+            bottom: 120px;
             left: 50%;
             transform: translateX(-50%) translateY(20px);
-            background: #25D366;
+            background: linear-gradient(135deg, #25D366, #1da851);
             color: #fff;
-            padding: 12px 28px;
+            padding: 14px 32px;
             border-radius: 60px;
             font-size: 14px;
             font-weight: 600;
-            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.35);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.4);
             z-index: 10000;
             opacity: 0;
             pointer-events: none;
-            transition: 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
             white-space: nowrap;
             letter-spacing: 0.3px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         .lead-prompt.show {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
+        }
+        .lead-prompt::before {
+            content: '✨';
+            margin-right: 8px;
         }
 
         /* ----- TOP BAR ----- */
@@ -103,18 +149,20 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+            padding: 10px 24px;
+            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         .topbar img {
-            height: 36px;
+            height: 38px;
             object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.05));
         }
         .actions {
             display: flex;
@@ -125,28 +173,33 @@
             text-decoration: none;
             font-size: 22px;
             color: #0a1628;
-            transition: transform 0.2s;
+            transition: all 0.25s;
             display: inline-flex;
+            padding: 6px;
+            border-radius: 60px;
+            background: rgba(0, 0, 0, 0.03);
         }
         .actions a:hover {
-            transform: scale(1.1);
+            transform: scale(1.1) translateY(-2px);
+            background: rgba(0, 0, 0, 0.06);
         }
 
-        /* ----- HERO / BANNER - FIXED FOR MOBILE ----- */
+        /* ----- HERO / BANNER ----- */
         .hero {
             width: 100%;
-            height: clamp(180px, 35vh, 380px);
+            height: clamp(200px, 38vh, 400px);
             background: #0a1628;
             position: relative;
             overflow: hidden;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .hero img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center;
+            object-position: center 30%;
             display: block;
+            opacity: 0.9;
         }
         .hero .banner-placeholder {
             display: none;
@@ -155,10 +208,10 @@
             background: linear-gradient(135deg, #0a1628 0%, #1a2a4a 100%);
             align-items: center;
             justify-content: center;
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.15);
             font-size: 14px;
             font-weight: 500;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
         }
         .hero::after {
             content: '';
@@ -166,7 +219,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            height: 60px;
+            height: 80px;
             background: linear-gradient(transparent, #0a1628);
             pointer-events: none;
         }
@@ -184,91 +237,128 @@
                 height: 130px;
                 min-height: 120px;
             }
+            .hero img {
+                object-position: center 40%;
+            }
         }
 
         /* ----- TRUST STRIP ----- */
         .trust-strip {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(4px);
             text-align: center;
-            padding: 14px 12px;
+            padding: 14px 16px;
             font-size: 13px;
             font-weight: 500;
             letter-spacing: 0.5px;
-            color: rgba(255, 255, 255, 0.85);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 6px 18px;
+            gap: 8px 24px;
         }
         .trust-strip span {
             display: inline-flex;
             align-items: center;
             gap: 6px;
         }
-
-        /* ----- DURATION STRIP ----- */
-        .duration-strip {
-            background: rgba(255, 255, 255, 0.04);
-            border-radius: 0;
-            margin: 0;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            padding: 4px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        .trust-strip span::before {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
         }
-        .duration-strip::-webkit-scrollbar {
+        .trust-strip span:first-child::before {
             display: none;
         }
-        .duration-tabs {
+
+        /* ----- DURATION STRIP - PILL DESIGN ----- */
+        .duration-strip {
             display: flex;
-            min-width: 100%;
-            gap: 0;
+            justify-content: center;
+            padding: 16px 12px 8px;
+            background: transparent;
+            border-bottom: none;
+        }
+        .duration-tabs {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            padding: 4px;
+            border-radius: 60px;
+            display: inline-flex;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+        }
+        .duration-tabs::-webkit-scrollbar {
+            display: none;
         }
         .duration-card {
-            flex: 1 0 auto;
+            flex: 0 0 auto;
             text-align: center;
-            padding: 16px 12px;
+            padding: 10px 22px;
             cursor: pointer;
-            transition: all 0.25s ease;
-            border-bottom: 3px solid transparent;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border-radius: 40px;
+            border-bottom: none;
             font-weight: 600;
-            color: rgba(255, 255, 255, 0.6);
+            color: rgba(255, 255, 255, 0.5);
             position: relative;
-            min-width: 80px;
+            background: transparent;
+            min-width: 70px;
+            white-space: nowrap;
         }
         .duration-card .title {
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            transition: color 0.25s;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            transition: color 0.3s;
         }
         .duration-card .offer {
-            font-size: 0.6rem;
+            font-size: 0.5rem;
             background: #ff9800;
             display: inline-block;
-            padding: 2px 10px;
+            padding: 1px 8px;
             border-radius: 40px;
-            margin-top: 4px;
+            margin-top: 2px;
             color: #0a1628;
             font-weight: 700;
             letter-spacing: 0.3px;
             text-transform: uppercase;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s;
+        }
+        .duration-card.active .offer {
+            opacity: 1;
+            transform: scale(1);
         }
         .duration-card.active {
-            color: #fff;
-            border-bottom-color: #ff9800;
-            background: rgba(255, 255, 255, 0.06);
+            background: #ffffff;
+            color: #0a1628;
+            border-bottom: none;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
         }
         .duration-card.active .title {
-            color: #fff;
+            color: #0a1628;
         }
         .duration-card:not(.active):hover {
             color: rgba(255, 255, 255, 0.85);
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        @media(max-width:480px) {
+            .duration-card {
+                padding: 8px 14px;
+                min-width: 60px;
+            }
+            .duration-card .title {
+                font-size: 0.8rem;
+            }
         }
 
         /* ----- PLANS WRAPPER ----- */
@@ -282,11 +372,11 @@
         /* ----- PLAN CARDS CONTAINER ----- */
         .plans {
             display: flex;
-            gap: 18px;
+            gap: 20px;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
-            padding: 20px 10px 30px;
+            padding: 20px 10px 40px;
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
         }
@@ -294,64 +384,67 @@
             display: none;
         }
 
-        /* ----- INDIVIDUAL PLAN CARD - LIGHT THEME ----- */
+        /* ----- INDIVIDUAL PLAN CARD - GLASS DESIGN ----- */
         .card {
             flex: 0 0 270px;
-            background: #ffffff;
-            backdrop-filter: none;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border-radius: 32px;
-            padding: 22px 16px 20px;
+            padding: 24px 18px 22px;
             text-align: center;
             scroll-snap-align: center;
             cursor: pointer;
-            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            opacity: 0.6;
-            transform: scale(0.88) translateY(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            opacity: 0.5;
+            transform: scale(0.88) translateY(15px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.6);
             position: relative;
             color: #1a1a2e;
-            border: 2px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         .card:hover {
-            transform: scale(0.92) translateY(5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.92) translateY(8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
         }
         .card.selected {
             transform: scale(1.05) translateY(0) !important;
             opacity: 1;
-            border-color: #2e7d32;
-            box-shadow: 0 20px 50px rgba(46, 125, 50, 0.3);
-            background: #ffffff;
+            border-color: rgba(46, 125, 50, 0.4);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 0 40px rgba(46, 125, 50, 0.15), 0 25px 60px rgba(46, 125, 50, 0.1);
         }
         .card.selected h2 {
             color: #2e7d32;
         }
         .card.popular {
-            border-color: #ff9800;
-            box-shadow: 0 0 30px rgba(255, 152, 0, 0.2);
+            border-color: rgba(255, 152, 0, 0.3);
+            box-shadow: 0 0 40px rgba(255, 152, 0, 0.08), 0 15px 40px rgba(0, 0, 0, 0.15);
         }
         .card.popular.selected {
-            border-color: #ff9800;
-            box-shadow: 0 20px 50px rgba(255, 152, 0, 0.3);
+            border-color: rgba(255, 152, 0, 0.5);
+            box-shadow: 0 0 50px rgba(255, 152, 0, 0.15), 0 25px 60px rgba(255, 152, 0, 0.1);
         }
         .card .badge {
-            background: #ff9800;
+            background: linear-gradient(135deg, #ff9800, #f57c00);
             color: #0a1628;
-            padding: 4px 14px;
+            padding: 4px 16px;
             border-radius: 40px;
             font-size: 11px;
             font-weight: 800;
             display: inline-block;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
         }
         .card .badge.free {
-            background: #2e7d32;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
             color: #fff;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
         }
         .card h3 {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
             margin: 6px 0 4px;
             letter-spacing: -0.3px;
@@ -361,10 +454,22 @@
             font-size: 0.8rem;
             color: #6b6b8a;
             font-weight: 500;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+        .card .speed-tag .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #4caf50;
+            margin: 0 2px;
         }
         .card h2 {
-            font-size: 28px;
+            font-size: 30px;
             font-weight: 800;
             margin: 8px 0 2px;
             letter-spacing: -0.5px;
@@ -380,42 +485,40 @@
             font-size: 0.6rem;
             color: #8a8aaa;
             line-height: 1.4;
-            margin: 4px 0 10px;
+            margin: 4px 0 12px;
             letter-spacing: 0.2px;
         }
         .card .gst-details span {
             display: inline-block;
             margin: 0 4px;
         }
-        .card .features {
-            font-size: 0.8rem;
-            color: #6b6b8a;
-            margin: 6px 0 14px;
-        }
         .card button {
-            background: #e8edf5;
-            border: none;
+            background: rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.06);
             padding: 10px 24px;
             border-radius: 60px;
             color: #1a1a2e;
             font-weight: 600;
             font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.25s;
+            transition: all 0.3s;
             width: 100%;
-            max-width: 160px;
+            max-width: 170px;
             margin: 0 auto;
         }
         .card button:hover {
-            background: #d5dde8;
+            background: rgba(0, 0, 0, 0.08);
             transform: scale(1.02);
         }
         .card.selected button {
-            background: #2e7d32;
+            background: linear-gradient(135deg, #2e7d32, #1b5e20);
             color: #fff;
+            border-color: #2e7d32;
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.3);
         }
         .card.selected button:hover {
-            background: #388e3c;
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(46, 125, 50, 0.4);
         }
 
         /* ----- CAROUSEL BUTTONS ----- */
@@ -423,147 +526,165 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            width: 44px;
-            height: 44px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            width: 48px;
+            height: 48px;
             border-radius: 60px;
             color: #fff;
             font-size: 20px;
             cursor: pointer;
             z-index: 20;
-            transition: all 0.25s;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
+            opacity: 0.7;
         }
         .carousel-btn:hover {
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-50%) scale(1.05);
+            opacity: 1;
         }
         .carousel-btn.left {
-            left: 0;
+            left: -4px;
         }
         .carousel-btn.right {
-            right: 0;
+            right: -4px;
         }
         @media(max-width:600px) {
             .carousel-btn {
                 width: 36px;
                 height: 36px;
                 font-size: 16px;
+                opacity: 0.5;
             }
             .card {
                 flex: 0 0 230px;
-                padding: 18px 12px;
+                padding: 20px 14px 18px;
             }
             .card h2 {
-                font-size: 24px;
+                font-size: 26px;
             }
             .card .gst-details {
                 font-size: 0.5rem;
+            }
+            .carousel-btn.left {
+                left: 0;
+            }
+            .carousel-btn.right {
+                right: 0;
             }
         }
 
         /* ----- SELECTED BOX (floating summary) ----- */
         .selected-box {
-            background: rgba(46, 125, 50, 0.15);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(46, 125, 50, 0.3);
+            background: rgba(46, 125, 50, 0.12);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(46, 125, 50, 0.2);
             max-width: 560px;
             margin: 0 auto 16px;
-            padding: 14px 20px;
+            padding: 14px 24px;
             border-radius: 60px;
             text-align: center;
             font-weight: 600;
             display: none;
             font-size: 0.95rem;
             color: #e8f5e9;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
         }
         .selected-box strong {
             color: #81c784;
         }
 
-        /* ----- OTT SECTION - LIGHT CARDS ----- */
+        /* ----- OTT SECTION ----- */
         .ott-section {
             background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(4px);
             border-radius: 40px;
             margin: 20px 16px 10px;
-            padding: 24px 16px 28px;
+            padding: 28px 20px 32px;
             scroll-margin-top: 80px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
         .ott-section h3 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: 600;
-            margin: 0 0 16px 8px;
+            margin: 0 0 20px 8px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             color: #fff;
+            letter-spacing: -0.3px;
+        }
+        .ott-section h3 span {
+            font-weight: 400;
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
         }
         .ott-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
+            gap: 18px;
         }
         .ott-card {
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(8px);
             border-radius: 28px;
-            padding: 18px 14px 16px;
+            padding: 20px 16px 18px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             color: #1a1a2e;
-            border: 2px solid rgba(0, 0, 0, 0.06);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
         }
         .ott-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
         }
         .ott-card.active {
             border-color: #2e7d32;
-            background: #f0faf0;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(46, 125, 50, 0.15);
+            background: rgba(255, 255, 255, 0.95);
+            transform: translateY(-4px);
+            box-shadow: 0 16px 40px rgba(46, 125, 50, 0.15);
         }
         .ott-card .ott-title {
             font-weight: 700;
             font-size: 1.05rem;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             color: #1a1a2e;
         }
         .ott-card .ott-price {
             color: #2e7d32;
             font-weight: 600;
-            margin: 4px 0 10px;
+            margin: 4px 0 12px;
             font-size: 0.95rem;
         }
         .ott-card .ott-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 6px;
+            gap: 8px;
             margin-top: 8px;
         }
         .ott-card .ott-grid img {
             width: 100%;
-            height: 40px;
+            height: 42px;
             object-fit: contain;
-            background: #f5f5f5;
+            background: rgba(0, 0, 0, 0.03);
             border-radius: 12px;
             padding: 4px;
             transition: transform 0.2s;
         }
         .ott-card .ott-grid img:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
         .ott-card .app-count {
             font-size: 0.7rem;
             color: #8a8aaa;
-            margin-top: 8px;
+            margin-top: 10px;
             letter-spacing: 0.3px;
         }
 
@@ -576,53 +697,60 @@
         }
         .form {
             width: 100%;
-            max-width: 460px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            max-width: 480px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 40px;
-            padding: 32px 24px 36px;
+            padding: 36px 28px 40px;
             text-align: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.3);
         }
         .form h3 {
             color: #fff;
             margin-top: 0;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 600;
             letter-spacing: -0.3px;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
+        }
+        .form h3 span {
+            display: inline-block;
+        }
+        .form-group {
+            margin-bottom: 6px;
         }
         input {
             width: 100%;
-            padding: 16px 18px;
-            margin: 8px 0 2px;
+            padding: 16px 20px;
+            margin: 6px 0 2px;
             border-radius: 60px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             font-size: 16px;
-            background: rgba(255, 255, 255, 0.06);
+            background: rgba(255, 255, 255, 0.05);
             color: #fff;
-            transition: all 0.25s;
+            transition: all 0.3s;
             outline: none;
         }
         input::placeholder {
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255, 255, 255, 0.3);
         }
         input:focus {
             border-color: #ff9800;
             background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(255, 152, 0, 0.1);
+            box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.06);
         }
         input.error {
             border-color: #e53935;
-            background: rgba(229, 57, 53, 0.1);
+            background: rgba(229, 57, 53, 0.08);
         }
         .error-text {
             color: #e53935;
             font-size: 12px;
             text-align: left;
-            padding-left: 16px;
-            min-height: 18px;
+            padding-left: 20px;
+            min-height: 20px;
+            font-weight: 500;
         }
         .form button {
             background: linear-gradient(135deg, #ff9800, #f57c00);
@@ -634,13 +762,13 @@
             font-size: 1.05rem;
             cursor: pointer;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 24px;
             transition: all 0.3s;
-            box-shadow: 0 8px 25px rgba(255, 152, 0, 0.25);
+            box-shadow: 0 8px 30px rgba(255, 152, 0, 0.2);
         }
         .form button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 35px rgba(255, 152, 0, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 45px rgba(255, 152, 0, 0.3);
         }
         .form button:active {
             transform: scale(0.97);
@@ -652,20 +780,20 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(10, 22, 40, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 14px 20px 18px;
+            background: rgba(10, 22, 40, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 16px 24px 20px;
             display: none;
             flex-direction: column;
             gap: 10px;
-            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 -10px 50px rgba(0, 0, 0, 0.5);
             z-index: 1000;
-            border-radius: 28px 28px 0 0;
+            border-radius: 32px 32px 0 0;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
         .bottom-bar .price-line {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: 800;
             text-align: center;
             color: #ff9800;
@@ -674,7 +802,7 @@
         .bottom-bar .price-line small {
             font-size: 16px;
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.4);
+            color: rgba(255, 255, 255, 0.3);
         }
         .bottom-bar button {
             background: linear-gradient(135deg, #25D366, #1da851);
@@ -688,15 +816,15 @@
             color: #fff;
             cursor: pointer;
             transition: all 0.3s;
-            box-shadow: 0 6px 25px rgba(37, 211, 102, 0.3);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.25);
         }
         .bottom-bar button:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 10px 35px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 12px 40px rgba(37, 211, 102, 0.35);
         }
         .bottom-bar button:disabled {
-            background: rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.2);
             box-shadow: none;
             cursor: not-allowed;
         }
@@ -706,28 +834,20 @@
 
         /* ----- RESPONSIVE TWEAKS ----- */
         @media(max-width:480px) {
-            .duration-card {
-                padding: 12px 8px;
-                min-width: 60px;
-            }
-            .duration-card .title {
-                font-size: 0.85rem;
-            }
-            .duration-card .offer {
-                font-size: 0.5rem;
-                padding: 1px 8px;
-            }
             .trust-strip {
                 font-size: 11px;
                 padding: 10px 8px;
                 gap: 4px 12px;
             }
+            .trust-strip span::before {
+                display: none;
+            }
             .form {
-                padding: 24px 16px 28px;
+                padding: 28px 16px 32px;
             }
             .ott-section {
                 margin: 12px 10px;
-                padding: 18px 10px 20px;
+                padding: 18px 12px 22px;
             }
             .ott-cards {
                 grid-template-columns: 1fr;
@@ -737,8 +857,14 @@
             }
             .selected-box {
                 font-size: 0.8rem;
-                padding: 10px 14px;
+                padding: 10px 16px;
                 margin: 0 10px 12px;
+            }
+            .bottom-bar {
+                padding: 12px 16px 16px;
+            }
+            .bottom-bar .price-line {
+                font-size: 24px;
             }
         }
     </style>
@@ -754,7 +880,7 @@
         </div>
     </div>
 
-    <!-- ----- HERO / BANNER - USING IMG TAG FOR BETTER MOBILE DISPLAY ----- -->
+    <!-- ----- HERO / BANNER ----- -->
     <div class="hero">
         <img src="https://jtommnchn-lab.github.io/Banner.jpg" alt="BSNL Bharat Fibre Chennai" loading="eager">
         <div class="banner-placeholder">BSNL Bharat Fibre</div>
@@ -767,7 +893,7 @@
         <span>📍 24x7 Chennai Support</span>
     </div>
 
-    <!-- ----- DURATION STRIP ----- -->
+    <!-- ----- DURATION STRIP - PILL DESIGN ----- -->
     <div class="duration-strip">
         <div class="duration-tabs" id="durationGrid">
             <div class="duration-card active" data-type="monthly" onclick="setPlanDuration('monthly',this)">
@@ -800,7 +926,7 @@
 
     <!-- ----- OTT SECTION ----- -->
     <div id="ottSection" class="ott-section" style="display:none;">
-        <h3>🎬 Add OTT Super Pack <span style="font-weight:400;font-size:0.8rem;color:rgba(255,255,255,0.4);">(Optional)</span></h3>
+        <h3>🎬 Add OTT Super Pack <span>(Optional)</span></h3>
         <div id="ottCardsContainer" class="ott-cards"></div>
     </div>
 
@@ -808,11 +934,17 @@
     <div class="form-section" id="formSection">
         <div class="form">
             <h3>📡 Check Availability &amp; Get Offer</h3>
-            <input id="userName" placeholder="Full Name" autocomplete="name">
-            <div id="nameErr" class="error-text"></div>
-            <input id="userPhone" placeholder="10-digit Mobile Number" maxlength="10" autocomplete="tel">
-            <div id="phoneErr" class="error-text"></div>
-            <input id="userArea" placeholder="Detecting location...">
+            <div class="form-group">
+                <input id="userName" placeholder="Full Name" autocomplete="name">
+                <div id="nameErr" class="error-text"></div>
+            </div>
+            <div class="form-group">
+                <input id="userPhone" placeholder="10-digit Mobile Number" maxlength="10" autocomplete="tel">
+                <div id="phoneErr" class="error-text"></div>
+            </div>
+            <div class="form-group">
+                <input id="userArea" placeholder="Detecting location...">
+            </div>
             <button onclick="submitLead()">🚀 Get Connection →</button>
         </div>
     </div>
@@ -824,7 +956,7 @@
     </div>
 
     <!-- ----- LEAD PROMPT (floating) ----- -->
-    <div id="leadPrompt" class="lead-prompt">✨ Fill your name &amp; phone to book free installation</div>
+    <div id="leadPrompt" class="lead-prompt">Fill your name &amp; phone to book free installation</div>
 
     <script>
         // ============================================================
@@ -891,7 +1023,6 @@
         // ============================================================
         //  PRICING HELPERS
         // ============================================================
-        // For internet plans: monthly = without GST, others = with GST
         function getPlanStoredPrice(plan) {
             return plan.price[currentDuration] || 0;
         }
@@ -914,13 +1045,11 @@
             }
         }
 
-        // For OTT addons: no GST conversion, just return the stored price as final.
         function getOttPrice(addon) {
             if (!addon) return 0;
             return addon.price[currentDuration] || 0;
         }
 
-        // Check if a plan is available for current duration
         function isPlanAvailable(plan) {
             return plan.price[currentDuration] !== undefined && plan.price[currentDuration] !== null;
         }
@@ -929,7 +1058,6 @@
             return internetPlans.filter(isPlanAvailable);
         }
 
-        // Compute total with GST for internet + OTT (OTT price is final, no GST added)
         function computeTotalWithGST() {
             let total = 0;
             if (selectedInternetPlan) {
@@ -979,7 +1107,9 @@
                 ${isPopular ? '<div class="badge">🌟 Most Popular</div>' : ''}
                 ${freeText ? `<div class="badge free">🎁 ${freeText}</div>` : ''}
                 <h3>${plan.name}</h3>
-                <div class="speed-tag">${plan.speed} · Unlimited</div>
+                <div class="speed-tag">
+                  <span class="dot"></span> ${plan.speed} · Unlimited
+                </div>
                 <h2>₹${priceWithGST} <small>/${currentDuration}</small></h2>
                 <div class="gst-details">
                   <span>With GST: ₹${priceWithGST}</span>
@@ -1016,13 +1146,13 @@
 
             Object.keys(ottAddons).forEach(key => {
                 const pack = ottAddons[key];
-                const price = getOttPrice(pack); // final price, no GST conversion
+                const price = getOttPrice(pack);
                 const active = selectedOttKey === key;
                 const logos = pack.apps.slice(0, 6).map(app => {
                     const src = ottLogos[app] || '';
                     return src ?
                         `<img src="${src}" alt="${app}" loading="lazy">` :
-                        `<div style="background:#f0f0f0;border-radius:10px;padding:4px;font-size:9px;color:#999;text-align:center;">${app}</div>`;
+                        `<div style="background:rgba(0,0,0,0.04);border-radius:10px;padding:4px;font-size:9px;color:#999;text-align:center;">${app}</div>`;
                 }).join('');
 
                 html += `
@@ -1150,7 +1280,7 @@
                 const dist = Math.abs(center - cardCenter);
                 const scale = Math.max(0.82, 1 - dist / 600);
                 const opacity = Math.max(0.5, 1 - dist / 500);
-                card.style.transform = `scale(${scale}) translateY(${10 - scale * 10}px)`;
+                card.style.transform = `scale(${scale}) translateY(${12 - scale * 12}px)`;
                 card.style.opacity = opacity;
             });
         }
@@ -1175,7 +1305,7 @@
             const container = document.getElementById("plansContainer");
             const cards = document.querySelectorAll(".card");
             if (!cards.length) return;
-            const w = cards[0].offsetWidth + 18;
+            const w = cards[0].offsetWidth + 20;
             container.scrollBy({ left: dir * w, behavior: "smooth" });
             setTimeout(updateCardScales, 200);
         }
@@ -1187,7 +1317,7 @@
             const p = document.getElementById("leadPrompt");
             p.classList.add("show");
             clearTimeout(p._timer);
-            p._timer = setTimeout(() => p.classList.remove("show"), 2400);
+            p._timer = setTimeout(() => p.classList.remove("show"), 2600);
         }
 
         // ============================================================
@@ -1263,7 +1393,7 @@
                 "OTT Selected": selectedOttName,
                 "Internet Price (Without GST)": internetWithoutGST,
                 "Internet Price (With GST)": internetWithGST,
-                "OTT Price": ottPrice, // final price, no GST
+                "OTT Price": ottPrice,
                 "Total (With GST)": totalWithGST,
                 Date: date,
                 Source: "BSNL Website Chennai"
