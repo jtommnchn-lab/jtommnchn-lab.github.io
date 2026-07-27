@@ -46,6 +46,7 @@
             margin: 0;
             padding: 0;
         }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
             background: #0a1628;
@@ -55,6 +56,7 @@
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
+
         @supports (font-variation-settings: normal) {
             body {
                 font-family: 'Inter var', sans-serif;
@@ -96,10 +98,12 @@
             backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         .lead-prompt.show {
             opacity: 1;
             transform: translateX(-50%) translateY(0);
         }
+
         .lead-prompt::before {
             content: '✨ ';
             margin-right: 4px;
@@ -119,15 +123,18 @@
             box-shadow: 0 2px 30px rgba(0, 0, 0, 0.06);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
+
         .topbar img {
             height: 36px;
             object-fit: contain;
         }
+
         .actions {
             display: flex;
             gap: 14px;
             align-items: center;
         }
+
         .actions a {
             text-decoration: none;
             font-size: 22px;
@@ -137,6 +144,7 @@
             border-radius: 60px;
             background: rgba(0, 0, 0, 0.03);
         }
+
         .actions a:hover {
             transform: scale(1.1) translateY(-2px);
             background: rgba(0, 0, 0, 0.06);
@@ -151,6 +159,7 @@
             overflow: hidden;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
+
         .hero img {
             width: 100%;
             height: 100%;
@@ -158,6 +167,7 @@
             object-position: center 30%;
             display: block;
         }
+
         .hero::after {
             content: '';
             position: absolute;
@@ -168,6 +178,7 @@
             background: linear-gradient(transparent, #0a1628);
             pointer-events: none;
         }
+
         @media(max-width:768px) {
             .hero {
                 height: 150px;
@@ -176,6 +187,7 @@
                 height: 40px;
             }
         }
+
         @media(max-width:480px) {
             .hero {
                 height: 120px;
@@ -196,13 +208,14 @@
             justify-content: center;
             gap: 6px 20px;
         }
+
         .trust-strip span {
             display: inline-flex;
             align-items: center;
             gap: 6px;
         }
 
-        /* ----- DURATION STRIP (rectangular) ----- */
+        /* ----- DURATION STRIP ----- */
         .duration-strip {
             background: rgba(255, 255, 255, 0.04);
             border-radius: 0;
@@ -214,14 +227,17 @@
             padding: 4px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
+
         .duration-strip::-webkit-scrollbar {
             display: none;
         }
+
         .duration-tabs {
             display: flex;
             min-width: 100%;
             gap: 0;
         }
+
         .duration-card {
             flex: 1 0 auto;
             text-align: center;
@@ -234,12 +250,14 @@
             position: relative;
             min-width: 70px;
         }
+
         .duration-card .title {
-            font-size: 1.1rem; /* Increased from 0.95rem */
+            font-size: 1.1rem;
             font-weight: 700;
             letter-spacing: 0.3px;
             transition: color 0.25s;
         }
+
         .duration-card .offer {
             font-size: 0.55rem;
             background: #ff9800;
@@ -252,17 +270,26 @@
             letter-spacing: 0.3px;
             text-transform: uppercase;
         }
+
         .duration-card.active {
             color: #fff;
             border-bottom-color: #ff9800;
             background: rgba(255, 255, 255, 0.06);
         }
+
         .duration-card.active .title {
             color: #fff;
         }
+
         .duration-card:not(.active):hover {
             color: rgba(255, 255, 255, 0.85);
             background: rgba(255, 255, 255, 0.03);
+        }
+
+        @media(max-width:480px) {
+            .duration-card .title {
+                font-size: 0.95rem;
+            }
         }
 
         /* ----- PLANS WRAPPER ----- */
@@ -284,11 +311,12 @@
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
         }
+
         .plans::-webkit-scrollbar {
             display: none;
         }
 
-        /* ----- INDIVIDUAL PLAN CARD - DARKER FONTS ----- */
+        /* ----- INDIVIDUAL PLAN CARD ----- */
         .card {
             flex: 0 0 220px;
             background: rgba(255, 255, 255, 0.88);
@@ -303,11 +331,14 @@
             transform: scale(0.88) translateY(12px);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #111111; /* Darker base color */
+            color: #111;
+            will-change: transform, opacity;
         }
+
         .card:hover {
             transform: scale(0.92) translateY(6px);
         }
+
         .card.selected {
             transform: scale(1.04) translateY(0) !important;
             opacity: 1;
@@ -315,16 +346,20 @@
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 0 30px rgba(46, 125, 50, 0.12), 0 20px 50px rgba(46, 125, 50, 0.08);
         }
+
         .card.selected h2 {
             color: #2e7d32;
         }
+
         .card.popular {
             border-color: rgba(255, 152, 0, 0.25);
         }
+
         .card.popular.selected {
             border-color: rgba(255, 152, 0, 0.4);
             box-shadow: 0 0 30px rgba(255, 152, 0, 0.1);
         }
+
         .card .badge {
             background: linear-gradient(135deg, #ff9800, #f57c00);
             color: #0a1628;
@@ -338,24 +373,28 @@
             letter-spacing: 0.5px;
             box-shadow: 0 2px 10px rgba(255, 152, 0, 0.25);
         }
+
         .card .badge.free {
             background: linear-gradient(135deg, #2e7d32, #1b5e20);
             color: #fff;
             box-shadow: 0 2px 10px rgba(46, 125, 50, 0.25);
         }
+
         .card h3 {
             font-size: 1.05rem;
             font-weight: 700;
             margin: 4px 0 2px;
             letter-spacing: -0.2px;
-            color: #111111; /* Darker */
+            color: #111;
         }
+
         .card .speed-tag {
             font-size: 0.7rem;
-            color: #444444; /* Darker */
+            color: #444;
             font-weight: 500;
             margin-bottom: 6px;
         }
+
         .card .speed-tag .dot {
             display: inline-block;
             width: 5px;
@@ -364,36 +403,41 @@
             background: #4caf50;
             margin-right: 4px;
         }
+
         .card h2 {
             font-size: 24px;
             font-weight: 800;
             margin: 6px 0 2px;
             letter-spacing: -0.5px;
-            color: #111111; /* Darker */
+            color: #111;
             transition: color 0.3s;
         }
+
         .card h2 small {
             font-size: 12px;
             font-weight: 500;
-            color: #555555; /* Darker */
+            color: #555;
         }
+
         .card .gst-details {
             font-size: 0.55rem;
-            color: #555555; /* Darker */
+            color: #555;
             line-height: 1.3;
             margin: 2px 0 10px;
             letter-spacing: 0.2px;
         }
+
         .card .gst-details span {
             display: inline-block;
             margin: 0 3px;
         }
+
         .card button {
             background: rgba(0, 0, 0, 0.04);
             border: 1px solid rgba(0, 0, 0, 0.06);
             padding: 8px 16px;
             border-radius: 60px;
-            color: #111111; /* Darker */
+            color: #111;
             font-weight: 600;
             font-size: 0.8rem;
             cursor: pointer;
@@ -402,16 +446,19 @@
             max-width: 140px;
             margin: 0 auto;
         }
+
         .card button:hover {
             background: rgba(0, 0, 0, 0.08);
             transform: scale(1.02);
         }
+
         .card.selected button {
             background: linear-gradient(135deg, #2e7d32, #1b5e20);
             color: #fff;
             border-color: #2e7d32;
             box-shadow: 0 4px 15px rgba(46, 125, 50, 0.25);
         }
+
         .card.selected button:hover {
             transform: scale(1.04);
         }
@@ -437,23 +484,33 @@
             justify-content: center;
             opacity: 0.6;
         }
+
         .carousel-btn:hover {
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-50%) scale(1.05);
             opacity: 1;
         }
+
         .carousel-btn.left {
             left: -4px;
         }
+
         .carousel-btn.right {
             right: -4px;
         }
+
         @media(max-width:600px) {
             .carousel-btn {
                 width: 32px;
                 height: 32px;
                 font-size: 14px;
                 opacity: 0.4;
+            }
+            .carousel-btn.left {
+                left: 0;
+            }
+            .carousel-btn.right {
+                right: 0;
             }
             .card {
                 flex: 0 0 180px;
@@ -464,12 +521,6 @@
             }
             .card .gst-details {
                 font-size: 0.5rem;
-            }
-            .carousel-btn.left {
-                left: 0;
-            }
-            .carousel-btn.right {
-                right: 0;
             }
         }
 
@@ -489,6 +540,7 @@
             color: #e8f5e9;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
         }
+
         .selected-box strong {
             color: #81c784;
         }
@@ -503,6 +555,7 @@
             scroll-margin-top: 80px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
+
         .ott-section h3 {
             font-size: 1.2rem;
             font-weight: 600;
@@ -512,16 +565,19 @@
             align-items: center;
             gap: 8px;
         }
+
         .ott-section h3 span {
             font-weight: 400;
             font-size: 0.8rem;
             color: rgba(255, 255, 255, 0.4);
         }
+
         .ott-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 14px;
         }
+
         .ott-card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
@@ -533,16 +589,19 @@
             border: 2px solid transparent;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
         }
+
         .ott-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
         }
+
         .ott-card.active {
             border-color: #2e7d32;
             background: rgba(255, 255, 255, 0.95);
             transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(46, 125, 50, 0.12);
         }
+
         .ott-card .ott-title {
             font-weight: 700;
             font-size: 1rem;
@@ -551,18 +610,21 @@
             gap: 6px;
             color: #1a1a2e;
         }
+
         .ott-card .ott-price {
             color: #2e7d32;
             font-weight: 600;
             margin: 4px 0 8px;
             font-size: 0.9rem;
         }
+
         .ott-card .ott-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             margin-top: 6px;
         }
+
         .ott-card .ott-grid img {
             width: 100%;
             height: 36px;
@@ -572,9 +634,11 @@
             padding: 4px;
             transition: transform 0.2s;
         }
+
         .ott-card .ott-grid img:hover {
             transform: scale(1.06);
         }
+
         .ott-card .app-count {
             font-size: 0.65rem;
             color: #8a8aaa;
@@ -588,6 +652,7 @@
             justify-content: center;
             scroll-margin-top: 80px;
         }
+
         .form {
             width: 100%;
             max-width: 460px;
@@ -599,12 +664,14 @@
             text-align: center;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
         }
+
         .form h3 {
             color: #fff;
             font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 20px;
         }
+
         input {
             width: 100%;
             padding: 14px 18px;
@@ -617,18 +684,22 @@
             transition: all 0.3s;
             outline: none;
         }
+
         input::placeholder {
             color: rgba(255, 255, 255, 0.3);
         }
+
         input:focus {
             border-color: #ff9800;
             background: rgba(255, 255, 255, 0.08);
             box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.06);
         }
+
         input.error {
             border-color: #e53935;
             background: rgba(229, 57, 53, 0.08);
         }
+
         .error-text {
             color: #e53935;
             font-size: 12px;
@@ -637,6 +708,7 @@
             min-height: 18px;
             font-weight: 500;
         }
+
         .form button {
             background: linear-gradient(135deg, #ff9800, #f57c00);
             color: #0a1628;
@@ -651,10 +723,12 @@
             transition: all 0.3s;
             box-shadow: 0 6px 25px rgba(255, 152, 0, 0.2);
         }
+
         .form button:hover {
             transform: translateY(-3px);
             box-shadow: 0 12px 40px rgba(255, 152, 0, 0.3);
         }
+
         .form button:active {
             transform: scale(0.97);
         }
@@ -676,6 +750,7 @@
             border-radius: 28px 28px 0 0;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
+
         .bottom-bar .price-line {
             font-size: 26px;
             font-weight: 800;
@@ -683,11 +758,13 @@
             color: #ff9800;
             letter-spacing: -0.5px;
         }
+
         .bottom-bar .price-line small {
             font-size: 15px;
             font-weight: 500;
             color: rgba(255, 255, 255, 0.3);
         }
+
         .bottom-bar button {
             background: linear-gradient(135deg, #25D366, #1da851);
             width: 100%;
@@ -702,16 +779,19 @@
             transition: all 0.3s;
             box-shadow: 0 6px 25px rgba(37, 211, 102, 0.25);
         }
+
         .bottom-bar button:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 10px 35px rgba(37, 211, 102, 0.35);
         }
+
         .bottom-bar button:disabled {
             background: rgba(255, 255, 255, 0.05);
             color: rgba(255, 255, 255, 0.2);
             box-shadow: none;
             cursor: not-allowed;
         }
+
         .bottom-bar button:active:not(:disabled) {
             transform: scale(0.97);
         }
@@ -744,10 +824,6 @@
             .bottom-bar .price-line {
                 font-size: 22px;
             }
-            /* Duration selector font adjustment for mobile */
-            .duration-card .title {
-                font-size: 0.95rem;
-            }
         }
     </style>
 </head>
@@ -774,7 +850,7 @@
         <span>📍 24x7 Chennai Support</span>
     </div>
 
-    <!-- ----- DURATION STRIP (rectangular, reverted) ----- -->
+    <!-- ----- DURATION STRIP ----- -->
     <div class="duration-strip">
         <div class="duration-tabs" id="durationGrid">
             <div class="duration-card active" data-type="monthly" onclick="setPlanDuration('monthly',this)">
@@ -837,6 +913,9 @@
         // ============================================================
         //  DATA
         // ============================================================
+        // Monthly internet values are WITHOUT GST; quarterly, half, yearly are WITH GST.
+        // OTT prices are always treated as final (no GST conversion).
+
         const internetPlans = [
             { name: "Fibre Entry", speed: "25 Mbps", price: { monthly: 333, quarterly: 1178, half: 2356, yearly: 4712 } },
             { name: "Ghar Ka WiFi", speed: "40 Mbps", price: { monthly: 399, quarterly: 1413, half: 2826, yearly: 5652 } },
@@ -880,8 +959,9 @@
         };
 
         // ============================================================
-        //  STATE & HELPERS
+        //  STATE
         // ============================================================
+
         let currentDuration = "monthly";
         let selectedInternetPlan = null;
         let selectedOttKey = "none";
@@ -891,116 +971,187 @@
         let isAutoScrolling = false;
         let flowStep = 0;
 
-        function getPlanStoredPrice(plan) { return plan.price[currentDuration] || 0; }
+        // ============================================================
+        //  DOM HELPERS (cached for performance)
+        // ============================================================
+
+        const $ = function(id) {
+            return document.getElementById(id);
+        };
+
+        const qs = function(selector, context) {
+            return (context || document).querySelector(selector);
+        };
+
+        const qsa = function(selector, context) {
+            return (context || document).querySelectorAll(selector);
+        };
+
+        // ============================================================
+        //  PRICING HELPERS
+        // ============================================================
+
+        function getPlanStoredPrice(plan) {
+            return plan.price[currentDuration] || 0;
+        }
+
+        // Monthly: stored = without GST → add 18% GST. Others: stored = with GST → return as-is.
         function getPlanWithGST(plan) {
             const base = getPlanStoredPrice(plan);
-            return currentDuration === 'monthly' ? Math.round(base * 1.18) : Math.round(base);
+            if (currentDuration === 'monthly') {
+                return Math.round(base * 1.18);
+            } else {
+                return Math.round(base);
+            }
         }
+
+        // Monthly: stored = without GST → return as-is. Others: stored = with GST → divide by 1.18.
         function getPlanWithoutGST(plan) {
             const base = getPlanStoredPrice(plan);
-            return currentDuration === 'monthly' ? Math.round(base) : Math.round(base / 1.18);
+            if (currentDuration === 'monthly') {
+                return Math.round(base);
+            } else {
+                return Math.round(base / 1.18);
+            }
         }
-        function getOttPrice(addon) { return addon ? addon.price[currentDuration] || 0 : 0; }
-        function isPlanAvailable(plan) { return plan.price[currentDuration] !== undefined && plan.price[currentDuration] !== null; }
-        function getAvailablePlans() { return internetPlans.filter(isPlanAvailable); }
+
+        // OTT prices are always final (no GST conversion)
+        function getOttPrice(addon) {
+            return addon ? addon.price[currentDuration] || 0 : 0;
+        }
+
+        function isPlanAvailable(plan) {
+            return plan.price[currentDuration] !== undefined && plan.price[currentDuration] !== null;
+        }
+
+        function getAvailablePlans() {
+            return internetPlans.filter(isPlanAvailable);
+        }
+
         function computeTotalWithGST() {
             let total = 0;
-            if (selectedInternetPlan) total += getPlanWithGST(selectedInternetPlan);
-            if (selectedOttKey !== "none" && ottAddons[selectedOttKey]) total += getOttPrice(ottAddons[selectedOttKey]);
+            if (selectedInternetPlan) {
+                total += getPlanWithGST(selectedInternetPlan);
+            }
+            if (selectedOttKey !== "none" && ottAddons[selectedOttKey]) {
+                total += getOttPrice(ottAddons[selectedOttKey]);
+            }
             return total;
         }
 
         // ============================================================
         //  RENDER: PLANS
         // ============================================================
+
         function renderInternetPlans() {
-            const container = document.getElementById("plansContainer");
+            const container = $("plansContainer");
             const available = getAvailablePlans();
+
             if (!available.length) {
                 container.innerHTML =
-                    `<p style="color:rgba(255,255,255,0.4);text-align:center;width:100%;padding:40px 0;">No plans available for this duration.</p>`;
+                    '<p style="color:rgba(255,255,255,0.4);text-align:center;width:100%;padding:40px 0;">No plans available for this duration.</p>';
                 return;
             }
+
+            // Ensure selected plan is available, else pick first (prefer popular)
             if (selectedInternetPlan) {
-                if (!available.some(p => p.name === selectedInternetPlan.name)) {
-                    selectedInternetPlan = available.find(p => p.popular) || available[0];
+                if (!available.some(function(p) { return p.name === selectedInternetPlan.name; })) {
+                    selectedInternetPlan = available.find(function(p) { return p.popular; }) || available[0];
                 }
             } else {
-                selectedInternetPlan = available.find(p => p.popular) || available[0];
+                selectedInternetPlan = available.find(function(p) { return p.popular; }) || available[0];
             }
 
-            container.innerHTML = available.map(plan => {
-                const priceWithGST = getPlanWithGST(plan);
-                const priceWithoutGST = getPlanWithoutGST(plan);
-                const freeText = currentDuration === "quarterly" ? "7 Days FREE" :
+            // Build HTML
+            var html = '';
+            for (var i = 0; i < available.length; i++) {
+                var plan = available[i];
+                var priceWithGST = getPlanWithGST(plan);
+                var priceWithoutGST = getPlanWithoutGST(plan);
+                var freeText = currentDuration === "quarterly" ? "7 Days FREE" :
                     currentDuration === "half" ? "19 Days FREE" :
                     currentDuration === "yearly" ? "1 Month FREE" : "";
-                const isPopular = !!plan.popular;
-                const isSelected = selectedInternetPlan && selectedInternetPlan.name === plan.name;
-                const selectedClass = isSelected ? "selected" : "";
+                var isPopular = !!plan.popular;
+                var isSelected = selectedInternetPlan && selectedInternetPlan.name === plan.name;
+                var selectedClass = isSelected ? "selected" : "";
 
-                return `
-              <div class="card ${selectedClass} ${isPopular ? 'popular' : ''}" 
-                   data-plan-name="${plan.name}" 
-                   onclick="selectInternetPlan('${plan.name}')">
-                ${isPopular ? '<div class="badge">🌟 Most Popular</div>' : ''}
-                ${freeText ? `<div class="badge free">🎁 ${freeText}</div>` : ''}
-                <h3>${plan.name}</h3>
-                <div class="speed-tag"><span class="dot"></span> ${plan.speed} · Unlimited</div>
-                <h2>₹${priceWithGST} <small>/${currentDuration}</small></h2>
-                <div class="gst-details">
-                  <span>With GST: ₹${priceWithGST}</span>
-                  <span>|</span>
-                  <span>Without GST: ₹${priceWithoutGST}</span>
-                </div>
-                <button onclick="event.stopPropagation(); selectInternetPlan('${plan.name}')">
-                  ${isSelected ? '✓ Selected' : 'Select Plan'}
-                </button>
-              </div>
-            `;
-            }).join('');
+                html += `
+                    <div class="card ${selectedClass} ${isPopular ? 'popular' : ''}" 
+                         data-plan-name="${plan.name}" 
+                         onclick="selectInternetPlan('${plan.name}')">
+                        ${isPopular ? '<div class="badge">🌟 Most Popular</div>' : ''}
+                        ${freeText ? `<div class="badge free">🎁 ${freeText}</div>` : ''}
+                        <h3>${plan.name}</h3>
+                        <div class="speed-tag"><span class="dot"></span> ${plan.speed} · Unlimited</div>
+                        <h2>₹${priceWithGST} <small>/${currentDuration}</small></h2>
+                        <div class="gst-details">
+                            <span>With GST: ₹${priceWithGST}</span>
+                            <span>|</span>
+                            <span>Without GST: ₹${priceWithoutGST}</span>
+                        </div>
+                        <button onclick="event.stopPropagation(); selectInternetPlan('${plan.name}')">
+                            ${isSelected ? '✓ Selected' : 'Select Plan'}
+                        </button>
+                    </div>
+                `;
+            }
 
-            requestAnimationFrame(() => {
+            container.innerHTML = html;
+
+            // Update card scaling after render
+            requestAnimationFrame(function() {
                 updateCardScales();
-                if (selectedInternetPlan) centerSelectedPlanCard();
+                if (selectedInternetPlan) {
+                    centerSelectedPlanCard();
+                }
             });
         }
 
         // ============================================================
         //  RENDER: OTT CARDS
         // ============================================================
+
         function renderOttCards() {
-            const container = document.getElementById("ottCardsContainer");
+            var container = $("ottCardsContainer");
             if (!container) return;
 
-            const noneActive = selectedOttKey === "none";
-            let html = `
-            <div class="ott-card ${noneActive ? 'active' : ''}" onclick="selectOttAddon('none')">
-              <div class="ott-title">🚫 No OTT</div>
-              <div class="ott-price">Continue without OTT</div>
-            </div>
-          `;
+            var noneActive = selectedOttKey === "none";
+            var html = `
+                <div class="ott-card ${noneActive ? 'active' : ''}" onclick="selectOttAddon('none')">
+                    <div class="ott-title">🚫 No OTT</div>
+                    <div class="ott-price">Continue without OTT</div>
+                </div>
+            `;
 
-            Object.keys(ottAddons).forEach(key => {
-                const pack = ottAddons[key];
-                const price = getOttPrice(pack);
-                const active = selectedOttKey === key;
-                const logos = pack.apps.slice(0, 6).map(app => {
-                    const src = ottLogos[app] || '';
-                    return src ?
-                        `<img src="${src}" alt="${app}" loading="lazy">` :
-                        `<div style="background:rgba(0,0,0,0.04);border-radius:10px;padding:4px;font-size:9px;color:#999;text-align:center;">${app}</div>`;
-                }).join('');
+            var keys = Object.keys(ottAddons);
+            for (var i = 0; i < keys.length; i++) {
+                var key = keys[i];
+                var pack = ottAddons[key];
+                var price = getOttPrice(pack);
+                var active = selectedOttKey === key;
+                var apps = pack.apps.slice(0, 6);
+                var logosHtml = '';
+
+                for (var j = 0; j < apps.length; j++) {
+                    var app = apps[j];
+                    var src = ottLogos[app] || '';
+                    if (src) {
+                        logosHtml += `<img src="${src}" alt="${app}" loading="lazy">`;
+                    } else {
+                        logosHtml +=
+                            `<div style="background:rgba(0,0,0,0.04);border-radius:10px;padding:4px;font-size:9px;color:#999;text-align:center;">${app}</div>`;
+                    }
+                }
 
                 html += `
-              <div class="ott-card ${active ? 'active' : ''}" onclick="selectOttAddon('${key}')">
-                <div class="ott-title">🎬 ${pack.name}</div>
-                <div class="ott-price">+ ₹${price} / ${currentDuration}</div>
-                <div class="ott-grid">${logos}</div>
-                <div class="app-count">✨ ${pack.apps.length}+ Apps</div>
-              </div>
-            `;
-            });
+                    <div class="ott-card ${active ? 'active' : ''}" onclick="selectOttAddon('${key}')">
+                        <div class="ott-title">🎬 ${pack.name}</div>
+                        <div class="ott-price">+ ₹${price} / ${currentDuration}</div>
+                        <div class="ott-grid">${logosHtml}</div>
+                        <div class="app-count">✨ ${pack.apps.length}+ Apps</div>
+                    </div>
+                `;
+            }
 
             container.innerHTML = html;
         }
@@ -1008,59 +1159,76 @@
         // ============================================================
         //  ACTIONS
         // ============================================================
+
         function selectInternetPlan(name) {
-            const plan = internetPlans.find(p => p.name === name);
+            var plan = internetPlans.find(function(p) { return p.name === name; });
             if (!plan) return;
             if (!isPlanAvailable(plan)) {
                 alert("This plan is not available for the selected duration. Please choose another.");
                 return;
             }
+
             selectedInternetPlan = plan;
             selectedOttKey = "none";
             selectedOttName = "None";
+
             renderOttCards();
             renderInternetPlans();
             refreshUI();
-            document.getElementById("ottSection").style.display = "block";
+
+            $("ottSection").style.display = "block";
             flowStep = 1;
-            setTimeout(() => {
-                document.getElementById("ottSection").scrollIntoView({ behavior: "smooth", block: "start" });
+
+            setTimeout(function() {
+                $("ottSection").scrollIntoView({ behavior: "smooth", block: "start" });
             }, 150);
+
             showLeadPrompt();
             updateBottomButton();
         }
 
-        function setPlanDuration(duration, el) {
+        function setPlanDuration(duration, element) {
             if (currentDuration === duration) return;
+
             currentDuration = duration;
-            document.querySelectorAll(".duration-card").forEach(c => c.classList.remove("active"));
-            el.classList.add("active");
+
+            var cards = qsa(".duration-card");
+            for (var i = 0; i < cards.length; i++) {
+                cards[i].classList.remove("active");
+            }
+            element.classList.add("active");
+
             selectedOttKey = "none";
             selectedOttName = "None";
+
             renderInternetPlans();
             renderOttCards();
             refreshUI();
+
             if (selectedInternetPlan) {
-                document.getElementById("ottSection").style.display = "block";
+                $("ottSection").style.display = "block";
                 flowStep = 1;
             } else {
-                document.getElementById("ottSection").style.display = "none";
+                $("ottSection").style.display = "none";
                 flowStep = 0;
             }
+
             updateBottomButton();
         }
 
         function selectOttAddon(key) {
             selectedOttKey = key;
             selectedOttName = key === "none" ? "None" : ottAddons[key].name;
+
             renderOttCards();
             refreshUI();
             showLeadPrompt();
             updateBottomButton();
+
             if (flowStep === 1) {
                 flowStep = 2;
-                setTimeout(() => {
-                    document.getElementById("formSection").scrollIntoView({ behavior: "smooth", block: "start" });
+                setTimeout(function() {
+                    $("formSection").scrollIntoView({ behavior: "smooth", block: "start" });
                 }, 200);
             }
         }
@@ -1068,105 +1236,135 @@
         // ============================================================
         //  UI UPDATES
         // ============================================================
+
         function refreshUI() {
-            const total = computeTotalWithGST();
-            let internetWithGST = 0,
-                ottPrice = 0;
-            if (selectedInternetPlan) internetWithGST = getPlanWithGST(selectedInternetPlan);
-            if (selectedOttKey !== "none" && ottAddons[selectedOttKey]) ottPrice = getOttPrice(ottAddons[selectedOttKey]);
+            var total = computeTotalWithGST();
 
-            document.getElementById("bottomTotalPrice").innerHTML = `₹${total} <small>total</small>`;
+            var internetWithGST = 0;
+            var ottPrice = 0;
 
-            const box = document.getElementById("selectedBox");
+            if (selectedInternetPlan) {
+                internetWithGST = getPlanWithGST(selectedInternetPlan);
+            }
+            if (selectedOttKey !== "none" && ottAddons[selectedOttKey]) {
+                ottPrice = getOttPrice(ottAddons[selectedOttKey]);
+            }
+
+            $("bottomTotalPrice").innerHTML = `₹${total} <small>total</small>`;
+
+            var box = $("selectedBox");
             if (selectedInternetPlan) {
                 box.style.display = "block";
-                let ottLine = selectedOttKey !== "none" ? ` + ${ottAddons[selectedOttKey].name} (₹${ottPrice})` : "";
+                var ottLine = selectedOttKey !== "none" ? ` + ${ottAddons[selectedOttKey].name} (₹${ottPrice})` : "";
                 box.innerHTML =
                     `📡 <strong>${selectedInternetPlan.name}</strong> (${selectedInternetPlan.speed})  ₹${internetWithGST} ${ottLine}<br>💰 Total: <strong>₹${total}</strong>`;
             } else {
                 box.style.display = "none";
             }
 
-            const bar = document.getElementById("bottomBar");
+            var bar = $("bottomBar");
             bar.style.display = selectedInternetPlan ? "flex" : "none";
+
             updateBottomButton();
         }
 
         function updateCardScales() {
-            const container = document.getElementById("plansContainer");
-            const cards = document.querySelectorAll(".card");
+            var container = $("plansContainer");
+            var cards = qsa(".card", container);
             if (!container || !cards.length) return;
-            const center = container.offsetWidth / 2;
-            const rect = container.getBoundingClientRect();
 
-            cards.forEach(card => {
+            var center = container.offsetWidth / 2;
+            var containerRect = container.getBoundingClientRect();
+
+            for (var i = 0; i < cards.length; i++) {
+                var card = cards[i];
+
                 if (card.classList.contains("selected")) {
                     card.style.transform = "scale(1.04) translateY(0)";
                     card.style.opacity = "1";
-                    return;
+                    continue;
                 }
-                const r = card.getBoundingClientRect();
-                const cardCenter = r.left + r.width / 2 - rect.left;
-                const dist = Math.abs(center - cardCenter);
-                const scale = Math.max(0.82, 1 - dist / 600);
-                const opacity = Math.max(0.5, 1 - dist / 500);
-                card.style.transform = `scale(${scale}) translateY(${12 - scale * 12}px)`;
+
+                var cardRect = card.getBoundingClientRect();
+                var cardCenter = cardRect.left + cardRect.width / 2 - containerRect.left;
+                var distance = Math.abs(center - cardCenter);
+
+                var scale = Math.max(0.82, 1 - distance / 600);
+                var opacity = Math.max(0.5, 1 - distance / 500);
+
+                card.style.transform = "scale(" + scale + ") translateY(" + (12 - scale * 12) + "px)";
                 card.style.opacity = opacity;
-            });
+            }
         }
 
         function centerSelectedPlanCard() {
             if (!selectedInternetPlan) return;
-            const container = document.getElementById("plansContainer");
-            const target = document.querySelector(`.card[data-plan-name="${selectedInternetPlan.name}"]`);
+
+            var container = $("plansContainer");
+            var target = qs('.card[data-plan-name="' + selectedInternetPlan.name + '"]', container);
             if (!target || !container) return;
+
             isAutoScrolling = true;
-            const cw = container.clientWidth;
-            const tw = target.offsetWidth;
-            const scroll = target.offsetLeft - (cw / 2) + (tw / 2);
-            container.scrollTo({ left: Math.max(0, scroll), behavior: "smooth" });
-            setTimeout(() => {
+
+            var containerWidth = container.clientWidth;
+            var targetWidth = target.offsetWidth;
+            var scrollPosition = target.offsetLeft - (containerWidth / 2) + (targetWidth / 2);
+
+            container.scrollTo({ left: Math.max(0, scrollPosition), behavior: "smooth" });
+
+            setTimeout(function() {
                 isAutoScrolling = false;
                 updateCardScales();
             }, 400);
         }
 
-        function scrollPlans(dir) {
-            const container = document.getElementById("plansContainer");
-            const cards = document.querySelectorAll(".card");
+        function scrollPlans(direction) {
+            var container = $("plansContainer");
+            var cards = qsa(".card", container);
             if (!cards.length) return;
-            const w = cards[0].offsetWidth + 14;
-            container.scrollBy({ left: dir * w, behavior: "smooth" });
+
+            var cardWidth = cards[0].offsetWidth + 14;
+            container.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
+
             setTimeout(updateCardScales, 200);
         }
 
         // ============================================================
         //  LEAD PROMPT
         // ============================================================
+
         function showLeadPrompt() {
-            const p = document.getElementById("leadPrompt");
-            p.classList.add("show");
-            clearTimeout(p._timer);
-            p._timer = setTimeout(() => p.classList.remove("show"), 2600);
+            var prompt = $("leadPrompt");
+            prompt.classList.add("show");
+            clearTimeout(prompt._timer);
+            prompt._timer = setTimeout(function() {
+                prompt.classList.remove("show");
+            }, 2600);
         }
 
         // ============================================================
         //  FORM VALIDATION & BOTTOM BUTTON
         // ============================================================
+
         function updateBottomButton() {
-            const btn = document.getElementById("bottomSubmitBtn");
+            var btn = $("bottomSubmitBtn");
             if (!btn) return;
-            const name = document.getElementById("userName").value.trim();
-            const phone = document.getElementById("userPhone").value.trim();
-            btn.disabled = !(selectedInternetPlan && name.length > 0 && /^[6-9]\d{9}$/.test(phone));
+
+            var name = $("userName").value.trim();
+            var phone = $("userPhone").value.trim();
+
+            var isValid = selectedInternetPlan && name.length > 0 && /^[6-9]\d{9}$/.test(phone);
+            btn.disabled = !isValid;
         }
 
         function validateBasicFields() {
-            let ok = true;
-            const name = document.getElementById("userName");
-            const phone = document.getElementById("userPhone");
-            const nameErr = document.getElementById("nameErr");
-            const phoneErr = document.getElementById("phoneErr");
+            var isValid = true;
+
+            var name = $("userName");
+            var phone = $("userPhone");
+            var nameErr = $("nameErr");
+            var phoneErr = $("phoneErr");
+
             name.classList.remove("error");
             phone.classList.remove("error");
             nameErr.textContent = "";
@@ -1175,42 +1373,56 @@
             if (!name.value.trim()) {
                 name.classList.add("error");
                 nameErr.textContent = "Enter your full name";
-                ok = false;
+                isValid = false;
             }
-            const pv = phone.value.trim();
-            if (!/^[6-9]\d{9}$/.test(pv)) {
+
+            var phoneValue = phone.value.trim();
+            if (!/^[6-9]\d{9}$/.test(phoneValue)) {
                 phone.classList.add("error");
                 phoneErr.textContent = "Valid 10-digit mobile number required";
-                ok = false;
+                isValid = false;
             }
+
             if (!selectedInternetPlan) {
                 alert("📡 Please select an internet plan first");
                 return false;
             }
-            return ok;
+
+            return isValid;
         }
 
         // ============================================================
         //  SUBMIT LEAD
         // ============================================================
+
         async function submitLead() {
             if (!validateBasicFields()) return;
-            const name = document.getElementById("userName").value.trim();
-            const phone = document.getElementById("userPhone").value.trim();
-            const area = document.getElementById("userArea").value.trim() || "Chennai";
-            const plan = selectedInternetPlan;
-            const internetWithGST = getPlanWithGST(plan);
-            const internetWithoutGST = getPlanWithoutGST(plan);
-            const ottPrice = (selectedOttKey !== "none" && ottAddons[selectedOttKey]) ?
+
+            var name = $("userName").value.trim();
+            var phone = $("userPhone").value.trim();
+            var area = $("userArea").value.trim() || "Chennai";
+            var plan = selectedInternetPlan;
+
+            var internetWithGST = getPlanWithGST(plan);
+            var internetWithoutGST = getPlanWithoutGST(plan);
+            var ottPrice = (selectedOttKey !== "none" && ottAddons[selectedOttKey]) ?
                 getOttPrice(ottAddons[selectedOttKey]) : 0;
-            const totalWithGST = computeTotalWithGST();
-            const date = new Date().toLocaleString("en-IN");
+            var totalWithGST = computeTotalWithGST();
+            var date = new Date().toLocaleString("en-IN");
 
-            gtag('event', 'conversion', { 'send_to': 'AW-XXXXXXXXX/CONVERSION_ID', 'value': totalWithGST,
-                'currency': 'INR' });
-            fbq('track', 'Lead', { content_name: plan.name, value: totalWithGST, currency: 'INR' });
+            // Tracking
+            gtag('event', 'conversion', {
+                'send_to': 'AW-XXXXXXXXX/CONVERSION_ID',
+                'value': totalWithGST,
+                'currency': 'INR'
+            });
+            fbq('track', 'Lead', {
+                content_name: plan.name,
+                value: totalWithGST,
+                currency: 'INR'
+            });
 
-            const payload = {
+            var payload = {
                 Name: name,
                 Phone: phone,
                 Area: area,
@@ -1228,56 +1440,95 @@
                 Source: "BSNL Website Chennai"
             };
 
+            // Send to Google Sheets
             await fetch(
                 "https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", {
                     method: "POST",
                     mode: "no-cors",
                     body: JSON.stringify(payload)
-                });
+                }
+            );
 
-            const wa =
-                `🔥 *New BSNL Lead* 🔥%0A👤 *Name:* ${name}%0A📞 *Phone:* ${phone}%0A📍 *Area:* ${area}%0A📶 *Plan:* ${plan.name} (${plan.speed})%0A⏳ *Duration:* ${currentDuration}%0A🎬 *OTT:* ${selectedOttName}%0A💰 *Total (With GST):* ₹${totalWithGST}%0A✅ Request installation.`;
-            window.open(`https://wa.me/919447072230?text=${wa}`);
+            // WhatsApp message
+            var waMsg =
+                "🔥 *New BSNL Lead* 🔥%0A" +
+                "👤 *Name:* " + name + "%0A" +
+                "📞 *Phone:* " + phone + "%0A" +
+                "📍 *Area:* " + area + "%0A" +
+                "📶 *Plan:* " + plan.name + " (" + plan.speed + ")%0A" +
+                "⏳ *Duration:* " + currentDuration + "%0A" +
+                "🎬 *OTT:* " + selectedOttName + "%0A" +
+                "💰 *Total (With GST):* ₹" + totalWithGST + "%0A" +
+                "✅ Request installation.";
+
+            window.open("https://wa.me/919447072230?text=" + waMsg);
         }
 
         // ============================================================
         //  GEOLOCATION
         // ============================================================
+
         function detectUserArea() {
-            const input = document.getElementById("userArea");
-            if (!navigator.geolocation) { input.value = "Chennai"; return; }
-            navigator.geolocation.getCurrentPosition(async pos => {
-                userLat = pos.coords.latitude;
-                userLng = pos.coords.longitude;
-                try {
-                    const res = await fetch(
-                        `https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
-                    const data = await res.json();
-                    input.value = data.address?.suburb || data.address?.city || "Chennai";
-                } catch (_) { input.value = "Chennai"; }
-            }, () => { input.value = "Chennai"; });
+            var input = $("userArea");
+
+            if (!navigator.geolocation) {
+                input.value = "Chennai";
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                async function(position) {
+                    userLat = position.coords.latitude;
+                    userLng = position.coords.longitude;
+
+                    try {
+                        var response = await fetch(
+                            "https://nominatim.openstreetmap.org/reverse?lat=" + userLat + "&lon=" + userLng +
+                            "&format=json"
+                        );
+                        var data = await response.json();
+                        input.value = data.address?.suburb || data.address?.city || "Chennai";
+                    } catch (_) {
+                        input.value = "Chennai";
+                    }
+                },
+                function() {
+                    input.value = "Chennai";
+                }
+            );
         }
 
         // ============================================================
         //  EVENT BINDING & INIT
         // ============================================================
+
         function bindEvents() {
-            document.getElementById("userName").addEventListener("input", updateBottomButton);
-            document.getElementById("userPhone").addEventListener("input", updateBottomButton);
-            const container = document.getElementById("plansContainer");
-            container.addEventListener("scroll", () => { if (!isAutoScrolling) updateCardScales(); });
+            $("userName").addEventListener("input", updateBottomButton);
+            $("userPhone").addEventListener("input", updateBottomButton);
+
+            var container = $("plansContainer");
+            container.addEventListener("scroll", function() {
+                if (!isAutoScrolling) {
+                    updateCardScales();
+                }
+            });
+
             window.addEventListener("resize", updateCardScales);
         }
 
-        window.onload = () => {
+        window.onload = function() {
             detectUserArea();
-            const def = internetPlans.find(p => p.popular) || internetPlans[0];
-            selectedInternetPlan = def;
+
+            var defaultPlan = internetPlans.find(function(p) { return p.popular; }) || internetPlans[0];
+            selectedInternetPlan = defaultPlan;
+
             renderInternetPlans();
             renderOttCards();
             refreshUI();
-            document.getElementById("ottSection").style.display = "block";
+
+            $("ottSection").style.display = "block";
             flowStep = 1;
+
             bindEvents();
             updateBottomButton();
         };
