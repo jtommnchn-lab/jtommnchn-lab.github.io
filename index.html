@@ -439,6 +439,7 @@
             color: #1a1a2e;
             border: 2px solid transparent;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+            position: relative;
         }
         .ott-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); }
         .ott-card.active {
@@ -447,7 +448,12 @@
             transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(46, 125, 50, 0.12);
         }
-        .ott-card.disabled { opacity: 0.45; cursor: not-allowed; }
+        .ott-card.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            filter: grayscale(0.7);
+        }
+        .ott-card.disabled:hover { transform: none; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06); }
         .ott-card .ott-title {
             font-weight: 700;
             font-size: 1rem;
@@ -490,6 +496,16 @@
             font-size: 0.75rem;
             margin-top: 6px;
         }
+        .ott-card .locked-msg {
+            color: #c62828;
+            font-weight: 600;
+            font-size: 0.7rem;
+            margin-top: 6px;
+            background: rgba(198, 40, 40, 0.08);
+            padding: 4px 8px;
+            border-radius: 20px;
+            display: inline-block;
+        }
         .voucher-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -510,17 +526,39 @@
             background: rgba(123, 31, 162, 0.15);
             border: 1px solid rgba(123, 31, 162, 0.3);
             border-radius: 20px;
-            padding: 12px 16px;
-            margin-bottom: 14px;
+            padding: 14px 18px;
+            margin-bottom: 16px;
             color: #fff;
-            font-size: 0.85rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+        .token-summary .row {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 6px;
         }
         .token-summary strong { color: #ce93d8; }
+        .token-summary .remaining-highlight {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #81c784;
+        }
+        .token-summary .remaining-zero { color: #ef9a9a; }
+        .token-progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+        .token-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #7b1fa2, #ce93d8);
+            border-radius: 20px;
+            transition: width 0.3s ease;
+        }
 
         /* ----- FORM ----- */
         .form-section {
@@ -643,10 +681,13 @@
             .trust-strip { font-size: 11px; padding: 8px 8px; gap: 4px 12px; }
             .form { padding: 24px 16px 28px; }
             .ott-section { margin: 12px 10px; padding: 16px 10px 20px; }
-            .ott-cards { grid-template-columns: 1fr; }
+            .ott-cards { grid-template-columns: 1fr 1fr; }
             .selected-box { font-size: 0.8rem; padding: 10px 14px; margin: 0 10px 10px; }
             .bottom-bar { padding: 10px 16px 14px; }
             .bottom-bar .price-line { font-size: 22px; }
+        }
+        @media(max-width:380px) {
+            .ott-cards { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -712,7 +753,7 @@
 
     <!-- ----- OTT TOKEN SECTION (for plans with OTT tokens) ----- -->
     <div id="ottTokenSection" class="ott-section" style="display:none;">
-        <h3>🎬 Build Your OTT <span>(BYO – Pick OTTs using tokens)</span></h3>
+        <h3>🎬 Build Your OTT <span>(Pick OTTs using tokens)</span></h3>
         <div class="token-summary" id="tokenSummary"></div>
         <div id="tokenOttList" class="ott-cards"></div>
         <div id="tokenVoucherSection" style="margin-top:16px;">
@@ -758,13 +799,9 @@
         // long‑term payment offers, then GST (18%) is added before storing.
         // OTT add‑on prices are always final (no GST conversion).
 
-        // Helper: compute long‑term base (without GST) from monthly base
         function computeLongTermBase(monthlyBase) {
-            // Quarterly: pay 3 months, get 97 days (effective 90‑day price)
             const quarterlyBase = Math.round(monthlyBase * 270 / 97);
-            // Half‑yearly: pay 6 months, get 199 days (effective 180‑day price)
             const halfBase = Math.round(monthlyBase * 1080 / 199);
-            // Yearly: pay 12 months, get 13 months (effective 12‑month price)
             const yearlyBase = Math.round(monthlyBase * 144 / 13);
             return { quarterlyBase, halfBase, yearlyBase };
         }
@@ -786,7 +823,6 @@
             { name: "Fibre Elite Ultra",   speed: "1 Gbps",   data: "9500 GB", beyondFup: "45 Mbps", monthlyBase: 4799, ottTokens: 0,  popular: false }
         ];
 
-        // Build final array with computed prices & type
         const internetPlans = internetPlansRaw.map(plan => {
             const { quarterlyBase, halfBase, yearlyBase } = computeLongTermBase(plan.monthlyBase);
             return {
@@ -800,8 +836,8 @@
                 note: plan.note || '',
                 type: plan.ottTokens > 0 ? 'withOtt' : 'withoutOtt',
                 price: {
-                    monthly: plan.monthlyBase,                        // stored without GST
-                    quarterly: Math.round(quarterlyBase * 1.18),     // stored with GST
+                    monthly: plan.monthlyBase,
+                    quarterly: Math.round(quarterlyBase * 1.18),
                     half: Math.round(halfBase * 1.18),
                     yearly: Math.round(yearlyBase * 1.18)
                 }
@@ -822,13 +858,6 @@
             "Epic On": 1,
             "ShemarooMe": 1
         };
-
-        // Add‑on token vouchers
-        const tokenVouchers = [
-            { tokens: 4,  price: 50 },
-            { tokens: 10, price: 100 },
-            { tokens: 22, price: 200 }
-        ];
 
         // OTT add‑on packs (for plans WITHOUT OTT tokens)
         const ottAddons = {
@@ -854,11 +883,11 @@
         // ============================================================
         let currentDuration = "monthly";
         let selectedInternetPlan = null;
-        let selectedPlanType = 'withoutOtt';      // 'withoutOtt' or 'withOtt'
-        let selectedOttKey = 'none';               // for without‑OTT plans
-        let selectedTokenOtts = [];                // array of OTT names for with‑OTT plans
-        let extraTokens = 0;                       // extra tokens purchased via vouchers
-        let extraTokenCost = 0;                    // total cost of extra vouchers
+        let selectedPlanType = 'withoutOtt';
+        let selectedOttKey = 'none';
+        let selectedTokenOtts = [];
+        let extraTokens = 0;
+        let extraTokenCost = 0;
         let userLat = "", userLng = "";
         let isAutoScrolling = false;
         let flowStep = 0;
@@ -904,6 +933,36 @@
                 }
             }
             return total;
+        }
+
+        // ============================================================
+        //  TOKEN HELPERS (KEY LOGIC FOR OTT PLAN RESTRICTIONS)
+        // ============================================================
+
+        // Compute total tokens available for the currently selected plan
+        function getTotalTokens() {
+            if (!selectedInternetPlan) return 0;
+            return (selectedInternetPlan.ottTokens || 0) + extraTokens;
+        }
+
+        // Compute tokens currently used by selected OTTs
+        function getUsedTokens() {
+            let used = 0;
+            selectedTokenOtts.forEach(ott => { used += ottTokenCosts[ott] || 0; });
+            return used;
+        }
+
+        // Compute remaining tokens
+        function getRemainingTokens() {
+            return getTotalTokens() - getUsedTokens();
+        }
+
+        // Check whether a specific OTT is selectable given current usage
+        // (Selected OTTs are always allowed to be deselected)
+        function canSelectOtt(ott) {
+            if (selectedTokenOtts.includes(ott)) return true;
+            const cost = ottTokenCosts[ott] || 0;
+            return cost <= getRemainingTokens();
         }
 
         // ============================================================
@@ -988,7 +1047,7 @@
             Object.keys(ottAddons).forEach(key => {
                 const pack = ottAddons[key];
                 const price = getOttPrice(pack);
-                if (price === 0) return; // hide packs unavailable for this duration
+                if (price === 0) return;
                 const active = selectedOttKey === key;
                 const apps = pack.apps.slice(0, 6);
                 let logosHtml = '';
@@ -1017,58 +1076,87 @@
         }
 
         // ============================================================
-        //  RENDER: TOKEN SELECTOR (for with OTT plans)
+        //  RENDER: TOKEN SELECTOR (STRICT TOKEN LIMIT)
+        // ============================================================
+        // Rules:
+        //   • Total tokens available = plan.ottTokens + extraTokens
+        //   • Sum of selected OTT token costs must be <= total tokens
+        //   • Any OTT whose cost exceeds the *remaining* tokens is disabled
+        //   • Once selected, an OTT can always be deselected (frees tokens)
         // ============================================================
         function renderTokenSelector() {
             const container = $("tokenOttList");
             if (!container || !selectedInternetPlan) return;
 
             const includedTokens = selectedInternetPlan.ottTokens || 0;
-            const totalTokens = includedTokens + extraTokens;
+            const totalTokens = getTotalTokens();
+            const usedTokens = getUsedTokens();
+            const remaining = getRemainingTokens();
 
-            let usedTokens = 0;
-            selectedTokenOtts.forEach(ott => { usedTokens += ottTokenCosts[ott] || 0; });
-            const remaining = totalTokens - usedTokens;
-
-            // Summary
+            // ----- Token summary panel -----
             const summary = $("tokenSummary");
             if (summary) {
+                const pct = totalTokens > 0 ? Math.min(100, (usedTokens / totalTokens) * 100) : 0;
+                const remainingClass = remaining === 0 ? 'remaining-zero' : '';
                 summary.innerHTML = `
-                    <div>🎟️ <strong>Included:</strong> ${includedTokens} tokens</div>
-                    <div>➕ <strong>Extra:</strong> ${extraTokens} tokens (₹${extraTokenCost})</div>
-                    <div>✅ <strong>Remaining:</strong> ${remaining} / ${totalTokens}</div>
+                    <div class="row">
+                        <div>🎟️ <strong>Plan Tokens:</strong> ${includedTokens}</div>
+                        <div>➕ <strong>Extra:</strong> ${extraTokens} (₹${extraTokenCost})</div>
+                        <div>📊 <strong>Used:</strong> ${usedTokens} / ${totalTokens}</div>
+                    </div>
+                    <div class="row" style="margin-top:6px;">
+                        <div style="font-size:0.8rem;opacity:0.8;">Remaining tokens</div>
+                        <div class="remaining-highlight ${remainingClass}">${remaining}</div>
+                    </div>
+                    <div class="token-progress-bar">
+                        <div class="token-progress-fill" style="width:${pct}%"></div>
+                    </div>
                 `;
             }
 
+            // ----- OTT selection grid -----
             let html = '';
             Object.keys(ottTokenCosts).forEach(ott => {
                 const cost = ottTokenCosts[ott];
                 const isSelected = selectedTokenOtts.includes(ott);
-                const wouldExceed = !isSelected && cost > remaining;
-                const disabledClass = wouldExceed ? 'disabled' : '';
+                const remainingAfter = remaining - (isSelected ? 0 : cost);
+                const disabled = !isSelected && cost > remaining;
+                const disabledClass = disabled ? 'disabled' : '';
                 const selectedClass = isSelected ? 'active' : '';
-                const clickHandler = wouldExceed ? '' : `onclick="toggleTokenOtt('${ott}')"`;
+                const clickHandler = disabled ? '' : `onclick="toggleTokenOtt('${ott}')"`;
+
+                let statusHtml = '';
+                if (isSelected) {
+                    statusHtml = `<div class="selected-tag">✓ Selected (${cost} tokens)</div>`;
+                } else if (disabled) {
+                    const shortBy = cost - remaining;
+                    statusHtml = `<div class="locked-msg">🔒 Needs ${shortBy} more token${shortBy > 1 ? 's' : ''}</div>`;
+                } else {
+                    statusHtml = `<div class="app-count" style="color:#2e7d32;">✔ Available (uses ${cost} token${cost > 1 ? 's' : ''})</div>`;
+                }
+
                 html += `
                     <div class="ott-card ${selectedClass} ${disabledClass}" ${clickHandler}>
                         <div class="ott-title">${ott}</div>
                         <div class="ott-price">${cost} Token${cost > 1 ? 's' : ''}</div>
-                        ${isSelected ? '<div class="selected-tag">✓ Selected</div>' : ''}
+                        ${statusHtml}
                     </div>
                 `;
             });
 
             container.innerHTML = html;
 
+            // ----- Error / info message -----
             const errDiv = $("tokenError");
             if (errDiv) {
-                if (remaining < 0) {
-                    errDiv.textContent = '⚠️ You have selected more tokens than available. Please remove some OTTs.';
-                } else if (remaining === 0 && selectedTokenOtts.length > 0) {
-                    errDiv.textContent = '✅ All tokens used. Add a voucher to include more OTTs.';
+                if (remaining === 0 && selectedTokenOtts.length > 0) {
                     errDiv.style.color = '#81c784';
+                    errDiv.textContent = '✅ All tokens used. Add a voucher to include more OTTs.';
+                } else if (remaining > 0 && selectedTokenOtts.length > 0) {
+                    errDiv.style.color = '#ce93d8';
+                    errDiv.textContent = `🎟️ ${remaining} token${remaining > 1 ? 's' : ''} still available. Pick another OTT or proceed.`;
                 } else {
                     errDiv.textContent = '';
-                    errDiv.style.color = '#e53935';
                 }
             }
         }
@@ -1087,13 +1175,12 @@
             selectedInternetPlan = plan;
             selectedPlanType = plan.type;
 
-            // Reset OTT selections
+            // Reset all OTT selections when plan changes
             selectedOttKey = 'none';
             selectedTokenOtts = [];
             extraTokens = 0;
             extraTokenCost = 0;
 
-            // Render appropriate OTT section
             if (selectedPlanType === 'withoutOtt') {
                 renderOttAddonCards();
                 $("ottAddonSection").style.display = "block";
@@ -1156,7 +1243,6 @@
             if (selectedPlanType !== 'withoutOtt') return;
             selectedOttKey = key;
 
-            // Clear any token selections
             selectedTokenOtts = [];
             extraTokens = 0;
             extraTokenCost = 0;
@@ -1174,22 +1260,22 @@
             }
         }
 
+        // ----- Core token enforcement -----
         function toggleTokenOtt(ott) {
             if (!selectedInternetPlan) return;
-            const includedTokens = selectedInternetPlan.ottTokens || 0;
-            const totalTokens = includedTokens + extraTokens;
 
-            let usedTokens = 0;
-            selectedTokenOtts.forEach(o => usedTokens += ottTokenCosts[o] || 0);
-
-            const cost = ottTokenCosts[ott];
+            const cost = ottTokenCosts[ott] || 0;
             const isSelected = selectedTokenOtts.includes(ott);
 
             if (isSelected) {
+                // Deselect – always allowed
                 selectedTokenOtts = selectedTokenOtts.filter(o => o !== ott);
             } else {
-                if (usedTokens + cost > totalTokens) {
-                    alert('Not enough tokens. Please add more tokens or remove another OTT.');
+                // Check remaining tokens
+                const remaining = getRemainingTokens();
+                if (cost > remaining) {
+                    const shortBy = cost - remaining;
+                    alert(`❌ Not enough tokens.\n\n"${ott}" requires ${cost} tokens, but only ${remaining} remaining.\nYou need ${shortBy} more token${shortBy > 1 ? 's' : ''}.\n\nAdd a token voucher below or remove another OTT.`);
                     return;
                 }
                 selectedTokenOtts.push(ott);
@@ -1248,10 +1334,12 @@
                     ottLine = selectedOttKey !== 'none'
                         ? ` + ${ottAddons[selectedOttKey].name} (₹${ottPrice})` : '';
                 } else {
+                    const used = getUsedTokens();
+                    const totalTok = getTotalTokens();
                     const ottsList = selectedTokenOtts.length ? selectedTokenOtts.join(', ') : 'None';
-                    ottLine = `<br>🎬 OTTs: ${ottsList}`;
+                    ottLine = `<br>🎬 OTTs: ${ottsList} <span style="opacity:0.75">(${used}/${totalTok} tokens)</span>`;
                     if (extraTokens > 0) {
-                        ottLine += ` | 🎟️ Extra Tokens: ${extraTokens} (₹${extraTokenCost})`;
+                        ottLine += ` | 🎟️ Extra: ${extraTokens} (₹${extraTokenCost})`;
                     }
                 }
                 box.innerHTML =
@@ -1388,18 +1476,23 @@
 
             let ottDetails = '';
             let ottExtraCost = 0;
+            let usedTokens = 0;
+            let totalTokens = 0;
+
             if (selectedPlanType === 'withoutOtt') {
                 ottDetails = selectedOttKey === 'none' ? 'None' : ottAddons[selectedOttKey].name;
                 ottExtraCost = selectedOttKey === 'none' ? 0 : getOttPrice(ottAddons[selectedOttKey]);
             } else {
+                usedTokens = getUsedTokens();
+                totalTokens = getTotalTokens();
                 ottDetails = selectedTokenOtts.length ? selectedTokenOtts.join(', ') : 'None';
+                ottDetails += ` (${usedTokens}/${totalTokens} tokens used)`;
                 if (extraTokens > 0) {
                     ottDetails += ` + ${extraTokens} extra tokens (₹${extraTokenCost})`;
                 }
                 ottExtraCost = extraTokenCost;
             }
 
-            // Tracking
             gtag('event', 'conversion', {
                 'send_to': 'AW-XXXXXXXXX/CONVERSION_ID',
                 'value': totalWithGST,
@@ -1423,6 +1516,7 @@
                 "Speed": plan.speed,
                 "Included Tokens": plan.ottTokens || 0,
                 "Extra Tokens": extraTokens,
+                "Tokens Used": usedTokens,
                 "OTT Selected": ottDetails,
                 "Internet Price (Without GST)": internetWithoutGST,
                 "Internet Price (With GST)": internetWithGST,
@@ -1432,7 +1526,6 @@
                 Source: "BSNL Website Chennai"
             };
 
-            // Send to Google Sheets
             await fetch(
                 "https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", {
                     method: "POST",
@@ -1441,7 +1534,6 @@
                 }
             );
 
-            // WhatsApp message
             const waMsg =
                 "🔥 *New BSNL Lead* 🔥%0A" +
                 "👤 *Name:* " + name + "%0A" +
@@ -1507,7 +1599,6 @@
             renderInternetPlans();
             refreshUI();
 
-            // Do not show OTT sections until a plan is explicitly selected
             $("ottAddonSection").style.display = "none";
             $("ottTokenSection").style.display = "none";
 
