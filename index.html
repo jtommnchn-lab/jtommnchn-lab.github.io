@@ -4,11 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <!-- Google tag (gtag.js) - Replace with actual ID -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX">
-    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'AW-XXXXXXXXX');
@@ -41,11 +39,7 @@
     <title>BSNL Bharat Fibre Chennai | Unlimited Internet + OTT</title>
     <style>
         /* ----- RESET & BASE ----- */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, system-ui, sans-serif;
@@ -58,23 +52,13 @@
         }
 
         @supports (font-variation-settings: normal) {
-            body {
-                font-family: 'Inter var', sans-serif;
-            }
+            body { font-family: 'Inter var', sans-serif; }
         }
 
         /* ----- SCROLLBAR ----- */
-        ::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 20px;
-        }
+        ::-webkit-scrollbar { width: 4px; height: 4px; }
+        ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+        ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.25); border-radius: 20px; }
 
         /* ----- LEAD PROMPT (floating) ----- */
         .lead-prompt {
@@ -98,16 +82,8 @@
             backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .lead-prompt.show {
-            opacity: 1;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .lead-prompt::before {
-            content: '✨ ';
-            margin-right: 4px;
-        }
+        .lead-prompt.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+        .lead-prompt::before { content: '✨ '; margin-right: 4px; }
 
         /* ----- TOP BAR ----- */
         .topbar {
@@ -123,18 +99,8 @@
             box-shadow: 0 2px 30px rgba(0, 0, 0, 0.06);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .topbar img {
-            height: 36px;
-            object-fit: contain;
-        }
-
-        .actions {
-            display: flex;
-            gap: 14px;
-            align-items: center;
-        }
-
+        .topbar img { height: 36px; object-fit: contain; }
+        .actions { display: flex; gap: 14px; align-items: center; }
         .actions a {
             text-decoration: none;
             font-size: 22px;
@@ -144,13 +110,9 @@
             border-radius: 60px;
             background: rgba(0, 0, 0, 0.03);
         }
+        .actions a:hover { transform: scale(1.1) translateY(-2px); background: rgba(0, 0, 0, 0.06); }
 
-        .actions a:hover {
-            transform: scale(1.1) translateY(-2px);
-            background: rgba(0, 0, 0, 0.06);
-        }
-
-        /* ----- HERO / BANNER ----- */
+        /* ----- HERO ----- */
         .hero {
             width: 100%;
             height: clamp(180px, 35vh, 380px);
@@ -159,7 +121,6 @@
             overflow: hidden;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-
         .hero img {
             width: 100%;
             height: 100%;
@@ -167,32 +128,16 @@
             object-position: center 30%;
             display: block;
         }
-
         .hero::after {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             height: 60px;
             background: linear-gradient(transparent, #0a1628);
             pointer-events: none;
         }
-
-        @media(max-width:768px) {
-            .hero {
-                height: 150px;
-            }
-            .hero::after {
-                height: 40px;
-            }
-        }
-
-        @media(max-width:480px) {
-            .hero {
-                height: 120px;
-            }
-        }
+        @media(max-width:768px) { .hero { height: 150px; } .hero::after { height: 40px; } }
+        @media(max-width:480px) { .hero { height: 120px; } }
 
         /* ----- TRUST STRIP ----- */
         .trust-strip {
@@ -208,12 +153,7 @@
             justify-content: center;
             gap: 6px 20px;
         }
-
-        .trust-strip span {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
+        .trust-strip span { display: inline-flex; align-items: center; gap: 6px; }
 
         /* ----- DURATION STRIP ----- */
         .duration-strip {
@@ -227,17 +167,8 @@
             padding: 4px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
-
-        .duration-strip::-webkit-scrollbar {
-            display: none;
-        }
-
-        .duration-tabs {
-            display: flex;
-            min-width: 100%;
-            gap: 0;
-        }
-
+        .duration-strip::-webkit-scrollbar { display: none; }
+        .duration-tabs { display: flex; min-width: 100%; gap: 0; }
         .duration-card {
             flex: 1 0 auto;
             text-align: center;
@@ -250,14 +181,12 @@
             position: relative;
             min-width: 70px;
         }
-
         .duration-card .title {
             font-size: 1.1rem;
             font-weight: 700;
             letter-spacing: 0.3px;
             transition: color 0.25s;
         }
-
         .duration-card .offer {
             font-size: 0.55rem;
             background: #ff9800;
@@ -270,27 +199,17 @@
             letter-spacing: 0.3px;
             text-transform: uppercase;
         }
-
         .duration-card.active {
             color: #fff;
             border-bottom-color: #ff9800;
             background: rgba(255, 255, 255, 0.06);
         }
-
-        .duration-card.active .title {
-            color: #fff;
-        }
-
+        .duration-card.active .title { color: #fff; }
         .duration-card:not(.active):hover {
             color: rgba(255, 255, 255, 0.85);
             background: rgba(255, 255, 255, 0.03);
         }
-
-        @media(max-width:480px) {
-            .duration-card .title {
-                font-size: 0.95rem;
-            }
-        }
+        @media(max-width:480px) { .duration-card .title { font-size: 0.95rem; } }
 
         /* ----- PLANS WRAPPER ----- */
         .plans-wrapper {
@@ -299,8 +218,6 @@
             margin: 16px auto 6px;
             padding: 0 10px;
         }
-
-        /* ----- PLAN CARDS CONTAINER ----- */
         .plans {
             display: flex;
             gap: 14px;
@@ -311,14 +228,11 @@
             scrollbar-width: none;
             -webkit-overflow-scrolling: touch;
         }
+        .plans::-webkit-scrollbar { display: none; }
 
-        .plans::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* ----- INDIVIDUAL PLAN CARD ----- */
+        /* ----- PLAN CARD ----- */
         .card {
-            flex: 0 0 220px;
+            flex: 0 0 240px;
             background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(8px);
             border-radius: 28px;
@@ -334,11 +248,7 @@
             color: #111;
             will-change: transform, opacity;
         }
-
-        .card:hover {
-            transform: scale(0.92) translateY(6px);
-        }
-
+        .card:hover { transform: scale(0.92) translateY(6px); }
         .card.selected {
             transform: scale(1.04) translateY(0) !important;
             opacity: 1;
@@ -346,20 +256,12 @@
             background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 0 30px rgba(46, 125, 50, 0.12), 0 20px 50px rgba(46, 125, 50, 0.08);
         }
-
-        .card.selected h2 {
-            color: #2e7d32;
-        }
-
-        .card.popular {
-            border-color: rgba(255, 152, 0, 0.25);
-        }
-
+        .card.selected h2 { color: #2e7d32; }
+        .card.popular { border-color: rgba(255, 152, 0, 0.25); }
         .card.popular.selected {
             border-color: rgba(255, 152, 0, 0.4);
             box-shadow: 0 0 30px rgba(255, 152, 0, 0.1);
         }
-
         .card .badge {
             background: linear-gradient(135deg, #ff9800, #f57c00);
             color: #0a1628;
@@ -373,13 +275,16 @@
             letter-spacing: 0.5px;
             box-shadow: 0 2px 10px rgba(255, 152, 0, 0.25);
         }
-
         .card .badge.free {
             background: linear-gradient(135deg, #2e7d32, #1b5e20);
             color: #fff;
             box-shadow: 0 2px 10px rgba(46, 125, 50, 0.25);
         }
-
+        .card .badge.token {
+            background: linear-gradient(135deg, #7b1fa2, #4a148c);
+            color: #fff;
+            box-shadow: 0 2px 10px rgba(123, 31, 162, 0.25);
+        }
         .card h3 {
             font-size: 1.05rem;
             font-weight: 700;
@@ -387,14 +292,12 @@
             letter-spacing: -0.2px;
             color: #111;
         }
-
         .card .speed-tag {
             font-size: 0.7rem;
             color: #444;
             font-weight: 500;
             margin-bottom: 6px;
         }
-
         .card .speed-tag .dot {
             display: inline-block;
             width: 5px;
@@ -403,7 +306,6 @@
             background: #4caf50;
             margin-right: 4px;
         }
-
         .card h2 {
             font-size: 24px;
             font-weight: 800;
@@ -412,13 +314,7 @@
             color: #111;
             transition: color 0.3s;
         }
-
-        .card h2 small {
-            font-size: 12px;
-            font-weight: 500;
-            color: #555;
-        }
-
+        .card h2 small { font-size: 12px; font-weight: 500; color: #555; }
         .card .gst-details {
             font-size: 0.55rem;
             color: #555;
@@ -426,12 +322,7 @@
             margin: 2px 0 10px;
             letter-spacing: 0.2px;
         }
-
-        .card .gst-details span {
-            display: inline-block;
-            margin: 0 3px;
-        }
-
+        .card .gst-details span { display: inline-block; margin: 0 3px; }
         .card button {
             background: rgba(0, 0, 0, 0.04);
             border: 1px solid rgba(0, 0, 0, 0.06);
@@ -446,22 +337,14 @@
             max-width: 140px;
             margin: 0 auto;
         }
-
-        .card button:hover {
-            background: rgba(0, 0, 0, 0.08);
-            transform: scale(1.02);
-        }
-
+        .card button:hover { background: rgba(0, 0, 0, 0.08); transform: scale(1.02); }
         .card.selected button {
             background: linear-gradient(135deg, #2e7d32, #1b5e20);
             color: #fff;
             border-color: #2e7d32;
             box-shadow: 0 4px 15px rgba(46, 125, 50, 0.25);
         }
-
-        .card.selected button:hover {
-            transform: scale(1.04);
-        }
+        .card.selected button:hover { transform: scale(1.04); }
 
         /* ----- CAROUSEL BUTTONS ----- */
         .carousel-btn {
@@ -484,44 +367,21 @@
             justify-content: center;
             opacity: 0.6;
         }
-
         .carousel-btn:hover {
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-50%) scale(1.05);
             opacity: 1;
         }
-
-        .carousel-btn.left {
-            left: -4px;
-        }
-
-        .carousel-btn.right {
-            right: -4px;
-        }
+        .carousel-btn.left { left: -4px; }
+        .carousel-btn.right { right: -4px; }
 
         @media(max-width:600px) {
-            .carousel-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 14px;
-                opacity: 0.4;
-            }
-            .carousel-btn.left {
-                left: 0;
-            }
-            .carousel-btn.right {
-                right: 0;
-            }
-            .card {
-                flex: 0 0 180px;
-                padding: 14px 10px 12px;
-            }
-            .card h2 {
-                font-size: 20px;
-            }
-            .card .gst-details {
-                font-size: 0.5rem;
-            }
+            .carousel-btn { width: 32px; height: 32px; font-size: 14px; opacity: 0.4; }
+            .carousel-btn.left { left: 0; }
+            .carousel-btn.right { right: 0; }
+            .card { flex: 0 0 200px; padding: 14px 10px 12px; }
+            .card h2 { font-size: 20px; }
+            .card .gst-details { font-size: 0.5rem; }
         }
 
         /* ----- SELECTED BOX ----- */
@@ -529,21 +389,19 @@
             background: rgba(46, 125, 50, 0.12);
             backdrop-filter: blur(8px);
             border: 1px solid rgba(46, 125, 50, 0.2);
-            max-width: 520px;
+            max-width: 560px;
             margin: 0 auto 12px;
-            padding: 12px 20px;
-            border-radius: 60px;
+            padding: 14px 20px;
+            border-radius: 30px;
             text-align: center;
             font-weight: 600;
             display: none;
             font-size: 0.9rem;
             color: #e8f5e9;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            line-height: 1.6;
         }
-
-        .selected-box strong {
-            color: #81c784;
-        }
+        .selected-box strong { color: #81c784; }
 
         /* ----- OTT SECTION ----- */
         .ott-section {
@@ -555,7 +413,6 @@
             scroll-margin-top: 80px;
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-
         .ott-section h3 {
             font-size: 1.2rem;
             font-weight: 600;
@@ -564,20 +421,14 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
         }
-
-        .ott-section h3 span {
-            font-weight: 400;
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.4);
-        }
-
+        .ott-section h3 span { font-weight: 400; font-size: 0.8rem; color: rgba(255, 255, 255, 0.6); }
         .ott-cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 14px;
         }
-
         .ott-card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
@@ -589,19 +440,14 @@
             border: 2px solid transparent;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
         }
-
-        .ott-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-        }
-
+        .ott-card:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1); }
         .ott-card.active {
             border-color: #2e7d32;
             background: rgba(255, 255, 255, 0.95);
             transform: translateY(-3px);
             box-shadow: 0 12px 30px rgba(46, 125, 50, 0.12);
         }
-
+        .ott-card.disabled { opacity: 0.45; cursor: not-allowed; }
         .ott-card .ott-title {
             font-weight: 700;
             font-size: 1rem;
@@ -609,22 +455,20 @@
             align-items: center;
             gap: 6px;
             color: #1a1a2e;
+            flex-wrap: wrap;
         }
-
         .ott-card .ott-price {
             color: #2e7d32;
             font-weight: 600;
             margin: 4px 0 8px;
             font-size: 0.9rem;
         }
-
         .ott-card .ott-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             margin-top: 6px;
         }
-
         .ott-card .ott-grid img {
             width: 100%;
             height: 36px;
@@ -634,25 +478,57 @@
             padding: 4px;
             transition: transform 0.2s;
         }
-
-        .ott-card .ott-grid img:hover {
-            transform: scale(1.06);
-        }
-
+        .ott-card .ott-grid img:hover { transform: scale(1.06); }
         .ott-card .app-count {
             font-size: 0.65rem;
             color: #8a8aaa;
             margin-top: 8px;
         }
+        .ott-card .selected-tag {
+            color: #2e7d32;
+            font-weight: 700;
+            font-size: 0.75rem;
+            margin-top: 6px;
+        }
+        .voucher-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .voucher-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.02);
+            border-color: #ff9800;
+        }
+        .token-summary {
+            background: rgba(123, 31, 162, 0.15);
+            border: 1px solid rgba(123, 31, 162, 0.3);
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin-bottom: 14px;
+            color: #fff;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .token-summary strong { color: #ce93d8; }
 
-        /* ----- FORM SECTION ----- */
+        /* ----- FORM ----- */
         .form-section {
             padding: 30px 20px 50px;
             display: flex;
             justify-content: center;
             scroll-margin-top: 80px;
         }
-
         .form {
             width: 100%;
             max-width: 460px;
@@ -664,14 +540,7 @@
             text-align: center;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
         }
-
-        .form h3 {
-            color: #fff;
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
+        .form h3 { color: #fff; font-size: 1.3rem; font-weight: 600; margin-bottom: 20px; }
         input {
             width: 100%;
             padding: 14px 18px;
@@ -684,22 +553,13 @@
             transition: all 0.3s;
             outline: none;
         }
-
-        input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
-
+        input::placeholder { color: rgba(255, 255, 255, 0.3); }
         input:focus {
             border-color: #ff9800;
             background: rgba(255, 255, 255, 0.08);
             box-shadow: 0 0 0 4px rgba(255, 152, 0, 0.06);
         }
-
-        input.error {
-            border-color: #e53935;
-            background: rgba(229, 57, 53, 0.08);
-        }
-
+        input.error { border-color: #e53935; background: rgba(229, 57, 53, 0.08); }
         .error-text {
             color: #e53935;
             font-size: 12px;
@@ -708,7 +568,6 @@
             min-height: 18px;
             font-weight: 500;
         }
-
         .form button {
             background: linear-gradient(135deg, #ff9800, #f57c00);
             color: #0a1628;
@@ -723,22 +582,13 @@
             transition: all 0.3s;
             box-shadow: 0 6px 25px rgba(255, 152, 0, 0.2);
         }
-
-        .form button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(255, 152, 0, 0.3);
-        }
-
-        .form button:active {
-            transform: scale(0.97);
-        }
+        .form button:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(255, 152, 0, 0.3); }
+        .form button:active { transform: scale(0.97); }
 
         /* ----- BOTTOM BAR ----- */
         .bottom-bar {
             position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
+            bottom: 0; left: 0; right: 0;
             background: rgba(10, 22, 40, 0.9);
             backdrop-filter: blur(20px);
             padding: 14px 20px 18px;
@@ -750,7 +600,6 @@
             border-radius: 28px 28px 0 0;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
-
         .bottom-bar .price-line {
             font-size: 26px;
             font-weight: 800;
@@ -758,13 +607,11 @@
             color: #ff9800;
             letter-spacing: -0.5px;
         }
-
         .bottom-bar .price-line small {
             font-size: 15px;
             font-weight: 500;
             color: rgba(255, 255, 255, 0.3);
         }
-
         .bottom-bar button {
             background: linear-gradient(135deg, #25D366, #1da851);
             width: 100%;
@@ -779,51 +626,27 @@
             transition: all 0.3s;
             box-shadow: 0 6px 25px rgba(37, 211, 102, 0.25);
         }
-
         .bottom-bar button:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 10px 35px rgba(37, 211, 102, 0.35);
         }
-
         .bottom-bar button:disabled {
             background: rgba(255, 255, 255, 0.05);
             color: rgba(255, 255, 255, 0.2);
             box-shadow: none;
             cursor: not-allowed;
         }
-
-        .bottom-bar button:active:not(:disabled) {
-            transform: scale(0.97);
-        }
+        .bottom-bar button:active:not(:disabled) { transform: scale(0.97); }
 
         /* ----- RESPONSIVE ----- */
         @media(max-width:480px) {
-            .trust-strip {
-                font-size: 11px;
-                padding: 8px 8px;
-                gap: 4px 12px;
-            }
-            .form {
-                padding: 24px 16px 28px;
-            }
-            .ott-section {
-                margin: 12px 10px;
-                padding: 16px 10px 20px;
-            }
-            .ott-cards {
-                grid-template-columns: 1fr;
-            }
-            .selected-box {
-                font-size: 0.8rem;
-                padding: 10px 14px;
-                margin: 0 10px 10px;
-            }
-            .bottom-bar {
-                padding: 10px 16px 14px;
-            }
-            .bottom-bar .price-line {
-                font-size: 22px;
-            }
+            .trust-strip { font-size: 11px; padding: 8px 8px; gap: 4px 12px; }
+            .form { padding: 24px 16px 28px; }
+            .ott-section { margin: 12px 10px; padding: 16px 10px 20px; }
+            .ott-cards { grid-template-columns: 1fr; }
+            .selected-box { font-size: 0.8rem; padding: 10px 14px; margin: 0 10px 10px; }
+            .bottom-bar { padding: 10px 16px 14px; }
+            .bottom-bar .price-line { font-size: 22px; }
         }
     </style>
 </head>
@@ -881,10 +704,27 @@
     <!-- ----- SELECTED SUMMARY ----- -->
     <div id="selectedBox" class="selected-box"></div>
 
-    <!-- ----- OTT SECTION ----- -->
-    <div id="ottSection" class="ott-section" style="display:none;">
+    <!-- ----- OTT ADD-ON SECTION (for plans without OTT tokens) ----- -->
+    <div id="ottAddonSection" class="ott-section" style="display:none;">
         <h3>🎬 Add OTT Super Pack <span>(Optional)</span></h3>
-        <div id="ottCardsContainer" class="ott-cards"></div>
+        <div id="ottAddonCards" class="ott-cards"></div>
+    </div>
+
+    <!-- ----- OTT TOKEN SECTION (for plans with OTT tokens) ----- -->
+    <div id="ottTokenSection" class="ott-section" style="display:none;">
+        <h3>🎬 Build Your OTT <span>(BYO – Pick OTTs using tokens)</span></h3>
+        <div class="token-summary" id="tokenSummary"></div>
+        <div id="tokenOttList" class="ott-cards"></div>
+        <div id="tokenVoucherSection" style="margin-top:16px;">
+            <p style="color:#fff;font-size:0.9rem;margin-bottom:8px;">Need more tokens? Add vouchers:</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button class="voucher-btn" onclick="addTokenVoucher(50,4)">+4 Tokens (₹50)</button>
+                <button class="voucher-btn" onclick="addTokenVoucher(100,10)">+10 Tokens (₹100)</button>
+                <button class="voucher-btn" onclick="addTokenVoucher(200,22)">+22 Tokens (₹200)</button>
+                <button class="voucher-btn" onclick="clearExtraTokens()" style="border-color:#e53935;color:#ef9a9a;">Reset Extras</button>
+            </div>
+        </div>
+        <div id="tokenError" style="color:#e53935;font-size:12px;margin-top:8px;"></div>
     </div>
 
     <!-- ----- FORM SECTION ----- -->
@@ -913,39 +753,90 @@
         // ============================================================
         //  DATA
         // ============================================================
-        // Monthly internet values are WITHOUT GST; quarterly, half, yearly are WITH GST.
-        // OTT prices are always treated as final (no GST conversion).
+        // Monthly stored prices are WITHOUT GST.
+        // Long‑term prices are computed from monthly base using the
+        // long‑term payment offers, then GST (18%) is added before storing.
+        // OTT add‑on prices are always final (no GST conversion).
 
-        const internetPlans = [
-            { name: "Fibre Entry", speed: "25 Mbps", price: { monthly: 333, quarterly: 1178, half: 2356, yearly: 4712 } },
-            { name: "Ghar Ka WiFi", speed: "40 Mbps", price: { monthly: 399, quarterly: 1413, half: 2826, yearly: 5652 } },
-            { name: "Fibre Basic", speed: "60 Mbps", price: { monthly: 499, quarterly: 1767, half: 3533, yearly: 7066 } },
-            { name: "Fibre Basic Plus", speed: "100 Mbps", price: { monthly: 599, quarterly: 2121, half: 4241, yearly: 8482 },
-                popular: true },
-            { name: "Fibre TB", speed: "150 Mbps", price: { monthly: 799, quarterly: 2829, half: 5657, yearly: 9900 } },
-            { name: "Fibre Value Advance", speed: "175 Mbps", price: { monthly: 899, quarterly: 3182, half: 6364,
-                    yearly: 12728 } },
-            { name: "Super Star Premium Plus", speed: "200 Mbps", price: { monthly: 999, quarterly: 3537, half: 7073,
-                    yearly: 14146 } },
-            { name: "Fibre Premium Plus", speed: "250 Mbps", price: { monthly: 1299, quarterly: undefined, half: 9197,
-                    yearly: 18394 } },
-            { name: "Fibre Ultra OTT", speed: "300 Mbps", price: { monthly: 1799, quarterly: undefined, half: 12737,
-                    yearly: 25474 } },
-            { name: "Fibre Silver Plus OTT", speed: "500 Mbps", price: { monthly: 2799, quarterly: undefined, half: 19817,
-                    yearly: 39634 } },
-            { name: "Fibre Ruby OTT", speed: "1000 Mbps", price: { monthly: 4799, quarterly: undefined, half: 33977,
-                    yearly: 67954 } }
+        // Helper: compute long‑term base (without GST) from monthly base
+        function computeLongTermBase(monthlyBase) {
+            // Quarterly: pay 3 months, get 97 days (effective 90‑day price)
+            const quarterlyBase = Math.round(monthlyBase * 270 / 97);
+            // Half‑yearly: pay 6 months, get 199 days (effective 180‑day price)
+            const halfBase = Math.round(monthlyBase * 1080 / 199);
+            // Yearly: pay 12 months, get 13 months (effective 12‑month price)
+            const yearlyBase = Math.round(monthlyBase * 144 / 13);
+            return { quarterlyBase, halfBase, yearlyBase };
+        }
+
+        // Plan definitions (monthlyBase = price without GST)
+        const internetPlansRaw = [
+            { name: "Fibre Basic",         speed: "60 Mbps",  data: "3300 GB", beyondFup: "4 Mbps",  monthlyBase: 499,  ottTokens: 0,  popular: false, note: "First Month Rent Free" },
+            { name: "Fibre Lite OTT",      speed: "60 Mbps",  data: "4000 GB", beyondFup: "4 Mbps",  monthlyBase: 549,  ottTokens: 4,  popular: false },
+            { name: "Fibre Basic Plus",    speed: "100 Mbps", data: "4000 GB", beyondFup: "4 Mbps",  monthlyBase: 599,  ottTokens: 0,  popular: true,  note: "First Month Rent Free" },
+            { name: "Fibre Smart OTT",     speed: "100 Mbps", data: "4000 GB", beyondFup: "4 Mbps",  monthlyBase: 699,  ottTokens: 10, popular: false },
+            { name: "Fibre Prime OTT",     speed: "150 Mbps", data: "4000 GB", beyondFup: "10 Mbps", monthlyBase: 799,  ottTokens: 10, popular: false },
+            { name: "Fibre Value Advance", speed: "200 Mbps", data: "5000 GB", beyondFup: "12 Mbps", monthlyBase: 899,  ottTokens: 0,  popular: false },
+            { name: "Fibre Max OTT",       speed: "200 Mbps", data: "5000 GB", beyondFup: "10 Mbps", monthlyBase: 999,  ottTokens: 10, popular: false },
+            { name: "Fibre Super Max OTT", speed: "200 Mbps", data: "5000 GB", beyondFup: "10 Mbps", monthlyBase: 1199, ottTokens: 30, popular: false },
+            { name: "Fibre Premium Plus",  speed: "250 Mbps", data: "6000 GB", beyondFup: "15 Mbps", monthlyBase: 1299, ottTokens: 0,  popular: false },
+            { name: "Fibre Elite OTT",     speed: "300 Mbps", data: "6000 GB", beyondFup: "15 Mbps", monthlyBase: 1399, ottTokens: 10, popular: false },
+            { name: "Fibre Zenith OTT",    speed: "300 Mbps", data: "6000 GB", beyondFup: "15 Mbps", monthlyBase: 1549, ottTokens: 30, popular: false },
+            { name: "Fibre Elite Max",     speed: "500 Mbps", data: "7500 GB", beyondFup: "35 Mbps", monthlyBase: 2799, ottTokens: 0,  popular: false },
+            { name: "Fibre Elite Ultra",   speed: "1 Gbps",   data: "9500 GB", beyondFup: "45 Mbps", monthlyBase: 4799, ottTokens: 0,  popular: false }
         ];
 
+        // Build final array with computed prices & type
+        const internetPlans = internetPlansRaw.map(plan => {
+            const { quarterlyBase, halfBase, yearlyBase } = computeLongTermBase(plan.monthlyBase);
+            return {
+                name: plan.name,
+                speed: plan.speed,
+                data: plan.data,
+                beyondFup: plan.beyondFup,
+                monthlyBase: plan.monthlyBase,
+                ottTokens: plan.ottTokens,
+                popular: !!plan.popular,
+                note: plan.note || '',
+                type: plan.ottTokens > 0 ? 'withOtt' : 'withoutOtt',
+                price: {
+                    monthly: plan.monthlyBase,                        // stored without GST
+                    quarterly: Math.round(quarterlyBase * 1.18),     // stored with GST
+                    half: Math.round(halfBase * 1.18),
+                    yearly: Math.round(yearlyBase * 1.18)
+                }
+            };
+        });
+
+        // OTT token cost per platform (from PDF)
+        const ottTokenCosts = {
+            "Jio Hotstar": 6,
+            "Sony Liv": 4,
+            "Zee5": 4,
+            "Manorama Max": 4,
+            "Saboot Bundle": 4,
+            "Waves Premium": 2,
+            "Chaupal": 2,
+            "Lions Gate": 1,
+            "Hungama": 1,
+            "Epic On": 1,
+            "ShemarooMe": 1
+        };
+
+        // Add‑on token vouchers
+        const tokenVouchers = [
+            { tokens: 4,  price: 50 },
+            { tokens: 10, price: 100 },
+            { tokens: 22, price: 200 }
+        ];
+
+        // OTT add‑on packs (for plans WITHOUT OTT tokens)
         const ottAddons = {
-            basic: { name: "OTT Basic", price: { monthly: 151, quarterly: 454, half: 908, yearly: 1817 },
-                apps: ["Zee5", "SonyLIV", "SunNxt", "Aha", "Discovery+"] },
-            plus: { name: "OTT Basic Plus", price: { monthly: 216, quarterly: 647, half: 1295, yearly: 2590 },
-                apps: ["JioHotstar", "Zee5", "SonyLIV", "SunNxt", "Aha"] },
-            premium: { name: "OTT Premium", price: { monthly: 239, quarterly: 718, half: 1436, yearly: 2873 },
-                apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"] },
-            premiumplus: { name: "OTT Premium Plus", price: { monthly: 282, quarterly: 847, half: 1695, yearly: 3389 },
-                apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"] }
+            basic:       { name: "OTT Basic",        price: { monthly: 151, quarterly: 454, half: 908,  yearly: 1817 }, apps: ["Zee5", "SonyLIV", "SunNxt", "Aha", "Discovery+"] },
+            plus:        { name: "OTT Basic Plus",   price: { monthly: 216, quarterly: 647, half: 1295, yearly: 2590 }, apps: ["JioHotstar", "Zee5", "SonyLIV", "SunNxt", "Aha"] },
+            premium:     { name: "OTT Premium",      price: { monthly: 239, quarterly: 718, half: 1436, yearly: 2873 }, apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"] },
+            premiumplus: { name: "OTT Premium Plus", price: { monthly: 282, quarterly: 847, half: 1695, yearly: 3389 }, apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"] },
+            cricket:     { name: "Cricket Pack",     price: { monthly: 167, quarterly: 499, half: undefined, yearly: undefined }, apps: ["JioHotstar", "SonyLIV", "Zee5"], badge: "NEW" }
         };
 
         const ottLogos = {
@@ -961,80 +852,56 @@
         // ============================================================
         //  STATE
         // ============================================================
-
         let currentDuration = "monthly";
         let selectedInternetPlan = null;
-        let selectedOttKey = "none";
-        let selectedOttName = "None";
-        let userLat = "",
-            userLng = "";
+        let selectedPlanType = 'withoutOtt';      // 'withoutOtt' or 'withOtt'
+        let selectedOttKey = 'none';               // for without‑OTT plans
+        let selectedTokenOtts = [];                // array of OTT names for with‑OTT plans
+        let extraTokens = 0;                       // extra tokens purchased via vouchers
+        let extraTokenCost = 0;                    // total cost of extra vouchers
+        let userLat = "", userLng = "";
         let isAutoScrolling = false;
         let flowStep = 0;
 
         // ============================================================
-        //  DOM HELPERS (cached for performance)
+        //  DOM HELPERS
         // ============================================================
-
-        const $ = function(id) {
-            return document.getElementById(id);
-        };
-
-        const qs = function(selector, context) {
-            return (context || document).querySelector(selector);
-        };
-
-        const qsa = function(selector, context) {
-            return (context || document).querySelectorAll(selector);
-        };
+        const $ = function(id) { return document.getElementById(id); };
+        const qs = function(selector, context) { return (context || document).querySelector(selector); };
+        const qsa = function(selector, context) { return (context || document).querySelectorAll(selector); };
 
         // ============================================================
         //  PRICING HELPERS
         // ============================================================
+        function getPlanStoredPrice(plan) { return plan.price[currentDuration] || 0; }
 
-        function getPlanStoredPrice(plan) {
-            return plan.price[currentDuration] || 0;
-        }
-
-        // Monthly: stored = without GST → add 18% GST. Others: stored = with GST → return as-is.
         function getPlanWithGST(plan) {
             const base = getPlanStoredPrice(plan);
-            if (currentDuration === 'monthly') {
-                return Math.round(base * 1.18);
-            } else {
-                return Math.round(base);
-            }
+            if (currentDuration === 'monthly') return Math.round(base * 1.18);
+            return Math.round(base);
         }
-
-        // Monthly: stored = without GST → return as-is. Others: stored = with GST → divide by 1.18.
         function getPlanWithoutGST(plan) {
             const base = getPlanStoredPrice(plan);
-            if (currentDuration === 'monthly') {
-                return Math.round(base);
-            } else {
-                return Math.round(base / 1.18);
-            }
+            if (currentDuration === 'monthly') return Math.round(base);
+            return Math.round(base / 1.18);
         }
-
-        // OTT prices are always final (no GST conversion)
-        function getOttPrice(addon) {
-            return addon ? addon.price[currentDuration] || 0 : 0;
-        }
-
+        function getOttPrice(addon) { return addon ? (addon.price[currentDuration] || 0) : 0; }
         function isPlanAvailable(plan) {
             return plan.price[currentDuration] !== undefined && plan.price[currentDuration] !== null;
         }
-
-        function getAvailablePlans() {
-            return internetPlans.filter(isPlanAvailable);
-        }
+        function getAvailablePlans() { return internetPlans.filter(isPlanAvailable); }
 
         function computeTotalWithGST() {
             let total = 0;
             if (selectedInternetPlan) {
                 total += getPlanWithGST(selectedInternetPlan);
-            }
-            if (selectedOttKey !== "none" && ottAddons[selectedOttKey]) {
-                total += getOttPrice(ottAddons[selectedOttKey]);
+                if (selectedPlanType === 'withoutOtt') {
+                    if (selectedOttKey !== 'none' && ottAddons[selectedOttKey]) {
+                        total += getOttPrice(ottAddons[selectedOttKey]);
+                    }
+                } else {
+                    total += extraTokenCost;
+                }
             }
             return total;
         }
@@ -1042,45 +909,45 @@
         // ============================================================
         //  RENDER: PLANS
         // ============================================================
-
         function renderInternetPlans() {
             const container = $("plansContainer");
             const available = getAvailablePlans();
 
             if (!available.length) {
-                container.innerHTML =
-                    '<p style="color:rgba(255,255,255,0.4);text-align:center;width:100%;padding:40px 0;">No plans available for this duration.</p>';
+                container.innerHTML = '<p style="color:rgba(255,255,255,0.4);text-align:center;width:100%;padding:40px 0;">No plans available for this duration.</p>';
                 return;
             }
 
-            // Ensure selected plan is available, else pick first (prefer popular)
             if (selectedInternetPlan) {
-                if (!available.some(function(p) { return p.name === selectedInternetPlan.name; })) {
-                    selectedInternetPlan = available.find(function(p) { return p.popular; }) || available[0];
+                if (!available.some(p => p.name === selectedInternetPlan.name)) {
+                    selectedInternetPlan = available.find(p => p.popular) || available[0];
                 }
             } else {
-                selectedInternetPlan = available.find(function(p) { return p.popular; }) || available[0];
+                selectedInternetPlan = available.find(p => p.popular) || available[0];
             }
 
-            // Build HTML
-            var html = '';
-            for (var i = 0; i < available.length; i++) {
-                var plan = available[i];
-                var priceWithGST = getPlanWithGST(plan);
-                var priceWithoutGST = getPlanWithoutGST(plan);
-                var freeText = currentDuration === "quarterly" ? "7 Days FREE" :
-                    currentDuration === "half" ? "19 Days FREE" :
-                    currentDuration === "yearly" ? "1 Month FREE" : "";
-                var isPopular = !!plan.popular;
-                var isSelected = selectedInternetPlan && selectedInternetPlan.name === plan.name;
-                var selectedClass = isSelected ? "selected" : "";
+            let html = '';
+            available.forEach(plan => {
+                const priceWithGST = getPlanWithGST(plan);
+                const priceWithoutGST = getPlanWithoutGST(plan);
+                const freeText = currentDuration === "quarterly" ? "7 Days FREE" :
+                                 currentDuration === "half" ? "19 Days FREE" :
+                                 currentDuration === "yearly" ? "1 Month FREE" : "";
+                const isPopular = !!plan.popular;
+                const isSelected = selectedInternetPlan && selectedInternetPlan.name === plan.name;
+                const selectedClass = isSelected ? "selected" : "";
+                const tokenBadge = plan.ottTokens > 0
+                    ? `<div class="badge token">🎟️ ${plan.ottTokens} OTT Tokens</div>` : '';
+                const freeBadge = freeText ? `<div class="badge free">🎁 ${freeText}</div>` : '';
+                const popularBadge = isPopular ? '<div class="badge">🌟 Most Popular</div>' : '';
 
                 html += `
-                    <div class="card ${selectedClass} ${isPopular ? 'popular' : ''}" 
-                         data-plan-name="${plan.name}" 
+                    <div class="card ${selectedClass} ${isPopular ? 'popular' : ''}"
+                         data-plan-name="${plan.name}"
                          onclick="selectInternetPlan('${plan.name}')">
-                        ${isPopular ? '<div class="badge">🌟 Most Popular</div>' : ''}
-                        ${freeText ? `<div class="badge free">🎁 ${freeText}</div>` : ''}
+                        ${popularBadge}
+                        ${tokenBadge}
+                        ${freeBadge}
                         <h3>${plan.name}</h3>
                         <div class="speed-tag"><span class="dot"></span> ${plan.speed} · Unlimited</div>
                         <h2>₹${priceWithGST} <small>/${currentDuration}</small></h2>
@@ -1094,74 +961,123 @@
                         </button>
                     </div>
                 `;
-            }
+            });
 
             container.innerHTML = html;
 
-            // Update card scaling after render
-            requestAnimationFrame(function() {
+            requestAnimationFrame(() => {
                 updateCardScales();
-                if (selectedInternetPlan) {
-                    centerSelectedPlanCard();
-                }
+                if (selectedInternetPlan) centerSelectedPlanCard();
             });
         }
 
         // ============================================================
-        //  RENDER: OTT CARDS
+        //  RENDER: OTT ADD-ON CARDS (for without OTT plans)
         // ============================================================
-
-        function renderOttCards() {
-            var container = $("ottCardsContainer");
+        function renderOttAddonCards() {
+            const container = $("ottAddonCards");
             if (!container) return;
 
-            var noneActive = selectedOttKey === "none";
-            var html = `
-                <div class="ott-card ${noneActive ? 'active' : ''}" onclick="selectOttAddon('none')">
+            let html = `
+                <div class="ott-card ${selectedOttKey === 'none' ? 'active' : ''}" onclick="selectOttAddon('none')">
                     <div class="ott-title">🚫 No OTT</div>
                     <div class="ott-price">Continue without OTT</div>
                 </div>
             `;
 
-            var keys = Object.keys(ottAddons);
-            for (var i = 0; i < keys.length; i++) {
-                var key = keys[i];
-                var pack = ottAddons[key];
-                var price = getOttPrice(pack);
-                var active = selectedOttKey === key;
-                var apps = pack.apps.slice(0, 6);
-                var logosHtml = '';
-
-                for (var j = 0; j < apps.length; j++) {
-                    var app = apps[j];
-                    var src = ottLogos[app] || '';
+            Object.keys(ottAddons).forEach(key => {
+                const pack = ottAddons[key];
+                const price = getOttPrice(pack);
+                if (price === 0) return; // hide packs unavailable for this duration
+                const active = selectedOttKey === key;
+                const apps = pack.apps.slice(0, 6);
+                let logosHtml = '';
+                apps.forEach(app => {
+                    const src = ottLogos[app] || '';
                     if (src) {
                         logosHtml += `<img src="${src}" alt="${app}" loading="lazy">`;
                     } else {
-                        logosHtml +=
-                            `<div style="background:rgba(0,0,0,0.04);border-radius:10px;padding:4px;font-size:9px;color:#999;text-align:center;">${app}</div>`;
+                        logosHtml += `<div style="background:rgba(0,0,0,0.04);border-radius:10px;padding:4px;font-size:9px;color:#999;text-align:center;">${app}</div>`;
                     }
-                }
-
+                });
+                const badgeHtml = pack.badge
+                    ? `<span style="background:#ff9800;color:#0a1628;font-size:9px;font-weight:800;padding:2px 8px;border-radius:20px;margin-left:6px;">${pack.badge}</span>`
+                    : '';
                 html += `
                     <div class="ott-card ${active ? 'active' : ''}" onclick="selectOttAddon('${key}')">
-                        <div class="ott-title">🎬 ${pack.name}</div>
+                        <div class="ott-title">🎬 ${pack.name}${badgeHtml}</div>
                         <div class="ott-price">+ ₹${price} / ${currentDuration}</div>
                         <div class="ott-grid">${logosHtml}</div>
                         <div class="app-count">✨ ${pack.apps.length}+ Apps</div>
                     </div>
                 `;
-            }
+            });
 
             container.innerHTML = html;
         }
 
         // ============================================================
+        //  RENDER: TOKEN SELECTOR (for with OTT plans)
+        // ============================================================
+        function renderTokenSelector() {
+            const container = $("tokenOttList");
+            if (!container || !selectedInternetPlan) return;
+
+            const includedTokens = selectedInternetPlan.ottTokens || 0;
+            const totalTokens = includedTokens + extraTokens;
+
+            let usedTokens = 0;
+            selectedTokenOtts.forEach(ott => { usedTokens += ottTokenCosts[ott] || 0; });
+            const remaining = totalTokens - usedTokens;
+
+            // Summary
+            const summary = $("tokenSummary");
+            if (summary) {
+                summary.innerHTML = `
+                    <div>🎟️ <strong>Included:</strong> ${includedTokens} tokens</div>
+                    <div>➕ <strong>Extra:</strong> ${extraTokens} tokens (₹${extraTokenCost})</div>
+                    <div>✅ <strong>Remaining:</strong> ${remaining} / ${totalTokens}</div>
+                `;
+            }
+
+            let html = '';
+            Object.keys(ottTokenCosts).forEach(ott => {
+                const cost = ottTokenCosts[ott];
+                const isSelected = selectedTokenOtts.includes(ott);
+                const wouldExceed = !isSelected && cost > remaining;
+                const disabledClass = wouldExceed ? 'disabled' : '';
+                const selectedClass = isSelected ? 'active' : '';
+                const clickHandler = wouldExceed ? '' : `onclick="toggleTokenOtt('${ott}')"`;
+                html += `
+                    <div class="ott-card ${selectedClass} ${disabledClass}" ${clickHandler}>
+                        <div class="ott-title">${ott}</div>
+                        <div class="ott-price">${cost} Token${cost > 1 ? 's' : ''}</div>
+                        ${isSelected ? '<div class="selected-tag">✓ Selected</div>' : ''}
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            const errDiv = $("tokenError");
+            if (errDiv) {
+                if (remaining < 0) {
+                    errDiv.textContent = '⚠️ You have selected more tokens than available. Please remove some OTTs.';
+                } else if (remaining === 0 && selectedTokenOtts.length > 0) {
+                    errDiv.textContent = '✅ All tokens used. Add a voucher to include more OTTs.';
+                    errDiv.style.color = '#81c784';
+                } else {
+                    errDiv.textContent = '';
+                    errDiv.style.color = '#e53935';
+                }
+            }
+        }
+
+        // ============================================================
         //  ACTIONS
         // ============================================================
-
         function selectInternetPlan(name) {
-            var plan = internetPlans.find(function(p) { return p.name === name; });
+            const plan = internetPlans.find(p => p.name === name);
             if (!plan) return;
             if (!isPlanAvailable(plan)) {
                 alert("This plan is not available for the selected duration. Please choose another.");
@@ -1169,18 +1085,34 @@
             }
 
             selectedInternetPlan = plan;
-            selectedOttKey = "none";
-            selectedOttName = "None";
+            selectedPlanType = plan.type;
 
-            renderOttCards();
+            // Reset OTT selections
+            selectedOttKey = 'none';
+            selectedTokenOtts = [];
+            extraTokens = 0;
+            extraTokenCost = 0;
+
+            // Render appropriate OTT section
+            if (selectedPlanType === 'withoutOtt') {
+                renderOttAddonCards();
+                $("ottAddonSection").style.display = "block";
+                $("ottTokenSection").style.display = "none";
+            } else {
+                renderTokenSelector();
+                $("ottAddonSection").style.display = "none";
+                $("ottTokenSection").style.display = "block";
+            }
+
             renderInternetPlans();
             refreshUI();
 
-            $("ottSection").style.display = "block";
             flowStep = 1;
 
-            setTimeout(function() {
-                $("ottSection").scrollIntoView({ behavior: "smooth", block: "start" });
+            setTimeout(() => {
+                const target = selectedPlanType === 'withoutOtt'
+                    ? $("ottAddonSection") : $("ottTokenSection");
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
             }, 150);
 
             showLeadPrompt();
@@ -1192,178 +1124,225 @@
 
             currentDuration = duration;
 
-            var cards = qsa(".duration-card");
-            for (var i = 0; i < cards.length; i++) {
-                cards[i].classList.remove("active");
-            }
+            qsa(".duration-card").forEach(c => c.classList.remove("active"));
             element.classList.add("active");
 
+            // Reset OTT selections
             selectedOttKey = "none";
-            selectedOttName = "None";
+            selectedTokenOtts = [];
+            extraTokens = 0;
+            extraTokenCost = 0;
 
             renderInternetPlans();
-            renderOttCards();
-            refreshUI();
-
             if (selectedInternetPlan) {
-                $("ottSection").style.display = "block";
-                flowStep = 1;
+                if (selectedPlanType === 'withoutOtt') {
+                    renderOttAddonCards();
+                    $("ottAddonSection").style.display = "block";
+                    $("ottTokenSection").style.display = "none";
+                } else {
+                    renderTokenSelector();
+                    $("ottAddonSection").style.display = "none";
+                    $("ottTokenSection").style.display = "block";
+                }
             } else {
-                $("ottSection").style.display = "none";
-                flowStep = 0;
+                $("ottAddonSection").style.display = "none";
+                $("ottTokenSection").style.display = "none";
             }
-
+            refreshUI();
             updateBottomButton();
         }
 
         function selectOttAddon(key) {
+            if (selectedPlanType !== 'withoutOtt') return;
             selectedOttKey = key;
-            selectedOttName = key === "none" ? "None" : ottAddons[key].name;
 
-            renderOttCards();
+            // Clear any token selections
+            selectedTokenOtts = [];
+            extraTokens = 0;
+            extraTokenCost = 0;
+
+            renderOttAddonCards();
             refreshUI();
             showLeadPrompt();
             updateBottomButton();
 
             if (flowStep === 1) {
                 flowStep = 2;
-                setTimeout(function() {
+                setTimeout(() => {
                     $("formSection").scrollIntoView({ behavior: "smooth", block: "start" });
                 }, 200);
             }
         }
 
+        function toggleTokenOtt(ott) {
+            if (!selectedInternetPlan) return;
+            const includedTokens = selectedInternetPlan.ottTokens || 0;
+            const totalTokens = includedTokens + extraTokens;
+
+            let usedTokens = 0;
+            selectedTokenOtts.forEach(o => usedTokens += ottTokenCosts[o] || 0);
+
+            const cost = ottTokenCosts[ott];
+            const isSelected = selectedTokenOtts.includes(ott);
+
+            if (isSelected) {
+                selectedTokenOtts = selectedTokenOtts.filter(o => o !== ott);
+            } else {
+                if (usedTokens + cost > totalTokens) {
+                    alert('Not enough tokens. Please add more tokens or remove another OTT.');
+                    return;
+                }
+                selectedTokenOtts.push(ott);
+            }
+
+            renderTokenSelector();
+            refreshUI();
+            updateBottomButton();
+        }
+
+        function addTokenVoucher(price, tokens) {
+            extraTokens += tokens;
+            extraTokenCost += price;
+            renderTokenSelector();
+            refreshUI();
+            updateBottomButton();
+        }
+
+        function clearExtraTokens() {
+            extraTokens = 0;
+            extraTokenCost = 0;
+            renderTokenSelector();
+            refreshUI();
+            updateBottomButton();
+        }
+
         // ============================================================
         //  UI UPDATES
         // ============================================================
-
         function refreshUI() {
-            var total = computeTotalWithGST();
-
-            var internetWithGST = 0;
-            var ottPrice = 0;
+            let total = 0;
+            let internetWithGST = 0;
+            let ottPrice = 0;
 
             if (selectedInternetPlan) {
                 internetWithGST = getPlanWithGST(selectedInternetPlan);
-            }
-            if (selectedOttKey !== "none" && ottAddons[selectedOttKey]) {
-                ottPrice = getOttPrice(ottAddons[selectedOttKey]);
+                total += internetWithGST;
+
+                if (selectedPlanType === 'withoutOtt') {
+                    if (selectedOttKey !== 'none' && ottAddons[selectedOttKey]) {
+                        ottPrice = getOttPrice(ottAddons[selectedOttKey]);
+                        total += ottPrice;
+                    }
+                } else {
+                    total += extraTokenCost;
+                }
             }
 
             $("bottomTotalPrice").innerHTML = `₹${total} <small>total</small>`;
 
-            var box = $("selectedBox");
+            const box = $("selectedBox");
             if (selectedInternetPlan) {
                 box.style.display = "block";
-                var ottLine = selectedOttKey !== "none" ? ` + ${ottAddons[selectedOttKey].name} (₹${ottPrice})` : "";
+                let ottLine = '';
+                if (selectedPlanType === 'withoutOtt') {
+                    ottLine = selectedOttKey !== 'none'
+                        ? ` + ${ottAddons[selectedOttKey].name} (₹${ottPrice})` : '';
+                } else {
+                    const ottsList = selectedTokenOtts.length ? selectedTokenOtts.join(', ') : 'None';
+                    ottLine = `<br>🎬 OTTs: ${ottsList}`;
+                    if (extraTokens > 0) {
+                        ottLine += ` | 🎟️ Extra Tokens: ${extraTokens} (₹${extraTokenCost})`;
+                    }
+                }
                 box.innerHTML =
-                    `📡 <strong>${selectedInternetPlan.name}</strong> (${selectedInternetPlan.speed})  ₹${internetWithGST} ${ottLine}<br>💰 Total: <strong>₹${total}</strong>`;
+                    `📡 <strong>${selectedInternetPlan.name}</strong> (${selectedInternetPlan.speed})  ₹${internetWithGST}${ottLine}<br>💰 Total: <strong>₹${total}</strong>`;
             } else {
                 box.style.display = "none";
             }
 
-            var bar = $("bottomBar");
-            bar.style.display = selectedInternetPlan ? "flex" : "none";
-
+            $("bottomBar").style.display = selectedInternetPlan ? "flex" : "none";
             updateBottomButton();
         }
 
         function updateCardScales() {
-            var container = $("plansContainer");
-            var cards = qsa(".card", container);
+            const container = $("plansContainer");
+            const cards = qsa(".card", container);
             if (!container || !cards.length) return;
 
-            var center = container.offsetWidth / 2;
-            var containerRect = container.getBoundingClientRect();
+            const center = container.offsetWidth / 2;
+            const containerRect = container.getBoundingClientRect();
 
-            for (var i = 0; i < cards.length; i++) {
-                var card = cards[i];
-
+            cards.forEach(card => {
                 if (card.classList.contains("selected")) {
                     card.style.transform = "scale(1.04) translateY(0)";
                     card.style.opacity = "1";
-                    continue;
+                    return;
                 }
-
-                var cardRect = card.getBoundingClientRect();
-                var cardCenter = cardRect.left + cardRect.width / 2 - containerRect.left;
-                var distance = Math.abs(center - cardCenter);
-
-                var scale = Math.max(0.82, 1 - distance / 600);
-                var opacity = Math.max(0.5, 1 - distance / 500);
-
+                const cardRect = card.getBoundingClientRect();
+                const cardCenter = cardRect.left + cardRect.width / 2 - containerRect.left;
+                const distance = Math.abs(center - cardCenter);
+                const scale = Math.max(0.82, 1 - distance / 600);
+                const opacity = Math.max(0.5, 1 - distance / 500);
                 card.style.transform = "scale(" + scale + ") translateY(" + (12 - scale * 12) + "px)";
                 card.style.opacity = opacity;
-            }
+            });
         }
 
         function centerSelectedPlanCard() {
             if (!selectedInternetPlan) return;
-
-            var container = $("plansContainer");
-            var target = qs('.card[data-plan-name="' + selectedInternetPlan.name + '"]', container);
+            const container = $("plansContainer");
+            const target = qs('.card[data-plan-name="' + selectedInternetPlan.name + '"]', container);
             if (!target || !container) return;
 
             isAutoScrolling = true;
-
-            var containerWidth = container.clientWidth;
-            var targetWidth = target.offsetWidth;
-            var scrollPosition = target.offsetLeft - (containerWidth / 2) + (targetWidth / 2);
-
+            const containerWidth = container.clientWidth;
+            const targetWidth = target.offsetWidth;
+            const scrollPosition = target.offsetLeft - (containerWidth / 2) + (targetWidth / 2);
             container.scrollTo({ left: Math.max(0, scrollPosition), behavior: "smooth" });
 
-            setTimeout(function() {
+            setTimeout(() => {
                 isAutoScrolling = false;
                 updateCardScales();
             }, 400);
         }
 
         function scrollPlans(direction) {
-            var container = $("plansContainer");
-            var cards = qsa(".card", container);
+            const container = $("plansContainer");
+            const cards = qsa(".card", container);
             if (!cards.length) return;
-
-            var cardWidth = cards[0].offsetWidth + 14;
+            const cardWidth = cards[0].offsetWidth + 14;
             container.scrollBy({ left: direction * cardWidth, behavior: "smooth" });
-
             setTimeout(updateCardScales, 200);
         }
 
         // ============================================================
         //  LEAD PROMPT
         // ============================================================
-
         function showLeadPrompt() {
-            var prompt = $("leadPrompt");
+            const prompt = $("leadPrompt");
             prompt.classList.add("show");
             clearTimeout(prompt._timer);
-            prompt._timer = setTimeout(function() {
-                prompt.classList.remove("show");
-            }, 2600);
+            prompt._timer = setTimeout(() => prompt.classList.remove("show"), 2600);
         }
 
         // ============================================================
         //  FORM VALIDATION & BOTTOM BUTTON
         // ============================================================
-
         function updateBottomButton() {
-            var btn = $("bottomSubmitBtn");
+            const btn = $("bottomSubmitBtn");
             if (!btn) return;
-
-            var name = $("userName").value.trim();
-            var phone = $("userPhone").value.trim();
-
-            var isValid = selectedInternetPlan && name.length > 0 && /^[6-9]\d{9}$/.test(phone);
+            const name = $("userName").value.trim();
+            const phone = $("userPhone").value.trim();
+            const isValid = selectedInternetPlan && name.length > 0 && /^[6-9]\d{9}$/.test(phone);
             btn.disabled = !isValid;
         }
 
         function validateBasicFields() {
-            var isValid = true;
-
-            var name = $("userName");
-            var phone = $("userPhone");
-            var nameErr = $("nameErr");
-            var phoneErr = $("phoneErr");
+            let isValid = true;
+            const name = $("userName");
+            const phone = $("userPhone");
+            const nameErr = $("nameErr");
+            const phoneErr = $("phoneErr");
 
             name.classList.remove("error");
             phone.classList.remove("error");
@@ -1376,7 +1355,7 @@
                 isValid = false;
             }
 
-            var phoneValue = phone.value.trim();
+            const phoneValue = phone.value.trim();
             if (!/^[6-9]\d{9}$/.test(phoneValue)) {
                 phone.classList.add("error");
                 phoneErr.textContent = "Valid 10-digit mobile number required";
@@ -1394,21 +1373,31 @@
         // ============================================================
         //  SUBMIT LEAD
         // ============================================================
-
         async function submitLead() {
             if (!validateBasicFields()) return;
 
-            var name = $("userName").value.trim();
-            var phone = $("userPhone").value.trim();
-            var area = $("userArea").value.trim() || "Chennai";
-            var plan = selectedInternetPlan;
+            const name = $("userName").value.trim();
+            const phone = $("userPhone").value.trim();
+            const area = $("userArea").value.trim() || "Chennai";
+            const plan = selectedInternetPlan;
 
-            var internetWithGST = getPlanWithGST(plan);
-            var internetWithoutGST = getPlanWithoutGST(plan);
-            var ottPrice = (selectedOttKey !== "none" && ottAddons[selectedOttKey]) ?
-                getOttPrice(ottAddons[selectedOttKey]) : 0;
-            var totalWithGST = computeTotalWithGST();
-            var date = new Date().toLocaleString("en-IN");
+            const internetWithGST = getPlanWithGST(plan);
+            const internetWithoutGST = getPlanWithoutGST(plan);
+            const totalWithGST = computeTotalWithGST();
+            const date = new Date().toLocaleString("en-IN");
+
+            let ottDetails = '';
+            let ottExtraCost = 0;
+            if (selectedPlanType === 'withoutOtt') {
+                ottDetails = selectedOttKey === 'none' ? 'None' : ottAddons[selectedOttKey].name;
+                ottExtraCost = selectedOttKey === 'none' ? 0 : getOttPrice(ottAddons[selectedOttKey]);
+            } else {
+                ottDetails = selectedTokenOtts.length ? selectedTokenOtts.join(', ') : 'None';
+                if (extraTokens > 0) {
+                    ottDetails += ` + ${extraTokens} extra tokens (₹${extraTokenCost})`;
+                }
+                ottExtraCost = extraTokenCost;
+            }
 
             // Tracking
             gtag('event', 'conversion', {
@@ -1422,7 +1411,7 @@
                 currency: 'INR'
             });
 
-            var payload = {
+            const payload = {
                 Name: name,
                 Phone: phone,
                 Area: area,
@@ -1430,11 +1419,14 @@
                 Longitude: userLng,
                 "Plan Type": currentDuration,
                 "Selected Plan": plan.name,
+                "Plan Category": selectedPlanType,
                 "Speed": plan.speed,
-                "OTT Selected": selectedOttName,
+                "Included Tokens": plan.ottTokens || 0,
+                "Extra Tokens": extraTokens,
+                "OTT Selected": ottDetails,
                 "Internet Price (Without GST)": internetWithoutGST,
                 "Internet Price (With GST)": internetWithGST,
-                "OTT Price": ottPrice,
+                "OTT / Tokens Price": ottExtraCost,
                 "Total (With GST)": totalWithGST,
                 Date: date,
                 Source: "BSNL Website Chennai"
@@ -1450,14 +1442,15 @@
             );
 
             // WhatsApp message
-            var waMsg =
+            const waMsg =
                 "🔥 *New BSNL Lead* 🔥%0A" +
                 "👤 *Name:* " + name + "%0A" +
                 "📞 *Phone:* " + phone + "%0A" +
                 "📍 *Area:* " + area + "%0A" +
                 "📶 *Plan:* " + plan.name + " (" + plan.speed + ")%0A" +
                 "⏳ *Duration:* " + currentDuration + "%0A" +
-                "🎬 *OTT:* " + selectedOttName + "%0A" +
+                "🏷️ *Category:* " + (selectedPlanType === 'withOtt' ? 'With OTT Tokens' : 'Without OTT') + "%0A" +
+                "🎬 *OTT:* " + ottDetails + "%0A" +
                 "💰 *Total (With GST):* ₹" + totalWithGST + "%0A" +
                 "✅ Request installation.";
 
@@ -1467,50 +1460,38 @@
         // ============================================================
         //  GEOLOCATION
         // ============================================================
-
         function detectUserArea() {
-            var input = $("userArea");
-
-            if (!navigator.geolocation) {
-                input.value = "Chennai";
-                return;
-            }
+            const input = $("userArea");
+            if (!navigator.geolocation) { input.value = "Chennai"; return; }
 
             navigator.geolocation.getCurrentPosition(
                 async function(position) {
                     userLat = position.coords.latitude;
                     userLng = position.coords.longitude;
-
                     try {
-                        var response = await fetch(
-                            "https://nominatim.openstreetmap.org/reverse?lat=" + userLat + "&lon=" + userLng +
-                            "&format=json"
+                        const response = await fetch(
+                            "https://nominatim.openstreetmap.org/reverse?lat=" + userLat + "&lon=" + userLng + "&format=json"
                         );
-                        var data = await response.json();
+                        const data = await response.json();
                         input.value = data.address?.suburb || data.address?.city || "Chennai";
                     } catch (_) {
                         input.value = "Chennai";
                     }
                 },
-                function() {
-                    input.value = "Chennai";
-                }
+                function() { input.value = "Chennai"; }
             );
         }
 
         // ============================================================
         //  EVENT BINDING & INIT
         // ============================================================
-
         function bindEvents() {
             $("userName").addEventListener("input", updateBottomButton);
             $("userPhone").addEventListener("input", updateBottomButton);
 
-            var container = $("plansContainer");
+            const container = $("plansContainer");
             container.addEventListener("scroll", function() {
-                if (!isAutoScrolling) {
-                    updateCardScales();
-                }
+                if (!isAutoScrolling) updateCardScales();
             });
 
             window.addEventListener("resize", updateCardScales);
@@ -1519,15 +1500,16 @@
         window.onload = function() {
             detectUserArea();
 
-            var defaultPlan = internetPlans.find(function(p) { return p.popular; }) || internetPlans[0];
+            const defaultPlan = internetPlans.find(p => p.popular) || internetPlans[0];
             selectedInternetPlan = defaultPlan;
+            selectedPlanType = defaultPlan.type;
 
             renderInternetPlans();
-            renderOttCards();
             refreshUI();
 
-            $("ottSection").style.display = "block";
-            flowStep = 1;
+            // Do not show OTT sections until a plan is explicitly selected
+            $("ottAddonSection").style.display = "none";
+            $("ottTokenSection").style.display = "none";
 
             bindEvents();
             updateBottomButton();
