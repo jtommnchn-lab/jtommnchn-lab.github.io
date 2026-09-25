@@ -860,12 +860,12 @@
         };
 
         // OTT add‑on packs (for plans WITHOUT OTT tokens)
+        // NOTE: Cricket pack removed.
         const ottAddons = {
             basic:       { name: "OTT Basic",        price: { monthly: 151, quarterly: 454, half: 908,  yearly: 1817 }, apps: ["Zee5", "SonyLIV", "SunNxt", "Aha", "Discovery+"] },
             plus:        { name: "OTT Basic Plus",   price: { monthly: 216, quarterly: 647, half: 1295, yearly: 2590 }, apps: ["JioHotstar", "Zee5", "SonyLIV", "SunNxt", "Aha"] },
             premium:     { name: "OTT Premium",      price: { monthly: 239, quarterly: 718, half: 1436, yearly: 2873 }, apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"] },
-            premiumplus: { name: "OTT Premium Plus", price: { monthly: 282, quarterly: 847, half: 1695, yearly: 3389 }, apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"] },
-            cricket:     { name: "Cricket Pack",     price: { monthly: 167, quarterly: 499, half: undefined, yearly: undefined }, apps: ["JioHotstar", "SonyLIV", "Zee5"], badge: "NEW" }
+            premiumplus: { name: "OTT Premium Plus", price: { monthly: 282, quarterly: 847, half: 1695, yearly: 3389 }, apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"] }
         };
 
         const ottLogos = {
@@ -938,27 +938,21 @@
         // ============================================================
         //  TOKEN HELPERS (KEY LOGIC FOR OTT PLAN RESTRICTIONS)
         // ============================================================
-
-        // Compute total tokens available for the currently selected plan
         function getTotalTokens() {
             if (!selectedInternetPlan) return 0;
             return (selectedInternetPlan.ottTokens || 0) + extraTokens;
         }
 
-        // Compute tokens currently used by selected OTTs
         function getUsedTokens() {
             let used = 0;
             selectedTokenOtts.forEach(ott => { used += ottTokenCosts[ott] || 0; });
             return used;
         }
 
-        // Compute remaining tokens
         function getRemainingTokens() {
             return getTotalTokens() - getUsedTokens();
         }
 
-        // Check whether a specific OTT is selectable given current usage
-        // (Selected OTTs are always allowed to be deselected)
         function canSelectOtt(ott) {
             if (selectedTokenOtts.includes(ott)) return true;
             const cost = ottTokenCosts[ott] || 0;
@@ -1093,7 +1087,6 @@
             const usedTokens = getUsedTokens();
             const remaining = getRemainingTokens();
 
-            // ----- Token summary panel -----
             const summary = $("tokenSummary");
             if (summary) {
                 const pct = totalTokens > 0 ? Math.min(100, (usedTokens / totalTokens) * 100) : 0;
@@ -1114,12 +1107,10 @@
                 `;
             }
 
-            // ----- OTT selection grid -----
             let html = '';
             Object.keys(ottTokenCosts).forEach(ott => {
                 const cost = ottTokenCosts[ott];
                 const isSelected = selectedTokenOtts.includes(ott);
-                const remainingAfter = remaining - (isSelected ? 0 : cost);
                 const disabled = !isSelected && cost > remaining;
                 const disabledClass = disabled ? 'disabled' : '';
                 const selectedClass = isSelected ? 'active' : '';
@@ -1146,7 +1137,6 @@
 
             container.innerHTML = html;
 
-            // ----- Error / info message -----
             const errDiv = $("tokenError");
             if (errDiv) {
                 if (remaining === 0 && selectedTokenOtts.length > 0) {
@@ -1175,7 +1165,6 @@
             selectedInternetPlan = plan;
             selectedPlanType = plan.type;
 
-            // Reset all OTT selections when plan changes
             selectedOttKey = 'none';
             selectedTokenOtts = [];
             extraTokens = 0;
@@ -1214,7 +1203,6 @@
             qsa(".duration-card").forEach(c => c.classList.remove("active"));
             element.classList.add("active");
 
-            // Reset OTT selections
             selectedOttKey = "none";
             selectedTokenOtts = [];
             extraTokens = 0;
@@ -1260,7 +1248,6 @@
             }
         }
 
-        // ----- Core token enforcement -----
         function toggleTokenOtt(ott) {
             if (!selectedInternetPlan) return;
 
@@ -1268,10 +1255,8 @@
             const isSelected = selectedTokenOtts.includes(ott);
 
             if (isSelected) {
-                // Deselect – always allowed
                 selectedTokenOtts = selectedTokenOtts.filter(o => o !== ott);
             } else {
-                // Check remaining tokens
                 const remaining = getRemainingTokens();
                 if (cost > remaining) {
                     const shortBy = cost - remaining;
