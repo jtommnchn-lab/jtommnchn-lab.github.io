@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
 <script>
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date()); gtag('config', 'AW-XXXXXXXXX');
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());gtag('config','AW-XXXXXXXXX');
 </script>
 <script>
 !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -137,6 +136,43 @@ border-radius:10px;padding:4px;transition:transform .2s}
 .ott-card .selected-tag{color:#2e7d32;font-weight:700;font-size:.75rem;margin-top:6px}
 .ott-card .locked-msg{color:#c62828;font-weight:600;font-size:.7rem;margin-top:6px;
 background:rgba(198,40,40,.08);padding:4px 8px;border-radius:20px;display:inline-block}
+
+/* --- Combo card styles --- */
+.combos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:8px}
+.combo-card{background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(245,245,255,.9));
+border-radius:24px;padding:14px 14px 12px;cursor:pointer;border:2px solid transparent;
+transition:all .3s cubic-bezier(.25,.46,.45,.94);position:relative;
+box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.combo-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.14);border-color:rgba(255,152,0,.4)}
+.combo-card.active{border-color:#2e7d32;background:linear-gradient(135deg,#e8f5e9,#f1f8e9);
+box-shadow:0 12px 30px rgba(46,125,50,.18)}
+.combo-card.hero-combo{border-color:rgba(230,60,60,.45)}
+.combo-card.hero-combo:hover{border-color:#e53935;box-shadow:0 12px 30px rgba(229,57,53,.2)}
+.combo-card.hero-combo.active{border-color:#2e7d32;background:linear-gradient(135deg,#e8f5e9,#f1f8e9);box-shadow:0 12px 30px rgba(46,125,50,.18)}
+.combo-card .combo-header{display:flex;justify-content:space-between;align-items:flex-start;
+gap:6px;margin-bottom:8px}
+.combo-card .combo-name{font-weight:800;font-size:.95rem;color:#111;line-height:1.3;
+display:flex;align-items:center;gap:6px}
+.combo-card .combo-icon{font-size:1.15rem}
+.combo-card .combo-tokens{background:linear-gradient(135deg,#7b1fa2,#4a148c);color:#fff;
+font-size:.7rem;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;letter-spacing:.3px}
+.combo-card .combo-apps{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:6px}
+.combo-card .combo-app-chip{background:rgba(0,0,0,.06);color:#333;font-size:.68rem;font-weight:600;
+padding:3px 9px;border-radius:20px;letter-spacing:.2px}
+.combo-card .combo-app-chip.hot{background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff}
+.combo-card.active .combo-app-chip{background:rgba(46,125,50,.15);color:#1b5e20}
+.combo-card.active .combo-app-chip.hot{background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff}
+.combo-card .combo-tag{font-size:.68rem;font-weight:700;color:#2e7d32;margin-top:2px}
+.combo-card .combo-tag.hint{color:#8a8aaa;font-weight:500}
+.combo-card .combo-check{position:absolute;top:10px;right:10px;background:#2e7d32;color:#fff;
+width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+font-size:12px;font-weight:800;box-shadow:0 3px 10px rgba(46,125,50,.4);opacity:0;transform:scale(.6);
+transition:all .25s ease}
+.combo-card.active .combo-check{opacity:1;transform:scale(1)}
+.combos-divider{display:flex;align-items:center;gap:12px;margin:22px 0 14px;color:rgba(255,255,255,.55);
+font-size:.78rem;letter-spacing:.6px;text-transform:uppercase;font-weight:600}
+.combos-divider::before,.combos-divider::after{content:'';height:1px;flex:1;background:rgba(255,255,255,.12)}
+
 .voucher-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;
 padding:10px 18px;border-radius:40px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s}
 .voucher-btn:hover{background:rgba(255,255,255,.2);transform:scale(1.02);border-color:#ff9800}
@@ -181,9 +217,13 @@ box-shadow:0 6px 25px rgba(37,211,102,.25)}
 .form{padding:24px 16px 28px}
 .ott-section{margin:12px 10px;padding:16px 10px 20px}
 .ott-cards{grid-template-columns:1fr 1fr}
+.combos-grid{grid-template-columns:1fr 1fr;gap:10px}
+.combo-card{padding:12px 10px 10px}
+.combo-card .combo-name{font-size:.85rem}
+.combo-card .combo-app-chip{font-size:.62rem;padding:2px 7px}
 .selected-box{font-size:.8rem;padding:10px 14px;margin:0 10px 10px}
 .bottom-bar{padding:10px 16px 14px}.bottom-bar .price-line{font-size:22px}}
-@media(max-width:380px){.ott-cards{grid-template-columns:1fr}}
+@media(max-width:380px){.ott-cards,.combos-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -229,8 +269,16 @@ box-shadow:0 6px 25px rgba(37,211,102,.25)}
 </div>
 
 <div id="ottTokenSection" class="ott-section" style="display:none;">
-<h3>🎬 Build Your OTT <span>(Pick OTTs using tokens)</span></h3>
+<h3>🎬 Build Your OTT <span>(Pick a combo or customize)</span></h3>
 <div class="token-summary" id="tokenSummary"></div>
+
+<h4 style="color:#fff;font-size:.95rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
+  ⚡ Quick Combo Picks <span style="font-weight:400;font-size:.75rem;color:rgba(255,255,255,.55);">(one-tap selection)</span>
+</h4>
+<div class="combos-grid" id="combosGrid"></div>
+
+<div class="combos-divider">Or customize your own</div>
+
 <div id="tokenOttList" class="ott-cards"></div>
 <div id="tokenVoucherSection" style="margin-top:16px;">
 <p style="color:#fff;font-size:.9rem;margin-bottom:8px;">Need more tokens? Add vouchers:</p>
@@ -264,120 +312,130 @@ box-shadow:0 6px 25px rgba(37,211,102,.25)}
 <div id="leadPrompt" class="lead-prompt">Fill your name &amp; phone to book free installation</div>
 
 <script>
-// ============================================================
-//  PRICING MODEL
-// ============================================================
-// The "monthlyBase" values below are the BSNL plan prices WITHOUT GST.
-// Customer-facing (with-GST) prices are calculated as follows:
-//
-//   1)  monthlyWithGST  = round(monthlyBase × 1.18)
-//   2)  quarterly price = monthlyWithGST × 3
-//   3)  half-year price = monthlyWithGST × 6
-//   4)  annual price    = monthlyWithGST × 12
-//
-// Example: monthlyBase = 599 (Fibre Basic Plus)
-//     monthlyWithGST = round(599 × 1.18) = 707
-//     quarterly      = 707 × 3  = 2121
-//     half-yearly    = 707 × 6  = 4242
-//     annual         = 707 × 12 = 8484
-// ============================================================
+/* ============================================================
+   PRICING MODEL
+   monthlyBase = plan price WITHOUT GST.
+   withGST monthly = round(base × 1.18)
+   quarterly/half/yearly = withGST monthly × 3 / 6 / 12
+   Example: 599 → 707 → 2121 / 4242 / 8484
+   ============================================================ */
 
-// ---------- QUARTERLY-ONLY PLANS ----------
-// These are fixed-price quarterly plans and appear only in Quarterly tab.
 const quarterlyOnlyPlansRaw = [
-    { id: "fibre-entry",  name: "Fibre Entry",  speed: "25 Mbps", quarterlyPrice: 999,  ottTokens: 0, popular: false },
-    { id: "ghar-ka-wifi", name: "Ghar Ka WiFi", speed: "40 Mbps", quarterlyPrice: 1197, ottTokens: 0, popular: false }
+    { id:"fibre-entry",  name:"Fibre Entry",  speed:"25 Mbps", quarterlyPrice:999,  ottTokens:0, popular:false },
+    { id:"ghar-ka-wifi", name:"Ghar Ka WiFi", speed:"40 Mbps", quarterlyPrice:1197, ottTokens:0, popular:false }
 ];
 
-// ---------- REGULAR PLANS ----------
-// monthlyBase is the plan price WITHOUT GST.
 const regularPlansRaw = [
-    { id: "fibre-basic",         name: "Fibre Basic",         speed: "60 Mbps",  monthlyBase: 499,  ottTokens: 0,  popular: false },
-    { id: "fibre-lite-ott",      name: "Fibre Lite OTT",      speed: "60 Mbps",  monthlyBase: 549,  ottTokens: 4,  popular: false },
-    { id: "fibre-basic-plus",    name: "Fibre Basic Plus",    speed: "100 Mbps", monthlyBase: 599,  ottTokens: 0,  popular: true  },
-    { id: "fibre-smart-ott",     name: "Fibre Smart OTT",     speed: "100 Mbps", monthlyBase: 699,  ottTokens: 10, popular: false },
-    { id: "fibre-prime-ott",     name: "Fibre Prime OTT",     speed: "150 Mbps", monthlyBase: 799,  ottTokens: 10, popular: false },
-    { id: "fibre-value-advance", name: "Fibre Value Advance", speed: "200 Mbps", monthlyBase: 899,  ottTokens: 0,  popular: false },
-    { id: "fibre-max-ott",       name: "Fibre Max OTT",       speed: "200 Mbps", monthlyBase: 999,  ottTokens: 10, popular: false },
-    { id: "fibre-super-max-ott", name: "Fibre Super Max OTT", speed: "200 Mbps", monthlyBase: 1199, ottTokens: 30, popular: false },
-    { id: "fibre-premium-plus",  name: "Fibre Premium Plus",  speed: "250 Mbps", monthlyBase: 1299, ottTokens: 0,  popular: false },
-    { id: "fibre-elite-ott",     name: "Fibre Elite OTT",     speed: "300 Mbps", monthlyBase: 1399, ottTokens: 10, popular: false },
-    { id: "fibre-zenith-ott",    name: "Fibre Zenith OTT",    speed: "300 Mbps", monthlyBase: 1549, ottTokens: 30, popular: false },
-    { id: "fibre-elite-max",     name: "Fibre Elite Max",     speed: "500 Mbps", monthlyBase: 2799, ottTokens: 0,  popular: false },
-    { id: "fibre-elite-ultra",   name: "Fibre Elite Ultra",   speed: "1 Gbps",   monthlyBase: 4799, ottTokens: 0,  popular: false }
+    { id:"fibre-basic",         name:"Fibre Basic",         speed:"60 Mbps",  monthlyBase:499,  ottTokens:0,  popular:false },
+    { id:"fibre-lite-ott",      name:"Fibre Lite OTT",      speed:"60 Mbps",  monthlyBase:549,  ottTokens:4,  popular:false },
+    { id:"fibre-basic-plus",    name:"Fibre Basic Plus",    speed:"100 Mbps", monthlyBase:599,  ottTokens:0,  popular:true  },
+    { id:"fibre-smart-ott",     name:"Fibre Smart OTT",     speed:"100 Mbps", monthlyBase:699,  ottTokens:10, popular:false },
+    { id:"fibre-prime-ott",     name:"Fibre Prime OTT",     speed:"150 Mbps", monthlyBase:799,  ottTokens:10, popular:false },
+    { id:"fibre-value-advance", name:"Fibre Value Advance", speed:"200 Mbps", monthlyBase:899,  ottTokens:0,  popular:false },
+    { id:"fibre-max-ott",       name:"Fibre Max OTT",       speed:"200 Mbps", monthlyBase:999,  ottTokens:10, popular:false },
+    { id:"fibre-super-max-ott", name:"Fibre Super Max OTT", speed:"200 Mbps", monthlyBase:1199, ottTokens:30, popular:false },
+    { id:"fibre-premium-plus",  name:"Fibre Premium Plus",  speed:"250 Mbps", monthlyBase:1299, ottTokens:0,  popular:false },
+    { id:"fibre-elite-ott",     name:"Fibre Elite OTT",     speed:"300 Mbps", monthlyBase:1399, ottTokens:10, popular:false },
+    { id:"fibre-zenith-ott",    name:"Fibre Zenith OTT",    speed:"300 Mbps", monthlyBase:1549, ottTokens:30, popular:false },
+    { id:"fibre-elite-max",     name:"Fibre Elite Max",     speed:"500 Mbps", monthlyBase:2799, ottTokens:0,  popular:false },
+    { id:"fibre-elite-ultra",   name:"Fibre Elite Ultra",   speed:"1 Gbps",   monthlyBase:4799, ottTokens:0,  popular:false }
 ];
 
-// Build final internetPlans array: quarterly-only first, then regular.
 const internetPlans = [];
 
 quarterlyOnlyPlansRaw.forEach(raw => {
     internetPlans.push({
-        id: raw.id,
-        name: raw.name,
-        speed: raw.speed,
-        monthlyBase: null,
-        ottTokens: raw.ottTokens,
-        popular: !!raw.popular,
-        quarterlyOnly: true,
-        type: raw.ottTokens > 0 ? 'withOtt' : 'withoutOtt',
-        price: {
-            monthly:   undefined,
-            quarterly: raw.quarterlyPrice,   // already final with-GST
-            half:      undefined,
-            yearly:    undefined
-        }
+        id:raw.id, name:raw.name, speed:raw.speed,
+        monthlyBase:null, ottTokens:raw.ottTokens, popular:!!raw.popular,
+        quarterlyOnly:true,
+        type: raw.ottTokens>0 ? 'withOtt' : 'withoutOtt',
+        price:{ monthly:undefined, quarterly:raw.quarterlyPrice, half:undefined, yearly:undefined }
     });
 });
 
 regularPlansRaw.forEach(raw => {
     const base = raw.monthlyBase;
-    const mGST = Math.round(base * 1.18);   // with-GST monthly price
+    const mGST = Math.round(base * 1.18);
     internetPlans.push({
-        id: raw.id,
-        name: raw.name,
-        speed: raw.speed,
-        monthlyBase: base,
-        ottTokens: raw.ottTokens,
-        popular: !!raw.popular,
-        quarterlyOnly: false,
-        type: raw.ottTokens > 0 ? 'withOtt' : 'withoutOtt',
-        price: {
-            monthly:   mGST,          // e.g. 599 → 707
-            quarterly: mGST * 3,      // e.g. 707 → 2121
-            half:      mGST * 6,      // e.g. 707 → 4242
-            yearly:    mGST * 12      // e.g. 707 → 8484
-        }
+        id:raw.id, name:raw.name, speed:raw.speed,
+        monthlyBase:base, ottTokens:raw.ottTokens, popular:!!raw.popular,
+        quarterlyOnly:false,
+        type: raw.ottTokens>0 ? 'withOtt' : 'withoutOtt',
+        price:{ monthly:mGST, quarterly:mGST*3, half:mGST*6, yearly:mGST*12 }
     });
 });
 
-// OTT token cost per platform (from PDF)
+/* ============================================================
+   OTT TOKEN COSTS
+   ORDER MATTERS — Hotstar, Zee5, Sony Liv rendered first
+   ============================================================ */
 const ottTokenCosts = {
-    "Jio Hotstar": 6, "Sony Liv": 4, "Zee5": 4, "Saboot Bundle": 4,
-    "Waves Premium": 2, "Chaupal": 2, "Lions Gate": 1,
-    "Hungama": 1, "Epic On": 1, "ShemarooMe": 1
+    "Jio Hotstar": 6,
+    "Zee5": 4,
+    "Sony Liv": 4,
+    "Saboot Bundle": 4,
+    "Waves Premium": 2,
+    "Chaupal": 2,
+    "Lions Gate": 1,
+    "Hungama": 1,
+    "Epic On": 1,
+    "ShemarooMe": 1
 };
 
-// OTT add-on packs (for plans WITHOUT OTT tokens)
+/* ============================================================
+   OTT COMBOS — Prioritized: Hotstar → Zee5 → Sony Liv
+   ============================================================ */
+const ottCombos = {
+    /* ---- 4-token bucket (Fibre Lite OTT) ----
+       Hotstar needs 6 tokens → cannot fit in 4-token plans.
+       Priority: Zee5 → Sony Liv → then others                       */
+    4: [
+        { icon:"🎭", name:"Zee5",              otts:["Zee5"] },
+        { icon:"🎬", name:"Sony Liv",          otts:["Sony Liv"] },
+        { icon:"📺", name:"Saboot Bundle",     otts:["Saboot Bundle"] },
+        { icon:"🌊", name:"Waves + Chaupal",   otts:["Waves Premium","Chaupal"] },
+        { icon:"🎪", name:"4 Mini OTTs",       otts:["Lions Gate","Hungama","Epic On","ShemarooMe"] },
+        { icon:"🎯", name:"Waves + 2 Minis",   otts:["Waves Premium","Lions Gate","Hungama"] }
+    ],
+    /* ---- 10-token bucket ----
+       Priority: Hotstar first, then Zee5, then Sony Liv             */
+    10: [
+        { icon:"🔥", name:"Hotstar + Zee5",          otts:["Jio Hotstar","Zee5"], hero:true },
+        { icon:"🔥", name:"Hotstar + Sony Liv",      otts:["Jio Hotstar","Sony Liv"], hero:true },
+        { icon:"🔥", name:"Hotstar + Saboot",        otts:["Jio Hotstar","Saboot Bundle"], hero:true },
+        { icon:"⭐", name:"Zee5 + Sony Liv + Waves", otts:["Zee5","Sony Liv","Waves Premium"] },
+        { icon:"⭐", name:"Zee5 + Sony Liv + Chaupal", otts:["Zee5","Sony Liv","Chaupal"] },
+        { icon:"⭐", name:"Zee5 + Saboot + Waves",   otts:["Zee5","Saboot Bundle","Waves Premium"] },
+        { icon:"⭐", name:"Sony Liv + Saboot + Waves", otts:["Sony Liv","Saboot Bundle","Waves Premium"] }
+    ],
+    /* ---- 30-token bucket ---- */
+    30: [
+        { icon:"👑", name:"Everything Combo",      otts:["Jio Hotstar","Zee5","Sony Liv","Saboot Bundle","Waves Premium","Chaupal","Lions Gate","Hungama","Epic On","ShemarooMe"], hero:true },
+        { icon:"💎", name:"Premium Trio + Extras", otts:["Jio Hotstar","Zee5","Sony Liv","Waves Premium","Chaupal","Lions Gate","Hungama","Epic On","ShemarooMe"], hero:true },
+        { icon:"🏆", name:"Top 4 Premium",         otts:["Jio Hotstar","Zee5","Sony Liv","Saboot Bundle"], hero:true }
+    ]
+};
+
 const ottAddons = {
-    basic:       { name: "OTT Basic",        price: { monthly: 151, quarterly: 454, half: 908,  yearly: 1817 }, apps: ["Zee5", "SonyLIV", "SunNxt", "Aha", "Discovery+"] },
-    plus:        { name: "OTT Basic Plus",   price: { monthly: 216, quarterly: 647, half: 1295, yearly: 2590 }, apps: ["JioHotstar", "Zee5", "SonyLIV", "SunNxt", "Aha"] },
-    premium:     { name: "OTT Premium",      price: { monthly: 239, quarterly: 718, half: 1436, yearly: 2873 }, apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"] },
-    premiumplus: { name: "OTT Premium Plus", price: { monthly: 282, quarterly: 847, half: 1695, yearly: 3389 }, apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"] }
+    basic:       { name:"OTT Basic",        price:{ monthly:151, quarterly:454, half:908,  yearly:1817 }, apps:["Zee5","SonyLIV","SunNxt","Aha","Discovery+"] },
+    plus:        { name:"OTT Basic Plus",   price:{ monthly:216, quarterly:647, half:1295, yearly:2590 }, apps:["JioHotstar","Zee5","SonyLIV","SunNxt","Aha"] },
+    premium:     { name:"OTT Premium",      price:{ monthly:239, quarterly:718, half:1436, yearly:2873 }, apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"] },
+    premiumplus: { name:"OTT Premium Plus", price:{ monthly:282, quarterly:847, half:1695, yearly:3389 }, apps:["Amazon Prime","JioHotstar","Zee5","SonyLIV","SunNxt"] }
 };
 
 const ottLogos = {
-    "Zee5": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Zee5-official-logo.jpeg",
-    "SonyLIV": "https://upload.wikimedia.org/wikipedia/commons/f/f7/SonyLIV_2020.png",
-    "SunNxt": "https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Sun_NXT_logo_small.png/250px-Sun_NXT_logo_small.png",
-    "Aha": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Aha_OTT_Logo.svg/500px-Aha_OTT_Logo.svg.png",
-    "Discovery+": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2019_Discovery_logo.svg/960px-2019_Discovery_logo.svg.png",
-    "Amazon Prime": "https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
-    "JioHotstar": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JioHotstar_2025.png/960px-JioHotstar_2025.png"
+    "Zee5":"https://upload.wikimedia.org/wikipedia/commons/5/5a/Zee5-official-logo.jpeg",
+    "SonyLIV":"https://upload.wikimedia.org/wikipedia/commons/f/f7/SonyLIV_2020.png",
+    "SunNxt":"https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Sun_NXT_logo_small.png/250px-Sun_NXT_logo_small.png",
+    "Aha":"https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Aha_OTT_Logo.svg/500px-Aha_OTT_Logo.svg.png",
+    "Discovery+":"https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2019_Discovery_logo.svg/960px-2019_Discovery_logo.svg.png",
+    "Amazon Prime":"https://upload.wikimedia.org/wikipedia/commons/f/f1/Prime_Video.png",
+    "JioHotstar":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JioHotstar_2025.png/960px-JioHotstar_2025.png"
 };
 
-// ============================================================
-//  STATE
-// ============================================================
+/* ============================================================
+   STATE
+   ============================================================ */
 let currentDuration = "monthly";
 let selectedInternetPlan = null;
 let selectedPlanType = 'withoutOtt';
@@ -388,19 +446,19 @@ let extraTokenCost = 0;
 let userLat = "", userLng = "";
 let isAutoScrolling = false;
 let flowStep = 0;
+let activeComboName = null;
 
 const $ = id => document.getElementById(id);
 const qs = (s, c) => (c || document).querySelector(s);
 const qsa = (s, c) => (c || document).querySelectorAll(s);
 
-// ============================================================
-//  PRICING HELPERS
-// ============================================================
+/* ============================================================
+   PRICING HELPERS
+   ============================================================ */
 function getPlanStoredPrice(plan) {
     const p = plan.price[currentDuration];
     return (p === undefined || p === null) ? 0 : p;
 }
-// Stored prices are already WITH GST (final customer-facing values)
 function getPlanWithGST(plan) { return Math.round(getPlanStoredPrice(plan)); }
 function getPlanWithoutGST(plan) { return Math.round(getPlanStoredPrice(plan) / 1.18); }
 function getOttPrice(addon) { return addon ? (addon.price[currentDuration] || 0) : 0; }
@@ -425,9 +483,9 @@ function computeTotalWithGST() {
     return total;
 }
 
-// ============================================================
-//  TOKEN HELPERS
-// ============================================================
+/* ============================================================
+   TOKEN HELPERS
+   ============================================================ */
 function getTotalTokens() {
     if (!selectedInternetPlan) return 0;
     return (selectedInternetPlan.ottTokens || 0) + extraTokens;
@@ -439,9 +497,27 @@ function getUsedTokens() {
 }
 function getRemainingTokens() { return getTotalTokens() - getUsedTokens(); }
 
-// ============================================================
-//  RENDER: PLANS
-// ============================================================
+function comboTokenSum(otts) {
+    let sum = 0;
+    otts.forEach(o => { sum += ottTokenCosts[o] || 0; });
+    return sum;
+}
+
+function getComboBucket() {
+    if (!selectedInternetPlan) return null;
+    const t = selectedInternetPlan.ottTokens || 0;
+    if (t >= 30) return 30;
+    if (t >= 10) return 10;
+    if (t >= 4)  return 4;
+    return null;
+}
+
+/* Priority set for combo chip highlighting */
+const HOT_OTTS = new Set(["Jio Hotstar","Zee5","Sony Liv"]);
+
+/* ============================================================
+   RENDER: PLANS
+   ============================================================ */
 function renderInternetPlans() {
     const container = $("plansContainer");
     const available = getAvailablePlans();
@@ -451,7 +527,6 @@ function renderInternetPlans() {
         return;
     }
 
-    // Ensure a valid selection exists for the current duration
     if (selectedInternetPlan && !available.some(p => p.id === selectedInternetPlan.id)) {
         selectedInternetPlan = available.find(p => p.popular) || available[0];
     } else if (!selectedInternetPlan) {
@@ -501,9 +576,9 @@ function renderInternetPlans() {
     });
 }
 
-// ============================================================
-//  RENDER: OTT ADD-ON CARDS (for plans WITHOUT OTT tokens)
-// ============================================================
+/* ============================================================
+   RENDER: OTT ADD-ON CARDS (plans WITHOUT OTT tokens)
+   ============================================================ */
 function renderOttAddonCards() {
     const container = $("ottAddonCards");
     if (!container) return;
@@ -540,9 +615,59 @@ function renderOttAddonCards() {
     container.innerHTML = html;
 }
 
-// ============================================================
-//  RENDER: TOKEN SELECTOR
-// ============================================================
+/* ============================================================
+   RENDER: OTT COMBOS
+   ============================================================ */
+function renderCombos() {
+    const grid = $("combosGrid");
+    if (!grid || !selectedInternetPlan) return;
+
+    const bucket = getComboBucket();
+    if (!bucket || !ottCombos[bucket]) { grid.innerHTML = ''; return; }
+
+    const totalTokens = getTotalTokens();
+    let html = '';
+
+    ottCombos[bucket].forEach((combo, idx) => {
+        const tokensNeeded = comboTokenSum(combo.otts);
+        const fitsInPlan = tokensNeeded <= totalTokens;
+        const isActive = activeComboName === combo.name;
+        const tokensLabel = `${tokensNeeded} / ${totalTokens} tk`;
+
+        // Mark priority (Hotstar/Zee5/Sony) chips in red
+        const chips = combo.otts.map(o =>
+            `<span class="combo-app-chip ${HOT_OTTS.has(o) ? 'hot' : ''}">${o}</span>`
+        ).join('');
+
+        let footer;
+        if (isActive) {
+            footer = `<div class="combo-tag">✓ Applied — tap to deselect</div>`;
+        } else if (!fitsInPlan) {
+            footer = `<div class="combo-tag hint">🔒 Add voucher to unlock</div>`;
+        } else {
+            footer = `<div class="combo-tag hint">Tap to apply</div>`;
+        }
+
+        html += `
+            <div class="combo-card ${isActive ? 'active' : ''} ${combo.hero ? 'hero-combo' : ''}"
+                 onclick="selectCombo(${idx})">
+                <div class="combo-check">✓</div>
+                <div class="combo-header">
+                    <div class="combo-name"><span class="combo-icon">${combo.icon}</span>${combo.name}</div>
+                    <div class="combo-tokens">${tokensLabel}</div>
+                </div>
+                <div class="combo-apps">${chips}</div>
+                ${footer}
+            </div>
+        `;
+    });
+
+    grid.innerHTML = html;
+}
+
+/* ============================================================
+   RENDER: TOKEN SELECTOR (individual OTT picker)
+   ============================================================ */
 function renderTokenSelector() {
     const container = $("tokenOttList");
     if (!container || !selectedInternetPlan) return;
@@ -572,6 +697,8 @@ function renderTokenSelector() {
         `;
     }
 
+    /* Iterate ottTokenCosts — its key order determines the display order.
+       Jio Hotstar, Zee5, Sony Liv are deliberately placed first. */
     let html = '';
     Object.keys(ottTokenCosts).forEach(ott => {
         const cost = ottTokenCosts[ott];
@@ -580,6 +707,10 @@ function renderTokenSelector() {
         const disabledClass = disabled ? 'disabled' : '';
         const selectedClass = isSelected ? 'active' : '';
         const clickHandler = disabled ? '' : `onclick="toggleTokenOtt('${ott}')"`;
+        const isPriority = HOT_OTTS.has(ott);
+        const priorityTag = isPriority
+            ? `<span style="background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff;font-size:.55rem;font-weight:800;padding:1px 7px;border-radius:20px;margin-left:6px;letter-spacing:.4px;">POPULAR</span>`
+            : '';
 
         let statusHtml;
         if (isSelected) statusHtml = `<div class="selected-tag">✓ Selected (${cost} tokens)</div>`;
@@ -590,7 +721,7 @@ function renderTokenSelector() {
 
         html += `
             <div class="ott-card ${selectedClass} ${disabledClass}" ${clickHandler}>
-                <div class="ott-title">${ott}</div>
+                <div class="ott-title">${ott}${priorityTag}</div>
                 <div class="ott-price">${cost} Token${cost > 1 ? 's' : ''}</div>
                 ${statusHtml}
             </div>
@@ -611,9 +742,9 @@ function renderTokenSelector() {
     }
 }
 
-// ============================================================
-//  ACTIONS
-// ============================================================
+/* ============================================================
+   ACTIONS
+   ============================================================ */
 function selectInternetPlan(id) {
     const plan = internetPlans.find(p => p.id === id);
     if (!plan) return;
@@ -628,12 +759,14 @@ function selectInternetPlan(id) {
     selectedTokenOtts = [];
     extraTokens = 0;
     extraTokenCost = 0;
+    activeComboName = null;
 
     if (selectedPlanType === 'withoutOtt') {
         renderOttAddonCards();
         $("ottAddonSection").style.display = "block";
         $("ottTokenSection").style.display = "none";
     } else {
+        renderCombos();
         renderTokenSelector();
         $("ottAddonSection").style.display = "none";
         $("ottTokenSection").style.display = "block";
@@ -662,9 +795,8 @@ function setPlanDuration(duration, element) {
     selectedTokenOtts = [];
     extraTokens = 0;
     extraTokenCost = 0;
+    activeComboName = null;
 
-    // Auto-select a quarterly-only plan when entering quarterly, so the user
-    // immediately sees the newly-available plans.
     const available = getAvailablePlans();
     if (duration === 'quarterly') {
         const qonly = available.find(p => p.quarterlyOnly);
@@ -686,6 +818,7 @@ function setPlanDuration(duration, element) {
             $("ottAddonSection").style.display = "block";
             $("ottTokenSection").style.display = "none";
         } else {
+            renderCombos();
             renderTokenSelector();
             $("ottAddonSection").style.display = "none";
             $("ottTokenSection").style.display = "block";
@@ -714,10 +847,42 @@ function selectOttAddon(key) {
     }
 }
 
+function selectCombo(idx) {
+    if (!selectedInternetPlan) return;
+    const bucket = getComboBucket();
+    if (!bucket) return;
+    const combo = ottCombos[bucket][idx];
+    if (!combo) return;
+
+    if (activeComboName === combo.name) {
+        activeComboName = null;
+        selectedTokenOtts = [];
+        renderCombos();
+        renderTokenSelector();
+        refreshUI();
+        updateBottomButton();
+        return;
+    }
+
+    const tokensNeeded = comboTokenSum(combo.otts);
+    if (tokensNeeded > getTotalTokens()) {
+        alert(`This combo needs ${tokensNeeded} tokens but only ${getTotalTokens()} are available.\n\nAdd a token voucher below to unlock it.`);
+        return;
+    }
+
+    activeComboName = combo.name;
+    selectedTokenOtts = combo.otts.slice();
+    renderCombos();
+    renderTokenSelector();
+    refreshUI();
+    updateBottomButton();
+}
+
 function toggleTokenOtt(ott) {
     if (!selectedInternetPlan) return;
     const cost = ottTokenCosts[ott] || 0;
     const isSelected = selectedTokenOtts.includes(ott);
+
     if (isSelected) {
         selectedTokenOtts = selectedTokenOtts.filter(o => o !== ott);
     } else {
@@ -729,6 +894,10 @@ function toggleTokenOtt(ott) {
         }
         selectedTokenOtts.push(ott);
     }
+
+    activeComboName = null;
+
+    renderCombos();
     renderTokenSelector();
     refreshUI();
     updateBottomButton();
@@ -737,6 +906,7 @@ function toggleTokenOtt(ott) {
 function addTokenVoucher(price, tokens) {
     extraTokens += tokens;
     extraTokenCost += price;
+    renderCombos();
     renderTokenSelector();
     refreshUI();
     updateBottomButton();
@@ -745,14 +915,16 @@ function addTokenVoucher(price, tokens) {
 function clearExtraTokens() {
     extraTokens = 0;
     extraTokenCost = 0;
+    activeComboName = null;
+    renderCombos();
     renderTokenSelector();
     refreshUI();
     updateBottomButton();
 }
 
-// ============================================================
-//  UI UPDATES
-// ============================================================
+/* ============================================================
+   UI UPDATES
+   ============================================================ */
 function refreshUI() {
     let total = 0, internetWithGST = 0, ottPrice = 0;
 
@@ -782,7 +954,8 @@ function refreshUI() {
             const used = getUsedTokens();
             const totalTok = getTotalTokens();
             const ottsList = selectedTokenOtts.length ? selectedTokenOtts.join(', ') : 'None';
-            ottLine = `<br>🎬 OTTs: ${ottsList} <span style="opacity:.75">(${used}/${totalTok} tokens)</span>`;
+            const comboTag = activeComboName ? ` <span style="background:#2e7d32;color:#fff;font-size:0.7rem;padding:2px 8px;border-radius:20px;font-weight:700;">${activeComboName}</span>` : '';
+            ottLine = `<br>🎬 OTTs: ${ottsList}${comboTag} <span style="opacity:.75">(${used}/${totalTok} tokens)</span>`;
             if (extraTokens > 0) ottLine += ` | 🎟️ Extra: ${extraTokens} (₹${extraTokenCost})`;
         }
         box.innerHTML =
@@ -837,9 +1010,6 @@ function scrollPlans(direction) {
     setTimeout(updateCardScales, 200);
 }
 
-// ============================================================
-//  LEAD PROMPT
-// ============================================================
 function showLeadPrompt() {
     const prompt = $("leadPrompt");
     prompt.classList.add("show");
@@ -847,9 +1017,6 @@ function showLeadPrompt() {
     prompt._timer = setTimeout(() => prompt.classList.remove("show"), 2600);
 }
 
-// ============================================================
-//  FORM VALIDATION & BOTTOM BUTTON
-// ============================================================
 function updateBottomButton() {
     const btn = $("bottomSubmitBtn");
     if (!btn) return;
@@ -875,9 +1042,6 @@ function validateBasicFields() {
     return isValid;
 }
 
-// ============================================================
-//  SUBMIT LEAD
-// ============================================================
 async function submitLead() {
     if (!validateBasicFields()) return;
     const name = $("userName").value.trim();
@@ -898,6 +1062,7 @@ async function submitLead() {
         usedTokens = getUsedTokens();
         totalTokens = getTotalTokens();
         ottDetails = (selectedTokenOtts.length ? selectedTokenOtts.join(', ') : 'None') + ` (${usedTokens}/${totalTokens} tokens used)`;
+        if (activeComboName) ottDetails = `[Combo: ${activeComboName}] ` + ottDetails;
         if (extraTokens > 0) ottDetails += ` + ${extraTokens} extra tokens (₹${extraTokenCost})`;
         ottExtraCost = extraTokenCost;
     }
@@ -914,6 +1079,7 @@ async function submitLead() {
         "Speed": plan.speed,
         "Included Tokens": plan.ottTokens || 0,
         "Extra Tokens": extraTokens, "Tokens Used": usedTokens,
+        "Combo Applied": activeComboName || "Custom",
         "OTT Selected": ottDetails,
         "Internet Price (Without GST)": internetWithoutGST,
         "Internet Price (With GST)": internetWithGST,
@@ -933,15 +1099,13 @@ async function submitLead() {
         "📶 *Plan:* " + plan.name + " (" + plan.speed + ")%0A" +
         "⏳ *Duration:* " + currentDuration + "%0A" +
         "🏷️ *Category:* " + (selectedPlanType === 'withOtt' ? 'With OTT Tokens' : 'Without OTT') + "%0A" +
+        (activeComboName ? "⚡ *Combo:* " + activeComboName + "%0A" : "") +
         "🎬 *OTT:* " + ottDetails + "%0A" +
         "💰 *Total (With GST):* ₹" + totalWithGST + "%0A" +
         "✅ Request installation.";
     window.open("https://wa.me/919447072230?text=" + waMsg);
 }
 
-// ============================================================
-//  GEOLOCATION
-// ============================================================
 function detectUserArea() {
     const input = $("userArea");
     if (!navigator.geolocation) { input.value = "Chennai"; return; }
@@ -959,9 +1123,6 @@ function detectUserArea() {
     );
 }
 
-// ============================================================
-//  INIT
-// ============================================================
 function bindEvents() {
     $("userName").addEventListener("input", updateBottomButton);
     $("userPhone").addEventListener("input", updateBottomButton);
