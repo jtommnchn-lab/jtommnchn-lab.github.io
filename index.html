@@ -820,11 +820,27 @@
             { name: "Fibre Elite OTT",     speed: "300 Mbps", data: "6000 GB", beyondFup: "15 Mbps", monthlyBase: 1399, ottTokens: 10, popular: false },
             { name: "Fibre Zenith OTT",    speed: "300 Mbps", data: "6000 GB", beyondFup: "15 Mbps", monthlyBase: 1549, ottTokens: 30, popular: false },
             { name: "Fibre Elite Max",     speed: "500 Mbps", data: "7500 GB", beyondFup: "35 Mbps", monthlyBase: 2799, ottTokens: 0,  popular: false },
-            { name: "Fibre Elite Ultra",   speed: "1 Gbps",   data: "9500 GB", beyondFup: "45 Mbps", monthlyBase: 4799, ottTokens: 0,  popular: false }
+            { name: "Fibre Elite Ultra",   speed: "1 Gbps",   data: "9500 GB", beyondFup: "45 Mbps", monthlyBase: 4799, ottTokens: 0,  popular: false },
+            // Special quarterly-only plans (from PDF)
+            { name: "Fibre Entry 3 Month", speed: "25 Mbps",  data: "1300 GB", beyondFup: "4 Mbps",  monthlyBase: null, ottTokens: 0, popular: false,
+              price: { monthly: undefined, quarterly: 999, half: undefined, yearly: undefined } },
+            { name: "Home Wifi 3 Month",   speed: "40 Mbps",  data: "1400 GB", beyondFup: "4 Mbps",  monthlyBase: null, ottTokens: 0, popular: false,
+              price: { monthly: undefined, quarterly: 1197, half: undefined, yearly: undefined } }
         ];
 
         const internetPlans = internetPlansRaw.map(plan => {
-            const { quarterlyBase, halfBase, yearlyBase } = computeLongTermBase(plan.monthlyBase);
+            let finalPrice;
+            if (plan.monthlyBase !== null && plan.monthlyBase !== undefined) {
+                const { quarterlyBase, halfBase, yearlyBase } = computeLongTermBase(plan.monthlyBase);
+                finalPrice = {
+                    monthly: plan.monthlyBase,
+                    quarterly: Math.round(quarterlyBase * 1.18),
+                    half: Math.round(halfBase * 1.18),
+                    yearly: Math.round(yearlyBase * 1.18)
+                };
+            } else {
+                finalPrice = plan.price;
+            }
             return {
                 name: plan.name,
                 speed: plan.speed,
@@ -835,21 +851,16 @@
                 popular: !!plan.popular,
                 note: plan.note || '',
                 type: plan.ottTokens > 0 ? 'withOtt' : 'withoutOtt',
-                price: {
-                    monthly: plan.monthlyBase,
-                    quarterly: Math.round(quarterlyBase * 1.18),
-                    half: Math.round(halfBase * 1.18),
-                    yearly: Math.round(yearlyBase * 1.18)
-                }
+                price: finalPrice
             };
         });
 
         // OTT token cost per platform (from PDF)
+        // Manorama Max removed as per request
         const ottTokenCosts = {
             "Jio Hotstar": 6,
             "Sony Liv": 4,
             "Zee5": 4,
-            "Manorama Max": 4,
             "Saboot Bundle": 4,
             "Waves Premium": 2,
             "Chaupal": 2,
@@ -860,7 +871,6 @@
         };
 
         // OTT add‑on packs (for plans WITHOUT OTT tokens)
-        // NOTE: Cricket pack removed.
         const ottAddons = {
             basic:       { name: "OTT Basic",        price: { monthly: 151, quarterly: 454, half: 908,  yearly: 1817 }, apps: ["Zee5", "SonyLIV", "SunNxt", "Aha", "Discovery+"] },
             plus:        { name: "OTT Basic Plus",   price: { monthly: 216, quarterly: 647, half: 1295, yearly: 2590 }, apps: ["JioHotstar", "Zee5", "SonyLIV", "SunNxt", "Aha"] },
@@ -936,7 +946,7 @@
         }
 
         // ============================================================
-        //  TOKEN HELPERS (KEY LOGIC FOR OTT PLAN RESTRICTIONS)
+        //  TOKEN HELPERS
         // ============================================================
         function getTotalTokens() {
             if (!selectedInternetPlan) return 0;
@@ -1071,12 +1081,6 @@
 
         // ============================================================
         //  RENDER: TOKEN SELECTOR (STRICT TOKEN LIMIT)
-        // ============================================================
-        // Rules:
-        //   • Total tokens available = plan.ottTokens + extraTokens
-        //   • Sum of selected OTT token costs must be <= total tokens
-        //   • Any OTT whose cost exceeds the *remaining* tokens is disabled
-        //   • Once selected, an OTT can always be deselected (frees tokens)
         // ============================================================
         function renderTokenSelector() {
             const container = $("tokenOttList");
