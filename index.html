@@ -807,24 +807,25 @@
         }
 
         // Plan definitions (monthlyBase = price without GST)
+        // id must be unique
         const internetPlansRaw = [
-            { name: "Fibre Basic",         speed: "60 Mbps",  data: "3300 GB", beyondFup: "4 Mbps",  monthlyBase: 499,  ottTokens: 0,  popular: false, note: "First Month Rent Free" },
-            { name: "Fibre Lite OTT",      speed: "60 Mbps",  data: "4000 GB", beyondFup: "4 Mbps",  monthlyBase: 549,  ottTokens: 4,  popular: false },
-            { name: "Fibre Basic Plus",    speed: "100 Mbps", data: "4000 GB", beyondFup: "4 Mbps",  monthlyBase: 599,  ottTokens: 0,  popular: true,  note: "First Month Rent Free" },
-            { name: "Fibre Smart OTT",     speed: "100 Mbps", data: "4000 GB", beyondFup: "4 Mbps",  monthlyBase: 699,  ottTokens: 10, popular: false },
-            { name: "Fibre Prime OTT",     speed: "150 Mbps", data: "4000 GB", beyondFup: "10 Mbps", monthlyBase: 799,  ottTokens: 10, popular: false },
-            { name: "Fibre Value Advance", speed: "200 Mbps", data: "5000 GB", beyondFup: "12 Mbps", monthlyBase: 899,  ottTokens: 0,  popular: false },
-            { name: "Fibre Max OTT",       speed: "200 Mbps", data: "5000 GB", beyondFup: "10 Mbps", monthlyBase: 999,  ottTokens: 10, popular: false },
-            { name: "Fibre Super Max OTT", speed: "200 Mbps", data: "5000 GB", beyondFup: "10 Mbps", monthlyBase: 1199, ottTokens: 30, popular: false },
-            { name: "Fibre Premium Plus",  speed: "250 Mbps", data: "6000 GB", beyondFup: "15 Mbps", monthlyBase: 1299, ottTokens: 0,  popular: false },
-            { name: "Fibre Elite OTT",     speed: "300 Mbps", data: "6000 GB", beyondFup: "15 Mbps", monthlyBase: 1399, ottTokens: 10, popular: false },
-            { name: "Fibre Zenith OTT",    speed: "300 Mbps", data: "6000 GB", beyondFup: "15 Mbps", monthlyBase: 1549, ottTokens: 30, popular: false },
-            { name: "Fibre Elite Max",     speed: "500 Mbps", data: "7500 GB", beyondFup: "35 Mbps", monthlyBase: 2799, ottTokens: 0,  popular: false },
-            { name: "Fibre Elite Ultra",   speed: "1 Gbps",   data: "9500 GB", beyondFup: "45 Mbps", monthlyBase: 4799, ottTokens: 0,  popular: false },
-            // Special quarterly-only plans (from PDF)
-            { name: "Fibre Entry", speed: "25 Mbps",  data: "1300 GB", beyondFup: "4 Mbps",  monthlyBase: null, ottTokens: 0, popular: false,
+            { id: "fibre-basic",         name: "Fibre Basic",         speed: "60 Mbps",  monthlyBase: 499,  ottTokens: 0,  popular: false, note: "First Month Rent Free" },
+            { id: "fibre-lite-ott",      name: "Fibre Lite OTT",      speed: "60 Mbps",  monthlyBase: 549,  ottTokens: 4,  popular: false },
+            { id: "fibre-basic-plus",    name: "Fibre Basic Plus",    speed: "100 Mbps", monthlyBase: 599,  ottTokens: 0,  popular: true,  note: "First Month Rent Free" },
+            { id: "fibre-smart-ott",     name: "Fibre Smart OTT",     speed: "100 Mbps", monthlyBase: 699,  ottTokens: 10, popular: false },
+            { id: "fibre-prime-ott",     name: "Fibre Prime OTT",     speed: "150 Mbps", monthlyBase: 799,  ottTokens: 10, popular: false },
+            { id: "fibre-value-advance", name: "Fibre Value Advance", speed: "200 Mbps", monthlyBase: 899,  ottTokens: 0,  popular: false },
+            { id: "fibre-max-ott",       name: "Fibre Max OTT",       speed: "200 Mbps", monthlyBase: 999,  ottTokens: 10, popular: false },
+            { id: "fibre-super-max-ott", name: "Fibre Super Max OTT", speed: "200 Mbps", monthlyBase: 1199, ottTokens: 30, popular: false },
+            { id: "fibre-premium-plus",  name: "Fibre Premium Plus",  speed: "250 Mbps", monthlyBase: 1299, ottTokens: 0,  popular: false },
+            { id: "fibre-elite-ott",     name: "Fibre Elite OTT",     speed: "300 Mbps", monthlyBase: 1399, ottTokens: 10, popular: false },
+            { id: "fibre-zenith-ott",    name: "Fibre Zenith OTT",    speed: "300 Mbps", monthlyBase: 1549, ottTokens: 30, popular: false },
+            { id: "fibre-elite-max",     name: "Fibre Elite Max",     speed: "500 Mbps", monthlyBase: 2799, ottTokens: 0,  popular: false },
+            { id: "fibre-elite-ultra",   name: "Fibre Elite Ultra",   speed: "1 Gbps",   monthlyBase: 4799, ottTokens: 0,  popular: false },
+            // Quarterly-only plans (no monthly, half, yearly)
+            { id: "fibre-entry",         name: "Fibre Entry",         speed: "25 Mbps",  monthlyBase: null, ottTokens: 0, popular: false,
               price: { monthly: undefined, quarterly: 999, half: undefined, yearly: undefined } },
-            { name: "Ghar Ka WiFi", speed: "40 Mbps",  data: "1400 GB", beyondFup: "4 Mbps",  monthlyBase: null, ottTokens: 0, popular: false,
+            { id: "ghar-ka-wifi",        name: "Ghar Ka WiFi",        speed: "40 Mbps",  monthlyBase: null, ottTokens: 0, popular: false,
               price: { monthly: undefined, quarterly: 1197, half: undefined, yearly: undefined } }
         ];
 
@@ -842,10 +843,9 @@
                 finalPrice = plan.price;
             }
             return {
+                id: plan.id,
                 name: plan.name,
                 speed: plan.speed,
-                data: plan.data,
-                beyondFup: plan.beyondFup,
                 monthlyBase: plan.monthlyBase,
                 ottTokens: plan.ottTokens,
                 popular: !!plan.popular,
@@ -856,7 +856,6 @@
         });
 
         // OTT token cost per platform (from PDF)
-        // Manorama Max removed as per request
         const ottTokenCosts = {
             "Jio Hotstar": 6,
             "Sony Liv": 4,
@@ -982,7 +981,7 @@
             }
 
             if (selectedInternetPlan) {
-                if (!available.some(p => p.name === selectedInternetPlan.name)) {
+                if (!available.some(p => p.id === selectedInternetPlan.id)) {
                     selectedInternetPlan = available.find(p => p.popular) || available[0];
                 }
             } else {
@@ -997,7 +996,7 @@
                                  currentDuration === "half" ? "19 Days FREE" :
                                  currentDuration === "yearly" ? "1 Month FREE" : "";
                 const isPopular = !!plan.popular;
-                const isSelected = selectedInternetPlan && selectedInternetPlan.name === plan.name;
+                const isSelected = selectedInternetPlan && selectedInternetPlan.id === plan.id;
                 const selectedClass = isSelected ? "selected" : "";
                 const tokenBadge = plan.ottTokens > 0
                     ? `<div class="badge token">🎟️ ${plan.ottTokens} OTT Tokens</div>` : '';
@@ -1006,8 +1005,8 @@
 
                 html += `
                     <div class="card ${selectedClass} ${isPopular ? 'popular' : ''}"
-                         data-plan-name="${plan.name}"
-                         onclick="selectInternetPlan('${plan.name}')">
+                         data-plan-id="${plan.id}"
+                         onclick="selectInternetPlan('${plan.id}')">
                         ${popularBadge}
                         ${tokenBadge}
                         ${freeBadge}
@@ -1019,7 +1018,7 @@
                             <span>|</span>
                             <span>Without GST: ₹${priceWithoutGST}</span>
                         </div>
-                        <button onclick="event.stopPropagation(); selectInternetPlan('${plan.name}')">
+                        <button onclick="event.stopPropagation(); selectInternetPlan('${plan.id}')">
                             ${isSelected ? '✓ Selected' : 'Select Plan'}
                         </button>
                     </div>
@@ -1158,8 +1157,8 @@
         // ============================================================
         //  ACTIONS
         // ============================================================
-        function selectInternetPlan(name) {
-            const plan = internetPlans.find(p => p.name === name);
+        function selectInternetPlan(id) {
+            const plan = internetPlans.find(p => p.id === id);
             if (!plan) return;
             if (!isPlanAvailable(plan)) {
                 alert("This plan is not available for the selected duration. Please choose another.");
@@ -1368,7 +1367,7 @@
         function centerSelectedPlanCard() {
             if (!selectedInternetPlan) return;
             const container = $("plansContainer");
-            const target = qs('.card[data-plan-name="' + selectedInternetPlan.name + '"]', container);
+            const target = qs('.card[data-plan-id="' + selectedInternetPlan.id + '"]', container);
             if (!target || !container) return;
 
             isAutoScrolling = true;
