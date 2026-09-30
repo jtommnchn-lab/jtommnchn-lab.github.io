@@ -124,8 +124,6 @@ border:2px solid transparent;box-shadow:0 6px 20px rgba(0,0,0,.06);position:rela
 .ott-card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,.1)}
 .ott-card.active{border-color:#2e7d32;background:rgba(255,255,255,.95);transform:translateY(-3px);
 box-shadow:0 12px 30px rgba(46,125,50,.12)}
-.ott-card.disabled{opacity:.4;cursor:not-allowed;filter:grayscale(.7)}
-.ott-card.disabled:hover{transform:none;box-shadow:0 6px 20px rgba(0,0,0,.06)}
 .ott-card .ott-title{font-weight:700;font-size:1rem;display:flex;align-items:center;gap:6px;color:#1a1a2e;flex-wrap:wrap}
 .ott-card .ott-price{color:#2e7d32;font-weight:600;margin:4px 0 8px;font-size:.9rem}
 .ott-card .ott-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:6px}
@@ -133,9 +131,6 @@ box-shadow:0 12px 30px rgba(46,125,50,.12)}
 border-radius:10px;padding:4px;transition:transform .2s}
 .ott-card .ott-grid img:hover{transform:scale(1.06)}
 .ott-card .app-count{font-size:.65rem;color:#8a8aaa;margin-top:8px}
-.ott-card .selected-tag{color:#2e7d32;font-weight:700;font-size:.75rem;margin-top:6px}
-.ott-card .locked-msg{color:#c62828;font-weight:600;font-size:.7rem;margin-top:6px;
-background:rgba(198,40,40,.08);padding:4px 8px;border-radius:20px;display:inline-block}
 
 /* --- Combo card styles --- */
 .combos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:8px}
@@ -169,9 +164,6 @@ width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify
 font-size:12px;font-weight:800;box-shadow:0 3px 10px rgba(46,125,50,.4);opacity:0;transform:scale(.6);
 transition:all .25s ease}
 .combo-card.active .combo-check{opacity:1;transform:scale(1)}
-.combos-divider{display:flex;align-items:center;gap:12px;margin:22px 0 14px;color:rgba(255,255,255,.55);
-font-size:.78rem;letter-spacing:.6px;text-transform:uppercase;font-weight:600}
-.combos-divider::before,.combos-divider::after{content:'';height:1px;flex:1;background:rgba(255,255,255,.12)}
 
 .voucher-btn{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;
 padding:10px 18px;border-radius:40px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s}
@@ -269,19 +261,11 @@ box-shadow:0 6px 25px rgba(37,211,102,.25)}
 </div>
 
 <div id="ottTokenSection" class="ott-section" style="display:none;">
-<h3>🎬 Build Your OTT <span>(Pick a combo or customize)</span></h3>
+<h3>🎬 Choose Your OTT Combo <span>(Pick a combo that fits your plan tokens)</span></h3>
 <div class="token-summary" id="tokenSummary"></div>
-
-<h4 style="color:#fff;font-size:.95rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;">
-  ⚡ Quick Combo Picks <span style="font-weight:400;font-size:.75rem;color:rgba(255,255,255,.55);">(one-tap selection)</span>
-</h4>
 <div class="combos-grid" id="combosGrid"></div>
-
-<div class="combos-divider">Or customize your own</div>
-
-<div id="tokenOttList" class="ott-cards"></div>
-<div id="tokenVoucherSection" style="margin-top:16px;">
-<p style="color:#fff;font-size:.9rem;margin-bottom:8px;">Need more tokens? Add vouchers:</p>
+<div id="tokenVoucherSection" style="margin-top:18px;">
+<p style="color:#fff;font-size:.9rem;margin-bottom:8px;">Need more tokens? Add vouchers to unlock more combos:</p>
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
 <button class="voucher-btn" onclick="addTokenVoucher(50,4)">+4 Tokens (₹50)</button>
 <button class="voucher-btn" onclick="addTokenVoucher(100,10)">+10 Tokens (₹100)</button>
@@ -365,30 +349,17 @@ regularPlansRaw.forEach(raw => {
     });
 });
 
-/* ============================================================
-   OTT TOKEN COSTS
-   ORDER MATTERS — Hotstar, Zee5, Sony Liv rendered first
-   ============================================================ */
+/* OTT token costs (used only for combo math) */
 const ottTokenCosts = {
-    "Jio Hotstar": 6,
-    "Zee5": 4,
-    "Sony Liv": 4,
-    "Saboot Bundle": 4,
-    "Waves Premium": 2,
-    "Chaupal": 2,
-    "Lions Gate": 1,
-    "Hungama": 1,
-    "Epic On": 1,
-    "ShemarooMe": 1
+    "Jio Hotstar": 6, "Zee5": 4, "Sony Liv": 4, "Saboot Bundle": 4,
+    "Waves Premium": 2, "Chaupal": 2,
+    "Lions Gate": 1, "Hungama": 1, "Epic On": 1, "ShemarooMe": 1
 };
 
 /* ============================================================
-   OTT COMBOS — Prioritized: Hotstar → Zee5 → Sony Liv
+   OTT COMBOS — Priority: Hotstar → Zee5 → Sony Liv
    ============================================================ */
 const ottCombos = {
-    /* ---- 4-token bucket (Fibre Lite OTT) ----
-       Hotstar needs 6 tokens → cannot fit in 4-token plans.
-       Priority: Zee5 → Sony Liv → then others                       */
     4: [
         { icon:"🎭", name:"Zee5",              otts:["Zee5"] },
         { icon:"🎬", name:"Sony Liv",          otts:["Sony Liv"] },
@@ -397,18 +368,15 @@ const ottCombos = {
         { icon:"🎪", name:"4 Mini OTTs",       otts:["Lions Gate","Hungama","Epic On","ShemarooMe"] },
         { icon:"🎯", name:"Waves + 2 Minis",   otts:["Waves Premium","Lions Gate","Hungama"] }
     ],
-    /* ---- 10-token bucket ----
-       Priority: Hotstar first, then Zee5, then Sony Liv             */
     10: [
-        { icon:"🔥", name:"Hotstar + Zee5",          otts:["Jio Hotstar","Zee5"], hero:true },
-        { icon:"🔥", name:"Hotstar + Sony Liv",      otts:["Jio Hotstar","Sony Liv"], hero:true },
-        { icon:"🔥", name:"Hotstar + Saboot",        otts:["Jio Hotstar","Saboot Bundle"], hero:true },
-        { icon:"⭐", name:"Zee5 + Sony Liv + Waves", otts:["Zee5","Sony Liv","Waves Premium"] },
+        { icon:"🔥", name:"Hotstar + Zee5",            otts:["Jio Hotstar","Zee5"], hero:true },
+        { icon:"🔥", name:"Hotstar + Sony Liv",        otts:["Jio Hotstar","Sony Liv"], hero:true },
+        { icon:"🔥", name:"Hotstar + Saboot",          otts:["Jio Hotstar","Saboot Bundle"], hero:true },
+        { icon:"⭐", name:"Zee5 + Sony Liv + Waves",   otts:["Zee5","Sony Liv","Waves Premium"] },
         { icon:"⭐", name:"Zee5 + Sony Liv + Chaupal", otts:["Zee5","Sony Liv","Chaupal"] },
-        { icon:"⭐", name:"Zee5 + Saboot + Waves",   otts:["Zee5","Saboot Bundle","Waves Premium"] },
+        { icon:"⭐", name:"Zee5 + Saboot + Waves",     otts:["Zee5","Saboot Bundle","Waves Premium"] },
         { icon:"⭐", name:"Sony Liv + Saboot + Waves", otts:["Sony Liv","Saboot Bundle","Waves Premium"] }
     ],
-    /* ---- 30-token bucket ---- */
     30: [
         { icon:"👑", name:"Everything Combo",      otts:["Jio Hotstar","Zee5","Sony Liv","Saboot Bundle","Waves Premium","Chaupal","Lions Gate","Hungama","Epic On","ShemarooMe"], hero:true },
         { icon:"💎", name:"Premium Trio + Extras", otts:["Jio Hotstar","Zee5","Sony Liv","Waves Premium","Chaupal","Lions Gate","Hungama","Epic On","ShemarooMe"], hero:true },
@@ -416,6 +384,7 @@ const ottCombos = {
     ]
 };
 
+/* OTT add-on packs (for plans WITHOUT OTT tokens) */
 const ottAddons = {
     basic:       { name:"OTT Basic",        price:{ monthly:151, quarterly:454, half:908,  yearly:1817 }, apps:["Zee5","SonyLIV","SunNxt","Aha","Discovery+"] },
     plus:        { name:"OTT Basic Plus",   price:{ monthly:216, quarterly:647, half:1295, yearly:2590 }, apps:["JioHotstar","Zee5","SonyLIV","SunNxt","Aha"] },
@@ -512,7 +481,6 @@ function getComboBucket() {
     return null;
 }
 
-/* Priority set for combo chip highlighting */
 const HOT_OTTS = new Set(["Jio Hotstar","Zee5","Sony Liv"]);
 
 /* ============================================================
@@ -616,7 +584,7 @@ function renderOttAddonCards() {
 }
 
 /* ============================================================
-   RENDER: OTT COMBOS
+   RENDER: COMBO PICKER (replaces individual OTT selector)
    ============================================================ */
 function renderCombos() {
     const grid = $("combosGrid");
@@ -634,7 +602,6 @@ function renderCombos() {
         const isActive = activeComboName === combo.name;
         const tokensLabel = `${tokensNeeded} / ${totalTokens} tk`;
 
-        // Mark priority (Hotstar/Zee5/Sony) chips in red
         const chips = combo.otts.map(o =>
             `<span class="combo-app-chip ${HOT_OTTS.has(o) ? 'hot' : ''}">${o}</span>`
         ).join('');
@@ -666,80 +633,33 @@ function renderCombos() {
 }
 
 /* ============================================================
-   RENDER: TOKEN SELECTOR (individual OTT picker)
+   RENDER: TOKEN SUMMARY PANEL
    ============================================================ */
-function renderTokenSelector() {
-    const container = $("tokenOttList");
-    if (!container || !selectedInternetPlan) return;
+function renderTokenSummary() {
+    const summary = $("tokenSummary");
+    if (!summary || !selectedInternetPlan) return;
 
     const includedTokens = selectedInternetPlan.ottTokens || 0;
     const totalTokens = getTotalTokens();
     const usedTokens = getUsedTokens();
     const remaining = getRemainingTokens();
+    const pct = totalTokens > 0 ? Math.min(100, (usedTokens / totalTokens) * 100) : 0;
+    const remainingClass = remaining === 0 ? 'remaining-zero' : '';
 
-    const summary = $("tokenSummary");
-    if (summary) {
-        const pct = totalTokens > 0 ? Math.min(100, (usedTokens / totalTokens) * 100) : 0;
-        const remainingClass = remaining === 0 ? 'remaining-zero' : '';
-        summary.innerHTML = `
-            <div class="row">
-                <div>🎟️ <strong>Plan Tokens:</strong> ${includedTokens}</div>
-                <div>➕ <strong>Extra:</strong> ${extraTokens} (₹${extraTokenCost})</div>
-                <div>📊 <strong>Used:</strong> ${usedTokens} / ${totalTokens}</div>
-            </div>
-            <div class="row" style="margin-top:6px;">
-                <div style="font-size:.8rem;opacity:.8;">Remaining tokens</div>
-                <div class="remaining-highlight ${remainingClass}">${remaining}</div>
-            </div>
-            <div class="token-progress-bar">
-                <div class="token-progress-fill" style="width:${pct}%"></div>
-            </div>
-        `;
-    }
-
-    /* Iterate ottTokenCosts — its key order determines the display order.
-       Jio Hotstar, Zee5, Sony Liv are deliberately placed first. */
-    let html = '';
-    Object.keys(ottTokenCosts).forEach(ott => {
-        const cost = ottTokenCosts[ott];
-        const isSelected = selectedTokenOtts.includes(ott);
-        const disabled = !isSelected && cost > remaining;
-        const disabledClass = disabled ? 'disabled' : '';
-        const selectedClass = isSelected ? 'active' : '';
-        const clickHandler = disabled ? '' : `onclick="toggleTokenOtt('${ott}')"`;
-        const isPriority = HOT_OTTS.has(ott);
-        const priorityTag = isPriority
-            ? `<span style="background:linear-gradient(135deg,#e53935,#b71c1c);color:#fff;font-size:.55rem;font-weight:800;padding:1px 7px;border-radius:20px;margin-left:6px;letter-spacing:.4px;">POPULAR</span>`
-            : '';
-
-        let statusHtml;
-        if (isSelected) statusHtml = `<div class="selected-tag">✓ Selected (${cost} tokens)</div>`;
-        else if (disabled) {
-            const shortBy = cost - remaining;
-            statusHtml = `<div class="locked-msg">🔒 Needs ${shortBy} more token${shortBy > 1 ? 's' : ''}</div>`;
-        } else statusHtml = `<div class="app-count" style="color:#2e7d32;">✔ Available (uses ${cost} token${cost > 1 ? 's' : ''})</div>`;
-
-        html += `
-            <div class="ott-card ${selectedClass} ${disabledClass}" ${clickHandler}>
-                <div class="ott-title">${ott}${priorityTag}</div>
-                <div class="ott-price">${cost} Token${cost > 1 ? 's' : ''}</div>
-                ${statusHtml}
-            </div>
-        `;
-    });
-
-    container.innerHTML = html;
-
-    const errDiv = $("tokenError");
-    if (errDiv) {
-        if (remaining === 0 && selectedTokenOtts.length > 0) {
-            errDiv.style.color = '#81c784';
-            errDiv.textContent = '✅ All tokens used. Add a voucher to include more OTTs.';
-        } else if (remaining > 0 && selectedTokenOtts.length > 0) {
-            errDiv.style.color = '#ce93d8';
-            errDiv.textContent = `🎟️ ${remaining} token${remaining > 1 ? 's' : ''} still available. Pick another OTT or proceed.`;
-        } else errDiv.textContent = '';
-    }
+    summary.innerHTML = `
+        <div class="row">
+            <div>🎟️ <strong>Plan Tokens:</strong> ${includedTokens}</div>
+            <div>➕ <strong>Extra:</strong> ${extraTokens} (₹${extraTokenCost})</div>
+            <div>📊 <strong>Used:</strong> ${usedTokens} / ${totalTokens}</div>
+        </div>
+        <div class="row" style="margin-top:6px;">
+            <div style="font-size:.8rem;opacity:.8;">Remaining tokens</div>
+            <div class="remaining-highlight ${remainingClass}">${remaining}</div>
+        </div>
+        <div class="token-progress-bar">
+            <div class="token-progress-fill" style="width:${pct}%"></div>
+        </div>
+    `;
 }
 
 /* ============================================================
@@ -766,8 +686,8 @@ function selectInternetPlan(id) {
         $("ottAddonSection").style.display = "block";
         $("ottTokenSection").style.display = "none";
     } else {
+        renderTokenSummary();
         renderCombos();
-        renderTokenSelector();
         $("ottAddonSection").style.display = "none";
         $("ottTokenSection").style.display = "block";
     }
@@ -818,8 +738,8 @@ function setPlanDuration(duration, element) {
             $("ottAddonSection").style.display = "block";
             $("ottTokenSection").style.display = "none";
         } else {
+            renderTokenSummary();
             renderCombos();
-            renderTokenSelector();
             $("ottAddonSection").style.display = "none";
             $("ottTokenSection").style.display = "block";
         }
@@ -858,7 +778,7 @@ function selectCombo(idx) {
         activeComboName = null;
         selectedTokenOtts = [];
         renderCombos();
-        renderTokenSelector();
+        renderTokenSummary();
         refreshUI();
         updateBottomButton();
         return;
@@ -873,41 +793,21 @@ function selectCombo(idx) {
     activeComboName = combo.name;
     selectedTokenOtts = combo.otts.slice();
     renderCombos();
-    renderTokenSelector();
+    renderTokenSummary();
     refreshUI();
     updateBottomButton();
-}
 
-function toggleTokenOtt(ott) {
-    if (!selectedInternetPlan) return;
-    const cost = ottTokenCosts[ott] || 0;
-    const isSelected = selectedTokenOtts.includes(ott);
-
-    if (isSelected) {
-        selectedTokenOtts = selectedTokenOtts.filter(o => o !== ott);
-    } else {
-        const remaining = getRemainingTokens();
-        if (cost > remaining) {
-            const shortBy = cost - remaining;
-            alert(`❌ Not enough tokens.\n\n"${ott}" requires ${cost} tokens, but only ${remaining} remaining.\nYou need ${shortBy} more token${shortBy > 1 ? 's' : ''}.\n\nAdd a token voucher below or remove another OTT.`);
-            return;
-        }
-        selectedTokenOtts.push(ott);
+    if (flowStep === 1) {
+        flowStep = 2;
+        setTimeout(() => $("formSection").scrollIntoView({ behavior: "smooth", block: "start" }), 250);
     }
-
-    activeComboName = null;
-
-    renderCombos();
-    renderTokenSelector();
-    refreshUI();
-    updateBottomButton();
 }
 
 function addTokenVoucher(price, tokens) {
     extraTokens += tokens;
     extraTokenCost += price;
     renderCombos();
-    renderTokenSelector();
+    renderTokenSummary();
     refreshUI();
     updateBottomButton();
 }
@@ -916,8 +816,9 @@ function clearExtraTokens() {
     extraTokens = 0;
     extraTokenCost = 0;
     activeComboName = null;
+    selectedTokenOtts = [];
     renderCombos();
-    renderTokenSelector();
+    renderTokenSummary();
     refreshUI();
     updateBottomButton();
 }
@@ -1079,7 +980,7 @@ async function submitLead() {
         "Speed": plan.speed,
         "Included Tokens": plan.ottTokens || 0,
         "Extra Tokens": extraTokens, "Tokens Used": usedTokens,
-        "Combo Applied": activeComboName || "Custom",
+        "Combo Applied": activeComboName || "None",
         "OTT Selected": ottDetails,
         "Internet Price (Without GST)": internetWithoutGST,
         "Internet Price (With GST)": internetWithGST,
