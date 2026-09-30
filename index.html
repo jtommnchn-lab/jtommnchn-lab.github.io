@@ -132,7 +132,6 @@ border-radius:10px;padding:4px;transition:transform .2s}
 .ott-card .ott-grid img:hover{transform:scale(1.06)}
 .ott-card .app-count{font-size:.65rem;color:#8a8aaa;margin-top:8px}
 
-/* --- Combo card styles --- */
 .combos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-bottom:8px}
 .combo-card{background:linear-gradient(135deg,rgba(255,255,255,.95),rgba(245,245,255,.9));
 border-radius:24px;padding:14px 14px 12px;cursor:pointer;border:2px solid transparent;
@@ -349,16 +348,12 @@ regularPlansRaw.forEach(raw => {
     });
 });
 
-/* OTT token costs (used only for combo math) */
 const ottTokenCosts = {
     "Jio Hotstar": 6, "Zee5": 4, "Sony Liv": 4, "Saboot Bundle": 4,
     "Waves Premium": 2, "Chaupal": 2,
     "Lions Gate": 1, "Hungama": 1, "Epic On": 1, "ShemarooMe": 1
 };
 
-/* ============================================================
-   OTT COMBOS — Priority: Hotstar → Zee5 → Sony Liv
-   ============================================================ */
 const ottCombos = {
     4: [
         { icon:"🎭", name:"Zee5",              otts:["Zee5"] },
@@ -384,7 +379,6 @@ const ottCombos = {
     ]
 };
 
-/* OTT add-on packs (for plans WITHOUT OTT tokens) */
 const ottAddons = {
     basic:       { name:"OTT Basic",        price:{ monthly:151, quarterly:454, half:908,  yearly:1817 }, apps:["Zee5","SonyLIV","SunNxt","Aha","Discovery+"] },
     plus:        { name:"OTT Basic Plus",   price:{ monthly:216, quarterly:647, half:1295, yearly:2590 }, apps:["JioHotstar","Zee5","SonyLIV","SunNxt","Aha"] },
@@ -402,9 +396,6 @@ const ottLogos = {
     "JioHotstar":"https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/JioHotstar_2025.png/960px-JioHotstar_2025.png"
 };
 
-/* ============================================================
-   STATE
-   ============================================================ */
 let currentDuration = "monthly";
 let selectedInternetPlan = null;
 let selectedPlanType = 'withoutOtt';
@@ -421,9 +412,6 @@ const $ = id => document.getElementById(id);
 const qs = (s, c) => (c || document).querySelector(s);
 const qsa = (s, c) => (c || document).querySelectorAll(s);
 
-/* ============================================================
-   PRICING HELPERS
-   ============================================================ */
 function getPlanStoredPrice(plan) {
     const p = plan.price[currentDuration];
     return (p === undefined || p === null) ? 0 : p;
@@ -452,9 +440,6 @@ function computeTotalWithGST() {
     return total;
 }
 
-/* ============================================================
-   TOKEN HELPERS
-   ============================================================ */
 function getTotalTokens() {
     if (!selectedInternetPlan) return 0;
     return (selectedInternetPlan.ottTokens || 0) + extraTokens;
@@ -483,9 +468,22 @@ function getComboBucket() {
 
 const HOT_OTTS = new Set(["Jio Hotstar","Zee5","Sony Liv"]);
 
-/* ============================================================
-   RENDER: PLANS
-   ============================================================ */
+/* === Auto-scroll + focus helper === */
+function scrollToFormAndFocus(delay) {
+    setTimeout(() => {
+        const formSection = $("formSection");
+        if (formSection) formSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        // Wait for smooth scroll to settle, then focus the name input
+        setTimeout(() => {
+            const nameInput = $("userName");
+            if (nameInput) {
+                try { nameInput.focus({ preventScroll: true }); }
+                catch(e) { nameInput.focus(); }
+            }
+        }, 500);
+    }, delay || 200);
+}
+
 function renderInternetPlans() {
     const container = $("plansContainer");
     const available = getAvailablePlans();
@@ -544,9 +542,6 @@ function renderInternetPlans() {
     });
 }
 
-/* ============================================================
-   RENDER: OTT ADD-ON CARDS (plans WITHOUT OTT tokens)
-   ============================================================ */
 function renderOttAddonCards() {
     const container = $("ottAddonCards");
     if (!container) return;
@@ -583,9 +578,6 @@ function renderOttAddonCards() {
     container.innerHTML = html;
 }
 
-/* ============================================================
-   RENDER: COMBO PICKER (replaces individual OTT selector)
-   ============================================================ */
 function renderCombos() {
     const grid = $("combosGrid");
     if (!grid || !selectedInternetPlan) return;
@@ -632,9 +624,6 @@ function renderCombos() {
     grid.innerHTML = html;
 }
 
-/* ============================================================
-   RENDER: TOKEN SUMMARY PANEL
-   ============================================================ */
 function renderTokenSummary() {
     const summary = $("tokenSummary");
     if (!summary || !selectedInternetPlan) return;
@@ -662,9 +651,6 @@ function renderTokenSummary() {
     `;
 }
 
-/* ============================================================
-   ACTIONS
-   ============================================================ */
 function selectInternetPlan(id) {
     const plan = internetPlans.find(p => p.id === id);
     if (!plan) return;
@@ -696,6 +682,7 @@ function selectInternetPlan(id) {
     refreshUI();
     flowStep = 1;
 
+    // After plan selection, move to OTT selection area
     setTimeout(() => {
         const target = selectedPlanType === 'withoutOtt' ? $("ottAddonSection") : $("ottTokenSection");
         target.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -751,6 +738,8 @@ function setPlanDuration(duration, element) {
     updateBottomButton();
 }
 
+/* OTT add-on selection (for plans WITHOUT tokens)
+   → after selecting, jump to form + focus name input */
 function selectOttAddon(key) {
     if (selectedPlanType !== 'withoutOtt') return;
     selectedOttKey = key;
@@ -761,12 +750,11 @@ function selectOttAddon(key) {
     refreshUI();
     showLeadPrompt();
     updateBottomButton();
-    if (flowStep === 1) {
-        flowStep = 2;
-        setTimeout(() => $("formSection").scrollIntoView({ behavior: "smooth", block: "start" }), 200);
-    }
+    scrollToFormAndFocus(250);
 }
 
+/* Combo selection (for plans WITH tokens)
+   → after selecting a combo, jump to form + focus name input */
 function selectCombo(idx) {
     if (!selectedInternetPlan) return;
     const bucket = getComboBucket();
@@ -774,6 +762,7 @@ function selectCombo(idx) {
     const combo = ottCombos[bucket][idx];
     if (!combo) return;
 
+    // Toggle off
     if (activeComboName === combo.name) {
         activeComboName = null;
         selectedTokenOtts = [];
@@ -797,10 +786,8 @@ function selectCombo(idx) {
     refreshUI();
     updateBottomButton();
 
-    if (flowStep === 1) {
-        flowStep = 2;
-        setTimeout(() => $("formSection").scrollIntoView({ behavior: "smooth", block: "start" }), 250);
-    }
+    // Move focus to the form
+    scrollToFormAndFocus(300);
 }
 
 function addTokenVoucher(price, tokens) {
@@ -823,9 +810,6 @@ function clearExtraTokens() {
     updateBottomButton();
 }
 
-/* ============================================================
-   UI UPDATES
-   ============================================================ */
 function refreshUI() {
     let total = 0, internetWithGST = 0, ottPrice = 0;
 
