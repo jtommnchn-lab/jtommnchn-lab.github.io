@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<title>BSNL Plans</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<title>BSNL Bharat Fibre | Plans & OTT</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a1628;
@@ -13,17 +13,25 @@
     --text: #f7f8fb;
     --dim: rgba(255,255,255,0.6);
     --accent: #ff9800;
+    --green: #22c55e;
+    --purple: #a855f7;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-  body { background: var(--bg); color: var(--text); padding-bottom: 100px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding-bottom: 100px;
+  }
   
-  /* Nav */
-  .topbar { display: flex; justify-content: space-between; padding: 15px 20px; background: rgba(10,22,40,0.9); border-bottom: 1px solid var(--border); }
+  /* Header */
+  .topbar { display: flex; justify-content: space-between; padding: 15px 20px; background: rgba(10,22,40,0.9); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); }
   .topbar img { height: 30px; }
   .actions a { text-decoration: none; font-size: 20px; margin-left: 15px; }
   
   /* Hero */
-  .hero { width: 100%; height: 150px; overflow: hidden; }
+  .hero { width: 100%; height: 180px; overflow: hidden; }
   .hero img { width: 100%; height: 100%; object-fit: cover; }
 
   /* Duration */
@@ -33,44 +41,51 @@
   .duration-card.active { background: rgba(255,152,0,0.15); color: var(--accent); border: 1px solid rgba(255,152,0,0.3); }
   .duration-card .offer { display: block; font-size: 9px; color: var(--accent); text-transform: uppercase; margin-top: 2px; }
 
-  /* Plans Container */
+  /* Plans */
   .section-title { text-align: center; margin: 20px 0 10px; font-size: 18px; font-weight: 800; }
   .plans-wrapper { position: relative; max-width: 1000px; margin: 0 auto; padding: 0 10px; }
   .plans { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 0 20px; scrollbar-width: none; }
   .plans::-webkit-scrollbar { display: none; }
-  
-  /* Plan Card */
   .card {
     flex: 0 0 220px; background: var(--surface); border: 1px solid var(--border);
     border-radius: 20px; padding: 20px 15px; text-align: center; scroll-snap-align: center;
     cursor: pointer; transition: all 0.3s; opacity: 0.6; transform: scale(0.95);
   }
-  .card.selected { opacity: 1; transform: scale(1.02); border-color: var(--accent); background: rgba(255,152,0,0.08); }
+  .card.selected { opacity: 1; transform: scale(1.02); border-color: var(--accent); background: rgba(255,152,0,0.08); box-shadow: 0 0 20px rgba(255,152,0,0.15); }
   .card .badge { display: inline-block; background: var(--accent); color: #000; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 10px; margin-bottom: 8px; text-transform: uppercase; }
+  .card .badge.token { background: var(--purple); color: #fff; }
   .card h3 { font-size: 16px; margin-bottom: 4px; }
   .card .speed { font-size: 12px; color: var(--dim); margin-bottom: 12px; }
-  .card h2 { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+  .card h2 { font-size: 24px; font-weight: 900; color: #fff; margin-bottom: 4px; }
   .card h2 small { font-size: 12px; color: var(--dim); font-weight: 400; }
   .card .tax { font-size: 10px; color: var(--dim); margin-bottom: 15px; }
   .card button { background: var(--border); color: #fff; border: none; padding: 8px 16px; border-radius: 20px; width: 100%; font-weight: 600; cursor: pointer; }
-  .card.selected button { background: #22c55e; color: #fff; }
+  .card.selected button { background: var(--green); color: #fff; }
 
   /* Arrows */
   .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; z-index: 10; font-size: 12px; display: flex; align-items: center; justify-content: center; }
   .nav-btn.left { left: 5px; }
   .nav-btn.right { right: 5px; }
 
-  /* OTT Section */
+  /* OTT Sections */
   .ott-section { max-width: 800px; margin: 20px auto; padding: 20px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); display: none; }
-  .ott-section h3 { font-size: 18px; margin-bottom: 15px; }
+  .ott-section h3 { font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
   .ott-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+  
+  /* Combo Cards */
   .combo-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 16px; cursor: pointer; transition: all 0.2s; }
-  .combo-card.active { border-color: #22c55e; background: rgba(34,197,94,0.1); }
-  .combo-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .combo-card:hover { border-color: rgba(255,255,255,0.3); }
+  .combo-card.active { border-color: var(--green); background: rgba(34,197,94,0.1); }
+  .combo-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
   .combo-name { font-weight: 800; font-size: 14px; }
-  .combo-tokens { background: #a855f7; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 800; }
-  .chip { background: rgba(255,255,255,0.1); font-size: 11px; padding: 3px 8px; border-radius: 10px; display: inline-block; margin: 2px; }
+  .combo-tokens { background: var(--purple); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 800; }
+  .combo-apps { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .chip { background: rgba(255,255,255,0.1); font-size: 11px; padding: 3px 8px; border-radius: 10px; }
   .chip.hot { background: #e53935; color: #fff; }
+  .combo-footer { font-size: 11px; color: var(--green); font-weight: 600; }
+  .combo-footer.locked { color: var(--dim); }
+
+  /* Summary & Vouchers */
   .token-summary { background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.3); border-radius: 16px; padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; font-size: 14px; }
   .voucher-btns { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
   .voucher-btn { background: var(--surface); border: 1px solid var(--border); color: #fff; padding: 8px 16px; border-radius: 20px; cursor: pointer; }
@@ -78,14 +93,21 @@
   /* Form */
   .form-section { max-width: 500px; margin: 40px auto; padding: 30px 20px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); }
   .form-section h2 { text-align: center; margin-bottom: 20px; font-size: 20px; }
-  input { width: 100%; padding: 14px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: #fff; font-size: 15px; outline: none; }
+  input { width: 100%; padding: 14px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: #fff; font-size: 15px; font-family: inherit; outline: none; }
+  input:focus { border-color: var(--accent); }
   input.error { border-color: #ef4444; }
   .err { color: #ef4444; font-size: 12px; padding-left: 5px; margin-bottom: 10px; display: block; height: 14px; }
   .btn-submit { background: var(--accent); color: #000; width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 10px; }
-  .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,22,40,0.95); padding: 15px; display: none; flex-direction: column; gap: 10px; border-top: 1px solid var(--border); z-index: 999; }
-  .price { font-size: 22px; font-weight: 800; text-align: center; color: var(--accent); }
-  .btn-bottom { background: #22c55e; color: #fff; width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; }
+
+  /* Bottom Bar */
+  .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,22,40,0.95); backdrop-filter: blur(10px); padding: 15px; display: none; flex-direction: column; gap: 10px; border-top: 1px solid var(--border); z-index: 999; }
+  .price { font-size: 22px; font-weight: 900; text-align: center; color: var(--accent); }
+  .btn-bottom { background: var(--green); color: #fff; width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; }
   .btn-bottom:disabled { background: var(--border); color: var(--dim); cursor: not-allowed; }
+
+  /* Toast */
+  .toast { position: fixed; bottom: 120px; left: 50%; transform: translateX(-50%) translateY(20px); background: var(--green); color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 600; opacity: 0; transition: 0.3s; pointer-events: none; z-index: 10000; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   @media(max-width: 600px) {
     .card { flex: 0 0 200px; }
@@ -119,10 +141,7 @@
 <div class="section-title">Choose Your Plan</div>
 <div class="plans-wrapper">
   <button class="nav-btn left" onclick="scrollPlans(-1)">◀</button>
-  <!-- THIS IS THE CONTAINER THAT WAS FAILING -->
-  <div class="plans" id="plansContainer">
-    <div style="color: #fff; padding: 20px;">Loading plans...</div>
-  </div>
+  <div class="plans" id="plansContainer"></div>
   <button class="nav-btn right" onclick="scrollPlans(1)">▶</button>
 </div>
 
@@ -145,11 +164,14 @@
 
 <div class="form-section" id="formSection">
   <h2>Book Installation</h2>
-  <input id="userName" placeholder="Full Name">
+  <input id="userName" placeholder="Full Name" autocomplete="name">
   <span class="err" id="nameErr"></span>
-  <input id="userPhone" placeholder="10-digit Mobile Number" maxlength="10">
+  
+  <input id="userPhone" placeholder="10-digit Mobile Number" maxlength="10" autocomplete="tel">
   <span class="err" id="phoneErr"></span>
+  
   <input id="userArea" placeholder="Detecting location...">
+  
   <button class="btn-submit" onclick="submitForm()">Get Connection →</button>
 </div>
 
@@ -157,6 +179,8 @@
   <div class="price" id="bottomPrice">₹0 <small style="font-size:14px;color:#888;">total</small></div>
   <button class="btn-bottom" id="bottomBtn" onclick="submitForm()" disabled>Proceed</button>
 </div>
+
+<div id="toast" class="toast">✨ Fill details to proceed</div>
 
 <script>
 // --- DATA ---
@@ -185,25 +209,30 @@ const combosData = {
     { name: "Sony Liv", apps: ["Sony Liv"] },
     { name: "Saboot Bundle", apps: ["Saboot Bundle"] },
     { name: "Waves + Chaupal", apps: ["Waves Premium", "Chaupal"] },
-    { name: "4 Mini OTTs", apps: ["Lions Gate", "Hungama", "Epic On", "ShemarooMe"] }
+    { name: "4 Mini OTTs", apps: ["Lions Gate", "Hungama", "Epic On", "ShemarooMe"] },
+    { name: "Waves + 2 Minis", apps: ["Waves Premium", "Lions Gate", "Hungama"] }
   ],
   10: [
     { name: "Hotstar + Zee5", apps: ["Jio Hotstar", "Zee5"], hero: true },
     { name: "Hotstar + Sony Liv", apps: ["Jio Hotstar", "Sony Liv"], hero: true },
     { name: "Hotstar + Saboot", apps: ["Jio Hotstar", "Saboot Bundle"], hero: true },
     { name: "Zee5 + Sony + Waves", apps: ["Zee5", "Sony Liv", "Waves Premium"] },
-    { name: "Zee5 + Sony + Chaupal", apps: ["Zee5", "Sony Liv", "Chaupal"] }
+    { name: "Zee5 + Sony + Chaupal", apps: ["Zee5", "Sony Liv", "Chaupal"] },
+    { name: "Zee5 + Saboot + Waves", apps: ["Zee5", "Saboot Bundle", "Waves Premium"] },
+    { name: "Sony + Saboot + Waves", apps: ["Sony Liv", "Saboot Bundle", "Waves Premium"] }
   ],
   30: [
     { name: "Everything Combo", apps: ["Jio Hotstar", "Zee5", "Sony Liv", "Saboot Bundle", "Waves Premium", "Chaupal", "Lions Gate", "Hungama", "Epic On", "ShemarooMe"], hero: true },
-    { name: "Premium Trio", apps: ["Jio Hotstar", "Zee5", "Sony Liv"], hero: true }
+    { name: "Premium Trio + Extras", apps: ["Jio Hotstar", "Zee5", "Sony Liv", "Waves Premium", "Chaupal"], hero: true },
+    { name: "Top 4 Premium", apps: ["Jio Hotstar", "Zee5", "Sony Liv", "Saboot Bundle"], hero: true }
   ]
 };
 
 const addonsData = [
-  { name: "OTT Basic", apps: ["Zee5", "SonyLIV"], m: 151, q: 454, h: 908, y: 1817 },
-  { name: "OTT Plus", apps: ["JioHotstar", "Zee5"], m: 216, q: 647, h: 1295, y: 2590 },
-  { name: "OTT Premium", apps: ["Amazon Prime", "JioHotstar"], m: 239, q: 718, h: 1436, y: 2873 }
+  { name: "OTT Basic", apps: ["Zee5", "SonyLIV", "SunNxt", "Aha", "Discovery+"], m: 151, q: 454, h: 908, y: 1817 },
+  { name: "OTT Basic Plus", apps: ["JioHotstar", "Zee5", "SonyLIV", "SunNxt", "Aha"], m: 216, q: 647, h: 1295, y: 2590 },
+  { name: "OTT Premium", apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"], m: 239, q: 718, h: 1436, y: 2873 },
+  { name: "OTT Premium Plus", apps: ["Amazon Prime", "JioHotstar", "Zee5", "SonyLIV", "SunNxt"], m: 282, q: 847, h: 1695, y: 3389 }
 ];
 
 // --- STATE ---
@@ -214,7 +243,7 @@ let extraTokens = 0;
 let extraTokenCost = 0;
 let selectedAddon = null;
 
-// --- CALCULATIONS ---
+// --- HELPERS ---
 function getPrice(plan) {
   if (plan.qOnly) return duration === 'quarterly' ? plan.qPrice : 0;
   let mGST = Math.round(plan.base * 1.18);
@@ -233,38 +262,39 @@ function getAddonPrice(addon) {
   return 0;
 }
 
-function getTotalTokens() { return selectedPlan ? selectedPlan.tokens + extraTokens : 0; }
+function getTotalTokens() {
+  if (!selectedPlan) return 0;
+  return selectedPlan.tokens + extraTokens;
+}
+
 function getUsedTokens() {
   if (!selectedCombo) return 0;
-  let u = 0; selectedCombo.apps.forEach(a => u += tokenCosts[a] || 0); return u;
+  let used = 0;
+  selectedCombo.apps.forEach(app => used += tokenCosts[app] || 0);
+  return used;
 }
 
 // --- RENDER PLANS ---
 function renderPlans() {
-  console.log("Rendering plans for:", duration);
   const container = document.getElementById('plansContainer');
-  if (!container) { console.error("Plans container not found!"); return; }
-
-  // Filter plans based on duration
+  let html = '';
   let available = plansData.filter(p => p.qOnly ? duration === 'quarterly' : true);
-  console.log("Available plans:", available.length);
 
   if (available.length === 0) {
-    container.innerHTML = '<div style="padding:20px;color:#fff;">No plans available for this duration.</div>';
+    container.innerHTML = '<div style="padding:20px;color:#888;">No plans available</div>';
     return;
   }
 
-  // Auto-select if invalid
+  // Auto-select first if current selection is invalid
   if (!selectedPlan || !available.find(p => p.id === selectedPlan.id)) {
     selectedPlan = available.find(p => p.popular) || available[0];
   }
 
-  let html = '';
   available.forEach(p => {
     let price = getPrice(p);
     let isSel = selectedPlan.id === p.id ? 'selected' : '';
     let badges = '';
-    if (p.tokens > 0) badges += `<div class="badge" style="background:#a855f7;color:#fff;">${p.tokens} Tokens</div>`;
+    if (p.tokens > 0) badges += `<div class="badge token">${p.tokens} Tokens</div>`;
     if (p.qOnly) badges += `<div class="badge">Quarterly Only</div>`;
     
     html += `
@@ -278,9 +308,7 @@ function renderPlans() {
       </div>
     `;
   });
-  
   container.innerHTML = html;
-  console.log("Plans rendered successfully.");
   updateSummary();
 }
 
@@ -291,21 +319,24 @@ function renderOtt() {
   if (!selectedPlan) return;
 
   if (selectedPlan.tokens > 0) {
+    // Render Combos
     document.getElementById('ottSection').style.display = 'block';
     let bucket = selectedPlan.tokens >= 30 ? 30 : (selectedPlan.tokens >= 10 ? 10 : 4);
     let availableCombos = combosData[bucket] || [];
     let html = '';
+
     let total = getTotalTokens();
     let used = getUsedTokens();
-
     document.getElementById('tokenSummary').innerHTML = `
-      <div>Tokens Used: <strong>${used} / ${total}</strong></div>
-      <div style="color:#22c55e">Remaining: <strong>${total - used}</strong></div>
+      <div>Tokens: <strong>${used} / ${total}</strong></div>
+      <div style="color:var(--green)">Remaining: <strong>${total - used}</strong></div>
     `;
 
     availableCombos.forEach(c => {
       let cost = 0; c.apps.forEach(a => cost += tokenCosts[a] || 0);
       let isSel = selectedCombo && selectedCombo.name === c.name ? 'active' : '';
+      let canFit = cost <= total;
+      
       let appsHtml = c.apps.map(a => `<span class="chip ${['Jio Hotstar','Zee5','Sony Liv'].includes(a)?'hot':''}">${a}</span>`).join('');
       
       html += `
@@ -314,22 +345,26 @@ function renderOtt() {
             <div class="combo-name">${c.name}</div>
             <div class="combo-tokens">${cost} tk</div>
           </div>
-          <div>${appsHtml}</div>
+          <div class="combo-apps">${appsHtml}</div>
+          <div class="combo-footer ${canFit?'':'locked'}">${isSel?'✓ Applied':(canFit?'Tap to apply':'Need more tokens')}</div>
         </div>
       `;
     });
     document.getElementById('comboContainer').innerHTML = html;
 
   } else {
+    // Render Add-ons
     document.getElementById('addonSection').style.display = 'block';
-    let html = `<div class="combo-card ${selectedAddon===null?'active':''}" onclick="selectAddon(null)"><div class="combo-name">No OTT</div></div>`;
+    let html = `<div class="combo-card ${selectedAddon==='none'?'active':''}" onclick="selectAddon('none')"><div class="combo-name">No OTT</div></div>`;
+    
     addonsData.forEach(a => {
       let price = getAddonPrice(a);
       let isSel = selectedAddon === a.name ? 'active' : '';
       html += `
         <div class="combo-card ${isSel}" onclick="selectAddon('${a.name}')">
           <div class="combo-name">${a.name}</div>
-          <div style="color:#ff9800;font-size:14px;margin:4px 0;">+ ₹${price}</div>
+          <div style="color:var(--accent);font-size:14px;font-weight:700;margin-bottom:8px;">+ ₹${price}</div>
+          <div style="font-size:12px;color:var(--dim)">${a.apps.slice(0,3).join(', ')}...</div>
         </div>
       `;
     });
@@ -342,10 +377,12 @@ function setDuration(dur, el) {
   duration = dur;
   document.querySelectorAll('.duration-card').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
+  
   selectedCombo = null;
   extraTokens = 0;
   extraTokenCost = 0;
   selectedAddon = null;
+  
   renderPlans();
   renderOtt();
 }
@@ -356,8 +393,11 @@ function selectPlan(id) {
   extraTokens = 0;
   extraTokenCost = 0;
   selectedAddon = null;
+  
   renderPlans();
   renderOtt();
+  
+  // Scroll to OTT
   setTimeout(() => {
     let target = selectedPlan.tokens > 0 ? 'ottSection' : 'addonSection';
     document.getElementById(target).scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -372,16 +412,21 @@ function selectCombo(name) {
   if (selectedCombo && selectedCombo.name === name) {
     selectedCombo = null;
   } else {
+    let cost = 0; combo.apps.forEach(a => cost += tokenCosts[a] || 0);
+    if (cost > getTotalTokens()) return alert("Not enough tokens! Add vouchers below.");
     selectedCombo = combo;
   }
+  
   renderOtt();
   updateSummary();
+  if (selectedCombo) scrollToForm();
 }
 
 function selectAddon(name) {
-  selectedAddon = name;
+  selectedAddon = name === 'none' ? null : name;
   renderOtt();
   updateSummary();
+  scrollToForm();
 }
 
 function addVoucher(cost, tokens) {
@@ -403,16 +448,32 @@ function scrollPlans(dir) {
   document.getElementById('plansContainer').scrollBy({ left: dir * 250, behavior: 'smooth' });
 }
 
-// --- SUMMARY ---
+// --- SUMMARY & FORM ---
 function updateSummary() {
   if (!selectedPlan) return;
   let base = getPrice(selectedPlan);
-  let addon = selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0);
+  let addon = 0;
+  
+  if (selectedPlan.tokens > 0) {
+    addon = extraTokenCost;
+  } else if (selectedAddon) {
+    let a = addonsData.find(x => x.name === selectedAddon);
+    if (a) addon = getAddonPrice(a);
+  }
+  
   let total = base + addon;
   
+  // Bottom Bar
   document.getElementById('bottomPrice').innerHTML = `₹${total} <small style="font-size:14px;color:#888;">total</small>`;
   document.getElementById('bottomBar').style.display = 'flex';
   checkForm();
+}
+
+function scrollToForm() {
+  setTimeout(() => {
+    document.getElementById('formSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => document.getElementById('userName').focus({ preventScroll: true }), 500);
+  }, 300);
 }
 
 function checkForm() {
@@ -428,15 +489,35 @@ document.getElementById('userPhone').addEventListener('input', checkForm);
 async function submitForm() {
   let n = document.getElementById('userName');
   let p = document.getElementById('userPhone');
-  if (!n.value.trim() || !/^[6-9]\d{9}$/.test(p.value.trim())) { alert("Please fill valid name and phone"); return; }
+  
+  if (!n.value.trim()) { n.classList.add('error'); document.getElementById('nameErr').textContent = "Required"; return; }
+  if (!/^[6-9]\d{9}$/.test(p.value.trim())) { p.classList.add('error'); document.getElementById('phoneErr').textContent = "Valid 10-digit number required"; return; }
+  
+  n.classList.remove('error');
+  p.classList.remove('error');
+  
+  let price = getPrice(selectedPlan);
+  let addonPrice = selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0);
   
   let payload = {
     Date: new Date().toLocaleString(),
     Name: n.value.trim(),
     Phone: p.value.trim(),
     Area: document.getElementById('userArea').value || "Chennai",
-    Plan: selectedPlan.name,
-    Total: getPrice(selectedPlan) + (selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0))
+    "Plan Type": duration,
+    "Selected Plan": selectedPlan.name,
+    "Plan Category": selectedPlan.tokens > 0 ? "withOtt" : "withoutOtt",
+    "Speed": selectedPlan.speed,
+    "Included Tokens": selectedPlan.tokens,
+    "Extra Tokens": extraTokens,
+    "Tokens Used": getUsedTokens(),
+    "Combo Applied": selectedCombo ? selectedCombo.name : "None",
+    "OTT Selected": selectedCombo ? selectedCombo.apps.join(', ') : (selectedAddon || "None"),
+    "Internet Price (Without GST)": Math.round(price / 1.18),
+    "Internet Price (With GST)": price,
+    "OTT / Tokens Price": addonPrice,
+    "Total (With GST)": price + addonPrice,
+    Source: "Website Chennai"
   };
 
   let btn = document.querySelector('.btn-submit');
@@ -446,10 +527,18 @@ async function submitForm() {
   try {
     let fd = new URLSearchParams();
     fd.append("data", JSON.stringify(payload));
-    await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", { method: "POST", body: fd });
-    window.open(`https://wa.me/919447072230?text=New Lead: ${payload.Name} | ${payload.Plan} | ₹${payload.Total}`);
+    
+    await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", {
+      method: "POST",
+      body: fd
+    });
+    
+    let waText = `New Lead: ${payload.Name} | ${payload.Phone} | ${payload["Selected Plan"]} | Total: ₹${payload["Total (With GST)"]}`;
+    window.open(`https://wa.me/919447072230?text=${encodeURIComponent(waText)}`);
+    
     btn.textContent = "✅ Submitted!";
-    btn.style.background = "#22c55e";
+    btn.style.background = "var(--green)";
+    
   } catch(e) {
     alert("Error submitting. Please try again.");
     btn.textContent = "Get Connection →";
@@ -458,8 +547,22 @@ async function submitForm() {
 }
 
 // --- INIT ---
+function detectArea() {
+  if (!navigator.geolocation) { document.getElementById('userArea').value = "Chennai"; return; }
+  navigator.geolocation.getCurrentPosition(
+    async (pos) => {
+      try {
+        let r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${pos.coords.latitude}&lon=${pos.coords.longitude}&format=json`);
+        let d = await r.json();
+        document.getElementById('userArea').value = d.address?.suburb || d.address?.city || "Chennai";
+      } catch(e) { document.getElementById('userArea').value = "Chennai"; }
+    },
+    () => { document.getElementById('userArea').value = "Chennai"; }
+  );
+}
+
 window.onload = () => {
-  console.log("Page loaded. Initializing...");
+  detectArea();
   renderPlans();
 };
 </script>
