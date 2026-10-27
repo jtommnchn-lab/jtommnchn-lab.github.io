@@ -480,6 +480,7 @@ document.getElementById('userName').addEventListener('input', checkForm);
 document.getElementById('userPhone').addEventListener('input', checkForm);
 
 // --- SUBMIT ---
+// --- SUBMIT ---
 async function submitForm() {
   let n = document.getElementById('userName');
   let p = document.getElementById('userPhone');
@@ -501,7 +502,14 @@ async function submitForm() {
   try {
     let fd = new URLSearchParams();
     fd.append("data", JSON.stringify(payload));
-    await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", { method: "POST", body: fd });
+    
+    // The crucial fix: mode: 'no-cors' prevents the browser from blocking the request.
+    await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", { 
+      method: "POST", 
+      mode: "no-cors", 
+      body: fd 
+    });
+    
     window.open(`https://wa.me/919447072230?text=New Lead: ${payload.Name} | ${payload.Plan} | ₹${payload.Total}`);
     btn.textContent = "✅ Submitted!";
     btn.style.background = "#22c55e";
