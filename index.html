@@ -486,13 +486,33 @@ async function submitForm() {
   let p = document.getElementById('userPhone');
   if (!n.value.trim() || !/^[6-9]\d{9}$/.test(p.value.trim())) { alert("Please fill valid name and phone"); return; }
 
+  // Calculate all the exact prices and token details
+  let basePrice = getPrice(selectedPlan);
+  let addonPrice = selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0);
+  let totalPrice = basePrice + addonPrice;
+
+  // Build the payload EXACTLY matching the COLUMNS in your Google Apps Script
   let payload = {
     Date: new Date().toLocaleString(),
     Name: n.value.trim(),
     Phone: p.value.trim(),
     Area: document.getElementById('userArea').value || "Chennai",
-    Plan: selectedPlan.name,
-    Total: getPrice(selectedPlan) + (selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0))
+    Latitude: "",
+    Longitude: "",
+    "Plan Type": duration,
+    "Selected Plan": selectedPlan.name,
+    "Plan Category": selectedPlan.tokens > 0 ? "withOtt" : "withoutOtt",
+    "Speed": selectedPlan.speed,
+    "Included Tokens": selectedPlan.tokens,
+    "Extra Tokens": extraTokens,
+    "Tokens Used": getUsedTokens(),
+    "Combo Applied": selectedCombo ? selectedCombo.name : "None",
+    "OTT Selected": selectedCombo ? selectedCombo.apps.join(', ') : (selectedAddon || "None"),
+    "Internet Price (Without GST)": Math.round(basePrice / 1.18),
+    "Internet Price (With GST)": basePrice,
+    "OTT / Tokens Price": addonPrice,
+    "Total (With GST)": totalPrice,
+    Source: "Website Chennai"
   };
 
   let btn = document.querySelector('.btn-submit');
@@ -503,14 +523,15 @@ async function submitForm() {
     let fd = new URLSearchParams();
     fd.append("data", JSON.stringify(payload));
     
-    // The crucial fix: mode: 'no-cors' prevents the browser from blocking the request.
-    await fetch("https://script.google.com/macros/s/AKfycbwU5uV3Cz7TS_9NafmoaYlALZocGSNeIfideTYnsFPISrv-XY6QRjz2vUoJXFc5A8HZPQ/exec", { 
+    await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", { 
       method: "POST", 
       mode: "no-cors", 
       body: fd 
     });
     
-    window.open(`https://wa.me/919447072230?text=New Lead: ${payload.Name} | ${payload.Plan} | ₹${payload.Total}`);
+    // WhatsApp message string
+    window.open(`https://wa.me/919447072230?text=New Lead: ${payload.Name} | ${payload["Selected Plan"]} | ₹${payload["Total (With GST)"]}`);
+    
     btn.textContent = "✅ Submitted!";
     btn.style.background = "#22c55e";
   } catch(e) {
