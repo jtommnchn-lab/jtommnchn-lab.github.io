@@ -611,6 +611,7 @@ async function submitForm() {
   let addonPrice = selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0);
   let totalPrice = basePrice + addonPrice;
 
+  // Format payload to match Google Sheet COLUMNS exactly
   let payload = {
     Date: new Date().toLocaleString(),
     Name: n.value.trim(),
@@ -642,17 +643,33 @@ async function submitForm() {
     let fd = new URLSearchParams();
     fd.append("data", JSON.stringify(payload));
     
-    await fetch("https://script.google.com/macros/s/AKfycbynE-02bgzU7mttGCtgB_6tEB6ZzSar8Q_4_kWvn0EYd-IHICRr0v3LLT1JTSW38m1vrQ/exec", { 
+    // 1. Send to Google Sheets (Unchanged)
+    await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", { 
       method: "POST", 
       mode: "no-cors", 
       body: fd 
     });
     
-    window.open(`https://wa.me/919447072230?text=New Lead: ${payload.Name} | ${payload["Selected Plan"]} | ₹${payload["Total (With GST)"]}`);
+    // 2. Build Detailed WhatsApp Message
+    const waText = 
+      "🔥 *New BSNL Lead* 🔥\n" +
+      "👤 *Name:* " + payload.Name + "\n" +
+      "📞 *Phone:* " + payload.Phone + "\n" +
+      "📍 *Area:* " + payload.Area + "\n" +
+      "📶 *Plan:* " + payload["Selected Plan"] + " (" + payload.Speed + ")\n" +
+      "⏳ *Duration:* " + payload["Plan Type"] + "\n" +
+      "🏷️ *Category:* " + (payload["Plan Category"] === 'withOtt' ? 'With OTT Tokens' : 'Without OTT') + "\n" +
+      "🎬 *OTT:* " + payload["OTT Selected"] + "\n" +
+      "💰 *Total (With GST):* ₹" + payload["Total (With GST)"] + "\n" +
+      "✅ Request installation.";
+
+    // 3. Open WhatsApp with encoded message
+    window.open("https://wa.me/919447072230?text=" + encodeURIComponent(waText));
     
     btn.textContent = "✅ Submitted!";
     btn.style.background = "var(--green)";
   } catch(e) {
+    console.error("Submission Error:", e);
     alert("Error submitting. Please try again.");
     btn.textContent = "Get Connection →";
     btn.disabled = false;
