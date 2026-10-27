@@ -3,88 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<title>BSNL Plans</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<title>BSNL Fiber Plans</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a1628;
-    --surface: rgba(255,255,255,0.06);
-    --border: rgba(255,255,255,0.1);
-    --text: #f7f8fb;
-    --dim: rgba(255,255,255,0.6);
-    --accent: #ff9800;
-    --green: #22c55e;
+    --bg: #F8FAFC;
+    --surface: #FFFFFF;
+    --border: #E2E8F0;
+    --text: #1E293B;
+    --dim: #64748B;
+    --bsnl-blue: #003399;
+    --accent: #FF6600;
+    --green: #10B981;
+    --purple: #8B5CF6;
   }
+  
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-  body { background: var(--bg); color: var(--text); padding-bottom: 120px; }
+  body { background: var(--bg); color: var(--text); padding-bottom: 100px; }
 
-  .topbar { display: flex; justify-content: space-between; padding: 15px 20px; background: rgba(10,22,40,0.9); border-bottom: 1px solid var(--border); }
-  .topbar img { height: 30px; }
-  .actions a { text-decoration: none; font-size: 20px; margin-left: 15px; }
+  /* Topbar */
+  .topbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+  .topbar img { height: 32px; }
+  .actions a { text-decoration: none; font-size: 20px; margin-left: 15px; color: var(--bsnl-blue); }
 
-  .hero { width: 100%; height: 150px; overflow: hidden; }
+  /* Hero */
+  .hero { width: 100%; height: 180px; overflow: hidden; position: relative; }
   .hero img { width: 100%; height: 100%; object-fit: cover; }
+  .hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, var(--bg) 100%); }
 
-  .duration-wrapper { padding: 20px 16px; max-width: 800px; margin: 0 auto; }
-  .duration-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: var(--surface); padding: 6px; border-radius: 16px; border: 1px solid var(--border); }
-  .duration-card { text-align: center; padding: 10px 4px; cursor: pointer; border-radius: 10px; color: var(--dim); font-size: 14px; font-weight: 600; }
-  .duration-card.active { background: rgba(255,152,0,0.15); color: var(--accent); border: 1px solid rgba(255,152,0,0.3); }
-  .duration-card .offer { display: block; font-size: 9px; color: var(--accent); text-transform: uppercase; margin-top: 2px; }
+  /* Duration Tabs (3B: Bordered Pills) */
+  .duration-wrapper { padding: 20px 16px; max-width: 800px; margin: -20px auto 0; position: relative; z-index: 10; }
+  .duration-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .duration-card { 
+    background: var(--surface); border: 1.5px solid var(--bsnl-blue); color: var(--bsnl-blue);
+    padding: 10px 18px; border-radius: 30px; font-size: 14px; font-weight: 600; cursor: pointer; 
+    display: flex; flex-direction: column; align-items: center; transition: all 0.3s; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+  .duration-card.active { background: var(--bsnl-blue); color: #fff; box-shadow: 0 4px 12px rgba(0,51,153,0.2); }
+  .duration-card .offer { font-size: 9.5px; color: var(--accent); text-transform: uppercase; font-weight: 800; margin-top: 2px; }
+  .duration-card.active .offer { color: #FCD34D; }
 
-  .section-title { text-align: center; margin: 20px 0 10px; font-size: 18px; font-weight: 800; }
+  /* Section Title */
+  .section-title { text-align: center; margin: 25px 0 10px; font-size: 18px; font-weight: 800; color: var(--bsnl-blue); }
+
+  /* Plans Carousel */
   .plans-wrapper { position: relative; max-width: 1000px; margin: 0 auto; padding: 0 10px; }
-  .plans { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 0 20px; scrollbar-width: none; }
+  .plans { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 20px 10px 30px; scrollbar-width: none; }
   .plans::-webkit-scrollbar { display: none; }
 
-  .card { flex: 0 0 220px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px 15px; text-align: center; scroll-snap-align: center; cursor: pointer; transition: all 0.3s; opacity: 0.6; transform: scale(0.95); }
-  .card.selected { opacity: 1; transform: scale(1.02); border-color: var(--accent); background: rgba(255,152,0,0.08); }
-  .card .badge { display: inline-block; background: var(--accent); color: #000; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 10px; margin-bottom: 8px; text-transform: uppercase; }
-  .card h3 { font-size: 16px; margin-bottom: 4px; }
-  .card .speed { font-size: 12px; color: var(--dim); margin-bottom: 12px; }
-  .card h2 { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 4px; }
-  .card h2 small { font-size: 12px; color: var(--dim); font-weight: 400; }
-  .card .tax { font-size: 10px; color: var(--dim); margin-bottom: 15px; }
-  .card button { background: var(--border); color: #fff; border: none; padding: 8px 16px; border-radius: 20px; width: 100%; font-weight: 600; cursor: pointer; }
-  .card.selected button { background: var(--green); color: #fff; }
-
-  .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; z-index: 10; font-size: 12px; display: flex; align-items: center; justify-content: center; }
-  .nav-btn.left { left: 5px; }
-  .nav-btn.right { right: 5px; }
-
-  .ott-section { max-width: 800px; margin: 20px auto; padding: 20px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); display: none; }
-  .ott-section h3 { font-size: 18px; margin-bottom: 15px; }
-  .ott-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
-  .combo-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 16px; cursor: pointer; transition: all 0.2s; }
-  .combo-card.active { border-color: var(--green); background: rgba(34,197,94,0.1); }
-  .combo-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
-  .combo-name { font-weight: 800; font-size: 14px; }
-  .combo-tokens { background: #a855f7; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 800; }
-  .chip { background: rgba(255,255,255,0.1); font-size: 11px; padding: 3px 8px; border-radius: 10px; display: inline-block; margin: 2px; }
-  .chip.hot { background: #e53935; color: #fff; }
-  .token-summary { background: rgba(168,85,247,0.1); border: 1px solid rgba(168,85,247,0.3); border-radius: 16px; padding: 15px; margin-bottom: 15px; display: flex; justify-content: space-between; font-size: 14px; }
-  .voucher-btns { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
-  .voucher-btn { background: var(--surface); border: 1px solid var(--border); color: #fff; padding: 8px 16px; border-radius: 20px; cursor: pointer; }
-
-  /* Skip Button */
-  .skip-btn { width: 100%; padding: 16px; margin-top: 20px; background: transparent; border: 2px dashed var(--dim); color: var(--text); font-weight: 700; font-size: 15px; border-radius: 16px; cursor: pointer; transition: all 0.3s; }
-  .skip-btn:hover { border-color: var(--accent); background: rgba(255,152,0,0.05); color: var(--accent); }
-
-  .form-section { max-width: 500px; margin: 40px auto; padding: 30px 20px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); scroll-margin-top: 20px; }
-  .form-section h2 { text-align: center; margin-bottom: 20px; font-size: 20px; }
-  input { width: 100%; padding: 14px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: #fff; font-size: 15px; outline: none; transition: border 0.3s; }
-  input:focus { border-color: var(--accent); background: rgba(255,152,0,0.05); }
-  input.error { border-color: #ef4444; }
-  .err { color: #ef4444; font-size: 12px; padding-left: 5px; margin-bottom: 10px; display: block; height: 14px; }
-  .btn-submit { background: var(--accent); color: #000; width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 10px; }
+  /* Plan Cards (2A: Ticket Style, 2B: Popular, 2C: Icons) */
+  .card {
+    flex: 0 0 230px; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 20px; padding: 24px 20px 20px; text-align: center; scroll-snap-align: center;
+    cursor: pointer; transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94); 
+    opacity: 0.6; transform: scale(0.95);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+    position: relative;
+  }
   
-  .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,22,40,0.95); padding: 15px; display: none; flex-direction: column; gap: 10px; border-top: 1px solid var(--border); z-index: 999; }
-  .price { font-size: 22px; font-weight: 800; text-align: center; color: var(--accent); }
-  .btn-bottom { background: var(--green); color: #fff; width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; }
+  /* Ticket Cutouts */
+  .card::before, .card::after {
+    content: ''; position: absolute; top: 135px; width: 20px; height: 20px;
+    background: var(--bg); border-radius: 50%; border: 1px solid var(--border); z-index: 1;
+  }
+  .card::before { left: -11px; border-right-color: transparent; }
+  .card::after { right: -11px; border-left-color: transparent; }
+
+  /* Ticket Dashed Line */
+  .card .speed { 
+    font-size: 13px; color: var(--dim); font-weight: 600; margin-bottom: 12px;
+    border-bottom: 2px dashed var(--border); padding-bottom: 15px; 
+  }
+
+  .card.selected { opacity: 1; transform: scale(1.02); border-color: var(--accent); background: #FFF7ED; box-shadow: 0 10px 25px rgba(255,102,0,0.1); }
+  .card.selected::before, .card.selected::after { border-color: var(--accent); }
+  .card.selected .speed { border-bottom-color: rgba(255,102,0,0.3); }
+  
+  /* Highlight Popular Plan */
+  .card.popular { opacity: 0.85; transform: scale(1.02); z-index: 2; }
+  .card.popular.selected { opacity: 1; transform: scale(1.05); box-shadow: 0 15px 35px rgba(255,102,0,0.15); }
+  .card.popular::after { border-color: var(--border); } /* fix edge */
+  .card.popular .ribbon {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--accent); color: #fff; font-size: 10px; font-weight: 800;
+    padding: 4px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(255,102,0,0.3);
+  }
+
+  .card .badge { display: inline-block; background: #E0E7FF; color: var(--bsnl-blue); font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 12px; margin-bottom: 12px; }
+  .card .badge.token { background: #F3E8FF; color: var(--purple); }
+  .card h3 { font-size: 17px; margin-bottom: 6px; color: var(--text); font-weight: 800; }
+  .card h2 { font-size: 28px; font-weight: 800; color: var(--text); margin: 10px 0 4px; }
+  .card h2 small { font-size: 12px; color: var(--dim); font-weight: 500; }
+  .card .tax { font-size: 11px; color: var(--dim); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .card button { background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 10px 16px; border-radius: 12px; width: 100%; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s; }
+  .card.selected button { background: var(--accent); color: #fff; border-color: var(--accent); box-shadow: 0 4px 12px rgba(255,102,0,0.2); }
+
+  .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: #fff; color: var(--text); border: 1px solid var(--border); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; z-index: 10; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+  .nav-btn.left { left: -5px; }
+  .nav-btn.right { right: -5px; }
+
+  /* OTT Section */
+  .ott-section { max-width: 800px; margin: 20px auto; padding: 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); display: none; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+  .ott-section h3 { font-size: 18px; margin-bottom: 15px; color: var(--bsnl-blue); }
+  .ott-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  
+  .combo-card { background: var(--bg); border: 1.5px solid var(--border); padding: 16px; border-radius: 16px; cursor: pointer; transition: all 0.2s; }
+  .combo-card:hover { border-color: #CBD5E1; }
+  .combo-card.active { border-color: var(--green); background: #ECFDF5; }
+  
+  /* Highlight Hot Combos */
+  .combo-card:has(.chip.hot) { border-color: rgba(255,102,0,0.3); background: #FFF7ED; }
+  .combo-card:has(.chip.hot):hover { border-color: var(--accent); box-shadow: 0 4px 15px rgba(255,102,0,0.1); }
+  .combo-card:has(.chip.hot).active { border-color: var(--green); background: #ECFDF5; }
+
+  .combo-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+  .combo-name { font-weight: 800; font-size: 15px; color: var(--text); }
+  .combo-tokens { background: var(--purple); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 8px; font-weight: 800; }
+  
+  /* App Logo Chips (4A) */
+  .chip { 
+    background: #fff; border: 1px solid var(--border); font-size: 11px; font-weight: 600; color: var(--text);
+    padding: 4px 10px; border-radius: 8px; display: inline-flex; align-items: center; margin: 3px 3px 3px 0; 
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+  .chip.hot { background: #FEF2F2; color: #DC2626; border-color: #FECACA; }
+  
+  /* Token Summary (4B) */
+  .token-summary { 
+    background: #F1F5F9; border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; 
+    margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; 
+  }
+  .token-summary div:first-child strong { color: var(--bsnl-blue); font-size: 16px; }
+  .token-summary div:last-child strong { color: var(--green); font-size: 22px; }
+
+  .voucher-btns { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
+  .voucher-btn { background: #fff; border: 1px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; }
+  .voucher-btn:hover { background: var(--bg); border-color: var(--dim); }
+
+  .skip-btn { 
+    width: 100%; padding: 16px; margin-top: 20px; background: var(--surface); border: 2px dashed var(--border); 
+    color: var(--dim); font-weight: 700; font-size: 15px; border-radius: 16px; cursor: pointer; transition: all 0.3s; 
+  }
+  .skip-btn:hover { border-color: var(--bsnl-blue); color: var(--bsnl-blue); background: #EFF6FF; }
+
+  /* Form Section */
+  .form-section { max-width: 500px; margin: 40px auto; padding: 32px 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); scroll-margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+  .form-section h2 { text-align: center; margin-bottom: 24px; font-size: 22px; font-weight: 800; color: var(--bsnl-blue); }
+  
+  /* Inputs (5B) */
+  .input-wrap { position: relative; margin-bottom: 12px; }
+  .input-wrap .icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.5; }
+  .input-wrap input { 
+    width: 100%; padding: 16px 16px 16px 46px; background: var(--bg); border: 1.5px solid var(--border); 
+    border-radius: 12px; color: var(--text); font-size: 15px; outline: none; transition: all 0.3s; font-weight: 500;
+  }
+  .input-wrap input:focus { border-color: var(--bsnl-blue); background: #fff; box-shadow: 0 0 0 4px rgba(0,51,153,0.05); }
+  .input-wrap input.error { border-color: #EF4444; }
+  
+  .err { color: #EF4444; font-size: 12px; padding-left: 5px; margin-bottom: 8px; display: block; height: 14px; font-weight: 500; }
+  
+  /* Shine CTA Button (5D) */
+  .btn-submit { 
+    background: linear-gradient(135deg, var(--accent), #FF8F00); color: #fff; width: 100%; padding: 18px; 
+    border: none; border-radius: 14px; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 10px; 
+    position: relative; overflow: hidden; box-shadow: 0 8px 20px rgba(255,102,0,0.3); transition: transform 0.2s; 
+  }
+  .btn-submit::after {
+    content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transform: skewX(-20deg); animation: shine 3s infinite;
+  }
+  @keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
+  .btn-submit:active { transform: scale(0.98); }
+
+  /* Bottom Bar (6A, 6C) */
+  .bottom-bar { 
+    position: fixed; bottom: 0; left: 0; right: 0; 
+    background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    padding: 14px 20px; display: none; align-items: center; justify-content: space-between; 
+    border-top: 1px solid rgba(255,255,255,0.5); z-index: 999; box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+  }
+  .price { font-size: 24px; font-weight: 800; color: var(--bsnl-blue); display: flex; flex-direction: column; }
+  .price small { font-size: 12px; color: var(--dim); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .btn-bottom { background: var(--bsnl-blue); color: #fff; padding: 14px 28px; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; transition: all 0.2s; }
   .btn-bottom:disabled { background: var(--border); color: var(--dim); cursor: not-allowed; }
 
   @media(max-width: 600px) {
-    .card { flex: 0 0 200px; }
+    .card { flex: 0 0 210px; }
     .ott-section, .form-section { margin: 15px 10px; }
+    .duration-card { padding: 8px 12px; font-size: 13px; }
+    .bottom-bar { padding: 12px 16px; }
+    .btn-bottom { padding: 14px 20px; font-size: 15px; }
   }
 </style>
 </head>
@@ -115,7 +226,7 @@
 <div class="plans-wrapper">
   <button class="nav-btn left" onclick="scrollPlans(-1)">◀</button>
   <div class="plans" id="plansContainer">
-    <div style="color: #fff; padding: 20px;">Loading plans...</div>
+    <div style="color: var(--dim); padding: 20px;">Loading plans...</div>
   </div>
   <button class="nav-btn right" onclick="scrollPlans(1)">▶</button>
 </div>
@@ -130,29 +241,40 @@
     <button class="voucher-btn" onclick="addVoucher(200,22)">+22 Tokens (₹200)</button>
     <button class="voucher-btn" onclick="resetVouchers()">Reset</button>
   </div>
-  <!-- Skip Button added here -->
   <button class="skip-btn" onclick="skipOtt()">Skip OTT & Continue →</button>
 </div>
 
 <div id="addonSection" class="ott-section">
   <h3>🎬 Select OTT Add-on <span style="font-size:12px; color:var(--dim); font-weight:400;">(Optional)</span></h3>
   <div class="ott-grid" id="addonContainer"></div>
-  <!-- Skip Button added here -->
   <button class="skip-btn" onclick="skipOtt()">Skip OTT & Continue →</button>
 </div>
 
 <div class="form-section" id="formSection">
   <h2>Book Installation</h2>
-  <input id="userName" placeholder="Full Name">
+  
+  <div class="input-wrap">
+    <span class="icon">👤</span>
+    <input id="userName" placeholder="Full Name">
+  </div>
   <span class="err" id="nameErr"></span>
-  <input id="userPhone" placeholder="10-digit Mobile Number" maxlength="10">
+  
+  <div class="input-wrap">
+    <span class="icon">📱</span>
+    <input id="userPhone" placeholder="10-digit Mobile Number" maxlength="10">
+  </div>
   <span class="err" id="phoneErr"></span>
-  <input id="userArea" placeholder="Detecting location...">
+  
+  <div class="input-wrap">
+    <span class="icon">📍</span>
+    <input id="userArea" placeholder="Detecting location...">
+  </div>
+  
   <button class="btn-submit" onclick="submitForm()">Get Connection →</button>
 </div>
 
 <div id="bottomBar" class="bottom-bar">
-  <div class="price" id="bottomPrice">₹0 <small style="font-size:14px;color:#888;">total</small></div>
+  <div class="price" id="bottomPrice">₹0 <small>total</small></div>
   <button class="btn-bottom" id="bottomBtn" onclick="submitForm()" disabled>Proceed</button>
 </div>
 
@@ -284,7 +406,7 @@ function renderPlans() {
 
   let available = plansData.filter(p => p.qOnly ? duration === 'quarterly' : true);
   if (available.length === 0) {
-    container.innerHTML = '<div style="padding:20px;color:#fff;">No plans available.</div>';
+    container.innerHTML = '<div style="padding:20px;color:var(--dim);">No plans available.</div>';
     return;
   }
 
@@ -296,18 +418,21 @@ function renderPlans() {
   available.forEach(p => {
     let price = getPrice(p);
     let isSel = selectedPlan.id === p.id ? 'selected' : '';
+    let isPop = p.popular ? 'popular' : '';
+    
     let badges = '';
-    if (p.tokens > 0) badges += `<div class="badge" style="background:#a855f7;color:#fff;">${p.tokens} Tokens</div>`;
+    if (p.tokens > 0) badges += `<div class="badge token">${p.tokens} OTT Tokens</div>`;
     if (p.qOnly) badges += `<div class="badge">Quarterly Only</div>`;
 
     html += `
-      <div class="card ${isSel}" onclick="selectPlan('${p.id}')">
+      <div class="card ${isSel} ${isPop}" onclick="selectPlan('${p.id}')">
+        ${p.popular ? '<div class="ribbon">Most Popular</div>' : ''}
         ${badges}
         <h3>${p.name}</h3>
-        <div class="speed">⚡ ${p.speed}</div>
+        <div class="speed">⚡ ${p.speed} Unlimited</div>
         <h2>₹${price} <small>/${duration}</small></h2>
-        <div class="tax">Incl. GST</div>
-        <button>${isSel ? 'Selected' : 'Select'}</button>
+        <div class="tax">📄 Incl. GST</div>
+        <button>${isSel ? '✓ Selected' : 'Select Plan'}</button>
       </div>
     `;
   });
@@ -337,18 +462,19 @@ function renderOtt() {
 
     document.getElementById('tokenSummary').innerHTML = `
       <div>Tokens Used: <strong>${used} / ${total}</strong></div>
-      <div style="color:var(--green)">Remaining: <strong>${total - used}</strong></div>
+      <div>Remaining: <strong>${total - used}</strong></div>
     `;
 
     availableCombos.forEach(c => {
       let cost = 0; c.apps.forEach(a => cost += tokenCosts[a] || 0);
       let isSel = selectedCombo && selectedCombo.name === c.name ? 'active' : '';
       let appsHtml = c.apps.map(a => `<span class="chip ${['Jio Hotstar','Zee5','Sony Liv'].includes(a)?'hot':''}">${a}</span>`).join('');
+      
       html += `
         <div class="combo-card ${isSel}" onclick="selectCombo('${c.name}')">
           <div class="combo-header">
             <div class="combo-name">${c.name}</div>
-            <div class="combo-tokens">${cost} tk</div>
+            <div class="combo-tokens">${cost} tokens</div>
           </div>
           <div>${appsHtml}</div>
         </div>
@@ -364,8 +490,11 @@ function renderOtt() {
       let isSel = selectedAddon === a.name ? 'active' : '';
       html += `
         <div class="combo-card ${isSel}" onclick="selectAddon('${a.name}')">
-          <div class="combo-name">${a.name}</div>
-          <div style="color:var(--accent);font-size:14px;margin:4px 0;">+ ₹${price}</div>
+          <div class="combo-header">
+            <div class="combo-name">${a.name}</div>
+            <div style="color:var(--accent);font-weight:800;">+ ₹${price}</div>
+          </div>
+          <div style="font-size:12px; color:var(--dim); font-weight:500;">${a.apps.join(' • ')}</div>
         </div>
       `;
     });
@@ -423,7 +552,6 @@ function selectAddon(name) {
 }
 
 function skipOtt() {
-  // Clears all OTT data and moves to form
   selectedCombo = null;
   extraTokens = 0;
   extraTokenCost = 0;
@@ -459,7 +587,7 @@ function updateSummary() {
   let addon = selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0);
   let total = base + addon;
 
-  document.getElementById('bottomPrice').innerHTML = `₹${total} <small style="font-size:14px;color:#888;">total</small>`;
+  document.getElementById('bottomPrice').innerHTML = `₹${total} <small>total incl. tax</small>`;
   document.getElementById('bottomBar').style.display = 'flex';
   checkForm();
 }
@@ -483,7 +611,6 @@ async function submitForm() {
   let addonPrice = selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0);
   let totalPrice = basePrice + addonPrice;
 
-  // Format payload to match Google Sheet COLUMNS exactly
   let payload = {
     Date: new Date().toLocaleString(),
     Name: n.value.trim(),
@@ -521,11 +648,10 @@ async function submitForm() {
       body: fd 
     });
     
-    // WhatsApp Message
     window.open(`https://wa.me/919447072230?text=New Lead: ${payload.Name} | ${payload["Selected Plan"]} | ₹${payload["Total (With GST)"]}`);
     
     btn.textContent = "✅ Submitted!";
-    btn.style.background = "#22c55e";
+    btn.style.background = "var(--green)";
   } catch(e) {
     alert("Error submitting. Please try again.");
     btn.textContent = "Get Connection →";
