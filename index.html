@@ -32,25 +32,51 @@
     height: 220px; /* Mobile height */
     position: relative;
     overflow: hidden;
-    background: #0a1628;
+    /* Fallback background if image fails */
+    background: linear-gradient(135deg, #003399, #001a4d); 
   }
+  
+  /* Fallback content that shows if image is missing */
+  .hero-fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 1;
+    color: #fff;
+    padding: 20px;
+  }
+  .hero-fallback h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+  .hero-fallback p { color: var(--accent); font-size: 15px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
   .hero img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center top;
     display: block;
+    position: relative;
+    z-index: 2; /* Sits on top of fallback */
   }
+
+  /* Fade effect at the bottom */
   .hero::after {
     content: '';
     position: absolute;
     inset: 0;
     background: linear-gradient(to bottom, transparent 60%, rgba(248, 250, 252, 1) 100%);
     pointer-events: none;
+    z-index: 3;
   }
+
   @media (min-width: 768px) {
     .hero { height: 320px; }
     .hero img { object-position: center; }
+    .hero-fallback h1 { font-size: 42px; }
+    .hero-fallback p { font-size: 18px; }
   }
 
   /* --- DURATION TABS --- */
@@ -64,7 +90,6 @@
     margin-right: auto; 
   }
   .duration-tabs { 
-    .duration-tabs { 
     display: flex; 
     flex-wrap: nowrap; 
     gap: 8px; 
@@ -127,9 +152,8 @@
   /* --- PLANS CAROUSEL --- */
   .plans-wrapper { position: relative; max-width: 1000px; margin: 0 auto; padding: 0 10px; }
   .plans { 
-  display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; 
-  padding: 10px 30px 40px; /* Changed from 10px to 30px for left/right */
-  scrollbar-width: none; 
+    display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; 
+    padding: 10px 10px 40px; scrollbar-width: none; 
   }
   .plans::-webkit-scrollbar { display: none; }
 
@@ -205,8 +229,8 @@
   }
 
   .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: #fff; color: var(--text); border: 1px solid var(--border); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; z-index: 10; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-  .nav-btn.left { left: 0px; }
-  .nav-btn.right { right: 0px; }
+  .nav-btn.left { left: -5px; }
+  .nav-btn.right { right: -5px; }
 
   /* --- OTT SECTIONS --- */
   .ott-section { max-width: 800px; margin: 20px auto; padding: 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); display: none; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
@@ -311,8 +335,14 @@
   </div>
 </div>
 
+<!-- HERO BANNER WITH FALLBACK -->
 <div class="hero">
-  <img src="https://jtommnchn-lab.github.io/Banner.png" alt="Banner">
+  <div class="hero-fallback">
+    <h1>BSNL Bharat Fibre</h1>
+    <p>Unlimited Data + OTT</p>
+  </div>
+  <!-- The onerror attribute hides the broken image icon if the link fails -->
+  <img src="https://jtommnchn-lab.github.io/Banner.jpg" alt="Banner" onerror="this.style.display='none'">
 </div>
 
 <div class="duration-wrapper">
@@ -745,7 +775,7 @@ async function submitForm() {
     fd.append("data", JSON.stringify(payload));
     
     // Send to Google Sheets
-    await fetch("https://script.google.com/macros/s/AKfycbynE-02bgzU7mttGCtgB_6tEB6ZzSar8Q_4_kWvn0EYd-IHICRr0v3LLT1JTSW38m1vrQ/exec", { 
+    await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", { 
       method: "POST", 
       mode: "no-cors", 
       body: fd 
