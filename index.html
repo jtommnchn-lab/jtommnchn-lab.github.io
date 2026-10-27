@@ -459,12 +459,15 @@ const addonsData = [
 ];
 
 // --- STATE ---
+// --- STATE ---
 let duration = 'monthly';
 let selectedPlan = null;
 let selectedCombo = null;
 let extraTokens = 0;
 let extraTokenCost = 0;
 let selectedAddon = null;
+let userLat = ""; // <-- Add this
+let userLng = ""; // <-- Add this
 
 // --- CALCULATIONS ---
 function getPrice(plan) {
@@ -737,12 +740,25 @@ document.getElementById('userPhone').addEventListener('input', checkForm);
 // --- LOCATION DETECTION ---
 function detectUserArea() {
   const input = document.getElementById('userArea');
+  if (!navigator.geolocation) { input.value = "Chennai"; return; }
   
-  // Fallback if the browser doesn't support geolocation
-  if (!navigator.geolocation) { 
-    input.value = "Chennai"; 
-    return; 
-  }
+  navigator.geolocation.getCurrentPosition(
+    async function(position) {
+      // SAVE THE COORDINATES HERE
+      userLat = position.coords.latitude;
+      userLng = position.coords.longitude;
+
+      try {
+        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
+        const d = await r.json();
+        input.value = d.address?.suburb || d.address?.city || d.address?.town || "Chennai";
+      } catch (_) { 
+        input.value = "Chennai"; 
+      }
+    },
+    function() { input.value = "Chennai"; }
+  );
+}
   
   navigator.geolocation.getCurrentPosition(
     async function(position) {
@@ -771,13 +787,13 @@ async function submitForm() {
   let addonPrice = selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0);
   let totalPrice = basePrice + addonPrice;
 
-  let payload = {
+    let payload = {
     Date: new Date().toLocaleString(),
     Name: n.value.trim(),
     Phone: p.value.trim(),
     Area: document.getElementById('userArea').value || "Chennai",
-    Latitude: "",
-    Longitude: "",
+    Latitude: userLat,    // <-- Changed from ""
+    Longitude: userLng,   // <-- Changed from ""
     "Plan Type": duration,
     "Selected Plan": selectedPlan.name,
     "Plan Category": selectedPlan.tokens > 0 ? "withOtt" : "withoutOtt",
