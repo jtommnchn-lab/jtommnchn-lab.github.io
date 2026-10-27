@@ -734,6 +734,34 @@ document.getElementById('userName').addEventListener('input', checkForm);
 document.getElementById('userPhone').addEventListener('input', checkForm);
 
 // --- SUBMIT ---
+// --- LOCATION DETECTION ---
+function detectUserArea() {
+  const input = document.getElementById('userArea');
+  
+  // Fallback if the browser doesn't support geolocation
+  if (!navigator.geolocation) { 
+    input.value = "Chennai"; 
+    return; 
+  }
+  
+  navigator.geolocation.getCurrentPosition(
+    async function(position) {
+      try {
+        // Reverse geocode the coordinates to get the area name
+        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`);
+        const d = await r.json();
+        input.value = d.address?.suburb || d.address?.city || d.address?.town || "Chennai";
+      } catch (_) { 
+        input.value = "Chennai"; 
+      }
+    },
+    function() { 
+      // Fallback if the user denies permission or it times out
+      input.value = "Chennai"; 
+    }
+  );
+}
+  
 async function submitForm() {
   let n = document.getElementById('userName');
   let p = document.getElementById('userPhone');
@@ -809,6 +837,7 @@ async function submitForm() {
 
 // --- INIT ---
 window.onload = () => {
+  detectUserArea();
   renderPlans();
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(() => centerSelectedCard(false));
