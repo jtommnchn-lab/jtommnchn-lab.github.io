@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-<title>BSNL Nanganallur</title>
+<title>BSNL Plans</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -13,9 +13,10 @@
     --text: #f7f8fb;
     --dim: rgba(255,255,255,0.6);
     --accent: #ff9800;
+    --green: #22c55e;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
-  body { background: var(--bg); color: var(--text); padding-bottom: 100px; }
+  body { background: var(--bg); color: var(--text); padding-bottom: 120px; }
 
   .topbar { display: flex; justify-content: space-between; padding: 15px 20px; background: rgba(10,22,40,0.9); border-bottom: 1px solid var(--border); }
   .topbar img { height: 30px; }
@@ -32,19 +33,10 @@
 
   .section-title { text-align: center; margin: 20px 0 10px; font-size: 18px; font-weight: 800; }
   .plans-wrapper { position: relative; max-width: 1000px; margin: 0 auto; padding: 0 10px; }
-  .plans {
-    display: flex; gap: 12px;
-    overflow-x: auto; scroll-snap-type: x mandatory;
-    padding: 10px 0 20px; scrollbar-width: none;
-  }
+  .plans { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 0 20px; scrollbar-width: none; }
   .plans::-webkit-scrollbar { display: none; }
 
-  .card {
-    flex: 0 0 220px; background: var(--surface); border: 1px solid var(--border);
-    border-radius: 20px; padding: 20px 15px; text-align: center;
-    scroll-snap-align: center;
-    cursor: pointer; transition: all 0.3s; opacity: 0.6; transform: scale(0.95);
-  }
+  .card { flex: 0 0 220px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px 15px; text-align: center; scroll-snap-align: center; cursor: pointer; transition: all 0.3s; opacity: 0.6; transform: scale(0.95); }
   .card.selected { opacity: 1; transform: scale(1.02); border-color: var(--accent); background: rgba(255,152,0,0.08); }
   .card .badge { display: inline-block; background: var(--accent); color: #000; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 10px; margin-bottom: 8px; text-transform: uppercase; }
   .card h3 { font-size: 16px; margin-bottom: 4px; }
@@ -53,7 +45,7 @@
   .card h2 small { font-size: 12px; color: var(--dim); font-weight: 400; }
   .card .tax { font-size: 10px; color: var(--dim); margin-bottom: 15px; }
   .card button { background: var(--border); color: #fff; border: none; padding: 8px 16px; border-radius: 20px; width: 100%; font-weight: 600; cursor: pointer; }
-  .card.selected button { background: #22c55e; color: #fff; }
+  .card.selected button { background: var(--green); color: #fff; }
 
   .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: #fff; border: 1px solid var(--border); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; z-index: 10; font-size: 12px; display: flex; align-items: center; justify-content: center; }
   .nav-btn.left { left: 5px; }
@@ -63,7 +55,7 @@
   .ott-section h3 { font-size: 18px; margin-bottom: 15px; }
   .ott-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
   .combo-card { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 15px; border-radius: 16px; cursor: pointer; transition: all 0.2s; }
-  .combo-card.active { border-color: #22c55e; background: rgba(34,197,94,0.1); }
+  .combo-card.active { border-color: var(--green); background: rgba(34,197,94,0.1); }
   .combo-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
   .combo-name { font-weight: 800; font-size: 14px; }
   .combo-tokens { background: #a855f7; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 800; }
@@ -73,6 +65,10 @@
   .voucher-btns { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
   .voucher-btn { background: var(--surface); border: 1px solid var(--border); color: #fff; padding: 8px 16px; border-radius: 20px; cursor: pointer; }
 
+  /* Skip Button */
+  .skip-btn { width: 100%; padding: 16px; margin-top: 20px; background: transparent; border: 2px dashed var(--dim); color: var(--text); font-weight: 700; font-size: 15px; border-radius: 16px; cursor: pointer; transition: all 0.3s; }
+  .skip-btn:hover { border-color: var(--accent); background: rgba(255,152,0,0.05); color: var(--accent); }
+
   .form-section { max-width: 500px; margin: 40px auto; padding: 30px 20px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); scroll-margin-top: 20px; }
   .form-section h2 { text-align: center; margin-bottom: 20px; font-size: 20px; }
   input { width: 100%; padding: 14px; margin-bottom: 10px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; color: #fff; font-size: 15px; outline: none; transition: border 0.3s; }
@@ -80,9 +76,10 @@
   input.error { border-color: #ef4444; }
   .err { color: #ef4444; font-size: 12px; padding-left: 5px; margin-bottom: 10px; display: block; height: 14px; }
   .btn-submit { background: var(--accent); color: #000; width: 100%; padding: 16px; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 10px; }
+  
   .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(10,22,40,0.95); padding: 15px; display: none; flex-direction: column; gap: 10px; border-top: 1px solid var(--border); z-index: 999; }
   .price { font-size: 22px; font-weight: 800; text-align: center; color: var(--accent); }
-  .btn-bottom { background: #22c55e; color: #fff; width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; }
+  .btn-bottom { background: var(--green); color: #fff; width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; }
   .btn-bottom:disabled { background: var(--border); color: var(--dim); cursor: not-allowed; }
 
   @media(max-width: 600px) {
@@ -124,7 +121,7 @@
 </div>
 
 <div id="ottSection" class="ott-section">
-  <h3>🎬 Select OTT Combo</h3>
+  <h3>🎬 Select OTT Combo <span style="font-size:12px; color:var(--dim); font-weight:400;">(Optional)</span></h3>
   <div class="token-summary" id="tokenSummary"></div>
   <div class="ott-grid" id="comboContainer"></div>
   <div class="voucher-btns">
@@ -133,11 +130,15 @@
     <button class="voucher-btn" onclick="addVoucher(200,22)">+22 Tokens (₹200)</button>
     <button class="voucher-btn" onclick="resetVouchers()">Reset</button>
   </div>
+  <!-- Skip Button added here -->
+  <button class="skip-btn" onclick="skipOtt()">Skip OTT & Continue →</button>
 </div>
 
 <div id="addonSection" class="ott-section">
-  <h3>🎬 Select OTT Add-on</h3>
+  <h3>🎬 Select OTT Add-on <span style="font-size:12px; color:var(--dim); font-weight:400;">(Optional)</span></h3>
   <div class="ott-grid" id="addonContainer"></div>
+  <!-- Skip Button added here -->
+  <button class="skip-btn" onclick="skipOtt()">Skip OTT & Continue →</button>
 </div>
 
 <div class="form-section" id="formSection">
@@ -242,7 +243,6 @@ function centerSelectedCard(smooth) {
   if (!card) return;
 
   void container.offsetWidth; // Force layout
-
   const containerWidth = container.clientWidth;
   const cardWidth = card.offsetWidth;
   const cardLeft = card.offsetLeft;
@@ -254,7 +254,6 @@ function centerSelectedCard(smooth) {
     container.scrollLeft = Math.max(0, target);
   }
 }
-
 function centerAfterRender(smooth) {
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -265,23 +264,14 @@ function centerAfterRender(smooth) {
 
 // --- AUTO SCROLL TO FORM ---
 function scrollToFormAndFocus() {
-  // 1. Smooth scroll to the form section
   setTimeout(() => {
     const formSec = document.getElementById('formSection');
-    if (formSec) {
-      formSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    
-    // 2. Wait for scroll to finish, then focus the name input
+    if (formSec) formSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setTimeout(() => {
       const nameInput = document.getElementById('userName');
       if (nameInput) {
-        try {
-          // preventScroll:true stops the phone from jumping around while the keyboard opens
-          nameInput.focus({ preventScroll: true }); 
-        } catch(e) {
-          nameInput.focus();
-        }
+        try { nameInput.focus({ preventScroll: true }); } 
+        catch(e) { nameInput.focus(); }
       }
     }, 500);
   }, 200);
@@ -293,9 +283,8 @@ function renderPlans() {
   if (!container) return;
 
   let available = plansData.filter(p => p.qOnly ? duration === 'quarterly' : true);
-
   if (available.length === 0) {
-    container.innerHTML = '<div style="padding:20px;color:#fff;">No plans available for this duration.</div>';
+    container.innerHTML = '<div style="padding:20px;color:#fff;">No plans available.</div>';
     return;
   }
 
@@ -324,11 +313,9 @@ function renderPlans() {
   });
 
   container.innerHTML = html;
-
   container.style.scrollBehavior = 'auto';
   centerAfterRender(false);
   setTimeout(() => centerSelectedCard(false), 250);
-  setTimeout(() => centerSelectedCard(false), 600);
   setTimeout(() => { container.style.scrollBehavior = ''; }, 700);
 
   updateSummary();
@@ -350,14 +337,13 @@ function renderOtt() {
 
     document.getElementById('tokenSummary').innerHTML = `
       <div>Tokens Used: <strong>${used} / ${total}</strong></div>
-      <div style="color:#22c55e">Remaining: <strong>${total - used}</strong></div>
+      <div style="color:var(--green)">Remaining: <strong>${total - used}</strong></div>
     `;
 
     availableCombos.forEach(c => {
       let cost = 0; c.apps.forEach(a => cost += tokenCosts[a] || 0);
       let isSel = selectedCombo && selectedCombo.name === c.name ? 'active' : '';
       let appsHtml = c.apps.map(a => `<span class="chip ${['Jio Hotstar','Zee5','Sony Liv'].includes(a)?'hot':''}">${a}</span>`).join('');
-
       html += `
         <div class="combo-card ${isSel}" onclick="selectCombo('${c.name}')">
           <div class="combo-header">
@@ -372,14 +358,14 @@ function renderOtt() {
 
   } else {
     document.getElementById('addonSection').style.display = 'block';
-    let html = `<div class="combo-card ${selectedAddon===null?'active':''}" onclick="selectAddon(null)"><div class="combo-name">No OTT</div></div>`;
+    let html = '';
     addonsData.forEach(a => {
       let price = getAddonPrice(a);
       let isSel = selectedAddon === a.name ? 'active' : '';
       html += `
         <div class="combo-card ${isSel}" onclick="selectAddon('${a.name}')">
           <div class="combo-name">${a.name}</div>
-          <div style="color:#ff9800;font-size:14px;margin:4px 0;">+ ₹${price}</div>
+          <div style="color:var(--accent);font-size:14px;margin:4px 0;">+ ₹${price}</div>
         </div>
       `;
     });
@@ -426,8 +412,6 @@ function selectCombo(name) {
   }
   renderOtt();
   updateSummary();
-  
-  // If a combo was selected (not deselected), scroll to form
   if (selectedCombo) scrollToFormAndFocus();
 }
 
@@ -435,7 +419,17 @@ function selectAddon(name) {
   selectedAddon = name;
   renderOtt();
   updateSummary();
-  // Always scroll to form when an addon is selected (including "No OTT")
+  scrollToFormAndFocus();
+}
+
+function skipOtt() {
+  // Clears all OTT data and moves to form
+  selectedCombo = null;
+  extraTokens = 0;
+  extraTokenCost = 0;
+  selectedAddon = null;
+  renderOtt();
+  updateSummary();
   scrollToFormAndFocus();
 }
 
@@ -480,18 +474,16 @@ document.getElementById('userName').addEventListener('input', checkForm);
 document.getElementById('userPhone').addEventListener('input', checkForm);
 
 // --- SUBMIT ---
-// --- SUBMIT ---
 async function submitForm() {
   let n = document.getElementById('userName');
   let p = document.getElementById('userPhone');
   if (!n.value.trim() || !/^[6-9]\d{9}$/.test(p.value.trim())) { alert("Please fill valid name and phone"); return; }
 
-  // Calculate all the exact prices and token details
   let basePrice = getPrice(selectedPlan);
   let addonPrice = selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0);
   let totalPrice = basePrice + addonPrice;
 
-  // Build the payload EXACTLY matching the COLUMNS in your Google Apps Script
+  // Format payload to match Google Sheet COLUMNS exactly
   let payload = {
     Date: new Date().toLocaleString(),
     Name: n.value.trim(),
@@ -529,7 +521,7 @@ async function submitForm() {
       body: fd 
     });
     
-    // WhatsApp message string
+    // WhatsApp Message
     window.open(`https://wa.me/919447072230?text=New Lead: ${payload.Name} | ${payload["Selected Plan"]} | ₹${payload["Total (With GST)"]}`);
     
     btn.textContent = "✅ Submitted!";
