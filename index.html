@@ -29,14 +29,12 @@
   /* --- HERO BANNER --- */
   .hero {
     width: 100%;
-    height: 220px; /* Mobile height */
+    height: 220px; 
     position: relative;
     overflow: hidden;
-    /* Fallback background if image fails */
     background: linear-gradient(135deg, #003399, #001a4d); 
   }
   
-  /* Fallback content that shows if image is missing */
   .hero-fallback {
     position: absolute;
     inset: 0;
@@ -59,10 +57,9 @@
     object-position: center top;
     display: block;
     position: relative;
-    z-index: 2; /* Sits on top of fallback */
+    z-index: 2; 
   }
 
-  /* Fade effect at the bottom */
   .hero::after {
     content: '';
     position: absolute;
@@ -101,6 +98,8 @@
     border: 1px solid rgba(0,0,0,0.05);
     overflow-x: auto; 
     scrollbar-width: none; 
+    mask-image: linear-gradient(to right, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 92%, transparent 100%);
   }
   .duration-tabs::-webkit-scrollbar { display: none; }
 
@@ -174,7 +173,6 @@
     position: relative;
   }
   
-  /* Ticket Cutouts */
   .card::before, .card::after {
     content: ''; position: absolute; top: 120px;
     width: 16px; height: 16px;
@@ -192,7 +190,6 @@
   }
   .card.selected::before, .card.selected::after { border-color: var(--accent); }
   
-  /* Highlight Popular Plan */
   .card.popular { opacity: 0.85; transform: scale(1.02); z-index: 2; }
   .card.popular.selected { opacity: 1; transform: scale(1.05); box-shadow: 0 15px 35px rgba(255,102,0,0.15); }
   .card.popular::after { border-color: var(--border); } 
@@ -232,6 +229,10 @@
   .nav-btn.left { left: -5px; }
   .nav-btn.right { right: -5px; }
 
+  @media (max-width: 768px) {
+    .nav-btn { display: none; }
+  }
+
   /* --- OTT SECTIONS --- */
   .ott-section { max-width: 800px; margin: 20px auto; padding: 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); display: none; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
   .ott-section h3 { font-size: 18px; margin-bottom: 15px; color: var(--bsnl-blue); }
@@ -241,7 +242,6 @@
   .combo-card:hover { border-color: #CBD5E1; }
   .combo-card.active { border-color: var(--green); background: #ECFDF5; }
   
-  /* Highlight Hot Combos */
   .combo-card:has(.chip.hot) { border-color: rgba(255,102,0,0.3); background: #FFF7ED; }
   .combo-card:has(.chip.hot):hover { border-color: var(--accent); box-shadow: 0 4px 15px rgba(255,102,0,0.1); }
   .combo-card:has(.chip.hot).active { border-color: var(--green); background: #ECFDF5; }
@@ -250,7 +250,6 @@
   .combo-name { font-weight: 800; font-size: 15px; color: var(--text); }
   .combo-tokens { background: var(--purple); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 8px; font-weight: 800; }
   
-  /* App Logo Chips */
   .chip { 
     background: #fff; border: 1px solid var(--border); font-size: 11px; font-weight: 600; color: var(--text);
     padding: 4px 10px; border-radius: 8px; display: inline-flex; align-items: center; margin: 3px 3px 3px 0; 
@@ -258,7 +257,6 @@
   }
   .chip.hot { background: #FEF2F2; color: #DC2626; border-color: #FECACA; }
   
-  /* Token Summary */
   .token-summary { 
     background: #F1F5F9; border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; 
     margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; 
@@ -280,7 +278,6 @@
   .form-section { max-width: 500px; margin: 40px auto; padding: 32px 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); scroll-margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
   .form-section h2 { text-align: center; margin-bottom: 24px; font-size: 22px; font-weight: 800; color: var(--bsnl-blue); }
   
-  /* Icon Inputs */
   .input-wrap { position: relative; margin-bottom: 12px; }
   .input-wrap .icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.5; }
   .input-wrap input { 
@@ -292,7 +289,6 @@
   
   .err { color: #EF4444; font-size: 12px; padding-left: 5px; margin-bottom: 8px; display: block; height: 14px; font-weight: 500; }
   
-  /* Shine CTA Button */
   .btn-submit { 
     background: linear-gradient(135deg, var(--accent), #FF8F00); color: #fff; width: 100%; padding: 18px; 
     border: none; border-radius: 14px; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 10px; 
@@ -335,13 +331,11 @@
   </div>
 </div>
 
-<!-- HERO BANNER WITH FALLBACK -->
 <div class="hero">
   <div class="hero-fallback">
     <h1>BSNL Bharat Fibre</h1>
     <p>Unlimited Data + OTT</p>
   </div>
-  <!-- The onerror attribute hides the broken image icon if the link fails -->
   <img src="https://jtommnchn-lab.github.io/Banner.png" alt="Banner" onerror="this.style.display='none'">
 </div>
 
@@ -459,15 +453,14 @@ const addonsData = [
 ];
 
 // --- STATE ---
-// --- STATE ---
 let duration = 'monthly';
 let selectedPlan = null;
 let selectedCombo = null;
 let extraTokens = 0;
 let extraTokenCost = 0;
 let selectedAddon = null;
-let userLat = ""; // <-- Add this
-let userLng = ""; // <-- Add this
+let userLat = "";
+let userLng = "";
 
 // --- CALCULATIONS ---
 function getPrice(plan) {
@@ -490,6 +483,28 @@ function getTotalTokens() { return selectedPlan ? selectedPlan.tokens + extraTok
 function getUsedTokens() {
   if (!selectedCombo) return 0;
   let u = 0; selectedCombo.apps.forEach(a => u += tokenCosts[a] || 0); return u;
+}
+
+// --- LOCATION DETECTION ---
+function detectUserArea() {
+  const input = document.getElementById('userArea');
+  if (!navigator.geolocation) { input.value = "Chennai"; return; }
+  
+  navigator.geolocation.getCurrentPosition(
+    async function(position) {
+      userLat = position.coords.latitude;
+      userLng = position.coords.longitude;
+
+      try {
+        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
+        const d = await r.json();
+        input.value = d.address?.suburb || d.address?.city || d.address?.town || "Chennai";
+      } catch (_) { 
+        input.value = "Chennai"; 
+      }
+    },
+    function() { input.value = "Chennai"; }
+  );
 }
 
 // --- CENTERING ---
@@ -737,47 +752,6 @@ document.getElementById('userName').addEventListener('input', checkForm);
 document.getElementById('userPhone').addEventListener('input', checkForm);
 
 // --- SUBMIT ---
-// --- LOCATION DETECTION ---
-function detectUserArea() {
-  const input = document.getElementById('userArea');
-  if (!navigator.geolocation) { input.value = "Chennai"; return; }
-  
-  navigator.geolocation.getCurrentPosition(
-    async function(position) {
-      // SAVE THE COORDINATES HERE
-      userLat = position.coords.latitude;
-      userLng = position.coords.longitude;
-
-      try {
-        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${userLat}&lon=${userLng}&format=json`);
-        const d = await r.json();
-        input.value = d.address?.suburb || d.address?.city || d.address?.town || "Chennai";
-      } catch (_) { 
-        input.value = "Chennai"; 
-      }
-    },
-    function() { input.value = "Chennai"; }
-  );
-}
-  
-  navigator.geolocation.getCurrentPosition(
-    async function(position) {
-      try {
-        // Reverse geocode the coordinates to get the area name
-        const r = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${position.coords.latitude}&lon=${position.coords.longitude}&format=json`);
-        const d = await r.json();
-        input.value = d.address?.suburb || d.address?.city || d.address?.town || "Chennai";
-      } catch (_) { 
-        input.value = "Chennai"; 
-      }
-    },
-    function() { 
-      // Fallback if the user denies permission or it times out
-      input.value = "Chennai"; 
-    }
-  );
-}
-  
 async function submitForm() {
   let n = document.getElementById('userName');
   let p = document.getElementById('userPhone');
@@ -787,13 +761,13 @@ async function submitForm() {
   let addonPrice = selectedPlan.tokens > 0 ? extraTokenCost : (selectedAddon ? getAddonPrice(addonsData.find(x => x.name === selectedAddon)) : 0);
   let totalPrice = basePrice + addonPrice;
 
-    let payload = {
+  let payload = {
     Date: new Date().toLocaleString(),
     Name: n.value.trim(),
     Phone: p.value.trim(),
     Area: document.getElementById('userArea').value || "Chennai",
-    Latitude: userLat,    // <-- Changed from ""
-    Longitude: userLng,   // <-- Changed from ""
+    Latitude: userLat,
+    Longitude: userLng,
     "Plan Type": duration,
     "Selected Plan": selectedPlan.name,
     "Plan Category": selectedPlan.tokens > 0 ? "withOtt" : "withoutOtt",
@@ -818,14 +792,12 @@ async function submitForm() {
     let fd = new URLSearchParams();
     fd.append("data", JSON.stringify(payload));
     
-    // Send to Google Sheets
     await fetch("https://script.google.com/macros/s/AKfycbynE-02bgzU7mttGCtgB_6tEB6ZzSar8Q_4_kWvn0EYd-IHICRr0v3LLT1JTSW38m1vrQ/exec", { 
       method: "POST", 
       mode: "no-cors", 
       body: fd 
     });
     
-    // Build Detailed WhatsApp Message
     const waText = 
       "🔥 *New BSNL Lead* 🔥\n" +
       "👤 *Name:* " + payload.Name + "\n" +
@@ -838,7 +810,6 @@ async function submitForm() {
       "💰 *Total (With GST):* ₹" + payload["Total (With GST)"] + "\n" +
       "✅ Request installation.";
 
-    // Open WhatsApp
     window.open("https://wa.me/919447072230?text=" + encodeURIComponent(waText));
     
     btn.textContent = "✅ Submitted!";
@@ -853,8 +824,9 @@ async function submitForm() {
 
 // --- INIT ---
 window.onload = () => {
-  detectUserArea();
+  detectUserArea(); 
   renderPlans();
+  
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(() => centerSelectedCard(false));
   }
