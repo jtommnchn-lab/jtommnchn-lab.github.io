@@ -504,7 +504,7 @@ async function submitForm() {
     fd.append("data", JSON.stringify(payload));
     
     // The crucial fix: mode: 'no-cors' prevents the browser from blocking the request.
-    await fetch("https://script.google.com/macros/s/AKfycbw5JSijoiizpL4TgU9-vgEJuPvnC85xIUDWMYdvc3wA71-HNqVJMO2TOqugGdWvyWrlIQ/exec", { 
+    await fetch("https://script.google.com/macros/s/AKfycbwU5uV3Cz7TS_9NafmoaYlALZocGSNeIfideTYnsFPISrv-XY6QRjz2vUoJXFc5A8HZPQ/exec", { 
       method: "POST", 
       mode: "no-cors", 
       body: fd 
