@@ -21,8 +21,8 @@
       "image": "https://jtommnchn-lab.github.io/bsnl-logo.png",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Nanganallur",
-        "addressLocality": "Chennai",
+        "streetAddress": "Your Office Street Address",
+        "addressLocality": "Nanganallur, Chennai",
         "addressRegion": "TN",
         "postalCode": "600061",
         "addressCountry": "IN"
@@ -137,13 +137,22 @@
       .voucher-btn { background: #fff; border: 1px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all 0.2s; }
       .skip-btn { width: 100%; padding: 16px; margin-top: 20px; background: var(--surface); border: 2px dashed var(--border); color: var(--dim); font-weight: 700; font-size: 15px; border-radius: 16px; cursor: pointer; transition: all 0.3s; }
 
-      /* --- TESTIMONIALS & FORM --- */
+      /* --- TESTIMONIALS, LOCATION & FORM --- */
       .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
       .testimonial-card { background: var(--surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
       .testimonial-card .stars { color: #F59E0B; margin-bottom: 10px; font-size: 18px; }
       .testimonial-card p { font-size: 14px; color: var(--dim); line-height: 1.6; margin-bottom: 15px; font-style: italic; }
       .testimonial-card h4 { font-size: 15px; font-weight: 700; color: var(--text); }
       
+      .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; }
+      .location-card { background: var(--surface); padding: 32px; border-radius: 20px; border: 1px solid var(--border); box-shadow: 0 4px 15px rgba(0,0,0,0.02); }
+      .location-card h3 { color: var(--bsnl-blue); font-size: 22px; margin-bottom: 15px; }
+      .location-card p { color: var(--dim); font-size: 15px; line-height: 1.8; margin-bottom: 20px; }
+      .location-card p strong { color: var(--text); }
+      .map-container { background: var(--border); border-radius: 20px; height: 100%; min-height: 250px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+      .map-container iframe { width: 100%; height: 100%; border: none; border-radius: 20px; }
+      @media (max-width: 768px) { .location-grid { grid-template-columns: 1fr; } }
+
       .form-section { max-width: 500px; margin: 40px auto; padding: 32px 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
       .form-section h2 { text-align: center; margin-bottom: 24px; font-size: 22px; font-weight: 800; color: var(--bsnl-blue); }
       .input-wrap { position: relative; margin-bottom: 12px; }
@@ -199,6 +208,7 @@
   <ul class="nav-links" id="navLinks">
     <li><a href="#home">Home</a></li>
     <li><a href="#plans-section">Plans</a></li>
+    <li><a href="#location-section">Our Office</a></li>
     <li><a href="#testimonials">Testimonials</a></li>
     <li><a href="#contact-form">Contact Us</a></li>
   </ul>
@@ -280,6 +290,33 @@
   <button class="btn-submit" onclick="submitForm()">Get Connection →</button>
 </div>
 
+<!-- OFFICE LOCATION SECTION -->
+<div class="section-container" id="location-section">
+  <div class="section-header">
+    <h2>Visit Our Office</h2>
+    <p>Drop by for a chat or to complete your installation formalities.</p>
+  </div>
+  <div class="location-grid">
+    <div class="location-card">
+      <h3>BSNL Fiber Nanganallur</h3>
+      <p>
+        <strong>Address:</strong><br>
+        Your Office Street Address,<br>
+        Nanganallur, Chennai - 600061
+      </p>
+      <p>
+        <strong>Phone:</strong> <a href="tel:9447072230" style="color: var(--bsnl-blue); text-decoration: none; font-weight: 600;">+91 9447072230</a><br>
+        <strong>Hours:</strong> Mon - Sat, 07:00 AM to 11:30 PM
+      </p>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=12.980331,80.188991" target="_blank" class="btn-submit" style="display: block; text-align: center; text-decoration: none; background: var(--bsnl-blue);">Get Directions on Google Maps</a>
+    </div>
+    <div class="map-container">
+      <!-- Embedded Google Map (Centered on your coordinates) -->
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.604423909699!2d80.188991!3d12.980331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzQ5LjIiTiA4MMKwMTEnMjAuNCJF!5e0!3m2!1sen!2sin!4v1610000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
 <!-- TESTIMONIALS -->
 <div class="section-container" id="testimonials">
   <div class="section-header">
@@ -322,34 +359,3 @@ const plansData = [
   { id: "fibre-premium", name: "Fibre Premium", speed: "250 Mbps", base: 1299, tokens: 0 },
   { id: "fibre-elite", name: "Fibre Elite OTT", speed: "300 Mbps", base: 1399, tokens: 10 },
   { id: "fibre-zenith", name: "Fibre Zenith", speed: "300 Mbps", base: 1549, tokens: 30 },
-  { id: "fibre-ultra", name: "Fibre Elite Ultra", speed: "1 Gbps", base: 4799, tokens: 0 }
-];
-const tokenCosts = { "Jio Hotstar": 6, "Zee5": 4, "Sony Liv": 4, "Saboot Bundle": 4, "Waves Premium": 2, "Chaupal": 2, "Lions Gate": 1, "Hungama": 1, "Epic On": 1, "ShemarooMe": 1 };
-const combosData = {
-  4: [ { name: "Zee5", apps: ["Zee5"] }, { name: "Sony Liv", apps: ["Sony Liv"] }, { name: "Saboot Bundle", apps: ["Saboot Bundle"] }, { name: "Waves + Chaupal", apps: ["Waves Premium", "Chaupal"] }, { name: "4 Mini OTTs", apps: ["Lions Gate", "Hungama", "Epic On", "ShemarooMe"] } ],
-  10: [ { name: "Hotstar + Zee5", apps: ["Jio Hotstar", "Zee5"] }, { name: "Hotstar + Sony Liv", apps: ["Jio Hotstar", "Sony Liv"] }, { name: "Hotstar + Saboot", apps: ["Jio Hotstar", "Saboot Bundle"] }, { name: "Zee5 + Sony + Waves", apps: ["Zee5", "Sony Liv", "Waves Premium"] }, { name: "Zee5 + Sony + Chaupal", apps: ["Zee5", "Sony Liv", "Chaupal"] } ],
-  30: [ { name: "Everything Combo", apps: ["Jio Hotstar", "Zee5", "Sony Liv", "Saboot Bundle", "Waves Premium", "Chaupal", "Lions Gate", "Hungama", "Epic On", "ShemarooMe"] }, { name: "Premium Trio", apps: ["Jio Hotstar", "Zee5", "Sony Liv"] } ]
-};
-const addonsData = [
-  { name: "OTT Basic", apps: ["Zee5", "SonyLIV"], m: 151, q: 454, h: 908, y: 1817 },
-  { name: "OTT Plus", apps: ["JioHotstar", "Zee5"], m: 216, q: 647, h: 1295, y: 2590 },
-  { name: "OTT Premium", apps: ["Amazon Prime", "JioHotstar"], m: 239, q: 718, h: 1436, y: 2873 }
-];
-const testimonialsData = [
-  { name: "Suresh", text: "Superfast fiber connection at budget-friendly prices.", rating: 5 },
-  { name: "Subramanian", text: "A game-changer for remote work and heavy internet usage.", rating: 5 },
-  { name: "Prakash", text: "Unbeatable speed and rock-solid reliability!", rating: 5 }
-];
-
-// --- STATE ---
-let duration = 'monthly';
-let selectedPlan = null;
-let selectedCombo = null;
-let extraTokens = 0;
-let extraTokenCost = 0;
-let selectedAddon = null;
-let userLat = "";
-let userLng = "";
-
-// ⚠️ IMPORTANT: USE YOUR LATEST GOOGLE APPS SCRIPT URL HERE
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvyUKJ
