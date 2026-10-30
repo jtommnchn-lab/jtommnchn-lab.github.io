@@ -467,7 +467,7 @@ async function submitForm() {
   try {
     let fd = new URLSearchParams(); fd.append("data", JSON.stringify(payload));
     // Replace this URL with your deployed Google Apps Script Web App URL
-    await fetch("https://script.google.com/macros/s/AKfycbynE-02bgzU7mttGCtgB_6tEB6ZzSar8Q_4_kWvn0EYd-IHICRr0v3LLT1JTSW38m1vrQ/exec", { method: "POST", mode: "no-cors", body: fd });
+    await fetch("https://script.google.com/macros/s/AKfycbyvyUKJTHgyv6MPupYKetHoDUukGxomRP76Bnyrxi9HLJ48C70Z-N5Jva_WnlWuNV0d7A/exec", { method: "POST", mode: "no-cors", body: fd });
     
     const waText = `🔥 New BSNL Lead (Website) 🔥\n👤 Name: ${payload.Name}\n📞 Phone: ${payload.Phone}\n📍 Area: ${payload.Area}\n📶 Plan: ${payload["Selected Plan"]}\n💰 Total: ₹${payload["Total (With GST)"]}`;
     window.open("https://wa.me/919447072230?text=" + encodeURIComponent(waText));
