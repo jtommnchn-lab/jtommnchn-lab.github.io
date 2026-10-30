@@ -207,10 +207,10 @@
   <button class="menu-toggle" onclick="toggleMenu()">☰</button>
   <ul class="nav-links" id="navLinks">
     <li><a href="#home">Home</a></li>
+    <li><a href="#contact-form">Book Connection</a></li>
     <li><a href="#plans-section">Plans</a></li>
     <li><a href="#location-section">Our Office</a></li>
     <li><a href="#testimonials">Testimonials</a></li>
-    <li><a href="#contact-form">Contact Us</a></li>
   </ul>
 </nav>
 
@@ -231,6 +231,31 @@
     <div class="duration-card" onclick="setDuration('half', this)">Half-Yearly<span class="offer">19 Days Free</span></div>
     <div class="duration-card" onclick="setDuration('yearly', this)">Annual<span class="offer">1 Month Free</span></div>
   </div>
+</div>
+
+<!-- MAIN FORM (Moved to Top) -->
+<div class="form-section" id="contact-form" style="margin-top: 25px;">
+  <h2>Book Installation</h2>
+  <div class="input-wrap">
+    <span class="icon">📶</span>
+    <select id="planSelect" onchange="onPlanDropdownChange()">
+      <option value="">Choose your plan (Optional)</option>
+    </select>
+    <span class="select-arrow">▼</span>
+  </div>
+  <div class="input-wrap">
+    <span class="icon">👤</span>
+    <input id="userName" placeholder="Full Name">
+  </div>
+  <div class="input-wrap">
+    <span class="icon">📱</span>
+    <input id="userPhone" placeholder="10-digit Mobile Number" maxlength="10">
+  </div>
+  <div class="input-wrap">
+    <span class="icon">📍</span>
+    <input id="userArea" placeholder="Detecting location...">
+  </div>
+  <button class="btn-submit" onclick="submitForm()">Get Connection →</button>
 </div>
 
 <!-- PLANS -->
@@ -265,31 +290,6 @@
   <button class="skip-btn" onclick="skipOtt()">Skip OTT & Continue →</button>
 </div>
 
-<!-- MAIN FORM -->
-<div class="form-section" id="contact-form">
-  <h2>Book Installation</h2>
-  <div class="input-wrap">
-    <span class="icon">📶</span>
-    <select id="planSelect" onchange="onPlanDropdownChange()">
-      <option value="">Choose your plan (Optional)</option>
-    </select>
-    <span class="select-arrow">▼</span>
-  </div>
-  <div class="input-wrap">
-    <span class="icon">👤</span>
-    <input id="userName" placeholder="Full Name">
-  </div>
-  <div class="input-wrap">
-    <span class="icon">📱</span>
-    <input id="userPhone" placeholder="10-digit Mobile Number" maxlength="10">
-  </div>
-  <div class="input-wrap">
-    <span class="icon">📍</span>
-    <input id="userArea" placeholder="Detecting location...">
-  </div>
-  <button class="btn-submit" onclick="submitForm()">Get Connection →</button>
-</div>
-
 <!-- OFFICE LOCATION SECTION -->
 <div class="section-container" id="location-section">
   <div class="section-header">
@@ -311,7 +311,6 @@
       <a href="https://www.google.com/maps/dir/?api=1&destination=12.980331,80.188991" target="_blank" class="btn-submit" style="display: block; text-align: center; text-decoration: none; background: var(--bsnl-blue);">Get Directions on Google Maps</a>
     </div>
     <div class="map-container">
-      <!-- Embedded Google Map (Centered on your coordinates) -->
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.604423909699!2d80.188991!3d12.980331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzQ5LjIiTiA4MMKwMTEnMjAuNCJF!5e0!3m2!1sen!2sin!4v1610000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
     </div>
   </div>
@@ -358,4 +357,4 @@ const plansData = [
   { id: "fibre-super", name: "Fibre Super Max", speed: "200 Mbps", base: 1199, tokens: 30 },
   { id: "fibre-premium", name: "Fibre Premium", speed: "250 Mbps", base: 1299, tokens: 0 },
   { id: "fibre-elite", name: "Fibre Elite OTT", speed: "300 Mbps", base: 1399, tokens: 10 },
-  { id: "fibre-zenith", name: "Fibre Zenith", speed: "300 Mbps", base: 1549, tokens: 30 },
+  { id: "fibre-zenith", name: "Fibre Zenith", speed: "300 Mbps", base: 
