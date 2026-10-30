@@ -14,32 +14,43 @@
 
     <!-- Local Business Schema Markup (Tells Google this is a local business) -->
     <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Your Office Name",
+  "image": "https://example.com/your-office-photo.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Your Office Street Address",
+    "addressLocality": "Nanganallur, Chennai",
+    "addressRegion": "TN",
+    "postalCode": "600061",
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 12.980331,
+    "longitude": 80.188991
+  },
+  "url": "https://bsnlnanganallur.in",
+  "telephone": "+919447072230",
+  "openingHoursSpecification": [
     {
-      "@context": "https://schema.org",
-      "@type": "InternetServiceProvider",
-      "name": "BSNL Fiber Nanganallur",
-      "url": "https://bsnlnanganallur.in/",
-      "telephone": "+919447072230",
-      "description": "Ultra-fast BSNL fiber broadband services in Nanganallur, Chennai.",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Nanganallur, Chennai",
-        "addressRegion": "TN",
-        "addressCountry": "IN"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "12.980331",
-        "longitude": "80.188991"
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        "opens": "07:00",
-        "closes": "23:30"
-      }
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "07:00",
+      "closes": "23:30"
     }
-    </script>
+  ]
+}
+</script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
