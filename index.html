@@ -750,6 +750,9 @@ function initPhoneValidation() {
   });
 }
 
+// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvyUKJTHgyv6MPupYKetHoDUukGxomRP76Bnyrxi9HLJ48C70Z-N5Jva_WnlWuNV0d7A/exec";
+
 function submitForm() {
   const name = document.getElementById('userName').value.trim();
   const phone = document.getElementById('userPhone').value.trim();
@@ -762,7 +765,37 @@ function submitForm() {
 
   const plan = plansData.find(p => p.id === selectedPlanId);
   const price = getPlanPrice(plan);
+  
+  let ottCombo = "None";
+  if (selectedCombo !== null) {
+    const combos = getCombosForTokens(getSelectedPlanTokens() + extraTokens);
+    if (combos[selectedCombo]) ottCombo = combos[selectedCombo].name;
+  }
 
+  // 1. Prepare Data for Google Sheets
+  const formData = {
+    name: name,
+    phone: phone,
+    area: area,
+    plan: `${plan.name} (${plan.speed})`,
+    duration: currentDuration,
+    price: `₹${price}`,
+    ott: ottCombo + (extraTokens > 0 ? ` + ${extraTokens} tokens` : "")
+  };
+
+  // 2. Send to Google Sheets (Background process)
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors', // Required for Google Apps Script to avoid CORS errors
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(formData)
+  }).then(() => {
+    console.log('Saved to Google Sheets');
+  }).catch(err => {
+    console.error('Error saving to sheet:', err);
+  });
+
+  // 3. Open WhatsApp
   let message = `🔔 *New Connection Request*%0A%0A` +
     `👤 Name: ${encodeURIComponent(name)}%0A` +
     `📱 Phone: ${encodeURIComponent(phone)}%0A` +
@@ -772,15 +805,16 @@ function submitForm() {
     `📅 Duration: ${currentDuration}`;
 
   if (selectedCombo !== null) {
-    const combos = getCombosForTokens(getSelectedPlanTokens() + extraTokens);
-    if (combos[selectedCombo]) {
-      message += `%0A🎬 OTT Combo: ${encodeURIComponent(combos[selectedCombo].name)}`;
-    }
+    message += `%0A🎬 OTT Combo: ${encodeURIComponent(ottCombo)}`;
   }
   if (extraTokens > 0) message += `%0A🎟 Extra Tokens: ${extraTokens}`;
 
   const waUrl = `https://wa.me/919447072230?text=${message}`;
   window.open(waUrl, '_blank');
+  
+  // Optional: Clear form after submission
+  // document.getElementById('userName').value = '';
+  // document.getElementById('userPhone').value = '';
 }
 
 // --- POPUP ---
