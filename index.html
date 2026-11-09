@@ -376,6 +376,8 @@ let selectedCombo = null;
 let extraTokens = 0;
 let addonTokens = 0;
 let selectedAddon = null;
+let userLat = "";
+let userLng = "";    
 
 // --- INIT ---
 document.addEventListener('DOMContentLoaded', () => {
@@ -399,6 +401,11 @@ function detectLocation() {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude } = pos.coords;
+        
+        // Save the coordinates globally
+        userLat = latitude;
+        userLng = longitude;
+
         fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
           .then(r => r.json())
           .then(data => {
@@ -414,7 +421,6 @@ function detectLocation() {
     areaInput.value = 'Nanganallur, Chennai';
   }
 }
-
 // --- DURATION ---
 function setDuration(duration, el) {
   currentDuration = duration;
@@ -751,7 +757,7 @@ function initPhoneValidation() {
 }
 
 // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyvyUKJTHgyv6MPupYKetHoDUukGxomRP76Bnyrxi9HLJ48C70Z-N5Jva_WnlWuNV0d7A/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyosL-74IFWbLJsZWHer3k9tNY5sUqCqAhhnw2a3obRYdKaOSz5BQsxlsTR8p2RVFdW2w/exec";
 
 function submitForm() {
   const name = document.getElementById('userName').value.trim();
@@ -780,9 +786,10 @@ function submitForm() {
     plan: `${plan.name} (${plan.speed})`,
     duration: currentDuration,
     price: `₹${price}`,
-    ott: ottCombo + (extraTokens > 0 ? ` + ${extraTokens} tokens` : "")
+    ott: ottCombo + (extraTokens > 0 ? ` + ${extraTokens} tokens` : ""),
+    lat: userLat,  // <-- Added here
+    lng: userLng   // <-- Added here
   };
-
   // 2. Send to Google Sheets (Background process)
   fetch(GOOGLE_SCRIPT_URL, {
     method: 'POST',
