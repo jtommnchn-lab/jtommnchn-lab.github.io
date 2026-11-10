@@ -757,7 +757,7 @@ function initPhoneValidation() {
 }
 
 // PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyosL-74IFWbLJsZWHer3k9tNY5sUqCqAhhnw2a3obRYdKaOSz5BQsxlsTR8p2RVFdW2w/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyAWfxP08g1J_QB5Zt9Fy8LU2d5ZgdpmyOwBSboDM9qHb9m8l7wk8imlvhFwbF5qmutEQ/exec";
 
 function submitForm() {
   const name = document.getElementById('userName').value.trim();
@@ -779,29 +779,29 @@ function submitForm() {
   }
 
   // 1. Prepare Data for Google Sheets
-  const formData = {
-    name: name,
-    phone: phone,
-    area: area,
-    plan: `${plan.name} (${plan.speed})`,
-    duration: currentDuration,
-    price: `₹${price}`,
-    ott: ottCombo + (extraTokens > 0 ? ` + ${extraTokens} tokens` : ""),
-    lat: userLat,  // <-- Added here
-    lng: userLng   // <-- Added here
-  };
-  // 2. Send to Google Sheets (Background process)
+  // 1. Prepare Data for Google Sheets as FormData
+  const formData = new FormData();
+  formData.append('name', name);
+  formData.append('phone', phone);
+  formData.append('area', area);
+  formData.append('plan', `${plan.name} (${plan.speed})`);
+  formData.append('duration', currentDuration);
+  formData.append('price', `₹${price}`);
+  formData.append('ott', ottCombo + (extraTokens > 0 ? ` + ${extraTokens} tokens` : ""));
+  formData.append('lat', userLat);
+  formData.append('lng', userLng);
+
+  // 2. Send to Google Sheets
   fetch(GOOGLE_SCRIPT_URL, {
     method: 'POST',
-    mode: 'no-cors', // Required for Google Apps Script to avoid CORS errors
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(formData)
+    mode: 'no-cors', 
+    body: formData 
   }).then(() => {
-    console.log('Saved to Google Sheets');
+    console.log('Sent to Google Sheets');
   }).catch(err => {
-    console.error('Error saving to sheet:', err);
+    console.error('Error:', err);
   });
-
+    
   // 3. Open WhatsApp
   let message = `🔔 *New Connection Request*%0A%0A` +
     `👤 Name: ${encodeURIComponent(name)}%0A` +
