@@ -855,13 +855,56 @@ function submitPopup() {
   if (!name) { alert('Please enter your name.'); return; }
   if (!phone || phone.length !== 10) { alert('Please enter a valid 10-digit number.'); return; }
 
-  const message = `👋 *Query from website visitor*%0A%0A` +
-    `👤 Name: ${encodeURIComponent(name)}%0A` +
-    `📱 Phone: ${encodeURIComponent(phone)}%0A%0A` +
-    `I have a question about BSNL Fiber Nanganallur. Please assist.`;
+  // ✅ Attempt geolocation if we don't already have coords
+  const proceed = (lat, lng) => {
+    // 1. Send to Google Sheets (same endpoint, different source tag)
+    const formData = new FormData();
+    formData.append('token', FORM_TOKEN);
+    formData.append('name', name);
+    formData.append('phone', phone);
+    formData.append('area', 'Popup Query');           // no area field in popup
+    formData.append('plan', '—');                     // no plan selected
+    formData.append('duration', '—');
+    formData.append('price', '—');
+    formData.append('ott', '—');
+    formData.append('lat', lat || '');
+    formData.append('lng', lng || '');
+    formData.append('source', 'popup');               // distinguish from main form
 
-  window.open(`https://wa.me/919447072230?text=${message}`, '_blank');
-  closePopup();
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: formData
+    }).catch(err => console.error('Popup sheet submit error:', err));
+
+    // 2. Open WhatsApp
+    const message = `👋 *Query from website visitor*%0A%0A` +
+      `👤 Name: ${encodeURIComponent(name)}%0A` +
+      `📱 Phone: ${encodeURIComponent(phone)}%0A` +
+      (lat && lng ? `📍 Location: https://maps.google.com/?q=${lat},${lng}%0A` : '') +
+      `%0A` +
+      `I have a question about BSNL Fiber Nanganallur. Please assist.`;
+
+    window.open(`https://wa.me/919447072230?text=${message}`, '_blank');
+    closePopup();
+  };
+
+  // If we already have coords from page load, use them immediately
+  if (userLat && userLng) {
+    proceed(userLat, userLng);
+    return;
+  }
+
+  // Otherwise, try to fetch coords (with timeout)
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => proceed(pos.coords.latitude, pos.coords.longitude),
+      () => proceed('', ''),
+      { timeout: 5000, maximumAge: 60000 }
+    );
+  } else {
+    proceed('', '');
+  }
 }
 
 // Close popup on overlay click
