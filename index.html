@@ -552,17 +552,17 @@ let userLng = "";
 let submitting = false;
 
 // --- INIT ---
+// --- INIT ---
 document.addEventListener('DOMContentLoaded', () => {
   populatePlanDropdown();
   renderPlans();
   renderTestimonials();
   detectLocation();
   initPhoneValidation();
+  
+  // Show popup 15 seconds after page load (or refresh)
   setTimeout(() => { 
-    if (!sessionStorage.getItem('popupShown')) { 
-      openPopup(); 
-      sessionStorage.setItem('popupShown', '1'); 
-    } 
+    openPopup(); 
   }, 15000);
 });
 
