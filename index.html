@@ -980,6 +980,7 @@ function submitForm() {
   formData.append('ott', ottCombo + (extraTokens > 0 ? ` + ${extraTokens} free tokens` : ""));
   formData.append('lat', userLat);
   formData.append('lng', userLng);
+  formData.append('source', 'form');
 
   // 2. Send to Google Sheets (fire-and-forget; no-cors response is opaque)
   fetch(GOOGLE_SCRIPT_URL, {
