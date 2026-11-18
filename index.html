@@ -38,34 +38,200 @@
       * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
       body { background: var(--bg); color: var(--text); padding-bottom: 100px; scroll-behavior: smooth; }
       
-      /* --- TOPBAR & NAVIGATION --- */
-      .topbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; height: 62px; }
-      .topbar img { height: 32px; }
-      .actions a { text-decoration: none; font-size: 20px; margin-left: 15px; color: var(--bsnl-blue); }
-      
-      .main-nav { background: var(--bsnl-blue); color: white; padding: 0 20px; position: sticky; top: 62px; z-index: 99; display: flex; justify-content: space-between; align-items: center; }
-      .nav-brand { font-weight: 800; font-size: 18px; padding: 15px 0; display: none; }
-      .nav-links { display: flex; list-style: none; gap: 25px; margin: 0; padding: 0; }
-      .nav-links a { color: white; text-decoration: none; font-weight: 600; font-size: 15px; padding: 15px 0; display: inline-block; transition: opacity 0.2s; }
-      .menu-toggle { display: none; background: none; border: none; color: white; font-size: 24px; cursor: pointer; padding: 15px 0; }
-      
-      @media (max-width: 768px) {
-        .main-nav { position: relative; top: 0; flex-direction: column; align-items: flex-start; }
-        .nav-brand { display: block; }
-        .menu-toggle { display: block; position: absolute; right: 20px; top: 0; }
-        .nav-links { display: none; flex-direction: column; width: 100%; gap: 0; padding-bottom: 15px; }
-        .nav-links.active { display: flex; }
-        .nav-links a { padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.1); width: 100%; }
+      /* --- NEW UNIFIED HEADER & HERO STYLES --- */
+      .top-hero-frame {
+        background: linear-gradient(160deg, #001a4d 0%, #003399 100%);
+        color: white;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 4px solid var(--accent);
       }
 
-      /* --- HERO BANNER --- */
-      .hero { width: 100%; padding: 60px 20px; background: linear-gradient(135deg, #001a4d 0%, #003399 100%); display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; overflow: hidden; }
-      .hero::before { content: ''; position: absolute; top: -50%; left: -10%; width: 50%; height: 200%; background: radial-gradient(circle, rgba(255,102,0,0.15) 0%, transparent 60%); transform: rotate(30deg); }
-      .hero-content { position: relative; z-index: 2; max-width: 800px; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-      .hero-title { font-size: 36px; font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -1px; }
-      .hero-title span { color: var(--accent); }
-      .hero-subtitle { font-size: 18px; font-weight: 500; color: rgba(255, 255, 255, 0.85); max-width: 600px; }
-      .btn-hero { background: var(--accent); color: #fff; padding: 16px 32px; border: none; border-radius: 30px; font-weight: 800; font-size: 18px; cursor: pointer; box-shadow: 0 8px 25px rgba(255,102,0,0.4); transition: transform 0.2s, background 0.2s; text-decoration: none; display: inline-block; margin-top: 10px; }
+      .top-hero-frame::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -10%;
+        width: 50%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,102,0,0.15) 0%, transparent 60%);
+        transform: rotate(30deg);
+        pointer-events: none;
+      }
+
+      .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 25px;
+        position: relative;
+        z-index: 10;
+      }
+
+      .header-top img {
+        height: 50px;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+      }
+
+      .actions a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        text-decoration: none;
+        font-size: 20px;
+        transition: all 0.2s ease;
+      }
+
+      .actions a:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+      }
+
+      .main-nav {
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+      }
+
+      .nav-brand { display: none; }
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 25px;
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        padding: 15px 0;
+        display: inline-block;
+        transition: color 0.2s;
+        border-bottom: 3px solid transparent;
+      }
+
+      .nav-links a:hover {
+        color: #fff;
+        border-bottom-color: var(--accent);
+      }
+
+      .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 15px 0;
+      }
+
+      .hero {
+        padding: 50px 20px 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        z-index: 10;
+      }
+
+      .hero-content {
+        max-width: 800px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .hero-pre-title {
+        font-size: 70px;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 2px;
+        line-height: 1;
+        margin-bottom: -10px;
+        text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      }
+
+      .hero-title {
+        font-size: 42px;
+        font-weight: 800;
+        color: #E2E8F0;
+        line-height: 1.2;
+        letter-spacing: -1px;
+      }
+
+      .hero-title span {
+        color: var(--accent);
+      }
+
+      .hero-subtitle {
+        font-size: 18px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.85);
+        max-width: 600px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+      }
+
+      .btn-hero {
+        background: var(--accent);
+        color: #fff;
+        padding: 16px 32px;
+        border: none;
+        border-radius: 30px;
+        font-weight: 800;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 8px 25px rgba(255,102,0,0.4);
+        transition: transform 0.2s, background 0.2s;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .btn-hero:hover {
+        transform: translateY(-2px);
+        background: #FF8F00;
+      }
+        @media (max-width: 768px) {
+        .header-top { padding: 15px 20px; }
+        .header-top img { height: 40px; }
+        .hero-pre-title { font-size: 48px; }
+        .hero-title { font-size: 32px; }
+        .hero { padding: 30px 15px 60px; }
+        
+        .main-nav { border-bottom: none; }
+        .nav-brand { display: none; }
+        .menu-toggle { display: block; position: absolute; right: 20px; top: -60px; }
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          gap: 0;
+          padding-bottom: 15px;
+        }
+        .nav-links.active { display: flex; }
+        .nav-links a {
+          padding: 12px 0;
+          border-top: 1px solid rgba(255,255,255,0.1);
+          width: 100%;
+          border-bottom: none;
+        }
+      }
 
       /* --- MAIN FORM (MOVED TO TOP) --- */
       .form-section { max-width: 500px; margin: 30px auto; padding: 32px 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
@@ -170,35 +336,41 @@
 </head>
 <body>
 
-<!-- TOPBAR -->
-<div class="topbar">
-  <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" alt="BSNL">
-  <div class="actions">
-    <a href="tel:9447072230" aria-label="Call us">📞</a>
-    <a href="https://wa.me/919447072230" aria-label="WhatsApp us">💬</a>
+<!-- UNIFIED BLUE FRAME (Header + Nav + Hero) -->
+<header class="top-hero-frame" id="home">
+  
+  <!-- Top Bar: Logo & Icons -->
+  <div class="header-top">
+    <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" alt="BSNL Logo">
+    <div class="actions">
+      <a href="tel:9447072230" aria-label="Call us">📞</a>
+      <a href="https://wa.me/919447072230" aria-label="WhatsApp us">💬</a>
+    </div>
   </div>
-</div>
 
-<!-- NAVIGATION MENU -->
-<nav class="main-nav">
-  <div class="nav-brand">BSNL Nanganallur</div>
-  <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
-  <ul class="nav-links" id="navLinks">
-    <li><a href="#home">Home</a></li>
-    <li><a href="#contact-form">Book Connection</a></li>
-    <li><a href="#plans-section">Plans</a></li>
-    <li><a href="#location-section">Our Office</a></li>
-    <li><a href="#testimonials">Testimonials</a></li>
-  </ul>
-</nav>
+  <!-- Navigation -->
+  <nav class="main-nav">
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#contact-form">Book Connection</a></li>
+      <li><a href="#plans-section">Plans</a></li>
+      <li><a href="#location-section">Our Office</a></li>
+      <li><a href="#testimonials">Testimonials</a></li>
+    </ul>
+  </nav>
 
-<!-- HERO BANNER -->
-<section id="home" class="hero">
-  <div class="hero-content">
-    <h1 class="hero-title">Bharat <span>Fibre</span></h1>
-    <p class="hero-subtitle">Your Neighborhood. Your Network. Experience ultra-fast fiber broadband with plans up to 1 Gbps.</p>
-    <a href="#contact-form" class="btn-hero">Book NEW Connection →</a>
-  </div>
+  <!-- Hero Content -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-pre-title">BSNL</div>
+      <h1 class="hero-title">Bharat <span>Fibre</span></h1>
+      <p class="hero-subtitle">Your Neighborhood. Your Network. Experience ultra-fast fiber broadband with plans up to 1 Gbps.</p>
+      <a href="#contact-form" class="btn-hero">Book NEW Connection →</a>
+    </div>
+  </section>
+
+</header>
 </section>
 
 <!-- MAIN FORM (Above Plans) -->
@@ -471,6 +643,7 @@ function isPlanAvailable(plan) {
 }
 
 // --- RENDER PLANS ---
+// --- RENDER PLANS ---
 function renderPlans() {
   const container = document.getElementById('plansContainer');
   container.innerHTML = '';
@@ -493,8 +666,12 @@ function renderPlans() {
       <h3>${plan.name}</h3>
       <div class="speed">${plan.speed}</div>
       <h2>${priceDisplay}</h2>
-      <button onclick="selectPlan('${plan.id}', event)">Select</button>
+      <button type="button">Select</button>
     `;
+
+    // Whole card is clickable
+    card.addEventListener('click', () => selectPlan(plan.id));
+
     container.appendChild(card);
   });
 }
@@ -538,7 +715,7 @@ function onPlanDropdownChange() {
 }
 
 // --- SELECT PLAN FROM CARD ---
-function selectPlan(id, ev) {
+function selectPlan(id) {
   if (ev) ev.stopPropagation();
   // Toggle off if clicking the already-selected plan
   if (selectedPlanId === id) {
