@@ -216,7 +216,7 @@
         
         .main-nav { border-bottom: none; }
         .nav-brand { display: none; }
-        .menu-toggle { display: block; position: absolute; right: 20px; top: -60px; }
+        .menu-toggle { display: block; position: absolute; right: 20px; top: -70px; }
         .nav-links {
           display: none;
           flex-direction: column;
@@ -371,7 +371,7 @@
   </section>
 
 </header>
-</section>
+
 
 <!-- MAIN FORM (Above Plans) -->
 <div class="form-section" id="contact-form">
@@ -716,7 +716,6 @@ function onPlanDropdownChange() {
 
 // --- SELECT PLAN FROM CARD ---
 function selectPlan(id) {
-  if (ev) ev.stopPropagation();
   // Toggle off if clicking the already-selected plan
   if (selectedPlanId === id) {
     selectedPlanId = null;
