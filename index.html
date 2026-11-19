@@ -118,6 +118,7 @@
       .plan-card .features li::before { content: '✓'; color: var(--green); font-weight: bold; }
       .plan-card .btn-plan { background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 12px; border-radius: 12px; width: 100%; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; text-align: center; text-decoration: none; display: block; }
       .plan-card:hover .btn-plan { background: var(--bsnl-blue); color: white; border-color: var(--bsnl-blue); }
+      .plan-card.selected { border-color: var(--green) !important; box-shadow: 0 0 0 2px var(--green); background: #F0FDF4; }      
 
       /* --- WHY US & STEPS --- */
       .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
@@ -371,10 +372,11 @@
       
   </div>      
   <!-- TAB 4: OTT ADD-ON BUNDLES -->
+  <!-- TAB 4: OTT ADD-ON BUNDLES -->
   <div id="tab-addons" class="plan-category">
     
     <!-- Basic Bundle -->
-    <div class="plan-card" style="border-top: 6px solid #10B981;">
+    <div class="plan-card" style="border-top: 6px solid #10B981;" onclick="selectPlanFromCard('ott-basic')">
       <div class="popular-tag" style="background: #10B981;">17 OTTs</div>
       <h3>Basic Bundle</h3>
       <div class="price" style="color: #10B981;">₹159 <small>/month</small></div>
@@ -384,11 +386,11 @@
         <li>Tarang Plus</li><li>AaoNXT</li><li>Stage</li><li>Sanskar</li>
         <li>Discovery+</li><li>Aha</li><li>JOJO</li><li>Pocket Films</li>
       </ul>
-      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20to%20add%20the%20Basic%20OTT%20Bundle%20(Rs%20159)%20to%20my%20connection." target="_blank" class="btn-plan" style="color: #10B981; border-color: #10B981;">Add Bundle</a>
+      <button type="button" class="btn-plan" id="btn-ott-basic" style="color: #10B981; border-color: #10B981;">Select Bundle</button>
     </div>
 
     <!-- Premium Bundle -->
-    <div class="plan-card" style="border-top: 6px solid #3B82F6;">
+    <div class="plan-card" style="border-top: 6px solid #3B82F6;" onclick="selectPlanFromCard('ott-premium')">
       <div class="popular-tag" style="background: #3B82F6;">18 OTTs</div>
       <h3>Premium Bundle</h3>
       <div class="price" style="color: #3B82F6;">₹224 <small>/month</small></div>
@@ -398,11 +400,11 @@
         <li>FanCode</li><li>Tarang Plus</li><li>AaoNXT</li><li>Stage</li>
         <li>Sanskar</li><li>Discovery+</li><li>Aha</li><li>JOJO</li><li>Pocket Films</li>
       </ul>
-      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20to%20add%20the%20Premium%20OTT%20Bundle%20(Rs%20224)%20to%20my%20connection." target="_blank" class="btn-plan" style="color: #3B82F6; border-color: #3B82F6;">Add Bundle</a>
+      <button type="button" class="btn-plan" id="btn-ott-premium" style="color: #3B82F6; border-color: #3B82F6;">Select Bundle</button>
     </div>
 
     <!-- Elite Bundle -->
-    <div class="plan-card" style="border-top: 6px solid #8B5CF6;">
+    <div class="plan-card" style="border-top: 6px solid #8B5CF6;" onclick="selectPlanFromCard('ott-elite')">
       <div class="popular-tag" style="background: #8B5CF6;">19 OTTs</div>
       <h3>Elite Bundle</h3>
       <div class="price" style="color: #8B5CF6;">₹248 <small>/month</small></div>
@@ -412,11 +414,11 @@
         <li>India Mixtape</li><li>FanCode</li><li>Tarang Plus</li><li>AaoNXT</li>
         <li>Stage</li><li>Sanskar</li><li>Discovery+</li><li>Aha</li><li>JOJO</li><li>Pocket Films</li>
       </ul>
-      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20to%20add%20the%20Elite%20OTT%20Bundle%20(Rs%20248)%20to%20my%20connection." target="_blank" class="btn-plan" style="color: #8B5CF6; border-color: #8B5CF6;">Add Bundle</a>
+      <button type="button" class="btn-plan" id="btn-ott-elite" style="color: #8B5CF6; border-color: #8B5CF6;">Select Bundle</button>
     </div>
 
     <!-- Ultra Bundle -->
-    <div class="plan-card" style="border-top: 6px solid #F59E0B;">
+    <div class="plan-card" style="border-top: 6px solid #F59E0B;" onclick="selectPlanFromCard('ott-ultra')">
       <div class="popular-tag" style="background: #F59E0B;">25 OTTs</div>
       <h3>Ultra Bundle</h3>
       <div class="price" style="color: #F59E0B;">₹289 <small>/month</small></div>
@@ -427,9 +429,9 @@
         <li>Chaupal</li><li>Namma Flix</li><li>FanCode</li><li>Tarang Plus</li><li>RajTV</li>
         <li>AaoNXT</li><li>Stage</li><li>Sanskar</li><li>Discovery+</li><li>Aha</li><li>JOJO</li><li>Pocket Films</li>
       </ul>
-      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20to%20add%20the%20Ultra%20OTT%20Bundle%20(Rs%20289)%20to%20my%20connection." target="_blank" class="btn-plan" style="color: #F59E0B; border-color: #F59E0B;">Add Bundle</a>
+      <button type="button" class="btn-plan" id="btn-ott-ultra" style="color: #F59E0B; border-color: #F59E0B;">Select Bundle</button>
     </div>
-  </div>      
+  </div>
   </div>
 </div>
 
@@ -578,7 +580,13 @@ const plansData = [
   { id: "fibre-premium", name: "Fibre Premium", speed: "250 Mbps", base: 1299, tokens: 0 },
   { id: "fibre-elite", name: "Fibre Elite OTT", speed: "300 Mbps", base: 1399, tokens: 10 },
   { id: "fibre-zenith", name: "Fibre Zenith", speed: "300 Mbps", base: 1549, tokens: 30 },
-  { id: "fibre-ultra", name: "Fibre Elite Ultra", speed: "1 Gbps", base: 4799, tokens: 0 }
+  { id: "fibre-ultra", name: "Fibre Elite Ultra", speed: "1 Gbps", base: 4799, tokens: 0 },
+  
+  // NEW OTT BUNDLES ADDED HERE
+  { id: "ott-basic", name: "Basic OTT Bundle", speed: "17 Apps", base: 159, tokens: 0, isAddon: true },
+  { id: "ott-premium", name: "Premium OTT Bundle", speed: "18 Apps", base: 224, tokens: 0, isAddon: true },
+  { id: "ott-elite", name: "Elite OTT Bundle", speed: "19 Apps", base: 248, tokens: 0, isAddon: true },
+  { id: "ott-ultra", name: "Ultra OTT Bundle", speed: "25 Apps", base: 289, tokens: 0, isAddon: true }
 ];
 const tokenCosts = { "Jio Hotstar": 6, "Zee5": 4, "Sony Liv": 4, "Saboot Bundle": 4, "Waves Premium": 2, "Chaupal": 2, "Lions Gate": 1, "Hungama": 1, "Epic On": 1, "ShemarooMe": 1 };
 const combosData = {
@@ -640,7 +648,40 @@ function switchPlanTab(tabName, el) {
   document.getElementById('tab-' + tabName).classList.add('active');
 }
 
-function toggleFaq(el) {
+// --- NEW: Handle Add-on Card Click ---
+function selectPlanFromCard(planId) {
+  // If already selected, deselect it
+  if (selectedPlanId === planId) {
+    selectedPlanId = null;
+    document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.btn-plan').forEach(b => b.textContent = 'Select Bundle');
+    updateBottomBar();
+    return;
+  }
+
+  // Select the new plan
+  selectedPlanId = planId;
+  const plan = plansData.find(p => p.id === planId);
+  
+  // Update UI to show selected state
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.btn-plan').forEach(b => b.textContent = 'Select Bundle');
+  
+  if (event && event.currentTarget) {
+    const card = event.currentTarget;
+    card.classList.add('selected');
+    const btn = card.querySelector('.btn-plan');
+    if (btn) btn.textContent = 'Selected ✓';
+  }
+
+  // Sync the dropdown in the form
+  populatePlanDropdown();
+  
+  // Update the fixed bottom bar with the price
+  updateBottomBar();
+}
+    
+ function toggleFaq(el) {
   el.parentElement.classList.toggle('active');
 }
 
