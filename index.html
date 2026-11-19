@@ -653,14 +653,26 @@ function switchPlanTab(tabName, el) {
 
 // --- SELECT PLAN (VALIDATES MOBILE) ---
 // --- SELECT PLAN ---
+// --- SELECT PLAN ---
 function selectPlanFromCard(planId) {
+  const plan = plansData.find(p => p.id === planId);
+  if (!plan) return;
+
   // If already selected, deselect it
   if (selectedPlanId === planId) {
     selectedPlanId = null;
     document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
     document.querySelectorAll('.btn-plan').forEach(b => b.textContent = 'Select Plan');
+    document.getElementById('planSelect').value = ""; 
     updateBottomBar();
     return;
+  }
+
+  // Auto-switch duration if it's a quarterly-only plan
+  if (plan.qOnly) {
+    currentDuration = 'quarterly';
+  } else {
+    currentDuration = 'monthly';
   }
 
   // Select the new plan
@@ -670,6 +682,7 @@ function selectPlanFromCard(planId) {
   document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
   document.querySelectorAll('.btn-plan').forEach(b => b.textContent = 'Select Plan');
   
+  // Since we are rendering with JS, we can just use the event target to highlight
   if (event && event.currentTarget) {
     const card = event.currentTarget;
     card.classList.add('selected');
@@ -677,8 +690,9 @@ function selectPlanFromCard(planId) {
     if (btn) btn.textContent = 'Selected ✓';
   }
 
-  // Sync the dropdown in the form
-  populatePlanDropdown();
+  // Force the dropdown in the form to match the selected card
+  populatePlanDropdown(); 
+  document.getElementById('planSelect').value = planId;
   
   // Update the fixed bottom bar to show "Proceed"
   updateBottomBar();
