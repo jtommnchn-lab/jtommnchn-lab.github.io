@@ -528,7 +528,7 @@
 
 <!-- BOTTOM BAR -->
 <div id="bottomBar" class="bottom-bar">
-  <button class="btn-bottom" id="bottomBtn" onclick="submitForm()" disabled>Proceed to Book</button>
+  <button class="btn-bottom" id="bottomBtn" onclick="proceedToBook()" disabled>Proceed to Book</button>
 </div>
 
 <!-- POPUP -->
@@ -627,22 +627,9 @@ function switchPlanTab(tabName, el) {
 }
 
 // --- SELECT PLAN (VALIDATES MOBILE) ---
+// --- SELECT PLAN ---
 function selectPlanFromCard(planId) {
-  const nameInput = document.getElementById('userName');
-  const phoneInput = document.getElementById('userPhone');
-  
-  if (!phoneInput.value || phoneInput.value.length !== 10 || !nameInput.value.trim()) {
-    nameInput.style.borderColor = '#EF4444';
-    phoneInput.style.borderColor = '#EF4444';
-    alert("Please enter your Name and 10-digit Mobile Number to select a plan.");
-    document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    if (!nameInput.value.trim()) { nameInput.focus(); } else { phoneInput.focus(); }
-    return;
-  }
-
-  nameInput.style.borderColor = 'var(--border)';
-  phoneInput.style.borderColor = 'var(--border)';
-
+  // If already selected, deselect it
   if (selectedPlanId === planId) {
     selectedPlanId = null;
     document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
@@ -651,8 +638,10 @@ function selectPlanFromCard(planId) {
     return;
   }
 
+  // Select the new plan
   selectedPlanId = planId;
   
+  // Update UI to show selected state
   document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
   document.querySelectorAll('.btn-plan').forEach(b => b.textContent = 'Select Plan');
   
@@ -663,7 +652,10 @@ function selectPlanFromCard(planId) {
     if (btn) btn.textContent = 'Selected ✓';
   }
 
+  // Sync the dropdown in the form
   populatePlanDropdown();
+  
+  // Update the fixed bottom bar to show "Proceed"
   updateBottomBar();
 }
 
@@ -676,11 +668,9 @@ function selectAddonBundle(addonId) {
     updateBottomBar();
     return;
   }
-
   cards.forEach(c => c.classList.remove('selected'));
   selectedAddon = addonId;
-  document.getElementById('card-' + addonId).classList.add('selected');
-  
+  document.getElementById('card-' + addonId).classList.add('selected');  
   updateBottomBar();
 }
     
@@ -939,7 +929,39 @@ function initPhoneValidation() {
 
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzvO8V4tgXnLSAj6ZwfQp1uhhLF6vVpV0fRbwFUoeh51zKV4G3Y-cRt58V2IgsSm2rDtw/exec";
 const FORM_TOKEN = "bsnl-nanganallur-2024";
+// --- VALIDATE BEFORE SUBMITTING ---
+function proceedToBook() {
+  const nameInput = document.getElementById('userName');
+  const phoneInput = document.getElementById('userPhone');
+  
+  // Check if mobile is missing or invalid
+  if (!phoneInput.value || phoneInput.value.length !== 10 || !nameInput.value.trim()) {
+    // Highlight the fields
+    nameInput.style.borderColor = '#EF4444';
+    phoneInput.style.borderColor = '#EF4444';
+    
+    // Alert the user
+    alert("Please enter your Name and 10-digit Mobile Number to complete your booking.");
+    
+    // Scroll smoothly to the form
+    document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Focus on the first missing field
+    if (!nameInput.value.trim()) {
+      nameInput.focus();
+    } else {
+      phoneInput.focus();
+    }
+    return; // Stop submission
+  }
 
+  // Reset borders if valid and proceed to submit
+  nameInput.style.borderColor = 'var(--border)';
+  phoneInput.style.borderColor = 'var(--border)';
+  
+  submitForm();
+}
+    
 function submitForm() {
   if (submitting) return;
 
