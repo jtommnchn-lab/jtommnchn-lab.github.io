@@ -38,204 +38,33 @@
       * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
       body { background: var(--bg); color: var(--text); padding-bottom: 100px; scroll-behavior: smooth; }
       
-      /* --- NEW UNIFIED HEADER & HERO STYLES --- */
-      .top-hero-frame {
-        background: linear-gradient(160deg, #001a4d 0%, #003399 100%);
-        color: white;
-        position: relative;
-        overflow: hidden;
-        border-bottom: 4px solid var(--accent);
-      }
+      /* --- STICKY HEADER --- */
+      .header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.02); }
+      .header img { height: 40px; }
+      .header-actions { display: flex; gap: 10px; }
+      .header-actions a { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: var(--bg); color: var(--bsnl-blue); text-decoration: none; font-size: 18px; border: 1px solid var(--border); transition: 0.2s; }
+      .header-actions a:hover { background: var(--bsnl-blue); color: white; }
+      
+      .main-nav { background: var(--bsnl-blue); padding: 0 20px; display: flex; justify-content: center; position: sticky; top: 61px; z-index: 99; }
+      .nav-links { display: flex; list-style: none; gap: 20px; margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+      .nav-links::-webkit-scrollbar { display: none; }
+      .nav-links a { color: rgba(255,255,255,0.8); text-decoration: none; font-weight: 600; font-size: 14px; padding: 14px 0; display: inline-block; transition: color 0.2s; border-bottom: 3px solid transparent; white-space: nowrap; }
+      .nav-links a:hover { color: #fff; border-bottom-color: var(--accent); }
 
-      .top-hero-frame::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -10%;
-        width: 50%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,102,0,0.15) 0%, transparent 60%);
-        transform: rotate(30deg);
-        pointer-events: none;
-      }
+      /* --- DYNAMIC HERO --- */
+      .hero { width: 100%; padding: 70px 20px; background: linear-gradient(135deg, #001a4d 0%, #003399 100%); display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; overflow: hidden; }
+      .hero::before { content: ''; position: absolute; top: -50%; left: -10%; width: 50%; height: 200%; background: radial-gradient(circle, rgba(255,102,0,0.15) 0%, transparent 60%); transform: rotate(30deg); }
+      .hero-content { position: relative; z-index: 2; max-width: 800px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+      .hero-title { font-size: 42px; font-weight: 800; color: #fff; line-height: 1.2; letter-spacing: -1px; }
+      .hero-title span { color: var(--accent); }
+      .hero-subtitle { font-size: 18px; font-weight: 500; color: rgba(255, 255, 255, 0.85); max-width: 600px; margin-bottom: 10px; }
+      .hero-badges { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
+      .hero-badge { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: white; padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+      .btn-hero { background: var(--accent); color: #fff; padding: 16px 32px; border: none; border-radius: 30px; font-weight: 800; font-size: 18px; cursor: pointer; box-shadow: 0 8px 25px rgba(255,102,0,0.4); transition: transform 0.2s, background 0.2s; text-decoration: none; display: inline-block; }
 
-      .header-top {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 25px;
-        position: relative;
-        z-index: 10;
-      }
-
-      .header-top img {
-        height: 50px;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-      }
-
-      .actions {
-        display: flex;
-        gap: 12px;
-      }
-
-      .actions a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        text-decoration: none;
-        font-size: 20px;
-        transition: all 0.2s ease;
-      }
-
-      .actions a:hover {
-        background: rgba(255, 255, 255, 0.25);
-        transform: translateY(-2px);
-      }
-
-      .main-nav {
-        padding: 0 20px;
-        position: relative;
-        z-index: 10;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-      }
-
-      .nav-brand { display: none; }
-      .nav-links {
-        display: flex;
-        list-style: none;
-        gap: 25px;
-        margin: 0;
-        padding: 0;
-      }
-
-      .nav-links a {
-        color: rgba(255, 255, 255, 0.8);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 15px;
-        padding: 15px 0;
-        display: inline-block;
-        transition: color 0.2s;
-        border-bottom: 3px solid transparent;
-      }
-
-      .nav-links a:hover {
-        color: #fff;
-        border-bottom-color: var(--accent);
-      }
-
-      .menu-toggle {
-        display: none;
-        background: none;
-        border: none;
-        color: white;
-        font-size: 24px;
-        cursor: pointer;
-        padding: 15px 0;
-      }
-
-      .hero {
-        padding: 50px 20px 80px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        position: relative;
-        z-index: 10;
-      }
-
-      .hero-content {
-        max-width: 800px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-      }
-
-      .hero-pre-title {
-        font-size: 70px;
-        font-weight: 900;
-        color: #fff;
-        letter-spacing: 2px;
-        line-height: 1;
-        margin-bottom: -10px;
-        text-shadow: 0 4px 15px rgba(0,0,0,0.3);
-      }
-
-      .hero-title {
-        font-size: 42px;
-        font-weight: 800;
-        color: #E2E8F0;
-        line-height: 1.2;
-        letter-spacing: -1px;
-      }
-
-      .hero-title span {
-        color: var(--accent);
-      }
-
-      .hero-subtitle {
-        font-size: 18px;
-        font-weight: 500;
-        color: rgba(255, 255, 255, 0.85);
-        max-width: 600px;
-        margin-top: 10px;
-        margin-bottom: 15px;
-      }
-
-      .btn-hero {
-        background: var(--accent);
-        color: #fff;
-        padding: 16px 32px;
-        border: none;
-        border-radius: 30px;
-        font-weight: 800;
-        font-size: 18px;
-        cursor: pointer;
-        box-shadow: 0 8px 25px rgba(255,102,0,0.4);
-        transition: transform 0.2s, background 0.2s;
-        text-decoration: none;
-        display: inline-block;
-      }
-
-      .btn-hero:hover {
-        transform: translateY(-2px);
-        background: #FF8F00;
-      }
-        @media (max-width: 768px) {
-        .header-top { padding: 15px 20px; }
-        .header-top img { height: 40px; }
-        .hero-pre-title { font-size: 48px; }
-        .hero-title { font-size: 32px; }
-        .hero { padding: 30px 15px 60px; }
-        
-        .main-nav { border-bottom: none; }
-        .nav-brand { display: none; }
-        .menu-toggle { display: block; position: absolute; right: 20px; top: -70px; }
-        .nav-links {
-          display: none;
-          flex-direction: column;
-          width: 100%;
-          gap: 0;
-          padding-bottom: 15px;
-        }
-        .nav-links.active { display: flex; }
-        .nav-links a {
-          padding: 12px 0;
-          border-top: 1px solid rgba(255,255,255,0.1);
-          width: 100%;
-          border-bottom: none;
-        }
-      }
-
-      /* --- MAIN FORM (MOVED TO TOP) --- */
-      .form-section { max-width: 500px; margin: 30px auto; padding: 32px 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-      .form-section h2 { text-align: center; margin-bottom: 24px; font-size: 22px; font-weight: 800; color: var(--bsnl-blue); }
+      /* --- MAIN FORM --- */
+      .form-section { max-width: 500px; margin: -30px auto 40px; position: relative; z-index: 10; padding: 30px 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+      .form-section h2 { text-align: center; margin-bottom: 20px; font-size: 22px; font-weight: 800; color: var(--bsnl-blue); }
       .input-wrap { position: relative; margin-bottom: 12px; }
       .input-wrap .icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); font-size: 18px; opacity: 0.5; z-index: 2; }
       .input-wrap input, .input-wrap select { width: 100%; padding: 16px 16px 16px 46px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 12px; color: var(--text); font-size: 15px; outline: none; transition: all 0.3s; font-weight: 500; }
@@ -244,55 +73,53 @@
       .input-wrap input:focus, .input-wrap select:focus { border-color: var(--bsnl-blue); background: #fff; box-shadow: 0 0 0 4px rgba(0,51,153,0.05); }
       .btn-submit { background: linear-gradient(135deg, var(--accent), #FF8F00); color: #fff; width: 100%; padding: 18px; border: none; border-radius: 14px; font-weight: 800; font-size: 16px; cursor: pointer; margin-top: 10px; box-shadow: 0 8px 20px rgba(255,102,0,0.3); transition: transform 0.2s; }
 
-      /* --- SECTIONS & PLANS --- */
-      .section-container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-      .section-header { text-align: center; margin-bottom: 20px; }
+      /* --- SECTIONS & TABS --- */
+      .section-container { max-width: 1000px; margin: 50px auto; padding: 0 20px; }
+      .section-header { text-align: center; margin-bottom: 30px; }
       .section-header h2 { font-size: 28px; font-weight: 800; color: var(--bsnl-blue); margin-bottom: 10px; }
+      .section-header p { color: var(--dim); font-size: 16px; }
       
-      /* --- DURATION TABS --- */
-      .duration-wrapper { position: relative; z-index: 10; margin: 0 auto 20px auto; padding: 0 10px; max-width: 1000px; }
-      .duration-tabs { display: flex; flex-wrap: nowrap; gap: 8px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 8px; border-radius: 30px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.05); overflow-x: auto; scrollbar-width: none; }
-      .duration-tabs::-webkit-scrollbar { display: none; }
-      .duration-card { flex: 1 0 auto; background: transparent; color: var(--dim); padding: 10px 20px; border-radius: 22px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; flex-direction: column; align-items: center; transition: all 0.3s; border: 1px solid transparent; white-space: nowrap; user-select: none; }
-      .duration-card.active { background: var(--bsnl-blue); color: #fff; box-shadow: 0 4px 12px rgba(0,51,153,0.3); }
-      .duration-card .offer { font-size: 9px; color: var(--accent); text-transform: uppercase; font-weight: 800; margin-top: 3px; }
-      .duration-card.active .offer { color: #FCD34D; }
-
-      .plans-wrapper { position: relative; max-width: 1000px; margin: 0 auto; padding: 0 10px; }
-      .plans { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 10px 40px; scrollbar-width: none; }
-      .plans::-webkit-scrollbar { display: none; }
-      .card { flex: 0 0 240px; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 20px 16px 16px; text-align: center; scroll-snap-align: center; cursor: pointer; transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94); opacity: 0.7; transform: scale(0.95); box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative; }
-      .card.selected { opacity: 1; transform: scale(1.02); border-color: var(--accent); background: #FFF7ED; box-shadow: 0 10px 25px rgba(255,102,0,0.1); }
-      .card .badge { display: inline-block; background: #E0E7FF; color: var(--bsnl-blue); font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 12px; margin-bottom: 8px; }
-      .card .badge.token { background: #F3E8FF; color: var(--purple); }
-      .card h3 { font-size: 16px; margin-bottom: 4px; color: var(--text); font-weight: 800; }
-      .card .speed { font-size: 13px; color: var(--dim); font-weight: 600; margin-bottom: 10px; border-bottom: 2px dashed var(--border); padding-bottom: 12px; }
-      .card h2 { font-size: 26px; font-weight: 800; color: var(--text); margin: 8px 0 4px; }
-      .card h2 small { font-size: 12px; color: var(--dim); font-weight: 500; }
-      .card button { background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 10px 16px; border-radius: 12px; width: 100%; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s; }
-      .card.selected button { background: var(--accent); color: #fff; border-color: var(--accent); }
+      .tabs-container { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+      .tab-btn { background: var(--surface); border: 1px solid var(--border); color: var(--dim); padding: 10px 20px; border-radius: 30px; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.3s; }
+      .tab-btn.active { background: var(--bsnl-blue); color: white; border-color: var(--bsnl-blue); box-shadow: 0 4px 12px rgba(0,51,153,0.2); }
       
-      .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: #fff; color: var(--text); border: 1px solid var(--border); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; z-index: 10; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-      .nav-btn.left { left: -5px; } .nav-btn.right { right: -5px; }
-      @media (max-width: 768px) { .nav-btn { display: none; } }
+      .plan-category { display: none; animation: fadeIn 0.4s ease-in-out; }
+      .plan-category.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-      /* --- OTT SECTIONS --- */
-      .ott-section { max-width: 800px; margin: 20px auto; padding: 24px; background: var(--surface); border-radius: 24px; border: 1px solid var(--border); display: none; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
-      .ott-section h3 { font-size: 18px; margin-bottom: 15px; color: var(--bsnl-blue); }
-      .ott-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
-      .combo-card { background: var(--bg); border: 1.5px solid var(--border); padding: 16px; border-radius: 16px; cursor: pointer; transition: all 0.2s; }
-      .combo-card.active { border-color: var(--green); background: #ECFDF5; }
-      .combo-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-      .combo-name { font-weight: 800; font-size: 15px; color: var(--text); }
-      .combo-tokens { background: var(--purple); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 8px; font-weight: 800; }
-      .chip { background: #fff; border: 1px solid var(--border); font-size: 11px; font-weight: 600; color: var(--text); padding: 4px 10px; border-radius: 8px; display: inline-flex; align-items: center; margin: 3px 3px 3px 0; }
-      .chip.hot { background: #FEF2F2; color: #DC2626; border-color: #FECACA; }
-      .token-summary { background: #F1F5F9; border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; }
-      .token-summary div:first-child strong { color: var(--bsnl-blue); font-size: 16px; }
-      .token-summary div:last-child strong { color: var(--green); font-size: 22px; }
-      .voucher-btns { display: flex; gap: 8px; margin-top: 15px; flex-wrap: wrap; }
-      .voucher-btn { background: #fff; border: 1px solid var(--border); color: var(--text); padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600; }
-      .skip-btn { width: 100%; padding: 16px; margin-top: 20px; background: var(--surface); border: 2px dashed var(--border); color: var(--dim); font-weight: 700; font-size: 15px; border-radius: 16px; cursor: pointer; }
+      .plan-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 25px; text-align: left; position: relative; transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; }
+      .plan-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.08); border-color: var(--bsnl-blue); }
+      .plan-card .popular-tag { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent); color: white; font-size: 11px; font-weight: 800; padding: 4px 12px; border-radius: 12px; text-transform: uppercase; }
+      
+      .plan-card h3 { font-size: 20px; color: var(--text); margin-bottom: 5px; font-weight: 800; }
+      .plan-card .speed-badge { display: inline-block; background: #E0E7FF; color: var(--bsnl-blue); font-weight: 800; padding: 4px 10px; border-radius: 8px; font-size: 14px; margin-bottom: 15px; }
+      .plan-card .price { font-size: 32px; font-weight: 800; color: var(--bsnl-blue); margin-bottom: 2px; }
+      .plan-card .price small { font-size: 14px; color: var(--dim); font-weight: 500; }
+      .plan-card .features { list-style: none; padding: 0; margin: 15px 0 20px 0; flex-grow: 1; }
+      .plan-card .features li { font-size: 14px; color: var(--dim); margin-bottom: 8px; display: flex; align-items: flex-start; gap: 8px; }
+      .plan-card .features li::before { content: '✓'; color: var(--green); font-weight: bold; }
+      .plan-card .btn-plan { background: var(--bg); color: var(--text); border: 1px solid var(--border); padding: 12px; border-radius: 12px; width: 100%; font-weight: 700; font-size: 15px; cursor: pointer; transition: all 0.2s; text-align: center; text-decoration: none; display: block; }
+      .plan-card:hover .btn-plan { background: var(--bsnl-blue); color: white; border-color: var(--bsnl-blue); }
+
+      /* --- WHY US & STEPS --- */
+      .why-us-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+      .feature-item { background: var(--surface); padding: 24px; border-radius: 16px; border: 1px solid var(--border); text-align: center; }
+      .feature-item h4 { color: var(--bsnl-blue); font-size: 18px; margin-bottom: 10px; font-weight: 800; }
+      .feature-item p { font-size: 14px; color: var(--dim); line-height: 1.6; }
+
+      .steps-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+      .step-card { background: var(--surface); padding: 20px; border-radius: 16px; border: 1px solid var(--border); flex: 1 1 180px; text-align: center; }
+      .step-num { width: 40px; height: 40px; background: var(--bsnl-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; margin: 0 auto 15px auto; }
+      .step-card h4 { font-size: 16px; color: var(--text); margin-bottom: 8px; }
+      .step-card p { font-size: 13px; color: var(--dim); }
+
+      /* --- FAQ --- */
+      .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+      .faq-question { padding: 18px; font-weight: 700; font-size: 16px; color: var(--text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+      .faq-question::after { content: '+'; font-size: 20px; color: var(--bsnl-blue); transition: transform 0.3s; }
+      .faq-item.active .faq-question::after { transform: rotate(45deg); }
+      .faq-answer { padding: 0 18px; max-height: 0; overflow: hidden; transition: all 0.3s ease; font-size: 14px; color: var(--dim); line-height: 1.6; }
+      .faq-item.active .faq-answer { padding: 0 18px 18px 18px; max-height: 300px; }
 
       /* --- TESTIMONIALS & LOCATION --- */
       .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
@@ -325,55 +152,54 @@
       .modal-input { width: 100%; padding: 14px; border: 1.5px solid var(--border); border-radius: 10px; margin-bottom: 15px; font-size: 15px; outline: none; }
       .modal-input:focus { border-color: var(--bsnl-blue); }
       .modal-submit { background: var(--accent); color: white; border: none; padding: 14px; width: 100%; border-radius: 10px; font-weight: 700; font-size: 16px; cursor: pointer; }
-      
-      @media (max-width: 600px) { 
-        .hero { padding: 40px 15px; } 
-        .hero-title { font-size: 28px; } 
-        .ott-section, .form-section { margin: 15px 10px; } 
-        .section-container { padding: 0 15px; } 
+
+      @media (max-width: 768px) {
+        .hero-title { font-size: 32px; }
+        .form-section { margin-top: 20px; }
+        .nav-links { justify-content: flex-start; padding-bottom: 5px; }
+        .header { padding: 10px 15px; }
+        .header img { height: 35px; }
       }
     </style>
 </head>
 <body>
 
-<!-- UNIFIED BLUE FRAME (Header + Nav + Hero) -->
-<header class="top-hero-frame" id="home">
-  
-  <!-- Top Bar: Logo & Icons -->
-  <div class="header-top">
-    <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" alt="BSNL Logo">
-    <div class="actions">
-      <a href="tel:9447072230" aria-label="Call us">📞</a>
-      <a href="https://wa.me/919447072230" aria-label="WhatsApp us">💬</a>
-    </div>
+<!-- STICKY HEADER -->
+<header class="header">
+  <img src="https://jtommnchn-lab.github.io/bsnl-logo.png" alt="BSNL Logo">
+  <div class="header-actions">
+    <a href="tel:9447072230" aria-label="Call us">📞</a>
+    <a href="https://wa.me/919447072230" aria-label="WhatsApp us">💬</a>
   </div>
-
-  <!-- Navigation -->
-  <nav class="main-nav">
-    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Toggle menu">☰</button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#home">Home</a></li>
-      <li><a href="#contact-form">Book Connection</a></li>
-      <li><a href="#plans-section">Plans</a></li>
-      <li><a href="#location-section">Our Office</a></li>
-      <li><a href="#testimonials">Testimonials</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero Content -->
-  <section class="hero">
-    <div class="hero-content">
-      <div class="hero-pre-title">BSNL</div>
-      <h1 class="hero-title">Bharat <span>Fibre</span></h1>
-      <p class="hero-subtitle">Your Neighborhood. Your Network. Experience ultra-fast fiber broadband with plans up to 1 Gbps.</p>
-      <a href="#contact-form" class="btn-hero">Book NEW Connection →</a>
-    </div>
-  </section>
-
 </header>
 
+<nav class="main-nav">
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#contact-form">Book Connection</a></li>
+    <li><a href="#plans-section">Plans</a></li>
+    <li><a href="#location-section">Our Office</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+  </ul>
+</nav>
 
-<!-- MAIN FORM (Above Plans) -->
+<!-- DYNAMIC HERO -->
+<section id="home" class="hero">
+  <div class="hero-content">
+    <h1 class="hero-title">Bharat <span>Fibre</span></h1>
+    <p class="hero-subtitle">Your Neighborhood. Your Network. Experience ultra-fast fiber broadband with plans up to 1 Gbps.</p>
+    
+    <div class="hero-badges">
+      <div class="hero-badge">⚡ Up to 1 Gbps</div>
+      <div class="hero-badge">🎬 Free OTT Bundles</div>
+      <div class="hero-badge">📍 Local Support</div>
+    </div>
+    
+    <a href="#contact-form" class="btn-hero">Book NEW Connection →</a>
+  </div>
+</section>
+
+<!-- MAIN FORM -->
 <div class="form-section" id="contact-form">
   <h2>Book Installation</h2>
   <div class="input-wrap">
@@ -398,51 +224,200 @@
   <button class="btn-submit" onclick="submitForm()">Get Connection →</button>
 </div>
 
-<!-- PLANS SECTION & DURATION TABS (Now grouped together) -->
+<!-- TABBED PLANS SECTION -->
 <div class="section-container" id="plans-section">
   <div class="section-header">
     <h2>Choose Your Plan</h2>
+    <p>High-speed fiber for your home. All prices include GST.</p>
   </div>
-  
-  <!-- DURATION TABS -->
-  <div class="duration-wrapper">
-    <div class="duration-tabs" id="durationGrid">
-      <div class="duration-card active" data-duration="monthly" onclick="setDuration('monthly', this)">Monthly</div>
-      <div class="duration-card" data-duration="quarterly" onclick="setDuration('quarterly', this)">Quarterly<span class="offer">7 Days Free</span></div>
-      <div class="duration-card" data-duration="half" onclick="setDuration('half', this)">Half-Yearly<span class="offer">19 Days Free</span></div>
-      <div class="duration-card" data-duration="yearly" onclick="setDuration('yearly', this)">Annual<span class="offer">1 Month Free</span></div>
+
+  <div class="tabs-container">
+    <button class="tab-btn active" onclick="switchPlanTab('internet', this)">Pure Internet</button>
+    <button class="tab-btn" onclick="switchPlanTab('ott', this)">Internet + OTT</button>
+    <button class="tab-btn" onclick="switchPlanTab('quarterly', this)">Quarterly Plans</button>
+  </div>
+
+  <!-- TAB 1: PURE INTERNET -->
+  <div id="tab-internet" class="plan-category active">
+    <div class="plan-card">
+      <div class="popular-tag">Best Value</div>
+      <h3>Fibre Basic</h3>
+      <div class="speed-badge">60 Mbps</div>
+      <div class="price">₹499 <small>/month</small></div>
+      <ul class="features">
+        <li>Unlimited Data</li>
+        <li>Perfect for 1-2 devices</li>
+        <li>Free Voice Calls</li>
+      </ul>
+      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20the%20Fibre%20Basic%2060%20Mbps%20plan." target="_blank" class="btn-plan">Check Availability</a>
+    </div>
+    <div class="plan-card">
+      <h3>Fibre Basic Plus</h3>
+      <div class="speed-badge">100 Mbps</div>
+      <div class="price">₹599 <small>/month</small></div>
+      <ul class="features">
+        <li>Unlimited Data</li>
+        <li>WFH &amp; Smart TV Streaming</li>
+        <li>Free Voice Calls</li>
+      </ul>
+      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20the%20Fibre%20Basic%20Plus%20100%20Mbps%20plan." target="_blank" class="btn-plan">Check Availability</a>
+    </div>
+    <div class="plan-card">
+      <h3>Fibre Value Adv</h3>
+      <div class="speed-badge">200 Mbps</div>
+      <div class="price">₹899 <small>/month</small></div>
+      <ul class="features">
+        <li>Unlimited Data</li>
+        <li>Gaming &amp; 4K Streaming</li>
+        <li>Free Voice Calls</li>
+      </ul>
+      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20the%20Fibre%20Value%20Adv%20200%20Mbps%20plan." target="_blank" class="btn-plan">Check Availability</a>
     </div>
   </div>
 
-  <!-- CAROUSEL -->
-  <div class="plans-wrapper">
-    <button class="nav-btn left" onclick="scrollPlans(-1)" aria-label="Scroll plans left">◀</button>
-    <div class="plans" id="plansContainer"></div>
-    <button class="nav-btn right" onclick="scrollPlans(1)" aria-label="Scroll plans right">▶</button>
+  <!-- TAB 2: INTERNET + OTT -->
+  <div id="tab-ott" class="plan-category">
+    <div class="plan-card">
+      <h3>Fibre Lite OTT</h3>
+      <div class="speed-badge">60 Mbps</div>
+      <div class="price">₹549 <small>/month</small></div>
+      <ul class="features">
+        <li>Unlimited Data</li>
+        <li>4 OTT Tokens (Free)</li>
+        <li>Ideal for small families</li>
+      </ul>
+      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20the%20Fibre%20Lite%20OTT%20plan." target="_blank" class="btn-plan">Check Availability</a>
+    </div>
+    <div class="plan-card">
+      <div class="popular-tag">Most Popular</div>
+      <h3>Fibre Smart OTT</h3>
+      <div class="speed-badge">100 Mbps</div>
+      <div class="price">₹699 <small>/month</small></div>
+      <ul class="features">
+        <li>Unlimited Data</li>
+        <li>10 OTT Tokens (Free)</li>
+        <li>WFH + Entertainment</li>
+      </ul>
+      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20the%20Fibre%20Smart%20OTT%20plan." target="_blank" class="btn-plan">Check Availability</a>
+    </div>
+    <div class="plan-card">
+      <h3>Fibre Super Max</h3>
+      <div class="speed-badge">200 Mbps</div>
+      <div class="price">₹1199 <small>/month</small></div>
+      <ul class="features">
+        <li>Unlimited Data</li>
+        <li>30 OTT Tokens (Free)</li>
+        <li>4K Streaming &amp; Gaming</li>
+      </ul>
+      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20the%20Fibre%20Super%20Max%20plan." target="_blank" class="btn-plan">Check Availability</a>
+    </div>
+  </div>
+
+  <!-- TAB 3: QUARTERLY PLANS -->
+  <div id="tab-quarterly" class="plan-category">
+    <div class="plan-card">
+      <h3>Fibre Entry</h3>
+      <div class="speed-badge">25 Mbps</div>
+      <div class="price">₹999 <small>/quarter</small></div>
+      <ul class="features">
+        <li>Unlimited Data</li>
+        <li>Quarterly Billing</li>
+        <li>Budget Friendly</li>
+      </ul>
+      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20the%20Fibre%20Entry%20Quarterly%20plan." target="_blank" class="btn-plan">Check Availability</a>
+    </div>
+    <div class="plan-card">
+      <h3>Ghar Ka WiFi</h3>
+      <div class="speed-badge">40 Mbps</div>
+      <div class="price">₹1197 <small>/quarter</small></div>
+      <ul class="features">
+        <li>Unlimited Data</li>
+        <li>Quarterly Billing</li>
+        <li>Perfect for small homes</li>
+      </ul>
+      <a href="https://wa.me/919447072230?text=Hi%2C%20I%20want%20the%20Ghar%20Ka%20WiFi%20Quarterly%20plan." target="_blank" class="btn-plan">Check Availability</a>
+    </div>
   </div>
 </div>
 
-<!-- OTT SECTIONS -->
-<div id="ottSection" class="ott-section">
-  <h3>🎬 Select OTT Combo <span style="font-size:12px; color:var(--dim); font-weight:400;">(Optional — Tokens are FREE)</span></h3>
-  <div class="token-summary" id="tokenSummary"></div>
-  <div class="ott-grid" id="comboContainer"></div>
-  <div class="voucher-btns">
-    <button class="voucher-btn" onclick="addVoucher(4)">+4 Free Tokens</button>
-    <button class="voucher-btn" onclick="addVoucher(10)">+10 Free Tokens</button>
-    <button class="voucher-btn" onclick="addVoucher(22)">+22 Free Tokens</button>
-    <button class="voucher-btn" onclick="resetVouchers()">Reset</button>
+<!-- WHY CHOOSE US -->
+<div class="section-container">
+  <div class="section-header">
+    <h2>Why Nanganallur Chooses BSNL Fiber</h2>
   </div>
-  <button class="skip-btn" onclick="skipOtt()">Skip OTT & Continue →</button>
+  <div class="why-us-grid">
+    <div class="feature-item">
+      <h4>🇮🇳 Government Backed</h4>
+      <p>India's most trusted telecom network. Enjoy stable, secure, and reliable fiber connectivity.</p>
+    </div>
+    <div class="feature-item">
+      <h4>⚡ Ultra-Fast Speeds</h4>
+      <p>Plans ranging from 25 Mbps to 1 Gbps. Perfect for WFH, 4K streaming, and gaming.</p>
+    </div>
+    <div class="feature-item">
+      <h4>📍 Local Support</h4>
+      <p>Our Nanganallur team is just a WhatsApp away. Quick installation and fast fault resolution.</p>
+    </div>
+    <div class="feature-item">
+      <h4>🎬 Free OTT Bundles</h4>
+      <p>Get access to top OTT apps like Hotstar, Zee5, and SonyLIV bundled free with select plans.</p>
+    </div>
+  </div>
 </div>
 
-<div id="addonSection" class="ott-section">
-  <h3>🎬 Select OTT Add-on <span style="font-size:12px; color:var(--dim); font-weight:400;">(Optional)</span></h3>
-  <div class="ott-grid" id="addonContainer"></div>
-  <button class="skip-btn" onclick="skipOtt()">Skip OTT & Continue →</button>
+<!-- STEPS -->
+<div class="section-container">
+  <div class="section-header">
+    <h2>New Connection in 4 Steps</h2>
+  </div>
+  <div class="steps-container">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h4>Send Location</h4>
+      <p>Share your street or Google Maps pin on WhatsApp.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h4>Feasibility Check</h4>
+      <p>We confirm the fiber route and port availability.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h4>Choose Plan</h4>
+      <p>Pick the internet or OTT plan that suits your usage.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <h4>Installation</h4>
+      <p>Our engineer installs and sets up your Wi-Fi within 1-2 days.</p>
+    </div>
+  </div>
 </div>
 
-<!-- OFFICE LOCATION SECTION -->
+<!-- FAQ -->
+<div class="section-container">
+  <div class="section-header">
+    <h2>Frequently Asked Questions</h2>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">How do I check broadband availability in Nanganallur?</div>
+    <div class="faq-answer">Send your street, apartment name, or Google Maps pin on WhatsApp to +91 9447072230. Our team checks fiber feasibility for your exact address before confirming installation.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">How long does installation take?</div>
+    <div class="faq-answer">Once fiber feasibility is confirmed, our engineers usually complete installation within 1 to 2 days, depending on building access.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">Are OTT apps really free with the plan?</div>
+    <div class="faq-answer">Yes! Select plans come with free OTT tokens. You can redeem these for apps like Jio Hotstar, Zee5, SonyLIV, and more at no extra cost.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-question" onclick="toggleFaq(this)">What is the cheapest plan available?</div>
+    <div class="faq-answer">The Fibre Entry plan starts at just ₹999 for 3 months (Quarterly). It offers 25 Mbps speed and unlimited data, making it perfect for budget-conscious users.</div>
+  </div>
+</div>
+
+<!-- OFFICE LOCATION SECTION (Retained & Redesigned) -->
 <div class="section-container" id="location-section">
   <div class="section-header">
     <h2>Visit Our Office</h2>
@@ -460,7 +435,7 @@
         <strong>Phone:</strong> <a href="tel:9447072230" style="color: var(--bsnl-blue); text-decoration: none; font-weight: 600;">+91 9447072230</a><br>
         <strong>Hours:</strong> Mon - Sat, 07:00 AM to 11:30 PM
       </p>
-      <a href="https://www.google.com/maps/dir/?api=1&destination=12.980331,80.188991" target="_blank" rel="noopener" class="btn-submit" style="display: block; text-align: center; text-decoration: none; background: var(--bsnl-blue);">Get Directions on Google Maps</a>
+      <a href="https://www.google.com/maps/dir/?api=1&destination=12.980331,80.188991" target="_blank" rel="noopener" class="btn-plan" style="display: block; text-align: center; text-decoration: none; background: var(--bsnl-blue); color: white;">Get Directions on Google Maps</a>
     </div>
     <div class="map-container">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3887.604423909699!2d80.188991!3d12.980331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTLCsDU4JzQ5LjIiTiA4MMKwMTEnMjAuNCJF!5e0!3m2!1sen!2sin!4v1610000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy" title="BSNL Nanganallur office location"></iframe>
@@ -468,7 +443,7 @@
   </div>
 </div>
 
-<!-- TESTIMONIALS -->
+<!-- TESTIMONIALS (Retained) -->
 <div class="section-container" id="testimonials">
   <div class="section-header">
     <h2>What Our Customers Say</h2>
@@ -552,10 +527,8 @@ let userLng = "";
 let submitting = false;
 
 // --- INIT ---
-// --- INIT ---
 document.addEventListener('DOMContentLoaded', () => {
   populatePlanDropdown();
-  renderPlans();
   renderTestimonials();
   detectLocation();
   initPhoneValidation();
@@ -566,9 +539,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 15000);
 });
 
-// --- NAV MENU ---
-function toggleMenu() {
-  document.getElementById('navLinks').classList.toggle('active');
+// --- NEW UI FUNCTIONS ---
+function switchPlanTab(tabName, el) {
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  el.classList.add('active');
+  document.querySelectorAll('.plan-category').forEach(cat => cat.classList.remove('active'));
+  document.getElementById('tab-' + tabName).classList.add('active');
+}
+
+function toggleFaq(el) {
+  el.parentElement.classList.toggle('active');
 }
 
 // --- LOCATION DETECTION ---
@@ -597,26 +577,6 @@ function detectLocation() {
   }
 }
 
-// --- DURATION HELPERS ---
-function setDurationTab(duration) {
-  document.querySelectorAll('.duration-card').forEach(c =>
-    c.classList.toggle('active', c.dataset.duration === duration)
-  );
-}
-
-function setDuration(duration, el) {
-  currentDuration = duration;
-  setDurationTab(duration);
-  selectedPlanId = null;
-  selectedCombo = null;
-  extraTokens = 0;
-  selectedAddon = null;
-  hideOttSections();
-  updateBottomBar();
-  renderPlans();
-  populatePlanDropdown();
-}
-
 // --- PLAN PRICING ---
 function getPlanPrice(plan) {
   if (plan.base === null) {
@@ -642,40 +602,6 @@ function isPlanAvailable(plan) {
   return true;
 }
 
-// --- RENDER PLANS ---
-// --- RENDER PLANS ---
-function renderPlans() {
-  const container = document.getElementById('plansContainer');
-  container.innerHTML = '';
-  plansData.forEach(plan => {
-    if (!isPlanAvailable(plan)) return;
-    const price = getPlanPrice(plan);
-    const card = document.createElement('div');
-    card.className = 'card' + (selectedPlanId === plan.id ? ' selected' : '');
-    card.dataset.id = plan.id;
-
-    let badgeHtml = '';
-    if (plan.qOnly) badgeHtml = '<div class="badge token">Quarterly Only</div>';
-    else if (plan.popular) badgeHtml = '<div class="badge">Most Popular</div>';
-    else if (plan.tokens > 0) badgeHtml = `<div class="badge token">${plan.tokens} OTT Tokens</div>`;
-
-    const priceDisplay = price !== null ? `₹${price}<small>${getPriceLabel()}</small>` : '—';
-
-    card.innerHTML = `
-      ${badgeHtml}
-      <h3>${plan.name}</h3>
-      <div class="speed">${plan.speed}</div>
-      <h2>${priceDisplay}</h2>
-      <button type="button">Select</button>
-    `;
-
-    // Whole card is clickable
-    card.addEventListener('click', () => selectPlan(plan.id));
-
-    container.appendChild(card);
-  });
-}
-
 // --- PLAN DROPDOWN ---
 function populatePlanDropdown() {
   const sel = document.getElementById('planSelect');
@@ -693,54 +619,19 @@ function populatePlanDropdown() {
 
 function onPlanDropdownChange() {
   const val = document.getElementById('planSelect').value;
-  if (!val) { selectedPlanId = null; hideOttSections(); updateBottomBar(); renderPlans(); return; }
+  if (!val) { selectedPlanId = null; hideOttSections(); updateBottomBar(); return; }
   const plan = plansData.find(p => p.id === val);
   if (!plan) return;
 
-  // If selecting a quarterly-only plan while not on quarterly, switch duration first
   if (plan.qOnly && currentDuration !== 'quarterly') {
     currentDuration = 'quarterly';
-    setDurationTab('quarterly');
-    selectedPlanId = val;               // select immediately
-    renderPlans();
+    selectedPlanId = val; 
     populatePlanDropdown();
     handlePlanOtt(plan);
     return;
   }
 
   selectedPlanId = val;
-  renderPlans();
-  populatePlanDropdown();
-  handlePlanOtt(plan);
-}
-
-// --- SELECT PLAN FROM CARD ---
-function selectPlan(id) {
-  // Toggle off if clicking the already-selected plan
-  if (selectedPlanId === id) {
-    selectedPlanId = null;
-    hideOttSections();
-    updateBottomBar();
-    renderPlans();
-    populatePlanDropdown();
-    return;
-  }
-  const plan = plansData.find(p => p.id === id);
-  if (!plan) return;
-
-  // Auto-switch duration for quarterly-only plans (single click selection)
-  if (plan.qOnly && currentDuration !== 'quarterly') {
-    currentDuration = 'quarterly';
-    setDurationTab('quarterly');
-    selectedPlanId = id;               // select immediately
-    renderPlans();
-    populatePlanDropdown();
-    handlePlanOtt(plan);
-    return;
-  }
-
-  selectedPlanId = id;
-  renderPlans();
   populatePlanDropdown();
   handlePlanOtt(plan);
 }
@@ -763,13 +654,6 @@ function showComboSection(tokens) {
   document.getElementById('addonSection').style.display = 'none';
   renderComboTokens(tokens);
   renderCombos(tokens);
-  updateBottomBar();
-}
-
-function showAddonSection(tokens) {
-  document.getElementById('addonSection').style.display = 'block';
-  document.getElementById('ottSection').style.display = 'none';
-  renderAddons(tokens);
   updateBottomBar();
 }
 
@@ -832,27 +716,6 @@ function renderCombos(baseTokens) {
   });
 }
 
-function renderAddons(baseTokens) {
-  const container = document.getElementById('addonContainer');
-  container.innerHTML = '';
-  addonData.forEach((app) => {
-    const card = document.createElement('div');
-    card.className = 'combo-card' + (selectedAddon === app.name ? ' active' : '');
-    card.innerHTML = `
-      <div class="combo-header">
-        <div class="combo-name">${app.name}</div>
-        <span class="combo-tokens">${app.tokens} tok</span>
-      </div>
-    `;
-    card.onclick = () => {
-      selectedAddon = selectedAddon === app.name ? null : app.name;
-      renderAddons(baseTokens);
-    };
-    container.appendChild(card);
-  });
-}
-
-// --- VOUCHERS (FREE tokens — no charge) ---
 function addVoucher(tokens) {
   extraTokens += tokens;
   const baseTokens = getSelectedPlanTokens();
@@ -881,12 +744,6 @@ function skipOtt() {
   updateBottomBar();
 }
 
-// --- SCROLL PLANS ---
-function scrollPlans(dir) {
-  const container = document.getElementById('plansContainer');
-  container.scrollBy({ left: dir * 260, behavior: 'smooth' });
-}
-
 // --- BOTTOM BAR ---
 function updateBottomBar() {
   const bar = document.getElementById('bottomBar');
@@ -902,7 +759,6 @@ function updateBottomBar() {
   const price = getPlanPrice(plan);
   if (price === null) { bar.style.display = 'none'; return; }
 
-  // ✅ Tokens/OTT combos are FREE — total is only the plan price
   priceEl.innerHTML = `₹${price.toLocaleString('en-IN')} <small>total</small>`;
   btn.disabled = false;
   bar.style.display = 'flex';
@@ -937,13 +793,11 @@ function initPhoneValidation() {
   });
 }
 
-// PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
 const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzvO8V4tgXnLSAj6ZwfQp1uhhLF6vVpV0fRbwFUoeh51zKV4G3Y-cRt58V2IgsSm2rDtw/exec";
-// Optional shared secret to reduce spam — must match the token check in Apps Script
 const FORM_TOKEN = "bsnl-nanganallur-2024";
 
 function submitForm() {
-  if (submitting) return;                       // prevent double-submit
+  if (submitting) return;
 
   const name = document.getElementById('userName').value.trim();
   const phone = document.getElementById('userPhone').value.trim();
@@ -959,7 +813,6 @@ function submitForm() {
   const price = getPlanPrice(plan);
   if (price === null) { alert('This plan is not available for the selected duration.'); return; }
 
-  // Resolve selected combo (stored by name — stable across token changes)
   const combos = getCombosForTokens(getSelectedPlanTokens() + extraTokens);
   const combo = selectedCombo ? combos.find(c => c.name === selectedCombo) : null;
   const ottCombo = combo ? combo.name : "None";
@@ -968,7 +821,6 @@ function submitForm() {
   const bottomBtn = document.getElementById('bottomBtn');
   if (bottomBtn) bottomBtn.disabled = true;
 
-  // 1. Prepare Data for Google Sheets
   const formData = new FormData();
   formData.append('token', FORM_TOKEN);
   formData.append('name', name);
@@ -982,7 +834,6 @@ function submitForm() {
   formData.append('lng', userLng);
   formData.append('source', 'form');
 
-  // 2. Send to Google Sheets (fire-and-forget; no-cors response is opaque)
   fetch(GOOGLE_SCRIPT_URL, {
     method: 'POST',
     mode: 'no-cors',
@@ -991,7 +842,6 @@ function submitForm() {
     console.error('Sheet submit error:', err);
   });
 
-  // 3. Open WhatsApp with prefilled message
   let message = `🔔 *New Connection Request*%0A%0A` +
     `👤 Name: ${encodeURIComponent(name)}%0A` +
     `📱 Phone: ${encodeURIComponent(phone)}%0A` +
@@ -1010,7 +860,6 @@ function submitForm() {
   const waUrl = `https://wa.me/919447072230?text=${message}`;
   window.open(waUrl, '_blank');
 
-  // Re-enable after short cooldown
   setTimeout(() => {
     submitting = false;
     if (bottomBtn) bottomBtn.disabled = false;
@@ -1032,21 +881,19 @@ function submitPopup() {
   if (!name) { alert('Please enter your name.'); return; }
   if (!phone || phone.length !== 10) { alert('Please enter a valid 10-digit number.'); return; }
 
-  // ✅ Attempt geolocation if we don't already have coords
   const proceed = (lat, lng) => {
-    // 1. Send to Google Sheets (same endpoint, different source tag)
     const formData = new FormData();
     formData.append('token', FORM_TOKEN);
     formData.append('name', name);
     formData.append('phone', phone);
-    formData.append('area', 'Popup Query');           // no area field in popup
-    formData.append('plan', '—');                     // no plan selected
+    formData.append('area', 'Popup Query');
+    formData.append('plan', '—');
     formData.append('duration', '—');
     formData.append('price', '—');
     formData.append('ott', '—');
     formData.append('lat', lat || '');
     formData.append('lng', lng || '');
-    formData.append('source', 'popup');               // distinguish from main form
+    formData.append('source', 'popup');
 
     fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
@@ -1054,7 +901,6 @@ function submitPopup() {
       body: formData
     }).catch(err => console.error('Popup sheet submit error:', err));
 
-    // 2. Open WhatsApp
     const message = `👋 *Query from website visitor*%0A%0A` +
       `👤 Name: ${encodeURIComponent(name)}%0A` +
       `📱 Phone: ${encodeURIComponent(phone)}%0A` +
@@ -1066,13 +912,11 @@ function submitPopup() {
     closePopup();
   };
 
-  // If we already have coords from page load, use them immediately
   if (userLat && userLng) {
     proceed(userLat, userLng);
     return;
   }
 
-  // Otherwise, try to fetch coords (with timeout)
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       (pos) => proceed(pos.coords.latitude, pos.coords.longitude),
@@ -1084,7 +928,6 @@ function submitPopup() {
   }
 }
 
-// Close popup on overlay click
 document.getElementById('leadPopup').addEventListener('click', (e) => {
   if (e.target === e.currentTarget) closePopup();
 });
